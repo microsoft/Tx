@@ -72,7 +72,7 @@
 
         public override string Author
         {
-            get { return "Microsoft Corporation"; }
+            get { return "MS Open Tech"; }
         }
 
         public override bool DisallowQueryDisassembly

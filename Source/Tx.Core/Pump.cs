@@ -20,6 +20,7 @@
         Thread _thread;
         WaitHandle _waitStart;
         long _eventsRead;
+        bool _disposing; 
 
         public OutputPump(IEnumerable<T> source, IObserver<T> target, WaitHandle waitStart)
         {
@@ -33,8 +34,10 @@
 
         public void Dispose()
         {
+            _disposing = true;
             _thread.Abort();
             _waitStart.Dispose();
+            _completed.Dispose();
         }
 
         void ThreadProc()
@@ -72,7 +75,10 @@
                 }
             }
 
-            _target.OnCompleted();
+            if (!_disposing)
+            {
+                _target.OnCompleted();
+            }
             _completed.Set();
         }
     }
