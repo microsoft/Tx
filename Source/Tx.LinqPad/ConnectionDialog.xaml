@@ -1,0 +1,64 @@
+﻿<Window x:Class="Tx.LinqPad.ConnectionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="400"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterScreen"
+    Title="Tx (LINQ to Traces)" Background="Gainsboro">
+    <StackPanel Orientation="Vertical">
+        <GroupBox Header="Connection" Margin="5,5,5,5" Name="groupBox1">
+        <StackPanel Orientation="Vertical">
+            <DockPanel>
+                <Label Margin="5,3" DockPanel.Dock="Left"  >Name:</Label>
+                <TextBox Margin="5,3" Text="{Binding Path=ContextName, UpdateSourceTrigger=PropertyChanged}"> </TextBox>
+            </DockPanel>
+            <RadioButton Content="Past History" Name="rbPast" Margin="5,3" GroupName="Time" IsChecked="True" Checked="SwitchPastOrRealTime" />
+            <RadioButton Content="Real Time" Name="rbRealTime" Margin="5,3" GroupName="Time" Checked="SwitchPastOrRealTime" />
+        </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Real-Time" Margin="5,5,5,5" Name="RealTimeUI" Visibility="Collapsed">
+            <DockPanel>
+                <Label Margin="5,3" DockPanel.Dock="Left"  >Session Name:</Label>
+                <TextBox Margin="5,3" Text="{Binding Path=SessionName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Name="PastUI" Header="Files" Margin="5,5,5,5">
+            <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
+                <Button Name="AddFiles" Margin="5,3" Click="AddFiles_Click" Content="Add..."/>
+                <Button Name="RemoveFiles" Margin="5,3" Click="RemoveFiles_Click" Content="Remove" />
+            </StackPanel>
+            <ListView Name="FileList" Grid.Row="2" Height="100" Margin="5,5" SelectionMode="Extended">
+            </ListView>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Name="Metadata" Header="Metadata" Margin="5,5,5,5" >
+            <StackPanel Orientation="Vertical" >
+                <RadioButton Content="Lookup in directory" Name="rbLookup" Margin="5,3" GroupName="Metadata" IsChecked="True" Checked="LookupOrSelectMetadata_Checked" />
+                <RadioButton Content="Select files" Name="rbSelectFiles" Margin="5,3" GroupName="Metadata"  Checked="LookupOrSelectMetadata_Checked"/>
+                <DockPanel Name="LookupDirPanel">
+                    <Label Margin="5,3" DockPanel.Dock="Left"  >Directory:</Label>
+                    <TextBox Margin="5,3" Text="{Binding Path=MetadataDirectory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </DockPanel>
+                <DockPanel Name="AddMetadataPanel" Visibility="Collapsed">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
+                        <Button Name="AddMetadata" Margin="5,3" Click="AddMetadataFiles_Click" Content="Add..."/>
+                        <Button Name="RemoveMetadata" Margin="5,3" Click="RemoveMetadataFiles_Click" Content="Remove" />
+                    </StackPanel>
+                    <ListView Name="MetadataFileList" Grid.Row="2" Height="100" Margin="5,5" SelectionMode="Extended">
+                    </ListView>
+                </DockPanel>               
+            </StackPanel>
+        </GroupBox> 
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="buttonOK" Grid.Column="1" Margin="5,3" IsDefault="true" Click="ClickOK">OK</Button>
+            <Button Name="buttonCancel" Grid.Column="2" Margin="5,3" IsCancel="true">Cancel</Button>
+        </Grid>
+    </StackPanel>
+</Window>

@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instrumentationManifest    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:trace="http://schemas.microsoft.com/win/2004/08/events/trace"
+    xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd"
+    >
+  <instrumentation>
+    <events>
+	<provider name="AspNetTrace" symbol="provider0" guid="{aff081fe-0247-4275-9c4e-021f3dc1da35}" source="Wbem" messageFileName="noMessageFile" resourceFileName="noResourceFile">
+		<events>
+			<event value="0" version="0" template="tid_0" opcode="opcode10" task="task1" />
+			<event value="1" version="0" template="tid_0" opcode="opcode11" task="task1" />
+			<event value="2" version="0" template="tid_0" opcode="opcode12" task="task1" />
+			<event value="3" version="0" template="tid_0" opcode="opcode13" task="task1" />
+			<event value="4" version="0" template="tid_1" opcode="opcode14" task="task1" />
+			<event value="5" version="0" template="tid_2" opcode="opcode15" task="task1" />
+			<event value="6" version="0" template="tid_0" opcode="opcode16" task="task1" />
+			<event value="7" version="0" template="tid_1" opcode="opcode17" task="task1" />
+			<event value="8" version="0" template="tid_1" opcode="opcode18" task="task1" />
+			<event value="9" version="0" template="tid_1" opcode="opcode19" task="task1" />
+			<event value="10" version="0" template="tid_0" opcode="opcode20" task="task1" />
+			<event value="11" version="0" template="tid_0" opcode="opcode21" task="task1" />
+			<event value="12" version="0" template="tid_0" opcode="opcode22" task="task1" />
+			<event value="13" version="0" template="tid_3" opcode="opcode23" task="task1" />
+			<event value="14" version="0" template="tid_0" opcode="opcode24" task="task1" />
+			<event value="15" version="0" template="tid_0" opcode="opcode25" task="task1" />
+			<event value="16" version="0" template="tid_0" opcode="opcode26" task="task1" />
+			<event value="17" version="0" template="tid_0" opcode="opcode27" task="task1" />
+			<event value="18" version="0" template="tid_4" opcode="opcode28" task="task1" />
+			<event value="19" version="0" template="tid_0" opcode="opcode29" task="task1" />
+			<event value="20" version="0" template="tid_0" opcode="opcode30" task="task1" />
+			<event value="21" version="0" template="tid_0" opcode="opcode31" task="task1" />
+			<event value="22" version="0" template="tid_5" opcode="opcode32" task="task1" />
+			<event value="23" version="0" template="tid_6" opcode="opcode33" task="task1" />
+			<event value="24" version="0" template="tid_7" opcode="opcode34" task="task1" />
+			<event value="25" version="0" template="tid_1" opcode="opcode35" task="task1" />
+			<event value="26" version="0" template="tid_8" opcode="opcode36" task="task1" />
+			<event value="27" version="0" template="tid_0" opcode="opcode37" task="task1" />
+			<event value="28" version="0" template="tid_1" opcode="opcode38" task="task1" />
+			<event value="29" version="0" template="tid_0" opcode="opcode39" task="task1" />
+			<event value="30" version="0" template="tid_0" opcode="opcode40" task="task1" />
+			<event value="31" version="0" template="tid_0" opcode="opcode41" task="task1" />
+			<event value="32" version="0" template="tid_0" opcode="opcode42" task="task1" />
+			<event value="33" version="0" template="tid_0" opcode="opcode43" task="task1" />
+			<event value="34" version="0" template="tid_9" opcode="opcode44" task="task1" />
+			<event value="35" version="0" template="tid_10" opcode="opcode45" task="task1" />
+			<event value="36" version="0" template="tid_0" opcode="opcode46" task="task1" />
+			<event value="37" version="0" template="tid_0" opcode="opcode47" task="task1" />
+			<event value="38" version="0" template="tid_11" opcode="opcode48" task="task1" />
+			<event value="39" version="0" template="tid_10" opcode="opcode49" task="task1" />
+			<event value="40" version="0" template="tid_0" opcode="opcode50" task="task1" />
+			<event value="41" version="0" template="tid_12" opcode="opcode51" task="task1" />
+			<event value="42" version="0" template="tid_0" opcode="opcode52" task="task1" />
+			<event value="43" version="0" template="tid_1" opcode="opcode53" task="task1" />
+			<event value="44" version="0" template="tid_13" opcode="opcode54" task="task1" />
+			<event value="45" version="0" template="tid_0" opcode="opcode55" task="task1" />
+			<event value="46" version="0" template="tid_0" opcode="opcode56" task="task1" />
+			<event value="47" version="0" template="tid_0" opcode="opcode57" task="task1" />
+			<event value="48" version="0" template="tid_14" opcode="opcode58" task="task1" />
+			<event value="49" version="0" template="tid_1" opcode="opcode59" task="task1" />
+			<event value="50" version="0" template="tid_0" opcode="opcode60" task="task1" />
+			<event value="51" version="0" template="tid_0" opcode="opcode61" task="task1" />
+			<event value="52" version="0" template="tid_0" opcode="opcode62" task="task1" />
+			<event value="53" version="0" template="tid_0" opcode="opcode63" task="task1" />
+			<event value="54" version="0" template="tid_0" opcode="opcode64" task="task1" />
+			<event value="55" version="0" template="tid_15" opcode="opcode65" task="task1" />
+			<event value="56" version="0" template="tid_1" opcode="opcode66" task="task1" />
+			<event value="57" version="0" template="tid_0" opcode="opcode67" task="task1" />
+			<event value="58" version="0" template="tid_1" opcode="opcode68" task="task1" />
+			<event value="59" version="0" template="tid_0" opcode="opcode69" task="task1" />
+			<event value="60" version="0" template="tid_0" opcode="opcode70" task="task1" />
+			<event value="61" version="0" template="tid_0" opcode="opcode71" task="task1" />
+			<event value="62" version="0" template="tid_1" opcode="opcode72" task="task1" />
+			<event value="63" version="0" template="tid_0" opcode="opcode73" task="task1" />
+			<event value="64" version="0" template="tid_0" opcode="opcode74" task="task1" />
+		</events>
+		<tasks>
+			<task value="1" eventGUID="{06a01367-79d3-4594-8eb3-c721603c4679}" name="task1" message="$(string.string1)" />
+		</tasks>
+		<opcodes>
+			<opcode value="10" name="opcode10" mofValue="33" message="$(string.string0)"/>
+			<opcode value="11" name="opcode11" mofValue="2" message="$(string.string2)"/>
+			<opcode value="12" name="opcode12" mofValue="22" message="$(string.string3)"/>
+			<opcode value="13" name="opcode13" mofValue="18" message="$(string.string4)"/>
+			<opcode value="14" name="opcode14" mofValue="69" message="$(string.string5)"/>
+			<opcode value="15" name="opcode15" mofValue="50" message="$(string.string6)"/>
+			<opcode value="16" name="opcode16" mofValue="28" message="$(string.string7)"/>
+			<opcode value="17" name="opcode17" mofValue="68" message="$(string.string8)"/>
+			<opcode value="18" name="opcode18" mofValue="64" message="$(string.string9)"/>
+			<opcode value="19" name="opcode19" mofValue="67" message="$(string.string10)"/>
+			<opcode value="20" name="opcode20" mofValue="32" message="$(string.string11)"/>
+			<opcode value="21" name="opcode21" mofValue="3" message="$(string.string12)"/>
+			<opcode value="22" name="opcode22" mofValue="39" message="$(string.string13)"/>
+			<opcode value="23" name="opcode23" mofValue="7" message="$(string.string14)"/>
+			<opcode value="24" name="opcode24" mofValue="43" message="$(string.string15)"/>
+			<opcode value="25" name="opcode25" mofValue="9" message="$(string.string16)"/>
+			<opcode value="26" name="opcode26" mofValue="15" message="$(string.string17)"/>
+			<opcode value="27" name="opcode27" mofValue="38" message="$(string.string18)"/>
+			<opcode value="28" name="opcode28" mofValue="59" message="$(string.string19)"/>
+			<opcode value="29" name="opcode29" mofValue="5" message="$(string.string20)"/>
+			<opcode value="30" name="opcode30" mofValue="36" message="$(string.string21)"/>
+			<opcode value="31" name="opcode31" mofValue="27" message="$(string.string22)"/>
+			<opcode value="32" name="opcode32" mofValue="20" message="$(string.string23)"/>
+			<opcode value="33" name="opcode33" mofValue="46" message="$(string.string24)"/>
+			<opcode value="34" name="opcode34" mofValue="49" message="$(string.string25)"/>
+			<opcode value="35" name="opcode35" mofValue="61" message="$(string.string26)"/>
+			<opcode value="36" name="opcode36" mofValue="45" message="$(string.string27)"/>
+			<opcode value="37" name="opcode37" mofValue="48" message="$(string.string28)"/>
+			<opcode value="38" name="opcode38" mofValue="70" message="$(string.string29)"/>
+			<opcode value="39" name="opcode39" mofValue="6" message="$(string.string30)"/>
+			<opcode value="40" name="opcode40" mofValue="24" message="$(string.string31)"/>
+			<opcode value="41" name="opcode41" mofValue="12" message="$(string.string32)"/>
+			<opcode value="42" name="opcode42" mofValue="42" message="$(string.string33)"/>
+			<opcode value="43" name="opcode43" mofValue="44" message="$(string.string34)"/>
+			<opcode value="44" name="opcode44" mofValue="8" message="$(string.string35)"/>
+			<opcode value="45" name="opcode45" mofValue="10" message="$(string.string36)"/>
+			<opcode value="46" name="opcode46" mofValue="19" message="$(string.string37)"/>
+			<opcode value="47" name="opcode47" mofValue="4" message="$(string.string38)"/>
+			<opcode value="48" name="opcode48" mofValue="47" message="$(string.string39)"/>
+			<opcode value="49" name="opcode49" mofValue="11" message="$(string.string40)"/>
+			<opcode value="50" name="opcode50" mofValue="13" message="$(string.string41)"/>
+			<opcode value="51" name="opcode51" mofValue="1" message="$(string.string42)"/>
+			<opcode value="52" name="opcode52" mofValue="29" message="$(string.string43)"/>
+			<opcode value="53" name="opcode53" mofValue="66" message="$(string.string44)"/>
+			<opcode value="54" name="opcode54" mofValue="17" message="$(string.string45)"/>
+			<opcode value="55" name="opcode55" mofValue="23" message="$(string.string46)"/>
+			<opcode value="56" name="opcode56" mofValue="51" message="$(string.string47)"/>
+			<opcode value="57" name="opcode57" mofValue="37" message="$(string.string48)"/>
+			<opcode value="58" name="opcode58" mofValue="21" message="$(string.string49)"/>
+			<opcode value="59" name="opcode59" mofValue="60" message="$(string.string50)"/>
+			<opcode value="60" name="opcode60" mofValue="35" message="$(string.string51)"/>
+			<opcode value="61" name="opcode61" mofValue="53" message="$(string.string52)"/>
+			<opcode value="62" name="opcode62" mofValue="41" message="$(string.string53)"/>
+			<opcode value="63" name="opcode63" mofValue="26" message="$(string.string54)"/>
+			<opcode value="64" name="opcode64" mofValue="34" message="$(string.string55)"/>
+			<opcode value="65" name="opcode65" mofValue="52" message="$(string.string56)"/>
+			<opcode value="66" name="opcode66" mofValue="63" message="$(string.string57)"/>
+			<opcode value="67" name="opcode67" mofValue="14" message="$(string.string58)"/>
+			<opcode value="68" name="opcode68" mofValue="62" message="$(string.string59)"/>
+			<opcode value="69" name="opcode69" mofValue="30" message="$(string.string60)"/>
+			<opcode value="70" name="opcode70" mofValue="31" message="$(string.string61)"/>
+			<opcode value="71" name="opcode71" mofValue="16" message="$(string.string62)"/>
+			<opcode value="72" name="opcode72" mofValue="65" message="$(string.string63)"/>
+			<opcode value="73" name="opcode73" mofValue="40" message="$(string.string64)"/>
+			<opcode value="74" name="opcode74" mofValue="25" message="$(string.string65)"/>
+		</opcodes>
+		<templates>
+			<template tid="tid_0">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+			</template>
+			<template tid="tid_1">
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="Uri" inType="win:UnicodeString"></data>
+				<data name="TraceWriteMsg" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_2">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="EventClassName" inType="win:UnicodeString"></data>
+				<data name="EventCode" inType="win:UnicodeString"></data>
+				<data name="EventDetailCode" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_3">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="DomainId" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_4">
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="Uri" inType="win:UnicodeString"></data>
+				<data name="TraceWarningMsg" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_5">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="ResolverType" inType="win:UnicodeString"></data>
+				<data name="SessionId" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_6">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="provider" inType="win:UnicodeString"></data>
+				<data name="User" inType="win:UnicodeString"></data>
+				<data name="Role" inType="win:UnicodeString"></data>
+				<data name="Status" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_7">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="provider" inType="win:UnicodeString"></data>
+				<data name="User" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_8">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="User" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_9">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="HandlerName" inType="win:UnicodeString"></data>
+				<data name="EventName" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_10">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="ModuleName" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_11">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="provider" inType="win:UnicodeString"></data>
+				<data name="User" inType="win:UnicodeString"></data>
+				<data name="Roles" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_12">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="Method" inType="win:AnsiString"></data>
+				<data name="Path" inType="win:AnsiString"></data>
+				<data name="QueryString" inType="win:AnsiString"></data>
+			</template>
+			<template tid="tid_13">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="Files" inType="win:UnicodeString"></data>
+				<data name="Status" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_14">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="ResolverResult" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_15">
+				<data name="ConnID" inType="win:UInt64"></data>
+				<data name="ContextId" inType="win:GUID"></data>
+				<data name="ProviderName" inType="win:UnicodeString"></data>
+				<data name="RuleName" inType="win:UnicodeString"></data>
+				<data name="EventGroupName" inType="win:UnicodeString"></data>
+			</template>
+		</templates>
+	</provider>
+	<provider name="CLRTrace" symbol="provider2" guid="{e13c0d23-ccbc-4e12-931b-d9cc2eee27e4}" source="Wbem" messageFileName="noMessageFile" resourceFileName="noResourceFile">
+		<events>
+			<event value="0" version="0" opcode="opcode10" task="task1" />
+			<event value="1" version="0" opcode="opcode11" task="task1" />
+			<event value="2" version="0" template="tid_0" opcode="opcode12" task="task1" />
+			<event value="3" version="0" template="tid_0" opcode="opcode13" task="task1" />
+			<event value="4" version="0" template="tid_0" opcode="opcode14" task="task1" />
+			<event value="5" version="0" template="tid_0" opcode="opcode15" task="task1" />
+			<event value="6" version="0" template="tid_1" opcode="opcode16" task="task1" />
+			<event value="7" version="0" template="tid_1" opcode="opcode17" task="task1" />
+			<event value="8" version="0" template="tid_1" opcode="opcode18" task="task1" />
+			<event value="9" version="0" template="tid_1" opcode="opcode19" task="task1" />
+			<event value="10" version="0" template="tid_2" opcode="opcode20" task="task2" />
+			<event value="11" version="0" template="tid_2" opcode="opcode21" task="task2" />
+			<event value="12" version="0" template="tid_2" opcode="opcode22" task="task2" />
+			<event value="13" version="0" template="tid_2" opcode="opcode23" task="task2" />
+		</events>
+		<tasks>
+			<task value="1" eventGUID="{3044f61a-99b0-4c21-b203-d39423c73b00}" name="task1" message="$(string.string135)" />
+			<task value="2" eventGUID="{d00792da-07b7-40f5-97eb-5d974e054740}" name="task2" message="$(string.string146)" />
+		</tasks>
+		<opcodes>
+			<opcode value="10" name="opcode10" mofValue="15" message="$(string.string134)"/>
+			<opcode value="11" name="opcode11" mofValue="14" message="$(string.string136)"/>
+			<opcode value="12" name="opcode12" mofValue="40" message="$(string.string137)"/>
+			<opcode value="13" name="opcode13" mofValue="39" message="$(string.string138)"/>
+			<opcode value="14" name="opcode14" mofValue="38" message="$(string.string139)"/>
+			<opcode value="15" name="opcode15" mofValue="37" message="$(string.string140)"/>
+			<opcode value="16" name="opcode16" mofValue="36" message="$(string.string141)"/>
+			<opcode value="17" name="opcode17" mofValue="35" message="$(string.string142)"/>
+			<opcode value="18" name="opcode18" mofValue="34" message="$(string.string143)"/>
+			<opcode value="19" name="opcode19" mofValue="33" message="$(string.string144)"/>
+			<opcode value="20" name="opcode20" mofValue="36" message="$(string.string145)"/>
+			<opcode value="21" name="opcode21" mofValue="35" message="$(string.string147)"/>
+			<opcode value="22" name="opcode22" mofValue="34" message="$(string.string148)"/>
+			<opcode value="23" name="opcode23" mofValue="33" message="$(string.string149)"/>
+		</opcodes>
+		<templates>
+			<template tid="tid_0">
+				<data name="MethodIdentifier" inType="win:UInt64"></data>
+				<data name="ModuleID" inType="win:UInt64"></data>
+				<data name="MethodStartAddress" inType="win:UInt64"></data>
+				<data name="MethodSize" inType="win:UInt32"></data>
+				<data name="MethodToken" inType="win:UInt32"></data>
+				<data name="MethodFlags" inType="win:UInt32"></data>
+				<data name="MethodNameSpace" inType="win:UnicodeString"></data>
+				<data name="Methodname" inType="win:UnicodeString"></data>
+				<data name="MethodSig" inType="win:UnicodeString"></data>
+			</template>
+			<template tid="tid_1">
+				<data name="MethodIdentifier" inType="win:UInt64"></data>
+				<data name="ModuleID" inType="win:UInt64"></data>
+				<data name="MethodStartAddress" inType="win:UInt64"></data>
+				<data name="MethodSize" inType="win:UInt32"></data>
+				<data name="MethodToken" inType="win:UInt32"></data>
+				<data name="MethodFlags" inType="win:UInt32"></data>
+			</template>
+			<template tid="tid_2">
+				<data name="ModuleId" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="AssemblyId" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="ModuleFlags" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="ModuleILPath" inType="win:UnicodeString"></data>
+				<data name="ModuleNativePath" inType="win:UnicodeString"></data>
+			</template>
+		</templates>
+	</provider>
+    </events>
+  </instrumentation>
+<localization>
+	<resources culture="en-US">
+		<stringTable>
+			<string id="string0" value="PagePostDataChangedLeave" />
+			<string id="string1" value="AspNetReq" />
+			<string id="string2" value="End" />
+			<string id="string3" value="PagePreInitEnter" />
+			<string id="string4" value="HttpHandlerEnter" />
+			<string id="string5" value="DiagnosticTraceResume" />
+			<string id="string6" value="WebEventRaiseStart" />
+			<string id="string7" value="PageLoadPostDataEnter" />
+			<string id="string8" value="DiagnosticTraceSuspend" />
+			<string id="string9" value="DiagnosticTraceInfo" />
+			<string id="string10" value="DiagnosticTraceStop" />
+			<string id="string11" value="PagePostDataChangedEnter" />
+			<string id="string12" value="RequestQueued" />
+			<string id="string13" value="PageSaveViewstateLeave" />
+			<string id="string14" value="AppDomainEnter" />
+			<string id="string15" value="SessionDataEnd" />
+			<string id="string16" value="EndHandler" />
+			<string id="string17" value="ParseLeave" />
+			<string id="string18" value="PageSaveViewstateEnter" />
+			<string id="string19" value="TraceContextWarning" />
+			<string id="string20" value="GetAppDomainEnter" />
+			<string id="string21" value="PagePreRenderEnter" />
+			<string id="string22" value="PageLoadViewstateLeave" />
+			<string id="string23" value="SessionStatePartitionStart" />
+			<string id="string24" value="RoleManagerIsUserInRole" />
+			<string id="string25" value="RoleManagerEnd" />
+			<string id="string26" value="DiagnosticTraceCritical" />
+			<string id="string27" value="ProfileEnd" />
+			<string id="string28" value="RoleManagerBegin" />
+			<string id="string29" value="DiagnosticTraceTransfer" />
+			<string id="string30" value="GetAppDomainLeave" />
+			<string id="string31" value="PageInitEnter" />
+			<string id="string32" value="MapHandlerEnter" />
+			<string id="string33" value="SessionDataBegin" />
+			<string id="string34" value="ProfileBegin" />
+			<string id="string35" value="StartHandler" />
+			<string id="string36" value="PipelineModuleEnter" />
+			<string id="string37" value="HttpHandlerLeave" />
+			<string id="string38" value="RequestDequeued" />
+			<string id="string39" value="RoleManagerGetUserRoles" />
+			<string id="string40" value="PipelineModuleLeave" />
+			<string id="string41" value="MapHandlerLeave" />
+			<string id="string42" value="Start" />
+			<string id="string43" value="PageLoadPostDataLeave" />
+			<string id="string44" value="DiagnosticTraceStart" />
+			<string id="string45" value="CompileLeave" />
+			<string id="string46" value="PagePreInitLeave" />
+			<string id="string47" value="WebEventRaiseEnd" />
+			<string id="string48" value="PagePreRenderLeave" />
+			<string id="string49" value="SessionStatePartitionEnd" />
+			<string id="string50" value="TraceContextWrite" />
+			<string id="string51" value="PageRaisePostbackLeave" />
+			<string id="string52" value="WebEventDeliverEnd" />
+			<string id="string53" value="PageRenderLeave" />
+			<string id="string54" value="PageLoadViewstateEnter" />
+			<string id="string55" value="PageRaisePostbackEnter" />
+			<string id="string56" value="WebEventDeliverStart" />
+			<string id="string57" value="DiagnosticTraceWarning" />
+			<string id="string58" value="ParseEnter" />
+			<string id="string59" value="DiagnosticTraceError" />
+			<string id="string60" value="PageLoadEnter" />
+			<string id="string61" value="PageLoadLeave" />
+			<string id="string62" value="CompileEnter" />
+			<string id="string63" value="DiagnosticTraceVerbose" />
+			<string id="string64" value="PageRenderEnter" />
+			<string id="string65" value="PageInitLeave" />
+			<string id="string66" value="FlushBuffers" />
+			<string id="string67" value="DiskIo" />
+			<string id="string68" value="DrvComplReq" />
+			<string id="string69" value="Write" />
+			<string id="string70" value="Read" />
+			<string id="string71" value="DrvComplReqRet" />
+			<string id="string72" value="DrvMjFnCall" />
+			<string id="string73" value="DrvComplRout" />
+			<string id="string74" value="DrvMjFnRet" />
+			<string id="string75" value="FlushInit" />
+			<string id="string76" value="WriteInit" />
+			<string id="string77" value="ReadInit" />
+			<string id="string78" value="OperationEnd" />
+			<string id="string79" value="FileIo" />
+			<string id="string80" value="DirNotify" />
+			<string id="string81" value="DirEnum" />
+			<string id="string82" value="Flush" />
+			<string id="string83" value="Close" />
+			<string id="string84" value="Cleanup" />
+			<string id="string85" value="FSControl" />
+			<string id="string86" value="QueryInfo" />
+			<string id="string87" value="Rename" />
+			<string id="string88" value="Delete" />
+			<string id="string89" value="SetInfo" />
+			<string id="string90" value="FileRundown" />
+			<string id="string91" value="FileDelete" />
+			<string id="string92" value="FileCreate" />
+			<string id="string93" value="Name" />
+			<string id="string94" value="Create" />
+			<string id="string95" value="KernelBase" />
+			<string id="string96" value="Image" />
+			<string id="string97" value="DCEnd" />
+			<string id="string98" value="DCStart" />
+			<string id="string99" value="UnLoad" />
+			<string id="string100" value="Load" />
+			<string id="string101" value="SetIoPriority" />
+			<string id="string102" value="Thread" />
+			<string id="string103" value="SetPagePriority" />
+			<string id="string104" value="SetBasePriority" />
+			<string id="string105" value="SetPriority" />
+			<string id="string106" value="IRQ" />
+			<string id="string107" value="SystemConfig" />
+			<string id="string108" value="Power" />
+			<string id="string109" value="PhyDisk" />
+			<string id="string110" value="Services" />
+			<string id="string111" value="Platform" />
+			<string id="string112" value="Network" />
+			<string id="string113" value="Video" />
+			<string id="string114" value="CPU" />
+			<string id="string115" value="NIC" />
+			<string id="string116" value="IDEChannel" />
+			<string id="string117" value="LogDisk" />
+			<string id="string118" value="PnP" />
+			<string id="string119" value="Defunct" />
+			<string id="string120" value="Process" />
+			<string id="string121" value="TimerDPC" />
+			<string id="string122" value="PerfInfo" />
+			<string id="string123" value="DPC" />
+			<string id="string124" value="ThreadedDPC" />
+			<string id="string125" value="DebuggerEnabled" />
+			<string id="string126" value="CollectionEnd" />
+			<string id="string127" value="CollectionStart" />
+			<string id="string128" value="SetInterval" />
+			<string id="string129" value="SysClEnter" />
+			<string id="string130" value="ISR" />
+			<string id="string131" value="ISR-MSI" />
+			<string id="string132" value="SysClExit" />
+			<string id="string133" value="SampleProf" />
+			<string id="string134" value="DCEndComplete" />
+			<string id="string135" value="CLR Method" />
+			<string id="string136" value="DCStartComplete" />
+			<string id="string137" value="MethodDCEndVerbose" />
+			<string id="string138" value="MethodDCStartVerbose" />
+			<string id="string139" value="MethodUnloadVerbose" />
+			<string id="string140" value="MethodLoadVerbose" />
+			<string id="string141" value="MethodDCEnd" />
+			<string id="string142" value="MethodDCStart" />
+			<string id="string143" value="MethodUnload" />
+			<string id="string144" value="MethodLoad" />
+			<string id="string145" value="ModuleDCEnd" />
+			<string id="string146" value="CLR Loader" />
+			<string id="string147" value="ModuleDCStart" />
+			<string id="string148" value="ModuleUnload" />
+			<string id="string149" value="ModuleLoad" />
+			<string id="string150" value="Microsoft-Windows-HttpService" />
+			<string id="string151" value="Flagged on all HTTP events dealing with service setup" />
+			<string id="string152" value="Flagged on all HTTP events dealing with request processing" />
+			<string id="string153" value="Flagged on all HTTP events dealing with response handling" />
+			<string id="string154" value="Flagged on all HTTP events dealing with endpoints" />
+			<string id="string155" value="Flagged on all HTTP events occuring on a connection" />
+			<string id="string156" value="Flagged on all HTTP events dealing with URI cache" />
+			<string id="string157" value="Flagged on all HTTP events triggered on a URL group" />
+			<string id="string158" value="Flagged on all HTTP events triggered on a server session" />
+			<string id="string159" value="Flagged on all HTTP events triggered on a request queue" />
+			<string id="string160" value="Flagged on all HTTP events handling ssl interactions" />
+			<string id="string161" value="Flagged on all HTTP events handling authentication (SSPI) and authentication cache" />
+			<string id="string162" value="Flagged on all HTTP events dealing with error log activities" />
+			<string id="string163" value="Flagged on all HTTP events setting/resetting/triggering timeouts" />
+			<string id="string164" value="Flagged on all HTTP events dealing with global driver settings" />
+			<string id="string165" value="Flagged on all HTTP events in thread pool" />
+			<string id="string166" value="HTTP Service Channel" />
+			<string id="string167" value="ThreadGone" />
+			<string id="string168" value="HTTP Thread Pool" />
+			<string id="string169" value="Thread gone. Pool type: %1, active pools: %2, thread count: %3" />
+			<string id="string170" value="ThreadPoolTrim" />
+			<string id="string171" value="Thread pool trim. Pool type: %1, active pools: %2." />
+			<string id="string172" value="ThreadReady" />
+			<string id="string173" value="Thread ready. Pool type: %1, active pools: %2, thread count: %3" />
+			<string id="string174" value="ThreadPoolExtension" />
+			<string id="string175" value="Thread pool extension. Pool type: %1, active pools: %2." />
+			<string id="string176" value="UsePolicyBasedQoSFlow" />
+			<string id="string177" value="HTTP Connection Trace Task" />
+			<string id="string178" value="Policy-Based QoS: Connection %1, FlowHandle %2" />
+			<string id="string179" value="ChannelBindPerResponseConfig" />
+			<string id="string180" value="HTTP Authentication Trace Task" />
+			<string id="string181" value="Channel bind response config overwrites %1" />
+			<string id="string182" value="ChannelBindConfigCapture" />
+			<string id="string183" value="Captured channel bind config. Hardening %1, flags %2, service count %3" />
+			<string id="string184" value="ServiceBindCheckComplete" />
+			<string id="string185" value="Service bind check done. Connection %1, Context %2-%3, status %4, target %5" />
+			<string id="string186" value="ChannelBindAscParams" />
+			<string id="string187" value="Channel bind ASC parameters: connection %1, buffers %2, flags %3" />
+			<string id="string188" value="FlatCacheRangeSend" />
+			<string id="string189" value="HTTP Cache Trace Task" />
+			<string id="string190" value="Sending range from flat cache entry. CacheEntry %1, range %2-%3" />
+			<string id="string191" value="MergeSlicesToCache" />
+			<string id="string192" value="Merge slices to cache. CacheEntry %1, slices to merge %2, slices to cache %3" />
+			<string id="string193" value="CachedSlicesMatchContent" />
+			<string id="string194" value="Cached slices match content. Req. %1, CacheEntry %2, slices %3 (%4,%5,...), ranges %6 (%7-%8, %9-%10,...)" />
+			<string id="string195" value="SendSliceCacheContent" />
+			<string id="string196" value="Send cached slices. Req. %1, CacheEntry %2, slices %3 (%4,%5,...), ranges %6 (%7-%8, %9-%10,...)" />
+			<string id="string197" value="BeginBuildingSlices" />
+			<string id="string198" value="Begin building slices. Req. %1, slices %2 (%3,%4,...), ranges %5 (%6-%7, %8-%9,...)" />
+			<string id="string199" value="ResponseRangeProcessingOK" />
+			<string id="string200" value="HTTP Request Trace Task" />
+			<string id="string201" value="Response range processing done. Req. %1, response content size %2, ranges %3 (%4-%5, %6-%7,...)" />
+			<string id="string202" value="ConnectionFlowFailed" />
+			<string id="string203" value="[re]Setting QoS Flow failed: Connection %1, FlowHandle %2, status %3" />
+			<string id="string204" value="RequestAssociatedToConfigurationFlow" />
+			<string id="string205" value="Assign to Configuration QoS Flow: FlowHandle %1" />
+			<string id="string206" value="SetConnectionFlow" />
+			<string id="string207" value="Setting flow: Connection %1, FlowHandle %2" />
+			<string id="string208" value="FlowInitFailed" />
+			<string id="string209" value="QoS flow initialization failed: bandwidth %1, peak bandwidth %2, burst size %3, status %4" />
+			<string id="string210" value="CachedResponseFlowInit" />
+			<string id="string211" value="Initialized QoS flow: FlowHandle %1, bandwidth %2, peak bandwidth %3, burst size %4" />
+			<string id="string212" value="UserResponseFlowInit" />
+			<string id="string213" value="HotAddProcSucceeded" />
+			<string id="string214" value="HTTP Driver Global Settings Task" />
+			<string id="string215" value="Hot-add information: Current UxNumberOfProcessors: %1, comment: %2." />
+			<string id="string216" value="HotAddProcFailed" />
+			<string id="string217" value="Http.sys failed to process CPU hot-add. Processor number: %1, reason: %2, status: %3." />
+			<string id="string218" value="RequestCancelled" />
+			<string id="string219" value="Server application canceled the processing of its request (request ID %1)." />
+			<string id="string220" value="RequestRejected" />
+			<string id="string221" value="Request (request ID %1) rejected due to reason: %2." />
+			<string id="string222" value="SslSealMsg" />
+			<string id="string223" value="HTTP SSL Trace Task" />
+			<string id="string224" value="Attempt to encrypt SSL data failed. Security status: %2." />
+			<string id="string225" value="SslAsc" />
+			<string id="string226" value="Attempt to perform SSL handshake failed. Security status: %2." />
+			<string id="string227" value="SslEndpointConfigNotFound" />
+			<string id="string228" value="Cannot find SSL endpoint for inbound connection for local IP address and port %3." />
+			<string id="string229" value="SslQueryConnInfoFailed" />
+			<string id="string230" value="Query for SSL connection parameters failed. Security status: %2. Connection will be reset." />
+			<string id="string231" value="SslUnsealMsg" />
+			<string id="string232" value="Attempt to decrypt SSL data failed. Security status: %2." />
+			<string id="string233" value="SslDisconnReq" />
+			<string id="string234" value="SSL connection will be disconnected as initiated by the server application. Status: %2." />
+			<string id="string235" value="SslDisconnEvent" />
+			<string id="string236" value="SSL connection will be disconnected as initiated by the client." />
+			<string id="string237" value="SslEndpointCreationFailed" />
+			<string id="string238" value="Failed to acquire handle for SSL credentials. Failure will be event logged. Security status: %2." />
+			<string id="string239" value="ConnTimedOut" />
+			<string id="string240" value="HTTP Timeout Trace Task" />
+			<string id="string241" value="HTTP timer %3 expired. The connection will be reset." />
+			<string id="string242" value="ParseRequestFailed" />
+			<string id="string243" value="Parsing of request (request ID %2) failed due to reason: %3. Request may not be compliant with HTTP/1.1." />
+			<string id="string244" value="LogFileWrite" />
+			<string id="string245" value="HTTP Logging Trace Task" />
+			<string id="string246" value="Entry has been written to %3 log file." />
+			<string id="string247" value="LogFileCreate" />
+			<string id="string248" value="Successfully created new %2 log file %5." />
+			<string id="string249" value="LogFileCreateFailed" />
+			<string id="string250" value="Failed to create %2 log file %5. Status: %1." />
+			<string id="string251" value="LoggingConfig" />
+			<string id="string252" value="Successfully configured %2 logging (directory %5)." />
+			<string id="string253" value="LoggingConfigFailed" />
+			<string id="string254" value="Failed to configure the %2 logging (directory %4), Status: %1." />
+			<string id="string255" value="QosFlowSetReset" />
+			<string id="string256" value="Successfully associated QoS flow with connection (connection ID %1). Bandwidth throttled to: %2 Bytes per second." />
+			<string id="string257" value="AuthCacheEntryFreed" />
+			<string id="string258" value="Entry successfully removed from the authentication cache." />
+			<string id="string259" value="AuthCacheEntryAdded" />
+			<string id="string260" value="Attempted to add entry to the %2 authentication cache. Status: %4." />
+			<string id="string261" value="SspiCall" />
+			<string id="string262" value="Attempt (on connection ID %1) to authenticate client completed. Authentication type %2. Security status: %3." />
+			<string id="string263" value="SslAcceptStreamData" />
+			<string id="string264" value="Passed plaintext data for encryption." />
+			<string id="string265" value="SslDlvrdStreamData" />
+			<string id="string266" value="Decrypted SSL data is available for processing." />
+			<string id="string267" value="SslRcvdRawData" />
+			<string id="string268" value="Raw SSL data is available for processing." />
+			<string id="string269" value="SslRcvClientCertFailed" />
+			<string id="string270" value="Attempt by server application to receive client certificate failed with status: %1." />
+			<string id="string271" value="SslInititateSslRcvClientCert" />
+			<string id="string272" value="Server application is attempting to receive the SSL client certificate, which will be provided if available. If the client certificate is not available, a renegotiation will be initiated." />
+			<string id="string273" value="SslHandshakeComplete" />
+			<string id="string274" value="SSL handshake completed with status: %1." />
+			<string id="string275" value="SslInitiateHandshake" />
+			<string id="string276" value="Initiating SSL handshake." />
+			<string id="string277" value="SslConnEvent" />
+			<string id="string278" value="Initiating SSL connection." />
+			<string id="string279" value="RemAllUrls" />
+			<string id="string280" value="HTTP Configuration Property Trace Task" />
+			<string id="string281" value="Removed all URLs from URL group %1." />
+			<string id="string282" value="RemUrl" />
+			<string id="string283" value="Removed URL (%2) from URL group (%1)." />
+			<string id="string284" value="AddUrl" />
+			<string id="string285" value="Attempted to add URL (%2) to URL group (%1). Status: %3." />
+			<string id="string286" value="ChgReqQueueProp" />
+			<string id="string287" value="Attempted to set request queue property: %1. Status: %2." />
+			<string id="string288" value="ChgSrvSesProp" />
+			<string id="string289" value="Attempted to set server session property: %1. Status: %2." />
+			<string id="string290" value="ChgUrlGrpProp" />
+			<string id="string291" value="Attempted to set URL group property: %1. Status: %2." />
+			<string id="string292" value="FlushedCache" />
+			<string id="string293" value="Flushed entry (URI %1) from the cache." />
+			<string id="string294" value="AddCacheEntryFailed" />
+			<string id="string295" value="Failed to add an entry (URI %1) to the cache. Status: %2." />
+			<string id="string296" value="AddedCacheEntry" />
+			<string id="string297" value="Successfully added entry (URI %1) to cache." />
+			<string id="string298" value="ConnCleanup" />
+			<string id="string299" value="Connection (connection pointer %1) cleanup started due to either the sending of a TCP Reset, receiving of a TCP Reset, or after the mutual exchange of TCP Fins." />
+			<string id="string300" value="ConnClose" />
+			<string id="string301" value="Client closed the connection (connection pointer %1). Status of whether closed by TCP Reset: %2." />
+			<string id="string302" value="ConnIdAssgn" />
+			<string id="string303" value="Connection ID (%2) assigned to connection and request (request ID %1) will be parsed." />
+			<string id="string304" value="ConnConnect" />
+			<string id="string305" value="New connection created (local IP address %3 and remote address %5)." />
+			<string id="string306" value="CreatedSslCred" />
+			<string id="string307" value="HTTP Setup Trace Task" />
+			<string id="string308" value="SSL credentials for IP address and port %3 successfully created." />
+			<string id="string309" value="ReadIpListEntry" />
+			<string id="string310" value="Successfully read the IP listen list for IP address %1." />
+			<string id="string311" value="ResvUrl" />
+			<string id="string312" value="Attempted to reserve URL (%1). Status %2." />
+			<string id="string313" value="CachedNotModified" />
+			<string id="string314" value="Response (request pointer %1, site ID %2, number of bytes %3) queued for sending with status code 304 (cache not modified)." />
+			<string id="string315" value="SrvdFrmCache" />
+			<string id="string316" value="Response (request pointer %1, site ID %2, number of bytes %3) queued for sending from the cache." />
+			<string id="string317" value="SndError" />
+			<string id="string318" value="Error %3 occurred while sending (corresponding to request ID %1). A TCP Reset will be sent." />
+			<string id="string319" value="LastSndError" />
+			<string id="string320" value="Error occurred while sending the last response (corresponding to request ID %1) with status code %2. A TCP Reset has been sent." />
+			<string id="string321" value="ZeroSend" />
+			<string id="string322" value="Response sent (corresponding to request ID %1) with status code %2. If disconnect is required, a TCP FIN has been sent." />
+			<string id="string323" value="FastSend" />
+			<string id="string324" value="Queued last response (corresponding to request ID %1) for sending. Status code is %2." />
+			<string id="string325" value="CachedAndSend" />
+			<string id="string326" value="Cached the response (corresponding to request ID %1) with status code %2. Response to be sent." />
+			<string id="string327" value="SendComplete" />
+			<string id="string328" value="Response ready for send (corresponding to request ID %1) with status code %2." />
+			<string id="string329" value="FastRespLast" />
+			<string id="string330" value="Server application passed the last response (corresponding to request ID %1)." />
+			<string id="string331" value="FastResp" />
+			<string id="string332" value="Server application passed response (request ID %1, connection ID %2, method %4, header length %5, number of entity chunks %6, cache policy %7) with status code %3." />
+			<string id="string333" value="RecvBodyLast" />
+			<string id="string334" value="Server application passed the last entity body for request ID %1." />
+			<string id="string335" value="RecvBody" />
+			<string id="string336" value="Server application passed entity body for request ID %1 (connection ID %2)." />
+			<string id="string337" value="RecvRespLast" />
+			<string id="string338" value="RecvResp" />
+			<string id="string339" value="Deliver" />
+			<string id="string340" value="Delivered request to server application (request pointer %1, request ID %2, site ID %3) from request queue %4 for URI %5 with status %6." />
+			<string id="string341" value="Parse" />
+			<string id="string342" value="Parsed request (request pointer %1, method %2) with URI %3." />
+			<string id="string343" value="RecvReq" />
+			<string id="string344" value="Request received (request ID %1) on connection (connection ID %2) from remote address %4." />
+			<string id="string345" value="ResponseLogging" />
+			<string id="string346" value="ErrorLogging" />
+			<string id="string347" value="Site" />
+			<string id="string348" value="Centralized" />
+			<string id="string349" value="W3C" />
+			<string id="string350" value="IIS" />
+			<string id="string351" value="NCSA" />
+			<string id="string352" value="Binary" />
+		</stringTable>
+	</resources>
+</localization>
+</instrumentationManifest>

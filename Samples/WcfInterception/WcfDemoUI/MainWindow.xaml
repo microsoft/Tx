@@ -1,0 +1,32 @@
+﻿<Window x:Class="OutputUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="366" Width="817" Loaded="Window_Loaded">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <Label Content="Method Call Statistics" />
+            <ListView Name="MethodStatisticsGrid" Width="292" SelectionChanged="MethodStatisticsGrid_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="MethodName" Width="100" DisplayMemberBinding="{Binding MethodName}"/>
+                            <GridViewColumn Header="Count" Width="50" DisplayMemberBinding="{Binding TotalCount}"/>
+                            <GridViewColumn Header="Avg.Response [ms]" Width="150" DisplayMemberBinding="{Binding AverageDuration}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        <Grid Background="LightGray" Height="329">
+            <Canvas Height="210" HorizontalAlignment="Left" Margin="43,65,0,0" Name="canvas1" VerticalAlignment="Top" Width="440" Background="White" ClipToBounds="True"></Canvas>
+            <Label Content="-----------------------------  Request Duration ----------------------------------&gt;" Height="30" HorizontalAlignment="Left" Margin="43,281,0,0" Name="label1" VerticalAlignment="Top" Width="428" />
+            <Label Content="----------------- Count -------------->" Height="25" Name="label2" Width="215" Margin="9,275,279,29">
+                <Label.RenderTransform>
+                    <RotateTransform Angle="270" />
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="Select method on the left to see histogram of response time over 5 sec interval" Height="28" HorizontalAlignment="Left" Margin="43,10,0,0" Name="label3" VerticalAlignment="Top" />
+            <Label Content="" Height="28" HorizontalAlignment="Left" Margin="43,31,0,0" Name="HistogramFilter" VerticalAlignment="Top" Width="197" FontWeight="Bold" FontSize="14" />
+        </Grid>
+    </StackPanel>
+</Window>

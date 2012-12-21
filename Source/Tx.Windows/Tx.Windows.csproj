@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tx.Windows</RootNamespace>
+    <AssemblyName>Tx.Windows</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <Import Project="..\..\Common.targets" />
+  <PropertyGroup>
+    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Configuration\FormatAttribute.cs" />
+    <Compile Include="EventFormatter.cs" />
+    <Compile Include="Evtx\EvtxObservable.cs" />
+    <Compile Include="Configuration\ClassicEventAttribute.cs" />
+    <Compile Include="Configuration\EventFieldAttribute.cs" />
+    <Compile Include="Configuration\ManifestEventAttribute.cs" />
+    <Compile Include="EtwNative\EtwExtensions.cs" />
+    <Compile Include="ClassicEventPartitionKey.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EtwNative\EtwClassicDeserializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EtwNative\EtwTypeMap.cs" />
+    <Compile Include="EtwNative\EtwManifestTypeMap.cs" />
+    <Compile Include="Evtx\EvtxEnumerable.cs" />
+    <Compile Include="ManifestEventPartitionKey.cs" />
+    <Compile Include="EtwNative\EtwNativeEvent.cs" />
+    <Compile Include="EtwNative\EtwFileReader.cs" />
+    <Compile Include="EtwNative\EtwObserver.cs" />
+    <Compile Include="EtwNative\EtwListener.cs" />
+    <Compile Include="EtwNative\TimeUtil.cs" />
+    <Compile Include="EtwNative\TypeUtil.cs" />
+    <Compile Include="Evtx\EvtxExtensions.cs" />
+    <Compile Include="Evtx\EvtxTypeMap.cs" />
+    <Compile Include="Evtx\EvtxManifestTypeMap.cs" />
+    <Compile Include="EtwNative\EtwNativeMethods.cs" />
+    <Compile Include="EtwNative\EtwObservable.cs" />
+    <Compile Include="InternalsVisibleTo.cs" />
+    <Compile Include="SystemEvent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
+      <Project>{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}</Project>
+      <Name>Tx.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\key.snk">
+      <Link>Properties\key.snk</Link>
+    </None>
+    <None Include="Properties\Tx.Windows.Layout.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Tx.Windows.nuspec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

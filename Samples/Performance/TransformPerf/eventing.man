@@ -1,0 +1,119 @@
+<!-- <?xml version="1.0" encoding="UTF-16"?> -->
+<instrumentationManifest 
+            xmlns="http://schemas.microsoft.com/win/2004/08/events" 
+            xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <instrumentation>
+
+        <events>
+
+            <provider name="Prototype-Eventing-Provider" 
+                guid="{3838EF9A-CB6F-4A1C-9033-84C0E8EBF5A7}" 
+                symbol="PrototypeEtwProviderGuid" 
+                resourceFileName="C:\Prototype\eventing.exe" 
+                messageFileName="C:\Prototype\eventing.exe">
+
+                <channels>
+                    <channel chid="Prototype-Eventing-Analytic" 
+                        name="PrototypeEventing/Analytic" 
+                        type="Analytic" 
+                        symbol="PrototypeEventingEtwChannel" 
+                        isolation="System" 
+                        enabled="true"/>
+                </channels>
+
+                <keywords>
+                    <keyword name="MyKeyword" symbol="MY_KEYWORD" mask="0x1" />
+                </keywords>
+
+                <tasks>
+                    <task name="MyTask" value="1" />
+                </tasks>
+
+                <templates>
+                    <template tid="SmallEventTemplate">
+                        <data name="ID" inType="win:UInt32" />
+                    </template>
+                    <template tid="MediumEventTemplate">
+                        <data name="ID" inType="win:UInt32" />
+                        <data name="number1" inType="win:UInt32" />
+                        <data name="number2" inType="win:UInt32" />
+                        <data inType="win:UnicodeString" name="string1" />
+                        <data inType="win:UnicodeString" name="string2" />
+                    </template>
+                    <template tid="LargeEventTemplate">
+                        <data name="ID" inType="win:UInt32" />
+                        <data name="number1" inType="win:UInt32" />
+                        <data name="number2" inType="win:UInt32" />
+                        <data name="number3" inType="win:UInt32" />
+                        <data name="number4" inType="win:UInt32" />
+                        <data name="number5" inType="win:UInt32" />
+                        <data name="number6" inType="win:UInt32" />
+                        <data name="number7" inType="win:UInt32" />
+                        <data name="number8" inType="win:UInt32" />
+                        <data name="number9" inType="win:UInt32" />
+                        <data name="number10" inType="win:UInt32" />
+                        <data inType="win:UnicodeString" name="string1" />
+                        <data inType="win:UnicodeString" name="string2" />
+                        <data inType="win:UnicodeString" name="string3" />
+                        <data inType="win:UnicodeString" name="string4" />
+                        <data inType="win:UnicodeString" name="string5" />
+                        <data inType="win:UnicodeString" name="string6" />
+                        <data inType="win:UnicodeString" name="string7" />
+                        <data inType="win:UnicodeString" name="string8" />
+                        <data inType="win:UnicodeString" name="string9" />
+                        <data inType="win:UnicodeString" name="string10" />
+                    </template>
+                </templates>
+
+                <events>
+                    <event value="1"
+                        level="win:LogAlways"
+                        template="SmallEventTemplate"
+                        opcode="win:Start"
+                        channel="Prototype-Eventing-Analytic"
+                        message="$(string.SmallEvent)"
+                        symbol="SmallEvent"
+                        keywords="MyKeyword"
+                        task="MyTask" />
+                    <event value="2"
+                        level="win:LogAlways"
+                        template="MediumEventTemplate"
+                        opcode="win:Start"
+                        channel="Prototype-Eventing-Analytic"
+                        message="$(string.MediumEvent)"
+                        symbol="MediumEvent"
+                        keywords="MyKeyword"
+                        task="MyTask" />
+                    <event value="3"
+                        level="win:LogAlways"
+                        template="LargeEventTemplate"
+                        opcode="win:Start"
+                        channel="Prototype-Eventing-Analytic"
+                        message="$(string.LargeEvent)"
+                        symbol="LargeEvent"
+                        keywords="MyKeyword"
+                        task="MyTask" />
+                </events>
+
+            </provider>
+
+        </events>
+
+    </instrumentation>
+    
+    <localization>
+        <resources culture="en-US">
+            <stringTable>
+
+                <string id="SmallEvent" value="This is a small event."/>
+                <string id="MediumEvent" value="This is a medium event."/>
+                <string id="LargeEvent" value="This is a large event."/>
+
+            </stringTable>
+        </resources>
+    </localization>
+
+</instrumentationManifest>
+

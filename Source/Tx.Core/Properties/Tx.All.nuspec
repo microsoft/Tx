@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Tx.All</id>
+    <title>Tx (LINQ to Traces)</title>
+    <version>1.0.5-beta</version>
+    <description>Reusable components for representing raw traces/logs and real-time feeds as IObservable sequences</description>
+    <authors>Microsoft</authors>
+<!--
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkID=179929</projectUrl>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=186234</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkId=215482</iconUrl>
+-->
+    <language>en-us</language>
+      <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+      <dependency id="Tx.Core" version="1.0.5-beta" />
+      <dependency id="Tx.Windows" version="1.0.5-beta" />
+      <dependency id="Tx.Windows.TypeGeneration" version="1.0.5-beta" />       
+      <dependency id="Tx.SqlServer" version="1.0.5-beta" />
+    </dependencies>
+  </metadata>
+</package>

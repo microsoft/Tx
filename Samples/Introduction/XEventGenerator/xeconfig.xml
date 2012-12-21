@@ -1,0 +1,12 @@
+﻿<event_sessions>
+    <event_session name="XEventSession" maxMemory="1" eventRetentionMode="noEventLoss" trackCausality="false" dispatchLatency="1" maxEventSize="1" memoryPartitionMode="none">
+        <event package="mytestpackage" name="myevent" />
+        <target package ="package0" name="event_file">
+            <parameter name="filename" value="Generated.xel" />
+            <parameter name="max_file_size" value="1" />
+            <parameter name="max_rollover_files" value="100" />
+        </target>
+        <target package="mytestpackage"  name="mytarget" />
+    </event_session>
+</event_sessions>
+

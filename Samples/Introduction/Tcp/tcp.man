@@ -1,0 +1,1792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instrumentationManifest    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:trace="http://schemas.microsoft.com/win/2004/08/events/trace"
+    xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd"
+    >
+  <instrumentation>
+    <events>
+	<provider name="Microsoft-Windows-TCPIP" symbol="provider0" guid="{2f07e2ee-15db-40f1-90ef-9d7ba282188a}" source="Xml" messageFileName="noMessageFile" resourceFileName="noResourceFile">
+		<events>
+			<event value="1300" version="0" template="tid_0" opcode="win:Info" channel="channel0" level="win:Informational" task="task0" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string24)" />
+			<event value="1225" version="0" template="tid_1" opcode="win:Info" channel="channel0" level="win:Informational" task="task1" keywords="keyword9 " message="$(string.string26)" />
+			<event value="1224" version="0" template="tid_2" opcode="win:Info" channel="channel0" level="win:Verbose" task="task2" keywords="keyword14 " message="$(string.string28)" />
+			<event value="1223" version="0" template="tid_3" opcode="win:Info" channel="channel0" level="win:Informational" task="task3" keywords="keyword14 " message="$(string.string30)" />
+			<event value="1222" version="0" template="tid_4" opcode="win:Info" channel="channel0" level="win:Informational" task="task4" keywords="keyword8 " message="$(string.string32)" />
+			<event value="1221" version="0" template="tid_4" opcode="win:Info" channel="channel0" level="win:Informational" task="task5" keywords="keyword8 " message="$(string.string34)" />
+			<event value="1220" version="0" template="tid_5" opcode="win:Info" channel="channel0" level="win:Informational" task="task6" keywords="keyword14 " message="$(string.string36)" />
+			<event value="1219" version="0" template="tid_6" opcode="win:Info" channel="channel0" level="win:Informational" task="task7" keywords="keyword14 " message="$(string.string38)" />
+			<event value="1218" version="0" template="tid_7" opcode="win:Info" channel="channel0" level="win:Informational" task="task8" keywords="keyword14 " message="$(string.string40)" />
+			<event value="1217" version="0" template="tid_8" opcode="win:Info" channel="channel0" level="win:Informational" task="task9" keywords="keyword14 " message="$(string.string42)" />
+			<event value="1216" version="0" template="tid_9" opcode="win:Info" channel="channel0" level="win:Verbose" task="task10" keywords="keyword14 " message="$(string.string44)" />
+			<event value="1215" version="0" template="tid_10" opcode="win:Info" channel="channel0" level="win:Verbose" task="task11" keywords="keyword9 keyword14 " message="$(string.string46)" />
+			<event value="1214" version="0" template="tid_11" opcode="win:Info" channel="channel0" level="win:Verbose" task="task12" keywords="keyword9 keyword14 " message="$(string.string48)" />
+			<event value="1213" version="0" template="tid_12" opcode="win:Info" channel="channel0" level="win:Informational" task="task13" keywords="keyword14 " message="$(string.string50)" />
+			<event value="1212" version="0" template="tid_13" opcode="win:Info" channel="channel0" level="win:Informational" task="task14" keywords="keyword14 " message="$(string.string52)" />
+			<event value="1211" version="0" template="tid_14" opcode="win:Info" channel="channel0" level="win:Informational" task="task15" keywords="keyword14 " message="$(string.string54)" />
+			<event value="1210" version="0" template="tid_15" opcode="win:Info" channel="channel0" level="win:Informational" task="task16" keywords="keyword14 " message="$(string.string56)" />
+			<event value="1209" version="0" template="tid_15" opcode="win:Info" channel="channel0" level="win:Informational" task="task17" keywords="keyword14 " message="$(string.string56)" />
+			<event value="1208" version="0" template="tid_16" opcode="win:Info" channel="channel0" level="win:Informational" task="task18" keywords="keyword14 " message="$(string.string59)" />
+			<event value="1207" version="0" template="tid_16" opcode="win:Info" channel="channel0" level="win:Error" task="task19" keywords="keyword14 " message="$(string.string59)" />
+			<event value="1206" version="0" template="tid_17" opcode="win:Info" channel="channel0" level="win:Verbose" task="task20" keywords="keyword8 " message="$(string.string62)" />
+			<event value="1205" version="0" template="tid_17" opcode="win:Info" channel="channel0" level="win:Verbose" task="task21" keywords="keyword9 " message="$(string.string64)" />
+			<event value="1204" version="0" template="tid_18" opcode="win:Info" channel="channel0" level="win:Informational" task="task22" keywords="keyword9 " message="$(string.string66)" />
+			<event value="1203" version="0" template="tid_19" opcode="win:Info" channel="channel0" level="win:Informational" task="task23" keywords="keyword4 keyword7 keyword14 " message="$(string.string68)" />
+			<event value="1202" version="0" template="tid_19" opcode="win:Info" channel="channel0" level="win:Informational" task="task24" keywords="keyword4 keyword7 keyword14 " message="$(string.string70)" />
+			<event value="1201" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task25" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string72)" />
+			<event value="1200" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task26" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string74)" />
+			<event value="1199" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Verbose" task="task27" keywords="keyword9 " message="$(string.string76)" />
+			<event value="1198" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Verbose" task="task28" keywords="keyword9 " message="$(string.string78)" />
+			<event value="1197" version="0" template="tid_18" opcode="win:Info" channel="channel0" level="win:Informational" task="task29" keywords="keyword8 " message="$(string.string80)" />
+			<event value="1196" version="0" template="tid_18" opcode="win:Info" channel="channel0" level="win:Informational" task="task30" keywords="keyword8 " message="$(string.string82)" />
+			<event value="1195" version="0" template="tid_22" opcode="win:Info" channel="channel0" level="win:Informational" task="task31" keywords="keyword7 keyword10 " message="$(string.string84)" />
+			<event value="1194" version="0" template="tid_22" opcode="win:Info" channel="channel0" level="win:Informational" task="task32" keywords="keyword10 " message="$(string.string86)" />
+			<event value="1193" version="0" template="tid_22" opcode="win:Info" channel="channel0" level="win:Informational" task="task33" keywords="keyword10 " message="$(string.string88)" />
+			<event value="1192" version="0" template="tid_22" opcode="win:Info" channel="channel0" level="win:Informational" task="task34" keywords="keyword10 " message="$(string.string90)" />
+			<event value="1191" version="0" template="tid_22" opcode="win:Info" channel="channel0" level="win:Informational" task="task35" keywords="keyword10 " message="$(string.string92)" />
+			<event value="1190" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task36" keywords="keyword7 keyword9 " message="$(string.string94)" />
+			<event value="1189" version="0" template="tid_24" opcode="win:Info" channel="channel0" level="win:Verbose" task="task37" keywords="keyword9 " message="$(string.string96)" />
+			<event value="1188" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Informational" task="task38" keywords="keyword7 keyword8 keyword10 " message="$(string.string98)" />
+			<event value="1187" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task39" keywords="keyword7 keyword8 keyword10 " message="$(string.string100)" />
+			<event value="1186" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task40" keywords="keyword7 keyword8 keyword10 " message="$(string.string102)" />
+			<event value="1185" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task41" keywords="keyword7 keyword9 keyword10 " message="$(string.string104)" />
+			<event value="1184" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task42" keywords="keyword7 keyword9 keyword10 " message="$(string.string106)" />
+			<event value="1183" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task43" keywords="keyword7 keyword9 keyword10 " message="$(string.string108)" />
+			<event value="1182" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task44" keywords="keyword7 keyword10 " message="$(string.string110)" />
+			<event value="1181" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Verbose" task="task45" keywords="keyword9 " message="$(string.string112)" />
+			<event value="1180" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Verbose" task="task46" keywords="keyword9 " message="$(string.string114)" />
+			<event value="1178" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Verbose" task="task47" keywords="keyword9 " message="$(string.string116)" />
+			<event value="1176" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task48" keywords="keyword9 " message="$(string.string118)" />
+			<event value="1175" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Verbose" task="task49" keywords="keyword9 " message="$(string.string120)" />
+			<event value="1174" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Warning" task="task50" keywords="keyword9 " message="$(string.string122)" />
+			<event value="1173" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Verbose" task="task51" keywords="keyword9 " message="$(string.string124)" />
+			<event value="1172" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Warning" task="task52" keywords="keyword9 " message="$(string.string126)" />
+			<event value="1171" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Verbose" task="task53" keywords="keyword9 " message="$(string.string128)" />
+			<event value="1170" version="0" template="tid_26" opcode="win:Info" channel="channel0" level="win:Informational" task="task54" keywords="keyword9 " message="$(string.string130)" />
+			<event value="1169" version="0" template="tid_26" opcode="win:Info" channel="channel0" level="win:Informational" task="task55" keywords="keyword8 " message="$(string.string132)" />
+			<event value="1168" version="0" template="tid_27" opcode="win:Info" channel="channel0" level="win:Verbose" task="task56" keywords="keyword8 " message="$(string.string134)" />
+			<event value="1167" version="0" template="tid_27" opcode="win:Info" channel="channel0" level="win:Verbose" task="task57" keywords="keyword8 " message="$(string.string136)" />
+			<event value="1166" version="0" template="tid_27" opcode="win:Info" channel="channel0" level="win:Verbose" task="task58" keywords="keyword8 " message="$(string.string138)" />
+			<event value="1165" version="0" template="tid_28" opcode="win:Info" channel="channel0" level="win:Verbose" task="task59" keywords="keyword6 keyword8 " message="$(string.string140)" />
+			<event value="1164" version="0" template="tid_29" opcode="win:Info" channel="channel0" level="win:Verbose" task="task60" keywords="keyword6 keyword8 " message="$(string.string142)" />
+			<event value="1163" version="0" template="tid_30" opcode="win:Info" channel="channel0" level="win:Verbose" task="task61" keywords="keyword6 keyword8 " message="$(string.string144)" />
+			<event value="1162" version="0" template="tid_31" opcode="win:Info" channel="channel0" level="win:Verbose" task="task62" keywords="keyword6 keyword8 " message="$(string.string146)" />
+			<event value="1161" version="0" template="tid_32" opcode="win:Info" channel="channel0" level="win:Verbose" task="task63" keywords="keyword8 " message="$(string.string148)" />
+			<event value="1160" version="0" template="tid_32" opcode="win:Info" channel="channel0" level="win:Verbose" task="task64" keywords="keyword8 " message="$(string.string150)" />
+			<event value="1159" version="0" template="tid_32" opcode="win:Info" channel="channel0" level="win:Informational" task="task65" keywords="keyword8 " message="$(string.string152)" />
+			<event value="1158" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task66" keywords="keyword9 " message="$(string.string154)" />
+			<event value="1157" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task67" keywords="keyword9 " message="$(string.string156)" />
+			<event value="1156" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task68" keywords="keyword9 " message="$(string.string158)" />
+			<event value="1155" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Verbose" task="task69" keywords="keyword7 keyword8 " message="$(string.string160)" />
+			<event value="1154" version="0" template="tid_34" opcode="win:Info" channel="channel0" level="win:Informational" task="task70" keywords="keyword9 " message="$(string.string162)" />
+			<event value="1153" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Verbose" task="task71" keywords="keyword8 " message="$(string.string164)" />
+			<event value="1152" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task72" keywords="keyword9 " message="$(string.string166)" />
+			<event value="1151" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task73" keywords="keyword8 " message="$(string.string168)" />
+			<event value="1150" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task74" keywords="keyword7 keyword8 " message="$(string.string170)" />
+			<event value="1149" version="0" template="tid_35" opcode="win:Info" channel="channel0" level="win:Verbose" task="task75" keywords="keyword5 " message="$(string.string172)" />
+			<event value="1148" version="0" template="tid_35" opcode="win:Info" channel="channel0" level="win:Verbose" task="task76" keywords="keyword5 keyword7 " message="$(string.string174)" />
+			<event value="1147" version="0" template="tid_36" opcode="win:Info" channel="channel0" level="win:Informational" task="task77" keywords="keyword5 keyword7 keyword13 " message="$(string.string176)" />
+			<event value="1146" version="0" template="tid_36" opcode="win:Info" channel="channel0" level="win:Informational" task="task78" keywords="keyword5 keyword7 " message="$(string.string178)" />
+			<event value="1145" version="0" template="tid_36" opcode="win:Info" channel="channel0" level="win:Informational" task="task79" keywords="keyword5 keyword7 " message="$(string.string180)" />
+			<event value="1144" version="0" template="tid_37" opcode="win:Info" channel="channel0" level="win:Informational" task="task80" keywords="keyword4 keyword13 " message="$(string.string182)" />
+			<event value="1139" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Informational" task="task81" keywords="keyword14 keyword20 " message="$(string.string184)" />
+			<event value="1138" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Informational" task="task82" keywords="keyword14 keyword20 " message="$(string.string186)" />
+			<event value="1137" version="0" template="tid_39" opcode="win:Info" channel="channel0" level="win:Informational" task="task83" keywords="keyword4 keyword14 " message="$(string.string188)" />
+			<event value="1136" version="0" template="tid_39" opcode="win:Info" channel="channel0" level="win:Informational" task="task84" keywords="keyword4 keyword14 " message="$(string.string190)" />
+			<event value="1130" version="0" template="tid_40" opcode="win:Info" channel="channel0" level="win:Informational" task="task85" keywords="keyword4 keyword14 " message="$(string.string192)" />
+			<event value="1128" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Informational" task="task86" keywords="keyword7 keyword14 keyword20 " message="$(string.string194)" />
+			<event value="1127" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Informational" task="task87" keywords="keyword7 keyword14 keyword20 " message="$(string.string196)" />
+			<event value="1124" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task88" keywords="keyword1 keyword10 " message="$(string.string198)" />
+			<event value="1123" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task89" keywords="keyword1 keyword10 " message="$(string.string200)" />
+			<event value="1122" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task90" keywords="keyword1 keyword10 " message="$(string.string202)" />
+			<event value="1121" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task91" keywords="keyword1 keyword10 " message="$(string.string204)" />
+			<event value="1120" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task92" keywords="keyword1 keyword10 " message="$(string.string206)" />
+			<event value="1119" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task93" keywords="keyword1 keyword10 " message="$(string.string208)" />
+			<event value="1118" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task94" keywords="keyword1 keyword10 " message="$(string.string210)" />
+			<event value="1117" version="0" template="tid_41" opcode="win:Info" channel="channel0" level="win:Informational" task="task95" keywords="keyword1 keyword10 " message="$(string.string212)" />
+			<event value="1116" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Informational" task="task96" keywords="keyword14 keyword20 " message="$(string.string214)" />
+			<event value="1115" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Warning" task="task97" keywords="keyword14 keyword20 " message="$(string.string216)" />
+			<event value="1114" version="0" template="tid_38" opcode="win:Info" channel="channel0" level="win:Informational" task="task98" keywords="keyword14 keyword20 " message="$(string.string218)" />
+			<event value="1113" version="0" template="tid_42" opcode="win:Info" channel="channel0" level="win:Verbose" task="task99" keywords="keyword2 keyword13 keyword14 " message="$(string.string220)" />
+			<event value="1112" version="0" template="tid_42" opcode="win:Info" channel="channel0" level="win:Informational" task="task100" keywords="keyword2 keyword13 " message="$(string.string222)" />
+			<event value="1111" version="0" template="tid_43" opcode="win:Info" channel="channel0" level="win:Verbose" task="task101" keywords="keyword8 " message="$(string.string224)" />
+			<event value="1110" version="0" template="tid_44" opcode="win:Info" channel="channel0" level="win:Informational" task="task102" keywords="keyword7 keyword13 keyword14 " message="$(string.string226)" />
+			<event value="1109" version="0" template="tid_45" opcode="win:Info" channel="channel0" level="win:Error" task="task103" keywords="keyword7 keyword14 " message="$(string.string228)" />
+			<event value="1108" version="0" template="tid_46" opcode="win:Info" channel="channel0" level="win:Informational" task="task104" keywords="keyword14 " message="$(string.string230)" />
+			<event value="1107" version="0" template="tid_46" opcode="win:Info" channel="channel0" level="win:Informational" task="task105" keywords="keyword14 " message="$(string.string232)" />
+			<event value="1106" version="0" template="tid_39" opcode="win:Info" channel="channel0" level="win:Informational" task="task106" keywords="keyword4 keyword7 keyword14 " message="$(string.string234)" />
+			<event value="1105" version="0" template="tid_47" opcode="win:Info" channel="channel0" level="win:Informational" task="task107" keywords="keyword2 keyword13 keyword19 " message="$(string.string236)" />
+			<event value="1104" version="0" template="tid_47" opcode="win:Info" channel="channel0" level="win:Informational" task="task108" keywords="keyword2 keyword13 keyword19 " message="$(string.string238)" />
+			<event value="1103" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Informational" task="task109" keywords="keyword7 keyword8 " message="$(string.string240)" />
+			<event value="1102" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Informational" task="task110" keywords="keyword7 keyword8 " message="$(string.string242)" />
+			<event value="1101" version="0" template="tid_48" opcode="win:Info" channel="channel0" level="win:Verbose" task="task111" keywords="keyword7 keyword8 " message="$(string.string244)" />
+			<event value="1100" version="0" template="tid_48" opcode="win:Info" channel="channel0" level="win:Informational" task="task112" keywords="keyword7 keyword8 " message="$(string.string246)" />
+			<event value="1099" version="0" template="tid_49" opcode="win:Info" channel="channel0" level="win:Informational" task="task113" keywords="keyword2 keyword7 keyword19 " message="$(string.string248)" />
+			<event value="1098" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task114" keywords="keyword14 " message="$(string.string250)" />
+			<event value="1097" version="0" template="tid_50" opcode="win:Info" channel="channel0" level="win:Informational" task="task115" keywords="keyword9 " message="$(string.string252)" />
+			<event value="1096" version="0" template="tid_50" opcode="win:Info" channel="channel0" level="win:Informational" task="task116" keywords="keyword7 keyword9 " message="$(string.string254)" />
+			<event value="1095" version="0" template="tid_50" opcode="win:Info" channel="channel0" level="win:Informational" task="task117" keywords="keyword7 keyword9 " message="$(string.string256)" />
+			<event value="1094" version="0" template="tid_50" opcode="win:Info" channel="channel0" level="win:Informational" task="task118" keywords="keyword7 keyword9 " message="$(string.string258)" />
+			<event value="1093" version="0" template="tid_50" opcode="win:Info" channel="channel0" level="win:Verbose" task="task119" keywords="keyword9 " message="$(string.string260)" />
+			<event value="1092" version="0" template="tid_50" opcode="win:Info" channel="channel0" level="win:Verbose" task="task120" keywords="keyword9 " message="$(string.string262)" />
+			<event value="1091" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task121" keywords="keyword8 " message="$(string.string264)" />
+			<event value="1090" version="0" template="tid_51" opcode="win:Info" channel="channel0" level="win:Verbose" task="task122" keywords="keyword9 " message="$(string.string266)" />
+			<event value="1089" version="0" template="tid_31" opcode="win:Info" channel="channel0" level="win:Informational" task="task123" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string268)" />
+			<event value="1088" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task124" keywords="keyword7 keyword8 " message="$(string.string270)" />
+			<event value="1087" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task125" keywords="keyword7 keyword8 " message="$(string.string272)" />
+			<event value="1086" version="0" template="tid_52" opcode="win:Info" channel="channel0" level="win:Informational" task="task126" keywords="keyword7 keyword14 " message="$(string.string274)" />
+			<event value="1085" version="0" template="tid_52" opcode="win:Info" channel="channel0" level="win:Informational" task="task127" keywords="keyword7 keyword14 " message="$(string.string276)" />
+			<event value="1084" version="0" template="tid_52" opcode="win:Info" channel="channel0" level="win:Informational" task="task128" keywords="keyword7 keyword14 " message="$(string.string278)" />
+			<event value="1082" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task129" keywords="keyword7 keyword9 " message="$(string.string280)" />
+			<event value="1081" version="0" template="tid_18" opcode="win:Info" channel="channel0" level="win:Informational" task="task130" keywords="keyword7 keyword9 " message="$(string.string282)" />
+			<event value="1080" version="0" template="tid_18" opcode="win:Info" channel="channel0" level="win:Informational" task="task131" keywords="keyword7 keyword9 " message="$(string.string284)" />
+			<event value="1079" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Informational" task="task132" keywords="keyword7 keyword9 " message="$(string.string286)" />
+			<event value="1078" version="0" template="tid_21" opcode="win:Info" channel="channel0" level="win:Informational" task="task133" keywords="keyword7 keyword9 " message="$(string.string288)" />
+			<event value="1077" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task134" keywords="keyword7 keyword8 " message="$(string.string290)" />
+			<event value="1076" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task135" keywords="keyword7 keyword8 " message="$(string.string292)" />
+			<event value="1075" version="0" template="tid_34" opcode="win:Info" channel="channel0" level="win:Informational" task="task136" keywords="keyword9 " message="$(string.string294)" />
+			<event value="1074" version="0" template="tid_53" opcode="win:Info" channel="channel0" level="win:Informational" task="task137" keywords="keyword9 " message="$(string.string296)" />
+			<event value="1073" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task138" keywords="keyword8 " message="$(string.string298)" />
+			<event value="1072" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task139" keywords="keyword9 " message="$(string.string300)" />
+			<event value="1071" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task140" keywords="keyword8 " message="$(string.string302)" />
+			<event value="1070" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Verbose" task="task141" keywords="keyword8 " message="$(string.string304)" />
+			<event value="1069" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Verbose" task="task142" keywords="keyword7 keyword8 " message="$(string.string306)" />
+			<event value="1068" version="0" template="tid_54" opcode="win:Info" channel="channel0" level="win:Informational" task="task143" keywords="keyword7 keyword14 " message="$(string.string308)" />
+			<event value="1067" version="0" template="tid_55" opcode="win:Info" channel="channel0" level="win:Informational" task="task144" keywords="keyword2 keyword7 keyword19 " message="$(string.string310)" />
+			<event value="1066" version="0" template="tid_56" opcode="win:Info" channel="channel0" level="win:Verbose" task="task145" keywords="keyword2 keyword19 " message="$(string.string312)" />
+			<event value="1065" version="0" template="tid_56" opcode="win:Info" channel="channel0" level="win:Verbose" task="task146" keywords="keyword2 keyword19 " message="$(string.string314)" />
+			<event value="1064" version="0" template="tid_56" opcode="win:Info" channel="channel0" level="win:Verbose" task="task147" keywords="keyword2 keyword19 " message="$(string.string316)" />
+			<event value="1063" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Informational" task="task148" keywords="keyword7 keyword14 " message="$(string.string318)" />
+			<event value="1062" version="0" template="tid_58" opcode="win:Info" channel="channel0" level="win:Informational" task="task149" keywords="keyword4 keyword14 " message="$(string.string320)" />
+			<event value="1061" version="0" template="tid_58" opcode="win:Info" channel="channel0" level="win:Informational" task="task150" keywords="keyword4 keyword14 " message="$(string.string322)" />
+			<event value="1060" version="0" template="tid_59" opcode="win:Info" channel="channel0" level="win:Informational" task="task151" keywords="keyword7 keyword14 " message="$(string.string324)" />
+			<event value="1059" version="0" template="tid_59" opcode="win:Info" channel="channel0" level="win:Warning" task="task152" keywords="keyword7 keyword14 " message="$(string.string326)" />
+			<event value="1058" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Warning" task="task153" keywords="keyword7 keyword14 " message="$(string.string328)" />
+			<event value="1057" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Warning" task="task154" keywords="keyword7 keyword14 " message="$(string.string330)" />
+			<event value="1056" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Warning" task="task155" keywords="keyword7 keyword14 " message="$(string.string332)" />
+			<event value="1055" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Warning" task="task156" keywords="keyword7 keyword14 " message="$(string.string334)" />
+			<event value="1054" version="0" template="tid_60" opcode="win:Info" channel="channel0" level="win:Informational" task="task157" keywords="keyword7 keyword14 " message="$(string.string336)" />
+			<event value="1053" version="0" template="tid_60" opcode="win:Info" channel="channel0" level="win:Informational" task="task158" keywords="keyword0 keyword3 keyword19 " message="$(string.string338)" />
+			<event value="1052" version="0" template="tid_60" opcode="win:Info" channel="channel0" level="win:Informational" task="task159" keywords="keyword0 keyword3 keyword19 " message="$(string.string340)" />
+			<event value="1051" version="0" template="tid_61" opcode="win:Info" channel="channel0" level="win:Informational" task="task160" keywords="keyword2 keyword19 " message="$(string.string342)" />
+			<event value="1050" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task161" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string344)" />
+			<event value="1049" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task162" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string346)" />
+			<event value="1048" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task163" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string348)" />
+			<event value="1047" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task164" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string350)" />
+			<event value="1046" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task165" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string352)" />
+			<event value="1045" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task166" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string354)" />
+			<event value="1044" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task167" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string356)" />
+			<event value="1043" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task168" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string358)" />
+			<event value="1042" version="0" template="tid_62" opcode="win:Info" channel="channel0" level="win:Informational" task="task169" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string360)" />
+			<event value="1041" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task170" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string362)" />
+			<event value="1040" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task171" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string364)" />
+			<event value="1039" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task172" keywords="keyword2 keyword7 keyword11 keyword19 " message="$(string.string366)" />
+			<event value="1038" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task173" keywords="keyword2 keyword11 keyword19 " message="$(string.string368)" />
+			<event value="1037" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task174" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string370)" />
+			<event value="1036" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task175" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string372)" />
+			<event value="1035" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task176" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string374)" />
+			<event value="1034" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task177" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string376)" />
+			<event value="1033" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task178" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string378)" />
+			<event value="1032" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task179" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string380)" />
+			<event value="1031" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task180" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string382)" />
+			<event value="1030" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task181" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string384)" />
+			<event value="1029" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task182" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string386)" />
+			<event value="1028" version="0" template="tid_63" opcode="win:Info" channel="channel0" level="win:Informational" task="task183" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string388)" />
+			<event value="1027" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task184" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string390)" />
+			<event value="1026" version="0" template="tid_63" opcode="win:Info" channel="channel0" level="win:Informational" task="task185" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string392)" />
+			<event value="1025" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Informational" task="task186" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string394)" />
+			<event value="1024" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task187" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string396)" />
+			<event value="1023" version="0" template="tid_63" opcode="win:Info" channel="channel0" level="win:Informational" task="task188" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string398)" />
+			<event value="1022" version="0" template="tid_63" opcode="win:Info" channel="channel0" level="win:Informational" task="task189" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string400)" />
+			<event value="1021" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task190" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string402)" />
+			<event value="1020" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task191" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string404)" />
+			<event value="1019" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task192" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string406)" />
+			<event value="1018" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task193" keywords="keyword2 keyword7 keyword10 keyword19 " message="$(string.string408)" />
+			<event value="1017" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task194" keywords="keyword1 keyword2 keyword7 keyword10 keyword19 " message="$(string.string410)" />
+			<event value="1016" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task195" keywords="keyword1 keyword2 keyword7 keyword10 keyword19 " message="$(string.string412)" />
+			<event value="1015" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task196" keywords="keyword1 keyword2 keyword7 keyword10 keyword19 " message="$(string.string414)" />
+			<event value="1014" version="0" template="tid_20" opcode="win:Info" channel="channel0" level="win:Informational" task="task197" keywords="keyword1 keyword2 keyword7 keyword10 keyword19 " message="$(string.string416)" />
+			<event value="1013" version="0" template="tid_64" opcode="win:Info" channel="channel0" level="win:Informational" task="task198" keywords="keyword0 keyword19 " message="$(string.string418)" />
+			<event value="1012" version="0" template="tid_64" opcode="win:Info" channel="channel0" level="win:Informational" task="task199" keywords="keyword0 keyword19 " message="$(string.string420)" />
+			<event value="1011" version="0" template="tid_64" opcode="win:Info" channel="channel0" level="win:Informational" task="task200" keywords="keyword0 keyword19 " message="$(string.string422)" />
+			<event value="1010" version="0" template="tid_64" opcode="win:Info" channel="channel0" level="win:Informational" task="task201" keywords="keyword0 keyword19 " message="$(string.string424)" />
+			<event value="1009" version="0" template="tid_65" opcode="win:Info" channel="channel0" level="win:Informational" task="task202" keywords="keyword0 keyword11 keyword19 " message="$(string.string426)" />
+			<event value="1008" version="0" template="tid_65" opcode="win:Info" channel="channel0" level="win:Informational" task="task203" keywords="keyword0 keyword3 keyword19 " message="$(string.string428)" />
+			<event value="1007" version="0" template="tid_65" opcode="win:Info" channel="channel0" level="win:Informational" task="task204" keywords="keyword0 keyword3 keyword19 " message="$(string.string430)" />
+			<event value="1006" version="0" template="tid_65" opcode="win:Info" channel="channel0" level="win:Informational" task="task205" keywords="keyword0 keyword3 keyword19 " message="$(string.string432)" />
+			<event value="1005" version="0" template="tid_65" opcode="win:Info" channel="channel0" level="win:Informational" task="task206" keywords="keyword0 keyword3 keyword19 " message="$(string.string434)" />
+			<event value="1004" version="0" template="tid_66" opcode="win:Info" channel="channel0" level="win:Informational" task="task207" keywords="keyword7 keyword8 keyword10 " message="$(string.string436)" />
+			<event value="1003" version="0" template="tid_31" opcode="win:Info" channel="channel0" level="win:Informational" task="task208" keywords="keyword7 keyword10 keyword19 " message="$(string.string438)" />
+			<event value="1002" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task209" keywords="keyword7 keyword10 keyword19 " message="$(string.string440)" />
+			<event value="1001" version="0" template="tid_67" opcode="win:Info" channel="channel0" level="win:Informational" task="task210" keywords="keyword19 " message="$(string.string442)" />
+		</events>
+		<channels>
+			<channel value="16" chid="channel0" name="Microsoft-Windows-TCPIP/Diagnostic" type="Debug" />
+		</channels>
+		<keywords>
+			<keyword name="keyword0" mask="0x1" message="$(string.string0)" />
+			<keyword name="keyword1" mask="0x2" message="$(string.string1)" />
+			<keyword name="keyword2" mask="0x4" message="$(string.string2)" />
+			<keyword name="keyword3" mask="0x8" message="$(string.string3)" />
+			<keyword name="keyword4" mask="0x10" message="$(string.string4)" />
+			<keyword name="keyword5" mask="0x20" message="$(string.string5)" />
+			<keyword name="keyword6" mask="0x40" message="$(string.string6)" />
+			<keyword name="keyword7" mask="0x80" message="$(string.string7)" />
+			<keyword name="keyword8" mask="0x100000000" message="$(string.string8)" />
+			<keyword name="keyword9" mask="0x200000000" message="$(string.string9)" />
+			<keyword name="keyword10" mask="0x400000000" message="$(string.string10)" />
+			<keyword name="keyword11" mask="0x800000000" message="$(string.string11)" />
+			<keyword name="keyword12" mask="0x1000000000" message="$(string.string12)" />
+			<keyword name="keyword13" mask="0x2000000000" message="$(string.string13)" />
+			<keyword name="keyword14" mask="0x4000000000" message="$(string.string14)" />
+			<keyword name="keyword15" mask="0x8000000000" message="$(string.string15)" />
+			<keyword name="keyword16" mask="0x10000000000" message="$(string.string16)" />
+			<keyword name="keyword17" mask="0x20000000000" message="$(string.string17)" />
+			<keyword name="keyword18" mask="0x40000000000" message="$(string.string18)" />
+			<keyword name="keyword19" mask="0x80000000000" message="$(string.string19)" />
+			<keyword name="keyword20" mask="0x100000000000" message="$(string.string20)" />
+			<keyword name="keyword21" mask="0x200000000000" message="$(string.string21)" />
+			<keyword name="keyword22" mask="0x400000000000" message="$(string.string22)" />
+		</keywords>
+		<tasks>
+			<task value="1300" name="task0" message="$(string.string23)" />
+			<task value="1225" name="task1" message="$(string.string25)" />
+			<task value="1224" name="task2" message="$(string.string27)" />
+			<task value="1223" name="task3" message="$(string.string29)" />
+			<task value="1222" name="task4" message="$(string.string31)" />
+			<task value="1221" name="task5" message="$(string.string33)" />
+			<task value="1220" name="task6" message="$(string.string35)" />
+			<task value="1219" name="task7" message="$(string.string37)" />
+			<task value="1218" name="task8" message="$(string.string39)" />
+			<task value="1217" name="task9" message="$(string.string41)" />
+			<task value="1216" name="task10" message="$(string.string43)" />
+			<task value="1215" name="task11" message="$(string.string45)" />
+			<task value="1214" name="task12" message="$(string.string47)" />
+			<task value="1213" name="task13" message="$(string.string49)" />
+			<task value="1212" name="task14" message="$(string.string51)" />
+			<task value="1211" name="task15" message="$(string.string53)" />
+			<task value="1210" name="task16" message="$(string.string55)" />
+			<task value="1209" name="task17" message="$(string.string57)" />
+			<task value="1208" name="task18" message="$(string.string58)" />
+			<task value="1207" name="task19" message="$(string.string60)" />
+			<task value="1206" name="task20" message="$(string.string61)" />
+			<task value="1205" name="task21" message="$(string.string63)" />
+			<task value="1204" name="task22" message="$(string.string65)" />
+			<task value="1203" name="task23" message="$(string.string67)" />
+			<task value="1202" name="task24" message="$(string.string69)" />
+			<task value="1201" name="task25" message="$(string.string71)" />
+			<task value="1200" name="task26" message="$(string.string73)" />
+			<task value="1199" name="task27" message="$(string.string75)" />
+			<task value="1198" name="task28" message="$(string.string77)" />
+			<task value="1197" name="task29" message="$(string.string79)" />
+			<task value="1196" name="task30" message="$(string.string81)" />
+			<task value="1195" name="task31" message="$(string.string83)" />
+			<task value="1194" name="task32" message="$(string.string85)" />
+			<task value="1193" name="task33" message="$(string.string87)" />
+			<task value="1192" name="task34" message="$(string.string89)" />
+			<task value="1191" name="task35" message="$(string.string91)" />
+			<task value="1190" name="task36" message="$(string.string93)" />
+			<task value="1189" name="task37" message="$(string.string95)" />
+			<task value="1188" name="task38" message="$(string.string97)" />
+			<task value="1187" name="task39" message="$(string.string99)" />
+			<task value="1186" name="task40" message="$(string.string101)" />
+			<task value="1185" name="task41" message="$(string.string103)" />
+			<task value="1184" name="task42" message="$(string.string105)" />
+			<task value="1183" name="task43" message="$(string.string107)" />
+			<task value="1182" name="task44" message="$(string.string109)" />
+			<task value="1181" name="task45" message="$(string.string111)" />
+			<task value="1180" name="task46" message="$(string.string113)" />
+			<task value="1178" name="task47" message="$(string.string115)" />
+			<task value="1176" name="task48" message="$(string.string117)" />
+			<task value="1175" name="task49" message="$(string.string119)" />
+			<task value="1174" name="task50" message="$(string.string121)" />
+			<task value="1173" name="task51" message="$(string.string123)" />
+			<task value="1172" name="task52" message="$(string.string125)" />
+			<task value="1171" name="task53" message="$(string.string127)" />
+			<task value="1170" name="task54" message="$(string.string129)" />
+			<task value="1169" name="task55" message="$(string.string131)" />
+			<task value="1168" name="task56" message="$(string.string133)" />
+			<task value="1167" name="task57" message="$(string.string135)" />
+			<task value="1166" name="task58" message="$(string.string137)" />
+			<task value="1165" name="task59" message="$(string.string139)" />
+			<task value="1164" name="task60" message="$(string.string141)" />
+			<task value="1163" name="task61" message="$(string.string143)" />
+			<task value="1162" name="task62" message="$(string.string145)" />
+			<task value="1161" name="task63" message="$(string.string147)" />
+			<task value="1160" name="task64" message="$(string.string149)" />
+			<task value="1159" name="task65" message="$(string.string151)" />
+			<task value="1158" name="task66" message="$(string.string153)" />
+			<task value="1157" name="task67" message="$(string.string155)" />
+			<task value="1156" name="task68" message="$(string.string157)" />
+			<task value="1155" name="task69" message="$(string.string159)" />
+			<task value="1154" name="task70" message="$(string.string161)" />
+			<task value="1153" name="task71" message="$(string.string163)" />
+			<task value="1152" name="task72" message="$(string.string165)" />
+			<task value="1151" name="task73" message="$(string.string167)" />
+			<task value="1150" name="task74" message="$(string.string169)" />
+			<task value="1149" name="task75" message="$(string.string171)" />
+			<task value="1148" name="task76" message="$(string.string173)" />
+			<task value="1147" name="task77" message="$(string.string175)" />
+			<task value="1146" name="task78" message="$(string.string177)" />
+			<task value="1145" name="task79" message="$(string.string179)" />
+			<task value="1144" name="task80" message="$(string.string181)" />
+			<task value="1139" name="task81" message="$(string.string183)" />
+			<task value="1138" name="task82" message="$(string.string185)" />
+			<task value="1137" name="task83" message="$(string.string187)" />
+			<task value="1136" name="task84" message="$(string.string189)" />
+			<task value="1130" name="task85" message="$(string.string191)" />
+			<task value="1128" name="task86" message="$(string.string193)" />
+			<task value="1127" name="task87" message="$(string.string195)" />
+			<task value="1124" name="task88" message="$(string.string197)" />
+			<task value="1123" name="task89" message="$(string.string199)" />
+			<task value="1122" name="task90" message="$(string.string201)" />
+			<task value="1121" name="task91" message="$(string.string203)" />
+			<task value="1120" name="task92" message="$(string.string205)" />
+			<task value="1119" name="task93" message="$(string.string207)" />
+			<task value="1118" name="task94" message="$(string.string209)" />
+			<task value="1117" name="task95" message="$(string.string211)" />
+			<task value="1116" name="task96" message="$(string.string213)" />
+			<task value="1115" name="task97" message="$(string.string215)" />
+			<task value="1114" name="task98" message="$(string.string217)" />
+			<task value="1113" name="task99" message="$(string.string219)" />
+			<task value="1112" name="task100" message="$(string.string221)" />
+			<task value="1111" name="task101" message="$(string.string223)" />
+			<task value="1110" name="task102" message="$(string.string225)" />
+			<task value="1109" name="task103" message="$(string.string227)" />
+			<task value="1108" name="task104" message="$(string.string229)" />
+			<task value="1107" name="task105" message="$(string.string231)" />
+			<task value="1106" name="task106" message="$(string.string233)" />
+			<task value="1105" name="task107" message="$(string.string235)" />
+			<task value="1104" name="task108" message="$(string.string237)" />
+			<task value="1103" name="task109" message="$(string.string239)" />
+			<task value="1102" name="task110" message="$(string.string241)" />
+			<task value="1101" name="task111" message="$(string.string243)" />
+			<task value="1100" name="task112" message="$(string.string245)" />
+			<task value="1099" name="task113" message="$(string.string247)" />
+			<task value="1098" name="task114" message="$(string.string249)" />
+			<task value="1097" name="task115" message="$(string.string251)" />
+			<task value="1096" name="task116" message="$(string.string253)" />
+			<task value="1095" name="task117" message="$(string.string255)" />
+			<task value="1094" name="task118" message="$(string.string257)" />
+			<task value="1093" name="task119" message="$(string.string259)" />
+			<task value="1092" name="task120" message="$(string.string261)" />
+			<task value="1091" name="task121" message="$(string.string263)" />
+			<task value="1090" name="task122" message="$(string.string265)" />
+			<task value="1089" name="task123" message="$(string.string267)" />
+			<task value="1088" name="task124" message="$(string.string269)" />
+			<task value="1087" name="task125" message="$(string.string271)" />
+			<task value="1086" name="task126" message="$(string.string273)" />
+			<task value="1085" name="task127" message="$(string.string275)" />
+			<task value="1084" name="task128" message="$(string.string277)" />
+			<task value="1082" name="task129" message="$(string.string279)" />
+			<task value="1081" name="task130" message="$(string.string281)" />
+			<task value="1080" name="task131" message="$(string.string283)" />
+			<task value="1079" name="task132" message="$(string.string285)" />
+			<task value="1078" name="task133" message="$(string.string287)" />
+			<task value="1077" name="task134" message="$(string.string289)" />
+			<task value="1076" name="task135" message="$(string.string291)" />
+			<task value="1075" name="task136" message="$(string.string293)" />
+			<task value="1074" name="task137" message="$(string.string295)" />
+			<task value="1073" name="task138" message="$(string.string297)" />
+			<task value="1072" name="task139" message="$(string.string299)" />
+			<task value="1071" name="task140" message="$(string.string301)" />
+			<task value="1070" name="task141" message="$(string.string303)" />
+			<task value="1069" name="task142" message="$(string.string305)" />
+			<task value="1068" name="task143" message="$(string.string307)" />
+			<task value="1067" name="task144" message="$(string.string309)" />
+			<task value="1066" name="task145" message="$(string.string311)" />
+			<task value="1065" name="task146" message="$(string.string313)" />
+			<task value="1064" name="task147" message="$(string.string315)" />
+			<task value="1063" name="task148" message="$(string.string317)" />
+			<task value="1062" name="task149" message="$(string.string319)" />
+			<task value="1061" name="task150" message="$(string.string321)" />
+			<task value="1060" name="task151" message="$(string.string323)" />
+			<task value="1059" name="task152" message="$(string.string325)" />
+			<task value="1058" name="task153" message="$(string.string327)" />
+			<task value="1057" name="task154" message="$(string.string329)" />
+			<task value="1056" name="task155" message="$(string.string331)" />
+			<task value="1055" name="task156" message="$(string.string333)" />
+			<task value="1054" name="task157" message="$(string.string335)" />
+			<task value="1053" name="task158" message="$(string.string337)" />
+			<task value="1052" name="task159" message="$(string.string339)" />
+			<task value="1051" name="task160" message="$(string.string341)" />
+			<task value="1050" name="task161" message="$(string.string343)" />
+			<task value="1049" name="task162" message="$(string.string345)" />
+			<task value="1048" name="task163" message="$(string.string347)" />
+			<task value="1047" name="task164" message="$(string.string349)" />
+			<task value="1046" name="task165" message="$(string.string351)" />
+			<task value="1045" name="task166" message="$(string.string353)" />
+			<task value="1044" name="task167" message="$(string.string355)" />
+			<task value="1043" name="task168" message="$(string.string357)" />
+			<task value="1042" name="task169" message="$(string.string359)" />
+			<task value="1041" name="task170" message="$(string.string361)" />
+			<task value="1040" name="task171" message="$(string.string363)" />
+			<task value="1039" name="task172" message="$(string.string365)" />
+			<task value="1038" name="task173" message="$(string.string367)" />
+			<task value="1037" name="task174" message="$(string.string369)" />
+			<task value="1036" name="task175" message="$(string.string371)" />
+			<task value="1035" name="task176" message="$(string.string373)" />
+			<task value="1034" name="task177" message="$(string.string375)" />
+			<task value="1033" name="task178" message="$(string.string377)" />
+			<task value="1032" name="task179" message="$(string.string379)" />
+			<task value="1031" name="task180" message="$(string.string381)" />
+			<task value="1030" name="task181" message="$(string.string383)" />
+			<task value="1029" name="task182" message="$(string.string385)" />
+			<task value="1028" name="task183" message="$(string.string387)" />
+			<task value="1027" name="task184" message="$(string.string389)" />
+			<task value="1026" name="task185" message="$(string.string391)" />
+			<task value="1025" name="task186" message="$(string.string393)" />
+			<task value="1024" name="task187" message="$(string.string395)" />
+			<task value="1023" name="task188" message="$(string.string397)" />
+			<task value="1022" name="task189" message="$(string.string399)" />
+			<task value="1021" name="task190" message="$(string.string401)" />
+			<task value="1020" name="task191" message="$(string.string403)" />
+			<task value="1019" name="task192" message="$(string.string405)" />
+			<task value="1018" name="task193" message="$(string.string407)" />
+			<task value="1017" name="task194" message="$(string.string409)" />
+			<task value="1016" name="task195" message="$(string.string411)" />
+			<task value="1015" name="task196" message="$(string.string413)" />
+			<task value="1014" name="task197" message="$(string.string415)" />
+			<task value="1013" name="task198" message="$(string.string417)" />
+			<task value="1012" name="task199" message="$(string.string419)" />
+			<task value="1011" name="task200" message="$(string.string421)" />
+			<task value="1010" name="task201" message="$(string.string423)" />
+			<task value="1009" name="task202" message="$(string.string425)" />
+			<task value="1008" name="task203" message="$(string.string427)" />
+			<task value="1007" name="task204" message="$(string.string429)" />
+			<task value="1006" name="task205" message="$(string.string431)" />
+			<task value="1005" name="task206" message="$(string.string433)" />
+			<task value="1004" name="task207" message="$(string.string435)" />
+			<task value="1003" name="task208" message="$(string.string437)" />
+			<task value="1002" name="task209" message="$(string.string439)" />
+			<task value="1001" name="task210" message="$(string.string441)" />
+		</tasks>
+		<templates>
+			<template tid="tid_0">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="RemoteAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteAddress" inType="win:Binary" outType="win:SocketAddress" length="RemoteAddressLength"></data>
+				<data name="State" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_CONNECTION_STATE_ValueMap"></data>
+				<data name="Pid" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_1">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SndRound" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EcnTotalByteCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EcnTotalMarkedCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ThAck" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EcnAlpha" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_2">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="TemplateType" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_TEMPLATE_TYPE_ValueMap"></data>
+				<data name="Context" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_3">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="TemplateType" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_TEMPLATE_TYPE_ValueMap"></data>
+				<data name="MinRto" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="InitialCwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="MaxDataRetransmissions" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DelayedAckTicks" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_4">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="OldCwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NewCwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TimerValue" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_5">
+				<data name="Epoch" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LowNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HighNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EpochStartTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="EpochStopTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="SynDropRate" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TcbAbortionRate" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="CurrentWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_6">
+				<data name="Epoch" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LowNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HighNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EpochStartTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="EpochStopTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="OldSynDropRate" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NewSynDropRate" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="OldTcbAbortionRate" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NewTcbAbortionRate" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="CurrentWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_7">
+				<data name="LowNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HighNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EpisodeStartTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="EpisodeStopTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="ReentryWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_8">
+				<data name="LowNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HighNppEventState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EpisodeStartTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="EpisodeStopTick" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="CurrentWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LowWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ReentryWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_9">
+				<data name="PhysicalPages" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NonPagedPoolPages" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="CurrentWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="PeakWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HighWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LowWatermark" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_10">
+				<data name="IPTransportProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Transport_Protocol_ValueMap"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+				<data name="Source IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="Dest IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IPv6SourceIpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv6 Source Address" inType="win:Binary" outType="win:IPv6" length="IPv6SourceIpAddrLength"></data>
+				<data name="IPv6DestIpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv6 Dest Address" inType="win:Binary" outType="win:IPv6" length="IPv6DestIpAddrLength"></data>
+				<data name="Reason" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_NETWORK_PACKET_DROP_REASON_ValueMap"></data>
+				<data name="PacketCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Protocol_ValueMap"></data>
+			</template>
+			<template tid="tid_11">
+				<data name="IPTransportProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Transport_Protocol_ValueMap"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+				<data name="LocalSockAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalSockAddr" inType="win:Binary" outType="win:SocketAddress" length="LocalSockAddrLength"></data>
+				<data name="RemoteSockAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteSockAddr" inType="win:Binary" outType="win:SocketAddress" length="RemoteSockAddrLength"></data>
+				<data name="Reason" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_TRANSPORT_PACKET_DROP_REASON_ValueMap"></data>
+				<data name="PacketCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_12">
+				<data name="OldEnabledState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NewEnabledState" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="OldThreshold" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NewThreshold" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_13">
+				<data name="Profile" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="State" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Qualified" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="EreQualified" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_14">
+				<data name="TcpWsdEtwPoint" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_WSD_ValueMap"></data>
+				<data name="Processor" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Entry" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="OldState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_WSD_CACHE_ENTRY_STATE_ValueMap"></data>
+				<data name="NewState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_WSD_CACHE_ENTRY_STATE_ValueMap"></data>
+				<data name="ProbeCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ProbeCountWs" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_15">
+				<data name="TcpWsdEtwPoint" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_WSD_ValueMap"></data>
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_16">
+				<data name="TcpWsdEtwPoint" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_WSD_ValueMap"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+			</template>
+			<template tid="tid_17">
+				<data name="Nbl" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="IPTransportProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Transport_Protocol_ValueMap"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+				<data name="Source IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="Dest IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IPv6SourceIpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv6 Source Address" inType="win:Binary" outType="win:IPv6" length="IPv6SourceIpAddrLength"></data>
+				<data name="IPv6DestIpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv6 Dest Address" inType="win:Binary" outType="win:IPv6" length="IPv6DestIpAddrLength"></data>
+				<data name="Reason" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_SLOW_PATH_REASON_ValueMap"></data>
+				<data name="NblCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Protocol_ValueMap"></data>
+			</template>
+			<template tid="tid_18">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SndUna" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SndMax" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Reason" inType="win:UnicodeString" outType="xs:string"></data>
+				<data name="IsSack" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+			</template>
+			<template tid="tid_19">
+				<data name="IfIndex" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LinkSpeed" inType="win:UInt64" outType="xs:unsignedLong"></data>
+				<data name="IPProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Protocol_ValueMap"></data>
+				<data name="IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv6 Address" inType="win:Binary" outType="win:IPv6" length="IpAddrLength"></data>
+				<data name="PhysicalMediumType" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_IP_PHYSICALMEDIUM_TYPE_ValueMap"></data>
+			</template>
+			<template tid="tid_20">
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="RemoteAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteAddress" inType="win:Binary" outType="win:SocketAddress" length="RemoteAddressLength"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="ProcessId" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Compartment" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_21">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SndUna" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SndMax" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_22">
+				<data name="PortAcquirer" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="PortNumber" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="WeakReference" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="OriginalAcquirer" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_23">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Delivery" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="NumBytes" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="RequestFlags" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Length" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="RequestStatus" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="IsUrgentDelivery" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="FullySatisfiedORDelayedPush" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RcvNxt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_24">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Delivery" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="OldDeliveryState" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_TCP_DELIVERY_STATE_ValueMap"></data>
+				<data name="NewDeliveryState" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_TCP_DELIVERY_STATE_ValueMap"></data>
+			</template>
+			<template tid="tid_25">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="RemoteAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteAddress" inType="win:Binary" outType="win:SocketAddress" length="RemoteAddressLength"></data>
+				<data name="NewState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_CONNECTION_STATE_ValueMap"></data>
+				<data name="RexmitCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_26">
+				<data name="Endpoint" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="NumMessages" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NumBytes" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalSockAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalSockAddr" inType="win:Binary" outType="win:SocketAddress" length="LocalSockAddrLength"></data>
+				<data name="RemoteSockAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteSockAddr" inType="win:Binary" outType="win:SocketAddress" length="RemoteSockAddrLength"></data>
+				<data name="Pid" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_27">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SeqNum" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Tick" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RttSample" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NewSrtt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_28">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Gamma" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AverageBacklog" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AverageBacklogAcrossLFP" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_29">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="DWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="PrevDWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="BaseRtt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AvgRtt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Cwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DiffWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DwndIncrement" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_30">
+				<data name="AssignedBlocks" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AllocatedBlocks" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_31">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+			</template>
+			<template tid="tid_32">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Injected" inType="win:UnicodeString" outType="xs:string"></data>
+				<data name="NumBytes" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SndNxt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_33">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Cwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SSThresh" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RttSample" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NumBytes" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SeqNo" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SndUna" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Round" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SRTT" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RTO" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="BaseRtt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DupAckCount" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_34">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Cwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SSThresh" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SndUna" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Mss" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ThAck" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="BaseRtt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_35">
+				<data name="Interface" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DlAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DlAddress" inType="win:Binary" outType="xs:hexBinary" length="DlAddrLength"></data>
+				<data name="IpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IPv6 Address" inType="win:Binary" outType="win:IPv6" length="IpAddrLength"></data>
+				<data name="IPProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Protocol_ValueMap"></data>
+			</template>
+			<template tid="tid_36">
+				<data name="Route" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Interface" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DestinationPrefixAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NextHopAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Protocol" inType="win:AnsiString" outType="xs:string"></data>
+				<data name="DestinationPrefixLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DestinationPrefix" inType="win:Binary" outType="win:IPv6" length="DestinationPrefixAddressLength"></data>
+				<data name="NextHopAddress" inType="win:Binary" outType="win:IPv6" length="NextHopAddressLength"></data>
+				<data name="ValidLifetime" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="PreferredLifetime" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="Metric" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Loopback" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="AutoconfigureAddress" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="Publish" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="Immortal" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="IPv4 DestinationPrefix" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IPv4 NextHopAddress" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IPProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Protocol_ValueMap"></data>
+			</template>
+			<template tid="tid_37">
+				<data name="Interface" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Advertise" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="AdvertiseDefaultRoute" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="Forward" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="ForwardMulticast" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="UseNud" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+				<data name="AdvertisingEnabled" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_BOOLEAN_ValueMap"></data>
+			</template>
+			<template tid="tid_38">
+				<data name="Interface" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Protocol" inType="win:AnsiString" outType="xs:string"></data>
+				<data name="DadState" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_IP_DAD_STATE_ValueMap"></data>
+				<data name="DlAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DLAddress" inType="win:Binary" outType="xs:hexBinary" length="DlAddrLength"></data>
+				<data name="IpAddrLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="IPv4 Address" inType="win:UInt32" outType="win:IPv4"></data>
+				<data name="IPv6 Address" inType="win:Binary" outType="win:IPv6" length="IpAddrLength"></data>
+				<data name="IPProtocol" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_Protocol_ValueMap"></data>
+			</template>
+			<template tid="tid_39">
+				<data name="InterfaceIndex" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TraceString" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_40">
+				<data name="Interface" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="OperationalStatus" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_IP_IF_STATUS_ValueMap"></data>
+				<data name="Status" inType="win:UInt64" outType="xs:unsignedLong"></data>
+			</template>
+			<template tid="tid_41">
+				<data name="Listener" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="AddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SocketAddress" inType="win:Binary" outType="win:SocketAddress" length="AddressLength"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="ProcessId" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="CompartmentId" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+			</template>
+			<template tid="tid_42">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="Interface" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="PMax" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_43">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="BytesInSegment" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="BytesRemaining" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_44">
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+				<data name="EnablePMTUDiscovery" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="TcpUseRFC1122UrgentPointer" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="DisableTaskOffload" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="EnablePMTUBHDetect" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="DisableTcpChimneyOffload" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="DisableRss" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="EcnCapability" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="TcpMaxDataRetransmissions" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="KeepAliveTime" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="KeepAliveInterval" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TcpTimedWaitDelay" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SillyWindowTimeout" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TcpFinWait2Delay" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="CongestionAlgorithm" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="Tcp1323Opts" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="AutoTuningLevelLocal" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AutoTuningLevelGroupPolicy" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_45">
+				<data name="AllocationObjectString" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_46">
+				<data name="ModuleNameString" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_47">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="OptionType" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_OPTION_TYPE_ValueMap"></data>
+				<data name="SoOptionType" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_SO_OPTION_TYPE_ValueMap"></data>
+			</template>
+			<template tid="tid_48">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="TimerValue" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="BytesToSend" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SendAvailable" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Cwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="MaxSndWnd" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_49">
+				<data name="TcbState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_CONNECTION_STATE_ValueMap"></data>
+				<data name="OcbState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_CONNECTION_OFFLOAD_STATE_ValueMap"></data>
+				<data name="SndNxt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RcvNxt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+			</template>
+			<template tid="tid_50">
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="RemoteAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteAddress" inType="win:Binary" outType="win:SocketAddress" length="RemoteAddressLength"></data>
+				<data name="BufferSize" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_51">
+				<data name="NBL" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_52">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="BHMSS" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="OriginalMSS" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TraceString" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_53">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="NumBytes" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SeqNo" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_54">
+				<data name="SourceProcessor" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SourceActivity" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DestinationProcessor" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="DestinationActivity" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="PartitionMovesRemaining" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TableEntry" inType="win:UInt8" outType="xs:unsignedByte"></data>
+			</template>
+			<template tid="tid_55">
+				<data name="IsbSize" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Cwnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SndWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SendAvailable" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SSThresh" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_56">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="TimerType" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_TIMER_TYPE_ValueMap"></data>
+				<data name="WaitTimeMilliseconds" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_57">
+				<data name="SynAttacksDetected" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ReassemblyLimitViolations" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ConnectionRateLimitBacklog" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ConnectionRateLimitViolations" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LandAttackSegmentsDropped" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="ConnectionRateLimitDepth" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_58">
+				<data name="InterfaceIndex" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+			</template>
+			<template tid="tid_59">
+				<data name="HighMemoryEvent" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HighPagedPoolEvent" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LowMemoryEvent" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LowPagedPoolEvent" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_60">
+				<data name="ProcessId" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="StartPort" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="NumberOfPorts" inType="win:UInt16" outType="xs:unsignedShort"></data>
+			</template>
+			<template tid="tid_61">
+				<data name="OldState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_CONNECTION_STATE_ValueMap"></data>
+				<data name="NewState" inType="win:UInt32" outType="xs:unsignedInt" map="TCP_CONNECTION_STATE_ValueMap"></data>
+				<data name="SndNxt" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_62">
+				<data name="Length" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Timeout" inType="win:UInt64" outType="win:HexInt64"></data>
+				<data name="Injected" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_63">
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="RemoteAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RemoteAddress" inType="win:Binary" outType="win:SocketAddress" length="RemoteAddressLength"></data>
+				<data name="Path" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_64">
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="ProcessId" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="CompartmentId" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+			</template>
+			<template tid="tid_65">
+				<data name="LocalAddressLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="LocalAddress" inType="win:Binary" outType="win:SocketAddress" length="LocalAddressLength"></data>
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+			</template>
+			<template tid="tid_66">
+				<data name="Tcb" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ISN" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RcvWnd" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="RcvWndScale" inType="win:UInt8" outType="xs:unsignedByte"></data>
+			</template>
+			<template tid="tid_67">
+				<data name="Status" inType="win:UInt32" outType="win:NTSTATUS"></data>
+				<data name="Endpoint" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="AddressFamily" inType="win:UInt32" outType="xs:unsignedInt" map="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap"></data>
+				<data name="Pid" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+		</templates>
+		<maps>
+			<valueMap name="TCP_CONNECTION_STATE_ValueMap">
+				<map message="$(string.string443)" value="0" />
+				<map message="$(string.string444)" value="1" />
+				<map message="$(string.string445)" value="2" />
+				<map message="$(string.string446)" value="3" />
+				<map message="$(string.string447)" value="4" />
+				<map message="$(string.string448)" value="5" />
+				<map message="$(string.string449)" value="6" />
+				<map message="$(string.string450)" value="7" />
+				<map message="$(string.string451)" value="8" />
+				<map message="$(string.string452)" value="9" />
+				<map message="$(string.string453)" value="10" />
+			</valueMap>
+			<valueMap name="TCPIP_TEMPLATE_TYPE_ValueMap">
+				<map message="$(string.string454)" value="0" />
+				<map message="$(string.string455)" value="1" />
+				<map message="$(string.string456)" value="2" />
+				<map message="$(string.string457)" value="3" />
+				<map message="$(string.string458)" value="5" />
+				<map message="$(string.string459)" value="6" />
+			</valueMap>
+			<valueMap name="TCPIP_Transport_Protocol_ValueMap">
+				<map message="$(string.string460)" value="0" />
+				<map message="$(string.string461)" value="1" />
+				<map message="$(string.string462)" value="2" />
+				<map message="$(string.string463)" value="6" />
+				<map message="$(string.string464)" value="17" />
+				<map message="$(string.string465)" value="43" />
+				<map message="$(string.string466)" value="44" />
+				<map message="$(string.string467)" value="47" />
+				<map message="$(string.string468)" value="50" />
+				<map message="$(string.string469)" value="51" />
+				<map message="$(string.string470)" value="58" />
+				<map message="$(string.string471)" value="256" />
+			</valueMap>
+			<valueMap name="TCPIP_ADDRESS_FAMILY_TYPE_ValueMap">
+				<map message="$(string.string472)" value="2" />
+				<map message="$(string.string473)" value="23" />
+			</valueMap>
+			<valueMap name="TCPIP_NETWORK_PACKET_DROP_REASON_ValueMap">
+				<map message="$(string.string474)" value="1" />
+				<map message="$(string.string475)" value="2" />
+				<map message="$(string.string476)" value="3" />
+				<map message="$(string.string477)" value="4" />
+				<map message="$(string.string478)" value="5" />
+				<map message="$(string.string479)" value="6" />
+				<map message="$(string.string480)" value="7" />
+				<map message="$(string.string481)" value="8" />
+				<map message="$(string.string482)" value="9" />
+				<map message="$(string.string483)" value="10" />
+				<map message="$(string.string484)" value="11" />
+				<map message="$(string.string485)" value="128" />
+				<map message="$(string.string486)" value="129" />
+			</valueMap>
+			<valueMap name="TCPIP_Protocol_ValueMap">
+				<map message="$(string.string487)" value="4" />
+				<map message="$(string.string488)" value="6" />
+			</valueMap>
+			<valueMap name="TCPIP_TRANSPORT_PACKET_DROP_REASON_ValueMap">
+				<map message="$(string.string489)" value="1" />
+				<map message="$(string.string490)" value="2" />
+				<map message="$(string.string491)" value="3" />
+				<map message="$(string.string492)" value="4" />
+				<map message="$(string.string493)" value="5" />
+				<map message="$(string.string494)" value="6" />
+			</valueMap>
+			<valueMap name="TCP_WSD_ValueMap">
+				<map message="$(string.string495)" value="0" />
+				<map message="$(string.string496)" value="1" />
+				<map message="$(string.string497)" value="2" />
+				<map message="$(string.string498)" value="3" />
+				<map message="$(string.string499)" value="4" />
+				<map message="$(string.string500)" value="5" />
+				<map message="$(string.string501)" value="6" />
+				<map message="$(string.string502)" value="7" />
+				<map message="$(string.string503)" value="8" />
+				<map message="$(string.string504)" value="9" />
+				<map message="$(string.string505)" value="10" />
+			</valueMap>
+			<valueMap name="TCP_WSD_CACHE_ENTRY_STATE_ValueMap">
+				<map message="$(string.string506)" value="0" />
+				<map message="$(string.string507)" value="1" />
+				<map message="$(string.string508)" value="2" />
+				<map message="$(string.string509)" value="3" />
+				<map message="$(string.string510)" value="4" />
+				<map message="$(string.string511)" value="5" />
+				<map message="$(string.string512)" value="6" />
+			</valueMap>
+			<valueMap name="TCPIP_SLOW_PATH_REASON_ValueMap">
+				<map message="$(string.string513)" value="0" />
+				<map message="$(string.string514)" value="1" />
+				<map message="$(string.string515)" value="2" />
+				<map message="$(string.string516)" value="3" />
+				<map message="$(string.string517)" value="4" />
+				<map message="$(string.string518)" value="5" />
+				<map message="$(string.string519)" value="6" />
+				<map message="$(string.string520)" value="7" />
+				<map message="$(string.string521)" value="8" />
+				<map message="$(string.string522)" value="9" />
+				<map message="$(string.string523)" value="10" />
+				<map message="$(string.string524)" value="11" />
+				<map message="$(string.string525)" value="12" />
+				<map message="$(string.string526)" value="13" />
+				<map message="$(string.string527)" value="14" />
+				<map message="$(string.string528)" value="15" />
+				<map message="$(string.string529)" value="16" />
+				<map message="$(string.string529)" value="17" />
+				<map message="$(string.string529)" value="18" />
+				<map message="$(string.string529)" value="19" />
+			</valueMap>
+			<valueMap name="TCPIP_BOOLEAN_ValueMap">
+				<map message="$(string.string530)" value="0" />
+				<map message="$(string.string531)" value="1" />
+			</valueMap>
+			<valueMap name="TCPIP_IP_PHYSICALMEDIUM_TYPE_ValueMap">
+				<map message="$(string.string532)" value="0" />
+				<map message="$(string.string533)" value="1" />
+				<map message="$(string.string534)" value="2" />
+				<map message="$(string.string535)" value="3" />
+				<map message="$(string.string536)" value="5" />
+				<map message="$(string.string537)" value="7" />
+				<map message="$(string.string538)" value="8" />
+				<map message="$(string.string539)" value="9" />
+				<map message="$(string.string540)" value="10" />
+				<map message="$(string.string541)" value="11" />
+				<map message="$(string.string542)" value="12" />
+				<map message="$(string.string543)" value="14" />
+				<map message="$(string.string544)" value="15" />
+				<map message="$(string.string545)" value="16" />
+				<map message="$(string.string546)" value="17" />
+			</valueMap>
+			<valueMap name="TCPIP_TCP_DELIVERY_STATE_ValueMap">
+				<map message="$(string.string547)" value="0" />
+				<map message="$(string.string548)" value="1" />
+				<map message="$(string.string549)" value="2" />
+			</valueMap>
+			<valueMap name="TCPIP_IP_DAD_STATE_ValueMap">
+				<map message="$(string.string550)" value="0" />
+				<map message="$(string.string551)" value="1" />
+				<map message="$(string.string552)" value="2" />
+				<map message="$(string.string553)" value="3" />
+			</valueMap>
+			<valueMap name="TCPIP_IP_IF_STATUS_ValueMap">
+				<map message="$(string.string554)" value="1" />
+				<map message="$(string.string555)" value="2" />
+				<map message="$(string.string471)" value="4" />
+				<map message="$(string.string556)" value="5" />
+			</valueMap>
+			<valueMap name="TCP_OPTION_TYPE_ValueMap">
+				<map message="$(string.string557)" value="0" />
+				<map message="$(string.string558)" value="1" />
+				<map message="$(string.string559)" value="2" />
+				<map message="$(string.string560)" value="3" />
+				<map message="$(string.string561)" value="4" />
+				<map message="$(string.string562)" value="5" />
+				<map message="$(string.string563)" value="6" />
+				<map message="$(string.string564)" value="7" />
+				<map message="$(string.string565)" value="8" />
+				<map message="$(string.string566)" value="9" />
+				<map message="$(string.string567)" value="10" />
+				<map message="$(string.string568)" value="11" />
+				<map message="$(string.string569)" value="12" />
+				<map message="$(string.string570)" value="13" />
+			</valueMap>
+			<valueMap name="TCP_SO_OPTION_TYPE_ValueMap">
+				<map message="$(string.string571)" value="1" />
+				<map message="$(string.string572)" value="2" />
+				<map message="$(string.string573)" value="4" />
+				<map message="$(string.string574)" value="8" />
+				<map message="$(string.string575)" value="16" />
+				<map message="$(string.string576)" value="32" />
+				<map message="$(string.string577)" value="64" />
+				<map message="$(string.string578)" value="128" />
+				<map message="$(string.string579)" value="256" />
+				<map message="$(string.string580)" value="4097" />
+				<map message="$(string.string581)" value="4098" />
+				<map message="$(string.string582)" value="12290" />
+				<map message="$(string.string583)" value="12291" />
+				<map message="$(string.string584)" value="12292" />
+				<map message="$(string.string585)" value="12293" />
+				<map message="$(string.string586)" value="12294" />
+			</valueMap>
+			<valueMap name="TCP_CONNECTION_OFFLOAD_STATE_ValueMap">
+				<map message="$(string.string587)" value="0" />
+				<map message="$(string.string588)" value="2" />
+			</valueMap>
+			<valueMap name="TCP_TIMER_TYPE_ValueMap">
+				<map message="$(string.string589)" value="0" />
+				<map message="$(string.string590)" value="1" />
+				<map message="$(string.string591)" value="2" />
+				<map message="$(string.string592)" value="3" />
+				<map message="$(string.string593)" value="4" />
+				<map message="$(string.string594)" value="5" />
+				<map message="$(string.string595)" value="6" />
+				<map message="$(string.string596)" value="7" />
+				<map message="$(string.string597)" value="8" />
+			</valueMap>
+		</maps>
+	</provider>
+    </events>
+  </instrumentation>
+<localization>
+	<resources culture="en-US">
+		<stringTable>
+			<string id="string0" value="ut:TcpipEndpoint" />
+			<string id="string1" value="ut:TcpipListener" />
+			<string id="string2" value="ut:TcpipTcb" />
+			<string id="string3" value="ut:TcpipBind" />
+			<string id="string4" value="ut:TcpipInterface" />
+			<string id="string5" value="ut:TcpipRoute" />
+			<string id="string6" value="ut:TcpipCtcp" />
+			<string id="string7" value="ut:TcpipDiagnosis" />
+			<string id="string8" value="ut:SendPath" />
+			<string id="string9" value="ut:ReceivePath" />
+			<string id="string10" value="ut:ConnectPath" />
+			<string id="string11" value="ut:ClosePath" />
+			<string id="string12" value="ut:Authentication" />
+			<string id="string13" value="ut:Configuration" />
+			<string id="string14" value="ut:Global" />
+			<string id="string15" value="ut:Dropped" />
+			<string id="string16" value="ut:PiiPresent" />
+			<string id="string17" value="ut:ProcessIdHint" />
+			<string id="string18" value="ut:Packet" />
+			<string id="string19" value="ut:Endpoint" />
+			<string id="string20" value="ut:Address" />
+			<string id="string21" value="ut:Transfer" />
+			<string id="string22" value="ut:StdTemplateHint" />
+			<string id="string23" value="TcpConnectionRundown" />
+			<string id="string24" value="TCP: connection %1 (local=%3 remote=%5) exists. State = %6. PID = %7." />
+			<string id="string25" value="TcpDataTransferEcnAlpha" />
+			<string id="string26" value="TCP: connection %1: End of a round, SndRound = %2, Bytes sent = %3. Bytes marked = %4, ThAck = %5, updated EcnAlpha = %6." />
+			<string id="string27" value="TcpTemplateChanged" />
+			<string id="string28" value="TCP: Connection %1 template changed. New template=%2. Context=%3." />
+			<string id="string29" value="TcpTemplateParameters" />
+			<string id="string30" value="TCP: Connection %1 committed TemplateType = %2. MinRto=%3 msec, InitialCwnd = %4 MSS, MaxDataRetransmissions=%5, DelayedAckTicks=%6 msec." />
+			<string id="string31" value="TcpInitialCwndAdjusted" />
+			<string id="string32" value="TCP: Connection %1 adjust InitalCwnd. Old Cwnd = %2, New Cwnd=%3, InitialCwnd=%4." />
+			<string id="string33" value="TcpCwndRestart" />
+			<string id="string34" value="TCP: Connection %1 restarting Cwnd. Old Cwnd = %2, New Cwnd = %3, Idle Period = %4." />
+			<string id="string35" value="TcpMppStopEpoch" />
+			<string id="string36" value="TCP: MPP: Epoch %1 ended. LowNppEventState = %2 HighNppEventState = %3 EpochStartTick = %4 EpochStopTick = %5 SynDropRate = %6 TcbKillRate = %7 Current = %8." />
+			<string id="string37" value="TcpMppStartEpoch" />
+			<string id="string38" value="TCP: MPP: Epoch %1 started. LowNppEventState = %2 HighNppEventState = %3 EpochStartTick = %4 EpochStopTick = %5 SynDropRate = %6 -> %7 TcbKillRate = %8 -> %9 CurrentWatermark = %10." />
+			<string id="string39" value="TcpMppStopEpisode" />
+			<string id="string40" value="TCP: MPP: Episode ended. LowNppEventState = %1 HighNppEventState = %2 EpisodeStartTick = %3 EpisodeStopTick = %4 Reentry = %5." />
+			<string id="string41" value="TcpMppStartEpisode" />
+			<string id="string42" value="TCP: MPP: Episode started. LowNppEventState = %1 HighNppEventState = %2 EpisodeStartTick = %3 EpisodeStopTick = %4 Current = %5 Low = %6 Reentry = %7." />
+			<string id="string43" value="TcpMppNppEvaluation" />
+			<string id="string44" value="TCP: MPP NPP Evaluation PhysicalPages = %1 NonPagedPoolPages = %2 Current = %3 Peak = %4 Low = %5 High = %6." />
+			<string id="string45" value="TcpipNetworkPacketDrops" />
+			<string id="string46" value="TCPIP: Network layer (Protocol %1, AddressFamily = %2) dropped %10 packet(s). SourceAddress = %3 %11 %6. DestAddress = %4 %11 %8. Reason = %9." />
+			<string id="string47" value="TcpipTransportPacketDrops" />
+			<string id="string48" value="TCPIP: Transport (Protocol %1, AddressFamily = %2) dropped %8 packet(s) with Source = %4, Destination = %6. Reason = %7." />
+			<string id="string49" value="TcpWsdStateChange" />
+			<string id="string50" value="TCP: WSD - Enabled moved from %1 to %2. Threshold moved from  %3 to %4." />
+			<string id="string51" value="TcpWsdProfileStateChange" />
+			<string id="string52" value="TCP: WSD - Profile: %1 State: %2 Qualified: %3 EreQualified: %4." />
+			<string id="string53" value="TcpWsdCacheEntryStateChange" />
+			<string id="string54" value="TCP: WSD - Entry (%2, %3) moved from %4 to %5 due to %1." />
+			<string id="string55" value="TcpWsdWsRestrictedDestination" />
+			<string id="string56" value="TCP: WSD - TCB %2 will use a highly restricted window scale factor due to a %1." />
+			<string id="string57" value="TcpWsdWsRestrictedProfile" />
+			<string id="string58" value="TcpWsdInitializationInformation" />
+			<string id="string59" value="TCP: WSD - %1 Status: %2." />
+			<string id="string60" value="TcpWsdInitializationErrors" />
+			<string id="string61" value="TcpipSendSlowPath" />
+			<string id="string62" value="TCPIP: SendDatagram %1 fell off the send fast path, Reason: %10. Protocol = %2, Family = %3, Number of NBLs = %11. SourceAddress = %4 %12 %7. DestAddress = %5 %12 %9." />
+			<string id="string63" value="TcpipReceiveSlowPath" />
+			<string id="string64" value="TCPIP: NBL %1 fell off the receive fast path, Reason: %10. Protocol = %2, Family = %3, Number of NBLs = %11. SourceAddress = %4 %12 %7. DestAddress = %5 %12 %9." />
+			<string id="string65" value="TcpReassemblyFlush" />
+			<string id="string66" value="TCP: Connection %1 flushing reassembly state at RcvNxt = %2. Reason = %4." />
+			<string id="string67" value="IpInterfaceSpeedChange" />
+			<string id="string68" value="IP: Interface Index = %1, Linkspeed changed to %2 bps, PhysicalMediumType = %7." />
+			<string id="string69" value="IpInterfaceRundown" />
+			<string id="string70" value="IP: Interface rundown: Index = %1, Linkspeed = %2 bps, PhysicalMediumType = %7, IP Address = %4 %3 %6." />
+			<string id="string71" value="TcpDisconnectTcbFinWait2Timeout" />
+			<string id="string72" value="TCP: connection %8 (local=%2 remote=%4) terminating: FIN-WAIT-2 timeout expired." />
+			<string id="string73" value="TcpDisconnectTcbZeroWindowTimeout" />
+			<string id="string74" value="TCP: connection %8 (local=%2 remote=%4) terminating: Zero window probe timeout expired." />
+			<string id="string75" value="TcpReassemblyExit" />
+			<string id="string76" value="TCP: Connection %1 leaving reassembly at RcvNxt = %2." />
+			<string id="string77" value="TcpReassemblyEntry" />
+			<string id="string78" value="TCP: Connection %1 entering reassembly at RcvNxt = %2." />
+			<string id="string79" value="TcpFlushSack" />
+			<string id="string80" value="TCP: connection %1 flushed SACK state at SndUna = %2. Reason: %4." />
+			<string id="string81" value="TcpBhDetectFullSizeAck" />
+			<string id="string82" value="TCP: connection %1 BH receive ACK for full size seq. Seq = %2. IsSack = %5." />
+			<string id="string83" value="TcpAssignedWeakReferencePort" />
+			<string id="string84" value="TCP: Portpool assigned port number %2 with weak references due to port exhaustion." />
+			<string id="string85" value="TcpReplacePort" />
+			<string id="string86" value="TCP: endpoint/connection %1 replaced base endpoint %4 and acquired reference to port number %2." />
+			<string id="string87" value="TcpReleasePort" />
+			<string id="string88" value="TCP: endpoint/connection %1 released port number %2. WeakReference = %3." />
+			<string id="string89" value="TcpAcquireWeakRefPort" />
+			<string id="string90" value="TCP: connection %1 attempted to acquire weak reference on port number %2 inherited from endpoint %4. Successful = %3." />
+			<string id="string91" value="TcpAcquirePort" />
+			<string id="string92" value="TCP: endpoint/connection %1 acquired port number %2." />
+			<string id="string93" value="TcpDeliveryDataDropped" />
+			<string id="string94" value="TCP: connection %1 delivery %2 dropping data. TotalBytesEnqueued = %4. Length = %6. RcvNxt = %10." />
+			<string id="string95" value="TcpDeliveryStateChange" />
+			<string id="string96" value="TCP: connection %1, delivery %2: delivery state changed from %3 to %4." />
+			<string id="string97" value="TcpConnectionKeepAlive" />
+			<string id="string98" value="TCP: connection %1 send keep-alive at SndUna = %2." />
+			<string id="string99" value="TcpDataTransferRestransmit" />
+			<string id="string100" value="TCP: connection %1 (local=%3 remote=%5) retransmitting data, RexmitCount = %7." />
+			<string id="string101" value="TcpConnectRestransmit" />
+			<string id="string102" value="TCP: connection %1 (local=%3 remote=%5) retransmitting connect attempt, RexmitCount = %7." />
+			<string id="string103" value="TcpConnectionTerminatedRcvdSyn" />
+			<string id="string104" value="TCP: connection %1 (local=%3 remote=%5) connection terminated: received SYN in state %6." />
+			<string id="string105" value="TcpConnectionTerminatedRcvdRst" />
+			<string id="string106" value="TCP: connection %1 (local=%3 remote=%5) connection terminated: received RST." />
+			<string id="string107" value="TcpConnectTcbFailedRcvdRst" />
+			<string id="string108" value="TCP: connection %1 (local=%3 remote=%5) connect failed: received RST." />
+			<string id="string109" value="TcpInitiateSynRstValidation" />
+			<string id="string110" value="TCP: connection %1 (local=%3 remote=%5): initiating SYN/RST validation." />
+			<string id="string111" value="TcpDeliveryCompleting" />
+			<string id="string112" value="TCP: connection %1 delivery %2 urgent boundary completing %4 bytes %6 requested." />
+			<string id="string113" value="TcpTcbInjectFinComplete" />
+			<string id="string114" value="TCP: Injecting fin on TCB completed. TCB = %1, Processor = %4." />
+			<string id="string115" value="TcpDeliveryPush" />
+			<string id="string116" value="TCP: connection %1 delivery %2 pushing %4 bytes %6 requested. Delayed push = %9." />
+			<string id="string117" value="TcpDeliveryFin" />
+			<string id="string118" value="TCP: connection %1 delivery %2 delivering FIN. RcvNxt = %10." />
+			<string id="string119" value="TcpDeliveryAccept" />
+			<string id="string120" value="TCP: connection %1 delivery %2 accepting %4 bytes. RcvNxt = %10." />
+			<string id="string121" value="TcpTcbInjectFinFailure" />
+			<string id="string122" value="TCP: Injecting fin on a shutdown TCB failed. TCB = %1." />
+			<string id="string123" value="TcpDeliveryInjectingData" />
+			<string id="string124" value="TCP: connection %1 delivery %2 injecting %4 bytes delta %6, IsUrgentDelivery = %8." />
+			<string id="string125" value="TcpTcbInjectRcvFailure" />
+			<string id="string126" value="TCP: Injecting receive on a shutdown TCB failed. TCB = %1." />
+			<string id="string127" value="TcpDeliveryFlush" />
+			<string id="string128" value="TCP: connection %1 delivery %2 flushing %4 bytes %6 requested status = %7." />
+			<string id="string129" value="UdpEndpointReceiveMessages" />
+			<string id="string130" value="UDP: endpoint %1 (LocalAddress = %5, RemoteAddress = %7) delivering %3 bytes. PID = %8." />
+			<string id="string131" value="UdpEndpointSendMessages" />
+			<string id="string132" value="UDP: endpoint %1 (LocalAddress = %5, RemoteAddress = %7) sending %2 messages and a total of %3 bytes. PID = %8." />
+			<string id="string133" value="TcpSrttMeasurementCancelled" />
+			<string id="string134" value="TCP: connection %1: SRTT measurement cancelled." />
+			<string id="string135" value="TcpSrttMeasurementComplete" />
+			<string id="string136" value="TCP: connection %1 SRTT measurement complete (tick = %3, sample = %4 ms, new srtt = %5 ms)." />
+			<string id="string137" value="TcpSrttMeasurementStarted" />
+			<string id="string138" value="TCP: connection %1 SRTT measurement started (seq = %2, tick = %3)." />
+			<string id="string139" value="TcpCTcpGamma" />
+			<string id="string140" value="TCP: CTcp: Gamma Autotuning: Connection %1 Updated Gamma %2, Average backlog %3, Average backlog across LFPs %4." />
+			<string id="string141" value="TcpCTcpCongestionWndw" />
+			<string id="string142" value="TCP: CTcp: Connection %1, DWnd = %2 (Prev = %3), BaseRtt = %4, AverageRtt = %5, CWnd =%6, DiffWnd = %7, DWnd increment = %8." />
+			<string id="string143" value="TcpCTcpAssignedBlocks" />
+			<string id="string144" value="TCP: CTcp: Allocated blocks: %1; Assigned blocks: %2." />
+			<string id="string145" value="TcpCTcpDelayWndwInactive" />
+			<string id="string146" value="TCP: CTcp: Connection %1 Delay window has not kicked in." />
+			<string id="string147" value="TcpSendAdvance" />
+			<string id="string148" value="TCP: connection %1 send advance %3 bytes at %4." />
+			<string id="string149" value="TcpSendTransmitted" />
+			<string id="string150" value="TCP: connection %1 send transmitted %3 bytes at %4." />
+			<string id="string151" value="TcpSendPosted" />
+			<string id="string152" value="TCP: connection %1 send %2 posted %3 bytes at %4." />
+			<string id="string153" value="TcpDeliverySatisfied" />
+			<string id="string154" value="TCP: connection %1 delivery %2 satisfied %4 bytes %6 requested. IsFullySatisfied = %9. RcvNxt = %10." />
+			<string id="string155" value="TcpDeliveryIndicated" />
+			<string id="string156" value="TCP: connection %1 delivery %2 indicated %4 bytes accepted %6 bytes, status = %7. RcvNxt = %10." />
+			<string id="string157" value="TcpReceiveRequest" />
+			<string id="string158" value="TCP: connection %1, delivery %2, Request %3  posted for %4 bytes, flags = %5. RcvNxt = %10." />
+			<string id="string159" value="TcpCtcpDataTransferSpuriousTimeout" />
+			<string id="string160" value="TCP: CTCP Spurious timeout event. Connection %1, CWnd = %2, SsThresh = %3." />
+			<string id="string161" value="TcpCtcpDataTransferEcn" />
+			<string id="string162" value="TCP: CTCP ECN event. Connection %1, CWnd %2, SndUna = %4, Mss = %5, DWnd = %7, BaseRtt = %8." />
+			<string id="string163" value="TcpCtcpDataTransferSend" />
+			<string id="string164" value="TCP: CTCP Send event. Connection %1, sequence = %6, length = %5." />
+			<string id="string165" value="TcpCtcpDataTransferDupAck" />
+			<string id="string166" value="TCP: CTCP Duplicate Ack event. Connection %1, sequence = %6, SndUna = %7, CWnd = %2, DWnd = %11, BaseRtt = %12, DupAckCount = %13." />
+			<string id="string167" value="TcpCtcpDataTransferCumAck" />
+			<string id="string168" value="TCP: CTCP Cumulative Ack event Connection %1, sequence = %6, CWnd = %2, DWnd = %11, BaseRtt = %12." />
+			<string id="string169" value="TcpCtcpDataTransferTimeout" />
+			<string id="string170" value="TCP: CTCP DataTransferTimeout event. Connection %1, CWnd = %2, SsThresh = %3." />
+			<string id="string171" value="IpNeighborReachable" />
+			<string id="string172" value="IP: Neighbor reachable. Interface %1, IP address = %5 %7 %6, DlAddress = %3." />
+			<string id="string173" value="IpNeighborUnreachable" />
+			<string id="string174" value="IP: Neighbor unreachable. Interface %1, IP address = %5 %7 %6." />
+			<string id="string175" value="IpRoutePropertyChange" />
+			<string id="string176" value="IP: Route %1 property change. Interface = %2, Protocol = %5, DestinationPrefix = %16 %18 %7 /%6, Nexthop = %17 %18 %8. Properties: ValidLifetime = %9, PreferredLifetime = %10, Metric = %11, Loopback = %12, AutoconfigureAddress = %13, Publish = %14, Immortal = %15." />
+			<string id="string177" value="IpRouteDeleted" />
+			<string id="string178" value="IP: Route %1 deleted on interface %2, Protocol = %5, DestinationPrefix = %16 %18 %7 /%6, Nexthop = %17 %18 %8." />
+			<string id="string179" value="IpRouteCreated" />
+			<string id="string180" value="IP: Route %1 created on interface %2. Protocol = %5, DestinationPrefix = %16 %18 %7 /%6, Nexthop = %17 %18 %8." />
+			<string id="string181" value="IpInterfacePropertyChange" />
+			<string id="string182" value="IP: Interface %1 property change. Advertise= %2, AdvertiseDefaultRoute = %3, Forward = %4, ForwardMulticast = %5, UseNud = %6, AdvertisingEnabled = %7." />
+			<string id="string183" value="IpAddressStateNonPreferred" />
+			<string id="string184" value="IP: IP address = %7 %9 %8 state changed to Non-preferred. Interface = %1. DadState = %3." />
+			<string id="string185" value="IpAddressStatePreferred" />
+			<string id="string186" value="IP: IP address = %7 %9 %8 state changed to Preferred. Interface = %1." />
+			<string id="string187" value="FramingNdisRestart" />
+			<string id="string188" value="Framing: NDIS restart event on interface %1." />
+			<string id="string189" value="FramingNdisPause" />
+			<string id="string190" value="Framing: NDIS pause event on interface %1." />
+			<string id="string191" value="FramingIfOperStatus" />
+			<string id="string192" value="Framing: Interface %1 Operational Status = %2, Operational Status Flags = %3." />
+			<string id="string193" value="IpAddressDeleted" />
+			<string id="string194" value="IP: IP address = %7 %9 %8 deleted on interface = %1, Protocol = %2." />
+			<string id="string195" value="IpAddressAdded" />
+			<string id="string196" value="IP: IP address = %7 %9 %8 added on interface = %1, Protocol = %2." />
+			<string id="string197" value="TcpListenerUnbound" />
+			<string id="string198" value="TCP: listener %1 (sockaddr=%3) unbound." />
+			<string id="string199" value="TcpListenerActivated" />
+			<string id="string200" value="TCP: listener %1 (sockaddr=%3) activated." />
+			<string id="string201" value="TcpListenerBindFailedPort" />
+			<string id="string202" value="TCP: listener %1 (family=%7 PID=%5) bind failed: address %3 cannot be resolved (Status=%4)." />
+			<string id="string203" value="TcpListenerBindFailedResolution" />
+			<string id="string204" value="TCP: listener %1 (sockaddr=%3) bind failed: port-acquisition status=%4." />
+			<string id="string205" value="TcpListenerActivationFailedInspection2" />
+			<string id="string206" value="TCP: listener %1 (sockaddr=%3) activation failed: inspection status=%4." />
+			<string id="string207" value="TcpListenerActivationFailedInspection1" />
+			<string id="string208" value="TCP: listener %1 (family=%7 PID=%5) activation failed: inspection status=%4." />
+			<string id="string209" value="TcpListenerActivationFailedCompartment" />
+			<string id="string210" value="TCP: listener %1 (family=%7 PID=%5) activation failed: compartment %6 not found. Status=%4." />
+			<string id="string211" value="TcpListenerActivationFailedAf" />
+			<string id="string212" value="TCP: listener (sockaddr=%3 PID=%5) activation failed: address family not attached." />
+			<string id="string213" value="IpDadStarted" />
+			<string id="string214" value="IP: DAD started for IP address = %7 %9 %8 on interface = %1, protocol = %2." />
+			<string id="string215" value="IpDadFailed" />
+			<string id="string216" value="IP: DAD failed for IP address = %7 %9 %8 on interface = %1, protocol = %2, DL address of packet = %5." />
+			<string id="string217" value="IpDadSuccessful" />
+			<string id="string218" value="IP: DAD successful for IP address = %7 %9 %8 on interface = %1, protocol = %2." />
+			<string id="string219" value="TcpConnectionOffloadPmax" />
+			<string id="string220" value="TCP: Connection %1 status = %2, Interface = %3, PMax = %4." />
+			<string id="string221" value="TcpConnectionOffloadStatus" />
+			<string id="string222" value="TCP: Connection %1 status changed to %2." />
+			<string id="string223" value="TcpLso" />
+			<string id="string224" value="TCP: Connection %1 Large Send Offload, Bytes in segment = %2 and Bytes remaining = %3." />
+			<string id="string225" value="TcpGlobalParameters" />
+			<string id="string226" value="TCP: Global parameters updated for Address Family %1: EnablePMtuDiscovery = %2, UseRfc1122UrgentPointer = %3, DisableTaskOffload = %4, DisableTcpChimneyOffload = %5, DisableRss = %6, EnablePMtuBHDetect = %7, EcnCapability = %8, MaxDataRetransmissions = %9, KeepAliveTime = %10, KeepAliveInterval = %11, TimedWaitDelay = %12, SillyWindowTimeout = %13, FinWait2Timeout = %14, CongestionAlgorithm = %15, UseRfc1323Timestamps = %16, AutoTuningLevelLocal = %17, AutoTuningLevelGroupPolicy = %18." />
+			<string id="string227" value="TcpMemoryFailures" />
+			<string id="string228" value="TCPIP: Failure allocating %1." />
+			<string id="string229" value="TcpModuleStopped" />
+			<string id="string230" value="TCPIP: Module %1 stopped." />
+			<string id="string231" value="TcpModuleStarted" />
+			<string id="string232" value="TCPIP: Module %1 started." />
+			<string id="string233" value="TcpMediaDisconnect" />
+			<string id="string234" value="IP: Disconnecting interface %1, trace = %2." />
+			<string id="string235" value="TcpSetTcpSoOption" />
+			<string id="string236" value="TCP: Socket Option %3 is going to be set for connection %1." />
+			<string id="string237" value="TcpSetTcpOption" />
+			<string id="string238" value="TCP: Option %2 is going to be set for connection %1." />
+			<string id="string239" value="TcpZeroWindowProbingEnd" />
+			<string id="string240" value="TCP: connection %1 send: Leaving zero-window probing with SndUna = %2." />
+			<string id="string241" value="TcpZeroWindowProbingBegin" />
+			<string id="string242" value="TCP: connection %1 send: Beginning zero-window probing with SndUna = %2." />
+			<string id="string243" value="TcpSwsAvoidanceEnd" />
+			<string id="string244" value="TCP: SWS avoidance ended on connection %1." />
+			<string id="string245" value="TcpSwsAvoidanceBegin" />
+			<string id="string246" value="TCP: SWS avoidance began on connection %1. Timer set for %2 ms. BytesToSend = %3, SendAvailable = %4, Cwnd = %5, MaxSndWnd = %6." />
+			<string id="string247" value="TcpConnectionOffloadStateChange" />
+			<string id="string248" value="TCP: connection %5: Connection State = %1, Offload State = %2. SndNxt = %3, RcvNxt = %4. NdisStatus = %6." />
+			<string id="string249" value="TcpRttResiliencyDetection" />
+			<string id="string250" value="TCP: connection %1: Rtt resiliency detection complete with Rtt sample = %4 and new SRTT = %9." />
+			<string id="string251" value="TcpAutoTuningChangeRcvBufferSize" />
+			<string id="string252" value="TCP: connection (local=%2 remote=%4) auto-tuner adjusted receive buffer size to %5 bytes." />
+			<string id="string253" value="TcpAutoTuningFailedAllocationFailure" />
+			<string id="string254" value="TCP: connection (local=%2 remote=%4) failed to enter auto-tuning because of receive window tuning allocation failure." />
+			<string id="string255" value="TcpAutoTuningFailedBandwidthEstimation" />
+			<string id="string256" value="TCP: connection (local=%2 remote=%4) failed to enter auto-tuning because receiver bandwidth estimation could not be started." />
+			<string id="string257" value="TcpAutoTuningFailedRttEstimation" />
+			<string id="string258" value="TCP: connection (local=%2 remote=%4) failed to enter auto-tuning because fine-grained RTT estimation could not be started." />
+			<string id="string259" value="TcpAutoTuningEnd" />
+			<string id="string260" value="TCP: connection (local=%2 remote=%4) ending receive window auto-tuning." />
+			<string id="string261" value="TcpAutoTuningBegin" />
+			<string id="string262" value="TCP: connection (local=%2 remote=%4) starting receive window auto-tuning." />
+			<string id="string263" value="TcpAppSendBufferSize" />
+			<string id="string264" value="TCP: connection %1 posted an average of %5 bytes per send." />
+			<string id="string265" value="TcpReleaseIndication" />
+			<string id="string266" value="TCP: TcpReleaseIndicationList: Nbl = %1." />
+			<string id="string267" value="TcpConnectTcbFailedActiveConnect" />
+			<string id="string268" value="TCP: active connect failed (family=%2) connect-complete inspection failed: status = %3." />
+			<string id="string269" value="TcpSpuriousRtoDetectionEnd" />
+			<string id="string270" value="TCP: connection %1 spurious RTO detection terminated at %7." />
+			<string id="string271" value="TcpSpuriousRtoDetectionBegin" />
+			<string id="string272" value="TCP: connection %1 spurious RTO detection initiated at %7." />
+			<string id="string273" value="TcpBlackHoleDetectionFailed" />
+			<string id="string274" value="TCP: connection %1 not entering BH due to %4." />
+			<string id="string275" value="TcpBlackHoleDetectionExit" />
+			<string id="string276" value="TCP: connection %1 Exiting BH due to %4, BH mss %2, Original MSS %3." />
+			<string id="string277" value="TcpBlackHoleDetectionEntry" />
+			<string id="string278" value="TCP: connection %1 entered BH, BH MSS %2, original MSS %3." />
+			<string id="string279" value="TcpSlowStartToCongestionAvoidance" />
+			<string id="string280" value="TCP: connection %1 entering Congestion Avoidance Phase with cwnd = %2 and ssthresh = %3." />
+			<string id="string281" value="TcpLossRecoverySackExit" />
+			<string id="string282" value="TCP: connection %1 leaving SACK mode with SndUna = %2." />
+			<string id="string283" value="TcpLossRecoverySackEntry" />
+			<string id="string284" value="TCP: connection %1 entering SACK mode with SndUna = %2." />
+			<string id="string285" value="TcpLossRecoveryExit" />
+			<string id="string286" value="TCP: connection %1: Leaving loss recovery phase with SndUna = %2 and SndMax = %3." />
+			<string id="string287" value="TcpLossRecoveryEntry" />
+			<string id="string288" value="TCP: connection %1: Entered loss recovery phase with SndUna = %2 and SndMax = %3." />
+			<string id="string289" value="TcpDataTransferRetransmitRound" />
+			<string id="string290" value="TCP: connection %1: Send Retransmit round with SndUna = %6, Round = %8, SRTT = %9, RTO = %10." />
+			<string id="string291" value="TcpDataTransferSpuriousTimeout" />
+			<string id="string292" value="TCP: connection %1: Spurious timeout with SndUna = %7." />
+			<string id="string293" value="TcpDataTransferEcn" />
+			<string id="string294" value="TCP: connection %1: ECN Echo updated cwnd = %2 and updated ssthresh = %3. SndUna = %4, Mss = %5, ThAck = %6." />
+			<string id="string295" value="TcpDataTransferReceive" />
+			<string id="string296" value="TCP: connection %1: Received data with number of bytes = %2. ThSeq = %3." />
+			<string id="string297" value="TcpDataTransferSend" />
+			<string id="string298" value="TCP: connection %1: Sent data with number of bytes = %5 and Sequence number = %6." />
+			<string id="string299" value="TcpDataTransferDupAck" />
+			<string id="string300" value="TCP: connection %1: Duplicate ACK updated cwnd = %2 and updated ssthresh = %3." />
+			<string id="string301" value="TcpDataTransferCumAck" />
+			<string id="string302" value="TCP: connection %1: Cumulative ACK updated cwnd = %2." />
+			<string id="string303" value="TcpDataTransferRttSample" />
+			<string id="string304" value="TCP: connection %1:  Rtt sample recorded %4." />
+			<string id="string305" value="TcpDataTransferTimeout" />
+			<string id="string306" value="TCP: connection %1: Timeout Event updated cwnd = %2 and updated ssthresh = %3." />
+			<string id="string307" value="TcpRssTableChange" />
+			<string id="string308" value="TCP: moving RSS indirection table index %6 from processor %1 to processor %3." />
+			<string id="string309" value="TcpTcbChangeIsb" />
+			<string id="string310" value="TCP: ISB changed to %1. CWnd = %2 SndWnd = %3 SendAvailable = %4 SSThresh = %5." />
+			<string id="string311" value="TcpTcbExpireTimer" />
+			<string id="string312" value="TCP: Connection %1 %2 timer has expired." />
+			<string id="string313" value="TcpTcbStopTimer" />
+			<string id="string314" value="TCP: Connection %1 stopping %2 timer." />
+			<string id="string315" value="TcpTcbStartTimer" />
+			<string id="string316" value="TCP: Connection %1 %2 timer started. Scheduled to expire in %3 ms." />
+			<string id="string317" value="TcpGlobalSynAttackExit" />
+			<string id="string318" value="TCP: leaving SYN attack resistance mode, Syn Attacks Detected = %1." />
+			<string id="string319" value="TcpGlobalDeleteInterface" />
+			<string id="string320" value="TCP: address family %2 removed from interface %1." />
+			<string id="string321" value="TcpGlobalAddInterface" />
+			<string id="string322" value="TCP: address family %2 added to interface %1." />
+			<string id="string323" value="TcpGlobalIsbEndThrottle" />
+			<string id="string324" value="TCP: leaving low memory state. HighMemoryEvent = %1 HighPagedPoolEvent = %2." />
+			<string id="string325" value="TcpGlobalIsbBeginThrottle" />
+			<string id="string326" value="TCP: low memory state detected. LowMemoryEvent =%3 LowPagedPoolEvent = %4." />
+			<string id="string327" value="TcpGlobalLandAttackSegmentDrop" />
+			<string id="string328" value="TCP: land attack has dropped %5 packets since boot." />
+			<string id="string329" value="TcpGlobalConnectionRateLimitViolation" />
+			<string id="string330" value="TCP: connection rate-limiting violated %4 times since boot." />
+			<string id="string331" value="TcpGlobalReassemblyLimitViolation" />
+			<string id="string332" value="TCP: reasembly rate-limiting violated %2 times since boot." />
+			<string id="string333" value="TcpGlobalSynAttackEntry" />
+			<string id="string334" value="TCP: entering SYN attack resistance mode, Syn Attacks Detected = %1." />
+			<string id="string335" value="TcpGlobalPortReservation" />
+			<string id="string336" value="TCP: Process with PID = %1 completed global port reservation of %4 ports starting at %3 with status = %2." />
+			<string id="string337" value="TcpEndpointFailedPortReservation" />
+			<string id="string338" value="TCP: Process with PID = %1 failed to reserve %4 ports starting at %3 with status = %2." />
+			<string id="string339" value="TcpEndpointAcquirePortReservation" />
+			<string id="string340" value="TCP: Process with PID = %1 reserved %4 ports starting at %3." />
+			<string id="string341" value="TcpTcbStateChange" />
+			<string id="string342" value="TCP: connection %4 transition from %1 to %2, SndNxt = %3." />
+			<string id="string343" value="TcpConnectFailedPortAcquire" />
+			<string id="string344" value="TCP: connection %8 (local=%2 remote=%4) connect failed: port-acquisition status = %5." />
+			<string id="string345" value="TcpConnectTcbEstatsFailed" />
+			<string id="string346" value="TCP: connection %8 (local=%2 remote=%4) connect failed: extended statistics status = %5." />
+			<string id="string347" value="TcpDisconnectTcbTimeout" />
+			<string id="string348" value="TCP: connection %8 (local=%2 remote=%4) terminating: disconnect timeout expired." />
+			<string id="string349" value="TcpDisconnectTcbKeepaliveTimeout" />
+			<string id="string350" value="TCP: connection %8 (local=%2 remote=%4) terminating: keep-alive timeout expired." />
+			<string id="string351" value="TcpDisconnectTcbRtoTimeout" />
+			<string id="string352" value="TCP: connection %8 (local=%2 remote=%4) terminating: retransmission timeout expired." />
+			<string id="string353" value="TcpConnectTcbTimeout" />
+			<string id="string354" value="TCP: connection %8 (local=%2 remote=%4) connect failed: connect-request timeout expired." />
+			<string id="string355" value="TcpShutdownTcb" />
+			<string id="string356" value="TCP: connection %8 (local=%2 remote=%4) shutdown initiated (%5). PID = %6." />
+			<string id="string357" value="TcpDisconnectTcbComplete" />
+			<string id="string358" value="TCP: connection %8 (local=%2 remote=%4) disconnect completed." />
+			<string id="string359" value="TcpDisconnectTcbRequest" />
+			<string id="string360" value="TCP: connection disconnect %3, length=%1." />
+			<string id="string361" value="TcpDisconnectTcbInjectFailed" />
+			<string id="string362" value="TCP: Injecting disconnect on a shutdown TCB failed. TCB = %1." />
+			<string id="string363" value="TcpAbortTcbComplete" />
+			<string id="string364" value="TCP: connection %8 (local=%2 remote=%4) abort completed." />
+			<string id="string365" value="TcpAbortTcbRequest" />
+			<string id="string366" value="TCP: connection %8 (local=%2 remote=%4) abort issued." />
+			<string id="string367" value="TcpCloseTcbRequest" />
+			<string id="string368" value="TCP: connection %8 (local=%2 remote=%4) close issued." />
+			<string id="string369" value="TcpConnectTcbFailDontFragment" />
+			<string id="string370" value="TCP: ApplySynOptions, failed to update DF with status = %5, TCB = %8." />
+			<string id="string371" value="TcpConnectTcbFailSessionState" />
+			<string id="string372" value="TCP: ApplySynOptions, failed to create session state with status = %5, TCB = %8." />
+			<string id="string373" value="TcpConnectTcbFailInspectConnectComplete" />
+			<string id="string374" value="TCP: connection %8 (local=%2 remote=%4) connect failed: connect-complete inspect status = %5." />
+			<string id="string375" value="TcpConnectTcbFailure" />
+			<string id="string376" value="TCP: connection %8 (local=%2 remote=%4) connect attempt failed with status = %5." />
+			<string id="string377" value="TcpConnectTcbComplete" />
+			<string id="string378" value="TCP: connection %8 (local=%2 remote=%4) connect completed. PID = %6." />
+			<string id="string379" value="TcpConnectTcbRateLimitCancel" />
+			<string id="string380" value="TCP: connection %8 (local=%2 remote=%4) released due to cancel." />
+			<string id="string381" value="TcpConnectTcbProceeding" />
+			<string id="string382" value="TCP: connection %8 (local=%2 remote=%4) connect proceeding." />
+			<string id="string383" value="TcpConnectTcbFailInsertion" />
+			<string id="string384" value="TCP: connection (local=%2 remote=%4) connect failed: connection insertion status = %5." />
+			<string id="string385" value="TcpConnectTcbCancel" />
+			<string id="string386" value="TCP: connection %8 (local=%2 remote=%4) connect failed: connection cancelled." />
+			<string id="string387" value="TcpRateLimitPathCancel" />
+			<string id="string388" value="TCP: Clear rate limiting flag on path %5 (local=%2 remote=%4) since connection is cancelled." />
+			<string id="string389" value="TcpConnectTcbRateLimitRelease" />
+			<string id="string390" value="TCP: connection %8 (local=%2 remote=%4) released." />
+			<string id="string391" value="TcpRateLimitPathRelease" />
+			<string id="string392" value="TCP: Release and set rate limiting flag on path %5 (local=%2 remote=%4)" />
+			<string id="string393" value="TcpSecurityRateLimit" />
+			<string id="string394" value="TCP: %6 rate-limiting paths %3 backlogged connections." />
+			<string id="string395" value="TcpConnectTcbCheckRateLimit" />
+			<string id="string396" value="TCP: connection %8 (local=%2 remote=%4) deferred." />
+			<string id="string397" value="TcpConnectTcbPassRateLimit" />
+			<string id="string398" value="TCP: Charge rate limiting quota and set rate limiting flag for path %5 (local=%2 remote=%4)" />
+			<string id="string399" value="TcpConnectTcbSkipRateLimit" />
+			<string id="string400" value="TCP: Bypass rate limiting since flag is set on path %5 (local=%2 remote=%4)" />
+			<string id="string401" value="TcpConnectTcbFailedRoute" />
+			<string id="string402" value="TCP: connection %8 (local=%2 remote=%4) connect failed: route lookup status = %5." />
+			<string id="string403" value="TcpConnectTcbFailedInspect" />
+			<string id="string404" value="TCP: connection %8 (local=%2 remote=%4 PID=%6) connect failed: inspection status = %5." />
+			<string id="string405" value="TcpConnectTcbFailedCompartment" />
+			<string id="string406" value="TCP: connection %8 (local=%2 remote=%4 PID=%6) connect failed: compartment %7 not found." />
+			<string id="string407" value="TcpConnectTcbFailedAf" />
+			<string id="string408" value="TCP: connection %8 (local=%2 remote=%4 PID=%6) connect failed: address family not attached." />
+			<string id="string409" value="TcpAcceptListenerComplete" />
+			<string id="string410" value="TCP: listener (local=%2 remote=%4) accept completed. TCB = %8. PID = %6." />
+			<string id="string411" value="TcpAcceptListenerRejected" />
+			<string id="string412" value="TCP: listener (local=%2 remote=%4) accept failed: client rejection status = %5." />
+			<string id="string413" value="TcpAcceptListenerInsertionFailure" />
+			<string id="string414" value="TCP: listener (local=%3 remote=%5) accept failed: connection insertion. Duplicate TCB = %1." />
+			<string id="string415" value="TcpAccpetListenerRouteLookupFailure" />
+			<string id="string416" value="TCP: listener (local=%2 remote=%4) accept failed: Route lookup status = %5, TCB = %8." />
+			<string id="string417" value="TcpCreateEndpointComplete" />
+			<string id="string418" value="TCP: endpoint (Family=%6 PID=%4) created." />
+			<string id="string419" value="TcpCreateEndpointInspectionFailure" />
+			<string id="string420" value="TCP: endpoint (Family=%6 PID=%4) create failed: inspection status %3." />
+			<string id="string421" value="TcpCreateEndpointCompartmentFailure" />
+			<string id="string422" value="TCP: endpoint (Family=%6 PID=%4) create failed: compartment %5 not found." />
+			<string id="string423" value="TcpCreateEndpointAfFailure" />
+			<string id="string424" value="TCP: endpoint (Family=%6 PID=%4) create failed: address family not attached." />
+			<string id="string425" value="TcpCloseEndpoint" />
+			<string id="string426" value="TCP: endpoint (sockaddr=%2) closed." />
+			<string id="string427" value="TcpBindEndpointComplete" />
+			<string id="string428" value="TCP: endpoint (sockaddr=%2) bound." />
+			<string id="string429" value="TcpBindEndpointInspectionFailure" />
+			<string id="string430" value="TCP: endpoint (sockaddr=%2) bind failed: inspection status = %3." />
+			<string id="string431" value="TcpBindEndpointPortFailure" />
+			<string id="string432" value="TCP: endpoint (sockaddr=%2) bind failed: port-acquisition status = %3." />
+			<string id="string433" value="TcpBindEndpointResolutionFailure" />
+			<string id="string434" value="TCP: endpoint bind failed: address %2 cannot be resolved (%3)." />
+			<string id="string435" value="TcpTcbSynSend" />
+			<string id="string436" value="TCP: Tcb %1 is going to output SYN with ISN = %2, RcvWnd = %3, RcvWndScale = %4." />
+			<string id="string437" value="TcpInspectConnectComplete" />
+			<string id="string438" value="TCP: Inspect Connect has been completed on Tcb %1 with status = %2." />
+			<string id="string439" value="TcpRequestConnect" />
+			<string id="string440" value="TCP: Tcb %1 (local=%3 remote=%5) requested to connect." />
+			<string id="string441" value="TcpEndpointCreation" />
+			<string id="string442" value="TCP: endpoint %2 (Family=%3, PID=%4) created with status = %1." />
+			<string id="string443" value="ClosedState" />
+			<string id="string444" value="ListenState" />
+			<string id="string445" value="SynSentState" />
+			<string id="string446" value="SynRcvdState" />
+			<string id="string447" value="EstablishedState" />
+			<string id="string448" value="FinWait1State" />
+			<string id="string449" value="FinWait2State" />
+			<string id="string450" value="CloseWaitState" />
+			<string id="string451" value="ClosingState" />
+			<string id="string452" value="LastAckState" />
+			<string id="string453" value="TimeWaitState" />
+			<string id="string454" value="TcpTemplateTypeInternet" />
+			<string id="string455" value="TcpTemplateTypeDatacenter" />
+			<string id="string456" value="TcpTemplateTypeCompat" />
+			<string id="string457" value="TcpTemplateTypeCustom" />
+			<string id="string458" value="TcpTemplateTypeDefault" />
+			<string id="string459" value="TcpTemplateTypeAutomatic" />
+			<string id="string460" value="Unknown (Header corrupt / not parsed)" />
+			<string id="string461" value="ICMP" />
+			<string id="string462" value="IGMP" />
+			<string id="string463" value="TCP" />
+			<string id="string464" value="UDP" />
+			<string id="string465" value="ROUTING" />
+			<string id="string466" value="FRAGMENT" />
+			<string id="string467" value="GRE" />
+			<string id="string468" value="ESP" />
+			<string id="string469" value="AH" />
+			<string id="string470" value="ICMPV6" />
+			<string id="string471" value="Unknown" />
+			<string id="string472" value="IPV4" />
+			<string id="string473" value="IPV6" />
+			<string id="string474" value="Bad source address" />
+			<string id="string475" value="Not locally destined" />
+			<string id="string476" value="Protocol unreachable" />
+			<string id="string477" value="Port unreachable" />
+			<string id="string478" value="Bad length" />
+			<string id="string479" value="Malformed Header" />
+			<string id="string480" value="No route available" />
+			<string id="string481" value="Beyond scope" />
+			<string id="string482" value="Inspection drop" />
+			<string id="string483" value="Too many decapsulations" />
+			<string id="string484" value="Administratively prohibited" />
+			<string id="string485" value="Hop limit exceeded" />
+			<string id="string486" value="Address unreachable" />
+			<string id="string487" value="" />
+			<string id="string488" value="(Ignore IPv4 address), IPv6 address =" />
+			<string id="string489" value="Destination is multicast" />
+			<string id="string490" value="Header is invalid" />
+			<string id="string491" value="Checksum is invalid" />
+			<string id="string492" value="Transport endpoint was not found" />
+			<string id="string493" value="Connected path error" />
+			<string id="string494" value="Session state error" />
+			<string id="string495" value="Failed to allocate the WSD cache" />
+			<string id="string496" value="Failure initializing PnP work queue" />
+			<string id="string497" value="Failed to get persistent parameters" />
+			<string id="string498" value="Rejected persistent parameters" />
+			<string id="string499" value="qualified profile" />
+			<string id="string500" value="qualified destination" />
+			<string id="string501" value="sample collection completion" />
+			<string id="string502" value="idle time expiration" />
+			<string id="string503" value="allocation" />
+			<string id="string504" value="new sample request" />
+			<string id="string505" value="configuration change" />
+			<string id="string506" value="Idle" />
+			<string id="string507" value="ProbingWs" />
+			<string id="string508" value="ProbeWait" />
+			<string id="string509" value="ProbingWithoutWs" />
+			<string id="string510" value="RecordWait" />
+			<string id="string511" value="EreQualified" />
+			<string id="string512" value="Qualified" />
+			<string id="string513" value="IP checksum offload not computed" />
+			<string id="string514" value="TCP checksum offload not computed" />
+			<string id="string515" value="UDP checksum offload not computed" />
+			<string id="string516" value="Header not aligned on 4-byte boundary" />
+			<string id="string517" value="IP fragmentation" />
+			<string id="string518" value="Source address is not unicast" />
+			<string id="string519" value="Destination address is not unicast" />
+			<string id="string520" value="Ethernet and IP header not contiguous" />
+			<string id="string521" value="IP options present" />
+			<string id="string522" value="ESP over UDP" />
+			<string id="string523" value="Lack contiguous space for upper layer headers" />
+			<string id="string524" value="WFP filters present" />
+			<string id="string525" value="Nexthop is unavailable" />
+			<string id="string526" value="Path has been invalidated due to policy change" />
+			<string id="string527" value="DHCP assigned IP address' promiscuous count is non-zero" />
+			<string id="string528" value="ECN codepoint has not been negotiated for this traffic" />
+			<string id="string529" value="Session state is not compatible" />
+			<string id="string530" value="FALSE" />
+			<string id="string531" value="TRUE" />
+			<string id="string532" value="NdisPhysicalMediumUnspecified" />
+			<string id="string533" value="NdisPhysicalMediumWirelessLan" />
+			<string id="string534" value="NdisPhysicalMediumCableModem" />
+			<string id="string535" value="NdisPhysicalMediumPhoneLine" />
+			<string id="string536" value="NdisPhysicalMediumDSL" />
+			<string id="string537" value="NdisPhysicalMedium1394" />
+			<string id="string538" value="NdisPhysicalMediumWirelessWan" />
+			<string id="string539" value="NdisPhysicalMediumNative802_11" />
+			<string id="string540" value="NdisPhysicalMediumBluetooth" />
+			<string id="string541" value="NdisPhysicalMediumInfiniband" />
+			<string id="string542" value="NdisPhysicalMediumWiMax" />
+			<string id="string543" value="NdisPhysicalMedium802_3" />
+			<string id="string544" value="NdisPhysicalMedium802_5" />
+			<string id="string545" value="NdisPhysicalMediumIrda" />
+			<string id="string546" value="NdisPhysicalMediumWiredWAN" />
+			<string id="string547" value="Indicate" />
+			<string id="string548" value="Pend" />
+			<string id="string549" value="Satisfy" />
+			<string id="string550" value="NldsInvalid" />
+			<string id="string551" value="NldsTentative" />
+			<string id="string552" value="NldsDuplicate" />
+			<string id="string553" value="NldsDeprecated" />
+			<string id="string554" value="Operational" />
+			<string id="string555" value="Unoperational" />
+			<string id="string556" value="Dormant" />
+			<string id="string557" value="TCP_OFFLOAD_NO_PREFERENCE" />
+			<string id="string558" value="TCP_OFFLOAD_NOT_PREFERRED" />
+			<string id="string559" value="TCP_OFFLOAD_PREFERRED" />
+			<string id="string560" value="TCP_KEEPALIVE" />
+			<string id="string561" value="TCP_MAXSEG" />
+			<string id="string562" value="TCP_MAXRT" />
+			<string id="string563" value="TCP_STDURG" />
+			<string id="string564" value="TCP_NOURG" />
+			<string id="string565" value="TCP_ATMARK" />
+			<string id="string566" value="TCP_NOSYNRETRIES" />
+			<string id="string567" value="TCP_TIMESTAMPS" />
+			<string id="string568" value="TCP_OFFLOAD_PREFERENCE" />
+			<string id="string569" value="TCP_CONGESTION_ALGORITHM" />
+			<string id="string570" value="TCP_DELAY_FIN_ACK" />
+			<string id="string571" value="SO_DEBUG" />
+			<string id="string572" value="SO_ACCEPTCONN" />
+			<string id="string573" value="SO_REUSEADDR" />
+			<string id="string574" value="SO_KEEPALIVE" />
+			<string id="string575" value="SO_DONTROUTE" />
+			<string id="string576" value="SO_BROADCAST" />
+			<string id="string577" value="SO_USELOOPBACK" />
+			<string id="string578" value="SO_LINGER" />
+			<string id="string579" value="SO_OOBINLINE" />
+			<string id="string580" value="SO_SNDBUF" />
+			<string id="string581" value="SO_RCVBUF" />
+			<string id="string582" value="SO_CONDITIONAL_ACCEPT" />
+			<string id="string583" value="SO_PAUSE_ACCEPT" />
+			<string id="string584" value="SO_COMPARTMENT_ID" />
+			<string id="string585" value="SO_RANDOMIZE_PORT" />
+			<string id="string586" value="SO_PORT_SCALABILITY" />
+			<string id="string587" value="TcpConnectionOffloadStateInHost" />
+			<string id="string588" value="TcpConnectionOffloadStateOffloaded" />
+			<string id="string589" value="RetransmitTimer" />
+			<string id="string590" value="ConnectTimer" />
+			<string id="string591" value="DelAckTimer" />
+			<string id="string592" value="PushTimer" />
+			<string id="string593" value="KeepAliveTimer" />
+			<string id="string594" value="DisconnectTimer" />
+			<string id="string595" value="SwsTimer" />
+			<string id="string596" value="ReassemblyRateTimer" />
+			<string id="string597" value="SynOrRstValidationTimer" />
+		</stringTable>
+	</resources>
+</localization>
+</instrumentationManifest>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+
+
+  <!--
+       ***********************
+       * SUPPORTED PLATFORMS *
+       ***********************
+   -->
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug45|AnyCPU' ">
+    <BuildConfig>Debug</BuildConfig>
+    <BuildTarget>45</BuildTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release45|AnyCPU' ">
+    <BuildConfig>Release</BuildConfig>
+    <BuildTarget>45</BuildTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug40|AnyCPU' ">
+    <BuildConfig>Debug</BuildConfig>
+    <BuildTarget>40</BuildTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release40|AnyCPU' ">
+    <BuildConfig>Release</BuildConfig>
+    <BuildTarget>40</BuildTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(BuildTarget)' == '45' ">
+    <DefineConstants>$(DefineConstants);NO_EVENTARGS_CONSTRAINT;HAS_EDI;HAS_WINRT;HAS_PROGRESS;PREFER_ASYNC;HAS_AWAIT;HAS_APTCA;                                                              HAS_DISPATCHER_PRIORITY;HAS_WINFORMS</DefineConstants>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <!--<NoStdLib>true</NoStdLib>-->
+    <BuildPlatform>DESKTOPCLR</BuildPlatform>
+    <BuildFlavor>DESKTOPCLR45</BuildFlavor>
+    <SignKeyEnhanced>true</SignKeyEnhanced>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(BuildTarget)' == '40' ">
+    <DefineConstants>$(DefineConstants);NO_TASK_DELAY;HAS_APTCA;HAS_WINFORMS</DefineConstants>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <BuildPlatform>DESKTOPCLR</BuildPlatform>
+    <BuildFlavor>DESKTOPCLR40</BuildFlavor>
+  </PropertyGroup>
+
+  <!--
+       ********************
+       * GENERAL SETTINGS *
+       ********************
+   -->
+
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);$(BuildPlatform);$(BuildFlavor);TRACE</DefineConstants>
+    <OutputPath>c:\bin\$(BuildConfig)\Net$(BuildTarget)</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(BuildConfig)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(BuildConfig)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <!--<ItemGroup Condition=" '$(NoStdLib)' == 'true' ">
+    <Reference Include="mscorlib" />
+  </ItemGroup>-->
+
+  <!-- Temporary flag to enable stress test builds. Should be refactored into a separate project and be written in a more platform-neutral manner. (TFS 484720) -->
+  <PropertyGroup Condition=" '$(BuildFlavor)' == 'DESKTOPCLR40' OR '$(BuildFlavor)' == 'DESKTOPCLR45' ">
+    <DefineConstants>$(DefineConstants);STRESS</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+  <PropertyGroup Condition=" '$(ProductSignAssembly)' == 'true' AND '$(SignedBuild)' == '1' ">
+    <DefineConstants>$(DefineConstants);SIGNED</DefineConstants>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(SignAssembly)' == 'true' AND '$(SignKeyEnhanced)' != 'true' ">
+    <AssemblyOriginatorKeyFile>..\35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
+    <SignKeyId>72</SignKeyId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(SignAssembly)' == 'true' AND '$(SignKeyEnhanced)' == 'true' ">
+    <AssemblyOriginatorKeyFile>..\272MSSharedLibSN2048.snk</AssemblyOriginatorKeyFile>
+    <DefineConstants>$(DefineConstants);SIGNENHANCED</DefineConstants>
+    <SignKeyId>272</SignKeyId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(BuildLab)' == '1' ">
+    <DefineConstants>$(DefineConstants);NO_CODECOVERAGE</DefineConstants>
+  </PropertyGroup>
+  -->
+
+</Project>
