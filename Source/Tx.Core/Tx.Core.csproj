@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Attributes.cs" />
     <Compile Include="CustomAttributeProviderExtensions.cs" />

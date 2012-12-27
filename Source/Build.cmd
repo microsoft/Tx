@@ -11,9 +11,11 @@ copy ..\tools\zip.exe %bin%\
 pushd
 
 cd %bin%\Debug
+call :setVersion
 call :packAll
 
 cd %bin%\Release
+call :setVersion
 call :packAll
 
 cd %bin%\Release\Net40
@@ -22,6 +24,18 @@ cd %bin%\Release\Net40
 
 popd
 goto end
+
+:setVersion
+
+pushd Net40\Properties
+..\SetVersion.exe
+popd
+
+pushd Net45\Properties
+..\SetVersion.exe
+popd
+
+exit /b 0
 
 :packAll
 call :pack Tx.Core

@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TxFmt", "TxFmt\TxFmt.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.LinqPad", "Tx.LinqPad\Tx.LinqPad.csproj", "{3326CF58-CDA1-4514-BADD-465F4CEDAF50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetVersion", "SetVersion\SetVersion.csproj", "{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Tx.vsmdi
@@ -92,6 +94,14 @@ Global
 		{3326CF58-CDA1-4514-BADD-465F4CEDAF50}.Release40|Any CPU.Build.0 = Release40|Any CPU
 		{3326CF58-CDA1-4514-BADD-465F4CEDAF50}.Release45|Any CPU.ActiveCfg = Release45|Any CPU
 		{3326CF58-CDA1-4514-BADD-465F4CEDAF50}.Release45|Any CPU.Build.0 = Release45|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Debug40|Any CPU.ActiveCfg = Debug40|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Debug40|Any CPU.Build.0 = Debug40|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Debug45|Any CPU.ActiveCfg = Debug45|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Debug45|Any CPU.Build.0 = Debug45|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release40|Any CPU.ActiveCfg = Release40|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release40|Any CPU.Build.0 = Release40|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release45|Any CPU.ActiveCfg = Release45|Any CPU
+		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release45|Any CPU.Build.0 = Release45|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
