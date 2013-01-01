@@ -133,10 +133,11 @@ using System;");
 
                 if (evt.Attribute(AttributeNames.Message) != null)
                 {
-                    string format = EscapeFormatString(evt.Attribute(AttributeNames.Message).Value);
-                    sb.Append("    [Format(\"");
-                    sb.Append(format);
-                    sb.AppendLine("\")]");
+                    EmitFormatString(ref sb, evt.Attribute(AttributeNames.Message).Value);
+                }
+                else
+                {
+                    EmitDefaultFormatString(ref sb, evt, templates);
                 }
                 sb.AppendLine();
 
@@ -259,6 +260,33 @@ using System;");
                 sb.AppendLine(" { get; set; }");
                 order++;
             }
+        }
+
+        void EmitDefaultFormatString(ref StringBuilder sb, XElement evt, XElement templates)
+        {
+            if (evt.Attribute(AttributeNames.Template) == null)
+                return;
+
+            var template = from t in templates.Elements()
+                           where t.Attribute(AttributeNames.Tid).Value == evt.Attribute(AttributeNames.Template).Value
+                           select t;
+
+            sb.Append("    [Format(\"");
+
+            int order = 0;
+            foreach (var f in template.Elements(ElementNames.Data))
+            {
+                if (order > 0)
+                    sb.Append(", ");
+
+                order++;
+
+                sb.Append(CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
+                sb.Append("=%");
+                sb.Append(order);
+            }
+
+            sb.AppendLine("\")]"); 
         }
 
         Dictionary<int, XElement> _earliestVersions;
@@ -515,13 +543,17 @@ using System;");
             return x.ToArray();
         }
 
-        string EscapeFormatString(string message)
+        void EmitFormatString(ref StringBuilder sb, string message)
         {
             string format = LookupResourceString(message);
 
-            return format
+            format = format
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"");
+
+            sb.Append("    [Format(\"");
+            sb.Append(format);
+            sb.AppendLine("\")]");
         }
 
         string CreateIdentifier(string s)
