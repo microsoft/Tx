@@ -21,6 +21,19 @@ namespace Tx.Windows
         public UInt16 EventProperty { get { return record->EventHeader.EventProperty; } }
         public UInt32 ThreadId { get { return record->EventHeader.ThreadId; } }
         public UInt32 ProcessId { get { return record->EventHeader.ProcessId; } }
+        public UInt16 ProcessorId { get 
+        {
+            if ((record->EventHeader.Flags & EtwNativeMethods.EVENT_HEADER_FLAG_PROCESSOR_INDEX) != 0)
+            {
+                return record->BufferContext.ProcessorIndex;
+
+            }
+            else
+            {
+                return record->BufferContext.ProcessorNumber;
+            }
+        } }
+
         public DateTimeOffset TimeStamp { get { return TimeUtil.DateTimeOffsetFromFileTime(record->EventHeader.TimeStamp); } }
         public Int64 TimeStampRaw { get { return record->EventHeader.TimeStamp; } }
         public Guid ProviderId { get { return record->EventHeader.ProviderId; } }

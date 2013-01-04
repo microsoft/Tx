@@ -10,12 +10,14 @@
         public DateTime Timestamp { get; set; }
         public Guid ActivityId { get; set; }
         public Guid RelatedActivityId { get; set; }
+        public ulong[] PmcCounters { get; set; }
         public Guid ProviderId { get; set; }
         public ushort EventId { get; set; }
         public byte Opcode { get; set; }
         public byte Version { get; set; }
         public string Context { get; set; }
         public uint ProcessId { get; set; }
+        public ushort ProcessorId { get; set; }
         public uint ThreadId { get; set; }
         public byte Level { get; set; }
         public byte Channel { get; set; }

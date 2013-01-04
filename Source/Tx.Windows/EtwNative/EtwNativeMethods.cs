@@ -13,8 +13,9 @@ namespace Tx.Windows
         public const uint TraceModeEventRecord = 0x10000000;
         public static readonly ulong InvalidHandle = (Environment.OSVersion.Version.Major >= 6 ? 0x00000000FFFFFFFF : 0xFFFFFFFFFFFFFFFF);
 
-        public const UInt16 EVENT_HEADER_FLAG_32_BIT_HEADER = 0x20;
-        public const UInt16 EVENT_HEADER_FLAG_64_BIT_HEADER = 0x40;
+        public const UInt16 EVENT_HEADER_FLAG_32_BIT_HEADER =   0x20;
+        public const UInt16 EVENT_HEADER_FLAG_64_BIT_HEADER =   0x40;
+        public const UInt16 EVENT_HEADER_FLAG_PROCESSOR_INDEX = 0x0200;
 
         [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "OpenTraceW", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern UInt64 OpenTrace(ref EVENT_TRACE_LOGFILE logfile);
@@ -348,7 +349,9 @@ namespace Tx.Windows
         TsSid,
         InstanceInfo,
         StackTrace32,
-        StackTrace64
+        StackTrace64,
+        PebsIndex,
+        PmcCounters,
     }
     
     [Serializable]
@@ -374,11 +377,19 @@ namespace Tx.Windows
         public IntPtr UserData;
         public IntPtr UserContext;            
 
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Explicit)]
         public struct ETW_BUFFER_CONTEXT 
         {
+            [FieldOffset(0)]
             public byte ProcessorNumber;
+
+            [FieldOffset(1)]
             public byte Alignment;
+
+            [FieldOffset(0)]
+            public UInt16 ProcessorIndex;
+
+            [FieldOffset(2)]
             public UInt16 LoggerId;
         }
     }

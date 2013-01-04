@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reactive;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Tx.Windows
 {
@@ -23,11 +24,13 @@ namespace Tx.Windows
                         Timestamp = e.TimeStamp.DateTime,
                         ActivityId = e.ActivityId,
                         RelatedActivityId = GetRelatedActivityId(e.ExtendedDataCount, e.ExtendedData, e.Flags),
+                        PmcCounters = GetPmcCounters(e.ExtendedDataCount, e.ExtendedData),
                         ProviderId = e.ProviderId,
                         EventId = e.Id,
                         Opcode = e.Opcode,
                         Version = e.Version,
                         ProcessId = e.ProcessId,
+                        ProcessorId = e.ProcessorId,
                         ThreadId = e.ThreadId,
                         Level = e.Level,
                         Channel = e.Channel,
@@ -188,6 +191,29 @@ namespace Tx.Windows
             }
 
             return relatedActivityId;
+        }
+
+        static ulong[] GetPmcCounters(UInt16 extendedDataCount, IntPtr extendedData)
+        {
+            for (int ext = 0; ext < extendedDataCount; ext++)
+            {
+                unsafe
+                {
+                    EventHeaderExtendedDataItem extendedDataItem = *((EventHeaderExtendedDataItem*)extendedData.ToPointer());
+                    if (extendedDataItem.ExtType != EventHeaderExtType.PmcCounters)
+                        continue;
+
+                    int len = extendedDataItem.DataSize / sizeof(UInt64);
+                    ulong[] pmcCodes = new ulong[len];
+                    fixed (UInt64* pCodes = pmcCodes)
+                    {
+                        TypeServiceUtil.MemCopy((byte*)extendedDataItem.DataPtr.ToPointer(), (byte*)pCodes, len * sizeof(UInt64));
+                    }
+                    return pmcCodes;
+                }
+            }
+
+            return new ulong[0];
         }
     }
 }
