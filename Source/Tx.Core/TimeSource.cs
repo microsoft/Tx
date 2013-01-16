@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using System.Linq.Expressions;
 using System.Reactive.Concurrency;
 using System.Reactive.Subjects;
 using System.Collections.Generic;

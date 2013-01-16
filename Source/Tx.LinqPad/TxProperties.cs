@@ -1,4 +1,6 @@
-﻿namespace Tx.LinqPad
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+namespace Tx.LinqPad
 {
     using LINQPad.Extensibility.DataContext;
     using System.Xml.Linq;
