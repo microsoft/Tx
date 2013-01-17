@@ -67,16 +67,6 @@
     <None Include="eventing.man" />
     <None Include="..\..\..\Source\key.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Microsoft.Etw\Microsoft.Etw.csproj">
-      <Project>{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}</Project>
-      <Name>Microsoft.Etw</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Source\System.Reactive.Tx\System.Reactive.Tx.csproj">
-      <Project>{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}</Project>
-      <Name>System.Reactive.Tx</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

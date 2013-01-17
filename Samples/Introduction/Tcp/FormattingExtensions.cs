@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using System.Net;
 using System.Text;
 using System;
 using System.Runtime.InteropServices;

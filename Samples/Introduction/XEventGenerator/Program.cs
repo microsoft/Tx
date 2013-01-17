@@ -1,4 +1,6 @@
-﻿using Microsoft.SqlServer.XEvent;
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using Microsoft.SqlServer.XEvent;
 using Microsoft.SqlServer.XEvent.Configuration;
 using System.Collections.Generic;
 using System;
