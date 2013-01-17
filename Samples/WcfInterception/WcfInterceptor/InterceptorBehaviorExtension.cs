@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using System.Text;
 
-namespace WcfInterception
+namespace Tx.Samples.WCFInterception
 {
     public class InterceptorBehaviorExtension : BehaviorExtensionElement
     {

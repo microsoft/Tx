@@ -7,7 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace OutputUI
+namespace Tx.Samples.WCFInterception
 {
     /// <summary>
     /// Interaction logic for App.xaml

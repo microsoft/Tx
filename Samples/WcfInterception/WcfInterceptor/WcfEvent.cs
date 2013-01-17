@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel.Channels;
 using System.Text;
 
-namespace WcfInterception
+namespace Tx.Samples.WCFInterception
 {
     [DataContract]
     public class MethodCallDuration

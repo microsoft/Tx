@@ -3,7 +3,7 @@
 using System;
 using System.ServiceModel;
 
-namespace WcfInterception
+namespace Tx.Samples.WCFInterception
 {
     class Program
     {

@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading;
 
-namespace WcfInterception
+namespace Tx.Samples.WCFInterception
 {
     [ServiceContract]
     public interface IStockQuoteService

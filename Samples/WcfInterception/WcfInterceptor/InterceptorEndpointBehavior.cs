@@ -1,5 +1,7 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -8,7 +10,7 @@ using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 using System.Text;
 
-namespace WcfInterception
+namespace Tx.Samples.WCFInterception
 {
     class InterceptorEndpointBehavior : InterceptorBehaviorExtension, IEndpointBehavior
     {

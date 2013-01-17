@@ -1,4 +1,4 @@
-namespace Microsoft.Etw.WcfInterception
+namespace Tx.Windows.WcfInterception
 {
     using System;
 

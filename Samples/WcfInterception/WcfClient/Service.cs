@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-namespace Microsoft.TraceInsight.Samples.WCF
+namespace Tx.Samples.WCFInterception
 {
     using System.Runtime.Serialization;
     
@@ -116,25 +116,25 @@ namespace Microsoft.TraceInsight.Samples.WCF
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "Microsoft.TraceInsight.Samples.WCF.IStockQuoteService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "Tx.Samples.WCFInterception.IStockQuoteService")]
     public interface IStockQuoteService
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockQuoteService/GetQuote", ReplyAction="http://tempuri.org/IStockQuoteService/GetQuoteResponse")]
-        Microsoft.TraceInsight.Samples.WCF.DailyStockQuote GetQuote(string symbol);
+        Tx.Samples.WCFInterception.DailyStockQuote GetQuote(string symbol);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockQuoteService/PurchaseStock", ReplyAction="http://tempuri.org/IStockQuoteService/PurchaseStockResponse")]
         bool PurchaseStock(string symbol, int quantity);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public interface IStockQuoteServiceChannel : Microsoft.TraceInsight.Samples.WCF.IStockQuoteService, System.ServiceModel.IClientChannel
+    public interface IStockQuoteServiceChannel : Tx.Samples.WCFInterception.IStockQuoteService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class StockQuoteServiceClient : System.ServiceModel.ClientBase<Microsoft.TraceInsight.Samples.WCF.IStockQuoteService>, Microsoft.TraceInsight.Samples.WCF.IStockQuoteService
+    public partial class StockQuoteServiceClient : System.ServiceModel.ClientBase<Tx.Samples.WCFInterception.IStockQuoteService>, Tx.Samples.WCFInterception.IStockQuoteService
     {
         
         public StockQuoteServiceClient()
@@ -161,7 +161,7 @@ namespace Microsoft.TraceInsight.Samples.WCF
         {
         }
 
-        public Microsoft.TraceInsight.Samples.WCF.DailyStockQuote GetQuote(string symbol)
+        public Tx.Samples.WCFInterception.DailyStockQuote GetQuote(string symbol)
         {
             return base.Channel.GetQuote(symbol);
         }

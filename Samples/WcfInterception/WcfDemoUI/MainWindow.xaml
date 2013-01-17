@@ -1,4 +1,4 @@
-﻿<Window x:Class="OutputUI.MainWindow"
+﻿<Window x:Class="Tx.Samples.WCFInterception.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="366" Width="817" Loaded="Window_Loaded">

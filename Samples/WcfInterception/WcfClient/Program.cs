@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Microsoft.TraceInsight.Samples.WCF
+namespace Tx.Samples.WCFInterception
 {
     class Program
     {

@@ -16,45 +16,28 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <Import Project="..\..\..\Common.targets" />
+  <PropertyGroup>
+    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Reactive.Core">
-      <HintPath>..\..\..\References\System.Reactive.Core.dll</HintPath>
+      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\..\..\References\System.Reactive.Interfaces.dll</HintPath>
+      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Linq">
-      <HintPath>..\..\..\References\System.Reactive.Linq.dll</HintPath>
+      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Windows.Threading, Version=1.1.11111.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\System.Reactive.Windows.Threading.dll</HintPath>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>$(CPReferencePath)\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -106,7 +89,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,13 +96,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Microsoft.Etw\Microsoft.Etw.csproj">
-      <Project>{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}</Project>
-      <Name>Microsoft.Etw</Name>
+    <ProjectReference Include="..\..\..\Source\Tx.Core\Tx.Core.csproj">
+      <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
+      <Name>Tx.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Source\System.Reactive.Tx\System.Reactive.Tx.csproj">
-      <Project>{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}</Project>
-      <Name>System.Reactive.Tx</Name>
+    <ProjectReference Include="..\..\..\Source\Tx.Windows\Tx.Windows.csproj">
+      <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
+      <Name>Tx.Windows</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

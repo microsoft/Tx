@@ -3,16 +3,16 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Reactive.Tx;
-using Microsoft.Etw;
-using Microsoft.Etw.WcfInterception;
+using Tx.Windows;
+using Tx.Windows.WcfInterception;
 
-namespace OutputUI
+namespace Tx.Samples.WCFInterception
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
