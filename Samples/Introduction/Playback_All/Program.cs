@@ -17,11 +17,12 @@ namespace TxSamples.Playback_All
 
             IObservable<SystemEvent> all = playback.GetObservable<SystemEvent>();
 
-            all.Count().Subscribe(Console.WriteLine);
+            using (all.Count().Subscribe(Console.WriteLine))
+            {
+                playback.Run();
 
-            playback.Run();
-
-            Console.ReadLine();
+                Console.ReadLine();
+            }
         }
     }
 }

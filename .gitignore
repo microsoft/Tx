@@ -6,3 +6,5 @@ TestResults
 *.[Cc]ache
 *.bak
 *.ncb
+UpgradeLog*
+_UpgradeReport_Files

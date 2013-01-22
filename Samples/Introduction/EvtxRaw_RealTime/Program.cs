@@ -12,7 +12,7 @@ namespace TxSamples.EvtxRaw
         static void Main()
         {
             IObservable<EventRecord> evtx = EvtxObservable.FromLog("Application");
-            evtx.Subscribe(e=>Console.WriteLine(e.FormatDescription()));
+            IDisposable d = evtx.Subscribe(e=>Console.WriteLine(e.FormatDescription()));
            
             EventLog log = new EventLog("Application");
             log.Source = "EvtxRaw_RealTime";  
@@ -23,6 +23,7 @@ namespace TxSamples.EvtxRaw
             }
 
             Console.ReadLine();
+            d.Dispose();
         }
     }
 }

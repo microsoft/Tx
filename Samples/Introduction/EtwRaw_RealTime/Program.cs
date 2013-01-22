@@ -16,9 +16,10 @@ namespace TxSamples.EtwRaw_RealTime
             logman.WaitForExit();
 
             IObservable<EtwNativeEvent> session = EtwObservable.FromSession("TCP");
-            session.Subscribe(e => Console.WriteLine("{0} {1}", e.TimeStamp, e.Id));
-
-            Console.ReadLine();
+            using (session.Subscribe(e => Console.WriteLine("{0} {1}", e.TimeStamp, e.Id)))
+            {
+                Console.ReadLine();
+            }
         }
     }
 }

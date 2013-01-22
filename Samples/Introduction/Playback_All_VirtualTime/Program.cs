@@ -23,11 +23,12 @@ namespace TxSamples.Playback_All
 
             var withTime = counts.Timestamp(playback.Scheduler);
 
-            withTime.Subscribe(ts => Console.WriteLine("{0} {1}", ts.Timestamp, ts.Value));
+            using (withTime.Subscribe(ts => Console.WriteLine("{0} {1}", ts.Timestamp, ts.Value)))
+            {
+                playback.Run();
 
-            playback.Run();
-
-            Console.ReadLine();
+                Console.ReadLine();
+            }
         }
     }
 }

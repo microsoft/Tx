@@ -32,9 +32,12 @@ namespace TxSamples.Playback_RealTime
                         };
 
 
-            recv.Subscribe(e=>Console.WriteLine("{0} : Received {1,5} bytes from {2}", e.Time, e.Size, e.Address));
+            using (recv.Subscribe(e => Console.WriteLine("{0} : Received {1,5} bytes from {2}", e.Time, e.Size, e.Address)))
+            {
+                playback.Start();
 
-            playback.Start();
+                Console.ReadLine();
+            }
         }
 
         static void StartSession()

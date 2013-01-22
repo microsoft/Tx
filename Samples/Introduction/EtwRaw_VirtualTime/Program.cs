@@ -22,10 +22,12 @@ namespace TxSamples.EtwRaw_VirtualTime
 
             var withTime = countPerWindow.Timestamp(timeSource.Scheduler);
 
-            withTime.Subscribe(ts => Console.WriteLine("{0} {1}", ts.Timestamp, ts.Value));
-            timeSource.Connect();
+            using (withTime.Subscribe(ts => Console.WriteLine("{0} {1}", ts.Timestamp, ts.Value)))
+            {
+                timeSource.Connect();
 
-            Console.ReadLine();
+                Console.ReadLine();
+            }
         }
     }
 }

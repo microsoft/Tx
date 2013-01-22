@@ -22,7 +22,6 @@ namespace System.Reactive
         Thread _thread;
         WaitHandle _waitStart;
         long _eventsRead;
-        bool _disposing; 
 
         public OutputPump(IEnumerable<T> source, IObserver<T> target, WaitHandle waitStart)
         {
@@ -36,8 +35,6 @@ namespace System.Reactive
 
         public void Dispose()
         {
-            _disposing = true;
-            _thread.Abort();
             _waitStart.Dispose();
             _completed.Dispose();
         }
@@ -51,6 +48,10 @@ namespace System.Reactive
                 {
                     if (!_source.MoveNext())
                         break;
+                }
+                catch (ObjectDisposedException)
+                {
+                    break;
                 }
                 catch (Exception ex)
                 {
@@ -77,10 +78,7 @@ namespace System.Reactive
                 }
             }
 
-            if (!_disposing)
-            {
-                _target.OnCompleted();
-            }
+            _target.OnCompleted();
             _completed.Set();
         }
     }

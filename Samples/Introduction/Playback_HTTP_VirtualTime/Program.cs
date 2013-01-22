@@ -50,7 +50,7 @@ namespace TxSamples.Playback_HTTP_VirtualTime
                                      .ToList() 
                              select stats;
 
-            statistics.Subscribe(b =>
+            IDisposable d = statistics.Subscribe(b =>
                 {
                     Console.WriteLine("--------------------------");
                     foreach (var s in b.OrderBy(s => s.Milliseconds)) // <-- LINQ to Objects!
@@ -62,6 +62,7 @@ namespace TxSamples.Playback_HTTP_VirtualTime
             playback.Run();
 
             Console.ReadLine();
+            d.Dispose();
         }
     }
 }
