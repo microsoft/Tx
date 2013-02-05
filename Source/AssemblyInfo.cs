@@ -6,5 +6,5 @@ using System.Reflection;
 [assembly: AssemblyProduct("Tx (LINQ to Traces)")]
 [assembly: AssemblyCopyright("Copyright © MS Open Tech 2012")]
 
-[assembly: AssemblyVersion("1.0.7.0")]
-[assembly: AssemblyFileVersion("1.0.7.0")]
+[assembly: AssemblyVersion("1.0.8.0")]
+[assembly: AssemblyFileVersion("1.0.8.0")]

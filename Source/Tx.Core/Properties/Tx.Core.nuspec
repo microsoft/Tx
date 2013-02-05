@@ -16,7 +16,7 @@
       <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Rx-Main" version="2.0.21103" />
+      <dependency id="Rx-Main" version="2.1.30204" />
     </dependencies>
   </metadata>
 </package>

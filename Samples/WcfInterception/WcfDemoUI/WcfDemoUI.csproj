@@ -19,7 +19,7 @@
   </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
+    <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
