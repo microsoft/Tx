@@ -2,7 +2,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-using Microsoft.Etw;
+using Tx.Windows;
 
 namespace EtwLoadGenerator
 {

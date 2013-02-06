@@ -5,15 +5,19 @@ namespace EtwListener
     using System;
     using System.Diagnostics;
     using System.Reactive.Linq;
-    using System.Reactive.Tx;
+    using System.Reactive;
     using System.Runtime.InteropServices;
     using System.Threading;
-    using Microsoft.Etw;
-    using Microsoft.Etw.Prototype_Eventing_Provider;
+    using Tx.Windows;
+    using Tx.Windows.Prototype_Eventing_Provider;
 
     class Program
     {
         static Guid _providerId = new Guid("3838EF9A-CB6F-4A1C-9033-84C0E8EBF5A7");
+
+        // Note that we need to keep references - otherwise these will get disposed
+        static IDisposable subscription;
+        static Playback playback;
 
         static void Main(string[] args)
         {
@@ -63,18 +67,21 @@ namespace EtwListener
             Console.WriteLine("listening for {0}", typeof(T).Name);
             Console.WriteLine();
 
-            var pb = new Playback();
-            pb.AddRealTimeSession("TxRealTime");
+            playback  = new Playback();
+            playback.AddRealTimeSession("TxRealTime");
 
-            var all = pb.GetObservable<T>();
+            var all = playback.GetObservable<T>();
 
-            var windows = from w in all.Window(TimeSpan.FromSeconds(1))
+            var windows = from w in all.Window(TimeSpan.FromSeconds(1), playback.Scheduler)
                           from c in w.Count()
                           select c;
 
-            windows.Subscribe(c => Console.WriteLine("Using Tx and Rx for count : {0:n}", c));
+            subscription = windows.Subscribe(
+                (c) => Console.WriteLine("Using Tx and Rx for count : {0:n}", c),
+                (error)=>  Console.WriteLine(error.Message),
+                ()=>Console.WriteLine("----Completed!---"));
 
-            pb.Start();
+            playback.Start();
         }
 
         private const uint TraceModeRealTime = 0x00000100;

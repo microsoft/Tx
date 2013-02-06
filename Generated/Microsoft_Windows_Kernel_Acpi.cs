@@ -299,6 +299,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 11, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
 
+    [Format("ThermalZoneDeviceInstanceLength=%1, ThermalZoneDeviceInstance=%2, Temperature=%3")]
 
     public class ACPI_ETW_EVENT_TEMPERATURE_CHANGE : SystemEvent
     {

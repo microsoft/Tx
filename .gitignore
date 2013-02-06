@@ -8,3 +8,5 @@ TestResults
 *.ncb
 UpgradeLog*
 _UpgradeReport_Files
+*.psess
+*.vspx
