@@ -44,8 +44,12 @@ namespace Tx.Windows
             else
             {
                 localization = _root.Element(ElementNames.Localization);
-                resources = localization.Element(ElementNames.Resources);
-                _stringTable = resources.Element(ElementNames.StringTable);
+                if (localization != null)
+                {
+                    resources = localization.Element(ElementNames.Resources);
+                    if (resources != null)
+                        _stringTable = resources.Element(ElementNames.StringTable);
+                }
             }
             _events = _instrumentation.Element(ElementNames.Events);
             _providers = _events.Elements(ElementNames.Provider);
