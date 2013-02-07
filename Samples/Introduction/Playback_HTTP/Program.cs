@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Tx.Windows;
 using Tx.Windows.Microsoft_Windows_HttpService;
 
-namespace TxSamples.Playback_HTTP
+namespace TxSamples
 {
     class Program
     {

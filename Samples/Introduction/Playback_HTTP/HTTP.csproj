@@ -5,17 +5,20 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2B16B3AC-446C-4A30-84F9-66111B53D5B5}</ProjectGuid>
+    <ProjectGuid>{9D30BB5D-227A-4EC0-8331-5ECC8A3407E7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Playback_Requests</RootNamespace>
-    <AssemblyName>Playback_Requests</AssemblyName>
+    <RootNamespace>TxSamples</RootNamespace>
+    <AssemblyName>HTTP</AssemblyName>
   </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
     <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Reactive.Core">
       <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>

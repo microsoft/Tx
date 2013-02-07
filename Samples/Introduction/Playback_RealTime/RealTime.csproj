@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A4D18C05-11EE-4613-A9F5-1D05FD3B7108}</ProjectGuid>
+    <ProjectGuid>{4BF175AC-9EE6-4D37-92A7-D6A27D828CBF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TxSamples.Playback_RealTimeAndPast</RootNamespace>
-    <AssemblyName>Playback_RealTimeAndPast</AssemblyName>
+    <RootNamespace>TxSamples</RootNamespace>
+    <AssemblyName>RealTime</AssemblyName>
   </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
@@ -41,12 +41,6 @@
       <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
       <Name>Tx.Windows</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\Traces\tcp.etl">
-      <Link>tcp.etl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,7 +9,7 @@ using System.Security.Principal;
 using Tx.Windows;
 using Tx.Windows.Microsoft_Windows_Kernel_Network;
 
-namespace TxSamples.Playback_RealTimeAndPast
+namespace TxSamples
 {
     class Program
     {

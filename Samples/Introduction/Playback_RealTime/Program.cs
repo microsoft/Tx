@@ -1,19 +1,15 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.Net;
 using System.Reactive;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Security.Principal;
 using Tx.Windows;
 using Tx.Windows.Microsoft_Windows_Kernel_Network;
-using System.Net;
-using System.Diagnostics;
-using System.Security.Principal;
 
-namespace TxSamples.Playback_RealTime
+namespace TxSamples
 {
     class Program
     {

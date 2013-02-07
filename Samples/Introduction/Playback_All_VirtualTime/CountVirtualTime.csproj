@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9D30BB5D-227A-4EC0-8331-5ECC8A3407E7}</ProjectGuid>
+    <ProjectGuid>{4C29C56C-B26B-4024-B509-107515300613}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlaybackEtw</RootNamespace>
-    <AssemblyName>PlaybackEtw</AssemblyName>
+    <RootNamespace>TxSamples</RootNamespace>
+    <AssemblyName>CountVirtualTime</AssemblyName>
   </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
@@ -31,9 +31,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\Generated\Microsoft_Windows_HttpService.cs">
-      <Link>Microsoft_Windows_HttpService.cs</Link>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,6 +47,10 @@
   <ItemGroup>
     <None Include="..\..\..\Traces\HTTP_Server.etl">
       <Link>HTTP_Server.etl</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\Traces\HTTP_Server.evtx">
+      <Link>HTTP_Server.evtx</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

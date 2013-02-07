@@ -5,7 +5,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Tx.Windows;
 
-namespace TxSamples.Playback_All
+namespace TxSamples
 {
     class Program
     {

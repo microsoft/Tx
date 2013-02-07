@@ -5,17 +5,20 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4BF175AC-9EE6-4D37-92A7-D6A27D828CBF}</ProjectGuid>
+    <ProjectGuid>{527D29B2-9AEC-40C8-93E9-1975FB22FCBE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TxSamples.Playback_RealTime</RootNamespace>
-    <AssemblyName>Playback_RealTime</AssemblyName>
+    <RootNamespace>TxSamples</RootNamespace>
+    <AssemblyName>CountAll</AssemblyName>
   </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
     <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Reactive.Core">
       <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
@@ -28,7 +31,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Microsoft_Windows_Kernel_Network.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -41,6 +43,16 @@
       <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
       <Name>Tx.Windows</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Traces\HTTP_Server.etl">
+      <Link>HTTP_Server.etl</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\Traces\HTTP_Server.evtx">
+      <Link>HTTP_Server.evtx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using Tx.Windows;
 using Tx.Windows.Microsoft_Windows_HttpService;
 
-namespace TxSamples.Playback_HTTP_VirtualTime
+namespace TxSamples
 {
     class Program
     {
