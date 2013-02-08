@@ -5,7 +5,10 @@
     <title>Tx (LINQ to Traces)</title>
     <version>1.0.5-beta</version>
     <description>Reusable components for representing raw traces/logs and real-time feeds as IObservable sequences</description>
-    <authors>Microsoft</authors>
+    <authors>Microsoft Open Technologies, Inc.</authors>
+    <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
+
+    <projectUrl>http://tx.codeplex.com</projectUrl>
 <!--
     <projectUrl>http://go.microsoft.com/fwlink/?LinkID=179929</projectUrl>
     <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=186234</licenseUrl>
