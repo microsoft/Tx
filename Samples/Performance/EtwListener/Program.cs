@@ -31,29 +31,34 @@ namespace EtwListener
             {
                 Console.WriteLine(
 @"Usage: 
-    EtwListener Tx Small - listen with Tx/Rx, Small events. Try also Medium and Large
-    EtwListener Direct   - just count the events in the ETW callback (no Tx/Rx)");
+    EtwListener Playback Small - listen with Playback, Small events. Try also Medium and Large
+    EtwListener Native *       - no conversion to C# objects with used data. Events are EtwNativeEvent
+    EtwListener Direct *       - just count the events in the ETW callback (no Tx/Rx)");
                 Environment.Exit(0);
             }
 
-            if (args[0] == "Tx")
+            if (args[0] == "Playback")
             {
                 switch(args[1].ToLower())
                 {
                     case "small":
-                        ListenWithTx<SmallEvent>();
+                        ListenWithPlayback<SmallEvent>();
                         break;
 
                     case "medium":
-                        ListenWithTx<MediumEvent>();
+                        ListenWithPlayback<MediumEvent>();
                         break;
 
                     case "large":
-                        ListenWithTx<LargeEvent>();
+                        ListenWithPlayback<LargeEvent>();
                         break;
 
                         throw new Exception("Unknown event size " + args[1]);
                 }
+            }
+            else if (args[0] == "Native")
+            {
+                ListenNative();
             }
             else
             {
@@ -62,7 +67,7 @@ namespace EtwListener
             Console.ReadLine();
         }
 
-        static void ListenWithTx<T>()
+        static void ListenWithPlayback<T>()
         {
             Console.WriteLine("listening for {0}", typeof(T).Name);
             Console.WriteLine();
@@ -82,6 +87,23 @@ namespace EtwListener
                 ()=>Console.WriteLine("----Completed!---"));
 
             playback.Start();
+        }
+
+        static void ListenNative()
+        {
+            Console.WriteLine("listening for EtwNativeEvent");
+            Console.WriteLine();
+
+            var all = EtwObservable.FromSession("TxRealTime");
+
+            var windows = from w in all.Window(TimeSpan.FromSeconds(1))
+                          from c in w.Count()
+                          select c;
+
+            subscription = windows.Subscribe(
+                (c) => Console.WriteLine("Using Tx and Rx for count : {0:n}", c),
+                (error) => Console.WriteLine(error.Message),
+                () => Console.WriteLine("----Completed!---"));
         }
 
         private const uint TraceModeRealTime = 0x00000100;
