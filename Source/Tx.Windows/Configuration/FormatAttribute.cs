@@ -18,5 +18,10 @@ namespace Tx.Windows
         {
             get { return _formatString; }
         }
+
+        public override string ToString()
+        {
+            return _formatString;
+        }
     }
 }

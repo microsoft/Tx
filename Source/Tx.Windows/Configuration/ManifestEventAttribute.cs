@@ -3,6 +3,7 @@
 namespace Tx.Windows
 {
     using System;
+    using System.Text;
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class ManifestEventAttribute : Attribute
@@ -36,10 +37,33 @@ namespace Tx.Windows
 
         public Guid ProviderGuid { get { return _providerGuid; } }
         public uint EventId { get { return _eventId; } }
-        public byte Version { get { return _version; } }
         public string Opcode { get { return _opcode; } }
+        public byte Version { get { return _version; } }
         public string Level { get { return _level; } }
         public string Channel { get { return _channel; } }
         public string[] Keywords { get { return _keywords; } }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("EventId: ");
+            sb.AppendLine(_eventId.ToString());
+            sb.Append("Opcode: ");
+            sb.AppendLine(_opcode.ToString());
+            sb.Append("Version: ");
+            sb.AppendLine(_version.ToString());
+            sb.Append("Level: ");
+            sb.AppendLine(_level);
+            sb.Append("Channel: ");
+            sb.AppendLine(_channel);
+            sb.AppendLine("Keywords: ");
+            foreach (string keyword in _keywords)
+            {
+                sb.Append("    ");
+                sb.AppendLine(keyword);
+            }
+
+            return sb.ToString();
+        }
     }
 }

@@ -228,7 +228,12 @@ namespace Tx.LinqPad
                 };
 
                 ExplorerItem eventType = new ExplorerItem(pair.Key.Name, ExplorerItemKind.QueryableObject, ExplorerIcon.Table);
-                eventType.ToolTipText = "Occurences: " + pair.Value;
+                eventType.ToolTipText = "Occurences: " + pair.Value + "\n";
+                foreach (var a in pair.Key.GetCustomAttributes(false).OrderBy(a=>a.GetType().Name))
+                {
+                    eventType.ToolTipText += '\n' + a.ToString() + '\n';
+                }
+
                 eventType.DragText = "playback.GetObservable<" + pair.Key.FullName + ">()";
                 eventType.Children = new List<ExplorerItem>();
                 scope.Children.Add(eventType);

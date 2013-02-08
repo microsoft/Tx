@@ -118,6 +118,16 @@ using System;");
                     version = evt.Attribute(AttributeNames.Version).Value;
                 }
 
+                if (evt.Attribute(AttributeNames.Message) != null)
+                {
+                    EmitFormatString(ref sb, evt.Attribute(AttributeNames.Message).Value);
+                }
+                else
+                {
+                    EmitDefaultFormatString(ref sb, evt, templates);
+                }
+                sb.AppendLine();
+
                 sb.AppendFormat("    [ManifestEvent(\"{0}\", {1}, {2},",
                     providerGuid,
                     evt.Attribute(AttributeNames.Value).Value,
@@ -135,16 +145,6 @@ using System;");
                 }
 
                 sb.AppendLine(")]");
-                sb.AppendLine();
-
-                if (evt.Attribute(AttributeNames.Message) != null)
-                {
-                    EmitFormatString(ref sb, evt.Attribute(AttributeNames.Message).Value);
-                }
-                else
-                {
-                    EmitDefaultFormatString(ref sb, evt, templates);
-                }
                 sb.AppendLine();
 
                 sb.AppendFormat("    public class {0}{1} : SystemEvent", className, VersionSuffix(evt));
