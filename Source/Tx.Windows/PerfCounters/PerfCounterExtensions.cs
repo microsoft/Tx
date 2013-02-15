@@ -13,6 +13,7 @@ namespace Tx.Windows
         {
             playback.AddInput(
                 () => PerfCounterObservable.FromFile(files[0]),
+                typeof(PerfCounterPartitionTypeMap),
                 typeof(PerfCounterTypeMap));
 
             //playback.AddInput(

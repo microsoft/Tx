@@ -1,14 +1,14 @@
-﻿using System;
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reactive;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reflection;
 
 namespace Tx.Windows
 {
-    class PerfCounterTypeMap : IPartitionableTypeMap<PerformanceSample, PerfCounterPartitionKey>
+    class PerfCounterPartitionTypeMap : PerfCounterTypeMap, IPartitionableTypeMap<PerformanceSample, PerfCounterPartitionKey>
     {
         PerfCounterPartitionKey.Comparer _comparer = new PerfCounterPartitionKey.Comparer();
         PerfCounterPartitionKey _key = new PerfCounterPartitionKey("", "");
@@ -31,7 +31,10 @@ namespace Tx.Windows
         {
             return new PerfCounterPartitionKey(evt.CounterSet, evt.CounterName);
         }
+    }
 
+    class PerfCounterTypeMap : ITypeMap<PerformanceSample>
+    {
         public Func<PerformanceSample, DateTimeOffset> TimeFunction
         {
             get { return e => e.Timestamp; }
@@ -46,11 +49,11 @@ namespace Tx.Windows
                 return template.Compile();
 
             LambdaExpression ex = (LambdaExpression)template;
-            ConstructorInfo constructor = outputType.GetConstructor(new Type[]{ typeof(PerformanceSample)});
-            var n = Expression.New(constructor,ex.Parameters);
+            ConstructorInfo constructor = outputType.GetConstructor(new Type[] { typeof(PerformanceSample) });
+            var n = Expression.New(constructor, ex.Parameters);
             var cast = Expression.Convert(n, typeof(object));
             var exp = Expression.Lambda<Func<PerformanceSample, object>>(cast, ex.Parameters);
-            return exp.Compile();      
+            return exp.Compile();
         }
     }
 
