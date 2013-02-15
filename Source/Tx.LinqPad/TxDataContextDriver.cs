@@ -58,7 +58,7 @@ namespace Tx.LinqPad
             try
             {
                 ParserRegistry.Init();
-                TypeCache.Init();
+                //TypeCache.Init();
 
                 AppDomain.CurrentDomain.AssemblyResolve += TxDataContextDriver.AssemblyResolve;
 

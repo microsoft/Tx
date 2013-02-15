@@ -9,18 +9,13 @@ namespace Tx.Windows
 {
     public static class PerfCounterExtensions
     {
+        [FileParser(".blg", "Performance Counters Binary Log")]
         public static void AddPerfCounterTraces(this IPlaybackConfiguration playback, params string[] files)
         {
             playback.AddInput(
                 () => PerfCounterObservable.FromFile(files[0]),
                 typeof(PerfCounterPartitionTypeMap),
                 typeof(PerfCounterTypeMap));
-
-            //playback.AddInput(
-            //    () => EtwObservable.FromFiles(files),
-            //    typeof(EtwManifestTypeMap),
-            //    typeof(EtwClassicTypeMap),
-            //    typeof(EtwTypeMap));
         }
 
         public static IObservable<PerformanceSample> GetPerformanceCounter(this IPlaybackConfiguration playback, string counterPath)

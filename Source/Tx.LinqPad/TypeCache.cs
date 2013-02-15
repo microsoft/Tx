@@ -36,21 +36,25 @@ namespace Tx.LinqPad
                             Path.GetFileName(f), 
                             ".dll"));
 
-                DateTime manifestTimestamp = File.GetLastWriteTimeUtc(f);
+                DateTime metadataTimestamp = File.GetLastWriteTimeUtc(f);
 
-                if (File.Exists(output))
+                Dictionary<string, string> sources;
+                switch(Path.GetExtension(f).ToLower())
                 {
-                    DateTime outputTimestamp = File.GetLastWriteTimeUtc(output);
+                    case ".man":
+                        string manifest = File.ReadAllText(f);
+                        sources = ManifestParser.Parse(manifest);
+                        break;
 
-                    if (outputTimestamp == manifestTimestamp)
-                        continue;
+                    case ".blg":
+                        sources = PerfCounterParser.Parse(f);
+                        break;
+
+                    default:
+                        throw new Exception("Unknown metadata format " + f);
                 }
 
-                string manifest = File.ReadAllText(f);
-                Dictionary<string, string> generated = ManifestParser.Parse(manifest);
-
-                AssemblyBuilder.OutputAssembly(generated, output);
-                File.SetLastWriteTimeUtc(output, manifestTimestamp);
+                AssemblyBuilder.OutputAssembly(sources, output);
             }
         }
 

@@ -28,6 +28,7 @@ namespace Tx.LinqPad
         ObservableCollection<string> _files;
         ObservableCollection<string> _metadataFiles;
         TxProperties _properties;
+        const string ErrorMessageTitle = "Tx LINQPad Driver";
 
         internal ConnectionDialog(TxProperties properties)
         {
@@ -49,7 +50,7 @@ namespace Tx.LinqPad
         {
             if (String.IsNullOrWhiteSpace(_properties.ContextName))
             {
-                System.Windows.MessageBox.Show("The connection name can not be empty", "TraceInsight");
+                System.Windows.MessageBox.Show("The connection name can not be empty", ErrorMessageTitle);
                 return;
             }
 
@@ -57,7 +58,7 @@ namespace Tx.LinqPad
             {
                 if (_files.Count == 0)
                 {
-                    System.Windows.MessageBox.Show("Empty list of files", "TraceInsight");
+                    System.Windows.MessageBox.Show("Empty list of files", ErrorMessageTitle);
                     return;
                 }
             }
