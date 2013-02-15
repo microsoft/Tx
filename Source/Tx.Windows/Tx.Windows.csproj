@@ -50,6 +50,7 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Configuration\FormatAttribute.cs" />
+    <Compile Include="Configuration\PerformanceCounterAttribute.cs" />
     <Compile Include="EventFormatter.cs" />
     <Compile Include="Evtx\EvtxObservable.cs" />
     <Compile Include="Configuration\ClassicEventAttribute.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="ManifestEventPartitionKey.cs" />
     <Compile Include="EtwNative\EtwNativeEvent.cs" />
     <Compile Include="EtwNative\EtwFileReader.cs" />
-    <Compile Include="EtwNative\EtwObserver.cs" />
     <Compile Include="EtwNative\EtwListener.cs" />
     <Compile Include="EtwNative\TimeUtil.cs" />
     <Compile Include="EtwNative\TypeUtil.cs" />
@@ -78,6 +78,15 @@
     <Compile Include="EtwNative\EtwNativeMethods.cs" />
     <Compile Include="EtwNative\EtwObservable.cs" />
     <Compile Include="InternalsVisibleTo.cs" />
+    <Compile Include="PerfCounters\PerfCounterInfo.cs" />
+    <Compile Include="PerfCounters\PdhNativeMethods.cs" />
+    <Compile Include="PerfCounters\PerfCounterExtensions.cs" />
+    <Compile Include="PerfCounters\PerfCounterFileReader.cs" />
+    <Compile Include="PerfCounters\PdhUtils.cs" />
+    <Compile Include="PerfCounters\PerfCounterObservable.cs" />
+    <Compile Include="PerfCounters\PerfCounterTypeMap.cs" />
+    <Compile Include="PerfCounters\PerformanceSample.cs" />
+    <Compile Include="PerfCounters\PerformanceSnapshot.cs" />
     <Compile Include="SystemEvent.cs" />
   </ItemGroup>
   <ItemGroup>

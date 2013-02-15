@@ -25,7 +25,6 @@ namespace Tx.Windows
         IEnumerable<XElement> _providers;
         XElement _stringTable;
         Dictionary<string, string> _code;
-        static CSharpCodeProvider _provider = new CSharpCodeProvider();
 
         public ManifestParser(string manifest)
         {
@@ -261,7 +260,7 @@ using System;");
 
                 sb.AppendFormat("        public {0} {1}",
                     CleanType(f.Attribute(AttributeNames.InType).Value),
-                    CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
+                    NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
 
                 sb.AppendLine(" { get; set; }");
                 order++;
@@ -287,7 +286,7 @@ using System;");
 
                 order++;
 
-                sb.Append(CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
+                sb.Append(NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
                 sb.Append("=%");
                 sb.Append(order);
             }
@@ -560,20 +559,6 @@ using System;");
             sb.Append("    [Format(\"");
             sb.Append(format);
             sb.AppendLine("\")]");
-        }
-
-        string CreateIdentifier(string s)
-        {
-            char[] chars = s.ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
-            {
-                if (!char.IsLetterOrDigit(chars[i]))
-                {
-                    chars[i] = '_';
-                }
-            };
-
-           return _provider.CreateValidIdentifier(new string(chars));
         }
 
         internal static string CleanType(string typeName)

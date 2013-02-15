@@ -52,8 +52,8 @@ Switches:
                  If missing the output is C# files.
 
     /m:manifest	 Input from manifest(s)
-
     /t:tmf       Input from TMF file(s)
+    /p:file.blg  Input from performance counter trace
 
 The switches /o and /a must occur at most once.
 
@@ -144,6 +144,33 @@ Examples:
                             string provider = Path.GetFileNameWithoutExtension(tmf);
                             string code = TmfParser.Parse(tmf);
                             generated.Add(provider, code);
+                        }
+                        break;
+
+                    case "/p:":
+                        string[] perfTraces;
+                        string perfDir = Path.GetDirectoryName(value);
+                        if (String.IsNullOrEmpty(perfDir))
+                        {
+                            perfTraces = Directory.GetFiles(".", value);
+                        }
+                        else
+                        {
+                            perfTraces = Directory.GetFiles(
+                                perfDir,
+                                Path.GetFileName(value));
+
+                        }
+
+                        foreach (string perfTrace in perfTraces)
+                        {
+                            Console.WriteLine(perfTrace);
+                            var code = PerfCounterParser.Parse(perfTrace);
+
+                            foreach (string provider in code.Keys)
+                            {
+                                generated.Add(provider, code[provider]);
+                            }
                         }
                         break;
 

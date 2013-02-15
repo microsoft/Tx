@@ -42,6 +42,8 @@
     </Compile>
     <Compile Include="AssemblyBuilder.cs" />
     <Compile Include="ManifestParser.cs" />
+    <Compile Include="NameUtils.cs" />
+    <Compile Include="PerfCounterParser.cs" />
     <Compile Include="TmfParser.cs" />
   </ItemGroup>
   <ItemGroup>
