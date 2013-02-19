@@ -10,18 +10,15 @@ using System.Reactive;
 
 namespace Tx.LinqPad
 {
-    static class ParserRegistry
+    class ParserRegistry
     {
-        static MethodInfo[] _addSessions;
-        static MethodInfo[] _addFiles;
-        static Dictionary<string, Type> _typeStats;
-        static Type[] _availableTypes;
+        MethodInfo[] _addSessions;
+        MethodInfo[] _addFiles;
+        Dictionary<string, Type> _typeStats;
+        Type[] _availableTypes;
 
-        public static void Init()
+        public ParserRegistry(TypeCache _typeCache)
         {
-            if (_addFiles != null)
-                return;
-
             string dir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             var types = from file in Directory.GetFiles(dir, "*.dll")
@@ -44,19 +41,18 @@ namespace Tx.LinqPad
             _addSessions = methods.ToArray();
         }
 
-        public static string Filter
+        public string Filter
         {
             get
             {
-                Init();
                 var attributes = (from mi in _addFiles
-                                 select mi.GetAttribute<FileParserAttribute>()).ToArray();
+                                  select mi.GetAttribute<FileParserAttribute>()).ToArray();
 
                 StringBuilder sb = new StringBuilder("All Files|");
-                foreach (FileParserAttribute a in attributes)
+                foreach (string ext in attributes.SelectMany(a => a.Extensions))
                 {
                     sb.Append('*');
-                    sb.Append(a.Extension);
+                    sb.Append(ext);
                     sb.Append(';');
                 }
                 foreach (FileParserAttribute a in attributes)
@@ -64,41 +60,39 @@ namespace Tx.LinqPad
                     sb.Append('|');
                     sb.Append(a.Description);
                     sb.Append('|');
-                    sb.Append('*');
-                    sb.Append(a.Extension);
-                    sb.Append(';');
+
+                    foreach (string ext in a.Extensions)
+                    {
+                        sb.Append('*');
+                        sb.Append(ext);
+                        sb.Append(';');
+                    }
                 }
 
                 return sb.ToString().Replace(";|", "|");
             }
         }
 
-        public static IEnumerable<Assembly> GetAssemblies()
+        public IEnumerable<Assembly> GetAssemblies()
         {
-            Init();
-
             return (from m in _addFiles select m.DeclaringType.Assembly).Distinct();
         }
 
-        public static IEnumerable<string> GetNamespaces()
+        public IEnumerable<string> GetNamespaces()
         {
-            Init();
-
             return (from m in _addFiles select m.DeclaringType.Namespace).Distinct();
         }
 
-        public static Dictionary<Type, long> GetTypeStatistics(string[] files)
+        public Dictionary<Type, long> GetTypeStatistics(Type[] types, string[] files)
         {
-            Init();
-
-            TypeOccurenceStatistics stat = new TypeOccurenceStatistics(TypeCache.AvailableTypes);
+            TypeOccurenceStatistics stat = new TypeOccurenceStatistics(types);
             AddFiles(stat, files);
             stat.Run();
              
             return stat.Statistics;
         }
 
-        public static void AddFiles(IPlaybackConfiguration playback, string[] files)
+        public void AddFiles(IPlaybackConfiguration playback, string[] files)
         {
             var filesByExtension = new Dictionary<string, List<string>>();
             foreach (string f in files)
@@ -118,14 +112,14 @@ namespace Tx.LinqPad
             foreach (string ext in filesByExtension.Keys)
             {
                 MethodInfo addMethod = (from mi in _addFiles
-                                        where mi.GetAttribute<FileParserAttribute>().Extension == ext
+                                        where mi.GetAttribute<FileParserAttribute>().Extensions.Contains(ext)
                                         select mi).FirstOrDefault();
 
                 addMethod.Invoke(null, new object[] { playback, filesByExtension[ext].ToArray() });
             }
         }
 
-        public static void AddSession(IPlaybackConfiguration playback, string session)
+        public void AddSession(IPlaybackConfiguration playback, string session)
         {
             foreach (MethodInfo addMethod in _addSessions)
             {
@@ -133,7 +127,7 @@ namespace Tx.LinqPad
             }
         }
 
-        static T GetAttribute<T>(ICustomAttributeProvider provider)
+        T GetAttribute<T>(ICustomAttributeProvider provider)
         {
             return (T)(provider.GetCustomAttributes(typeof(T), false))[0];
         }

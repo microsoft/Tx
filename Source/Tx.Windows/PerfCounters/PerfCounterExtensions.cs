@@ -9,7 +9,7 @@ namespace Tx.Windows
 {
     public static class PerfCounterExtensions
     {
-        [FileParser(".blg", "Performance Counters Binary Log")]
+        [FileParser("Performance Counters Logs", ".blg", ".csv", ".tsv")]
         public static void AddPerfCounterTraces(this IPlaybackConfiguration playback, params string[] files)
         {
             playback.AddInput(

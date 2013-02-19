@@ -25,16 +25,19 @@ namespace Tx.LinqPad
     /// </summary>
     public partial class ConnectionDialog : Window
     {
+        string _filter;
         ObservableCollection<string> _files;
         ObservableCollection<string> _metadataFiles;
         TxProperties _properties;
         const string ErrorMessageTitle = "Tx LINQPad Driver";
 
-        internal ConnectionDialog(TxProperties properties)
+        internal ConnectionDialog(TxProperties properties, string filter)
         {
 
             this.DataContext = properties;
             _properties = properties;
+            _filter = filter;
+
             InitializeComponent();
 
             _files = new ObservableCollection<string>(_properties.Files);
@@ -76,7 +79,7 @@ namespace Tx.LinqPad
             {
                 Title = "Add file to the query context",
                 Multiselect = true,
-                Filter = ParserRegistry.Filter
+                Filter = _filter
             };
             if (fileDialog.ShowDialog().GetValueOrDefault())
             {

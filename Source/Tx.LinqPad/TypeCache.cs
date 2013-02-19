@@ -12,31 +12,32 @@ namespace Tx.LinqPad
 {
     class TypeCache
     {
-        public static void Init()
+        public void Init(string targetDir)
         {
-            if (!Directory.Exists(CacheDir))
-                Directory.CreateDirectory(CacheDir);
+            if (!Directory.Exists(GetCacheDir(targetDir)))
+                Directory.CreateDirectory(GetCacheDir(targetDir));
         }
 
-        public static void BuildCache(string manifestDir)
+        public void BuildCache(string targetDir, string[] traces, string metadataDir)
         {
-            string[] files = Directory.GetFiles(manifestDir, "*.man");
-            BuildCache(files);
+            string[] metadaFiles = Directory.GetFiles(metadataDir, "*.man");
+            BuildCache(targetDir, traces, metadaFiles);
         }
 
-        public static void BuildCache(string[] metadaFiles)
+        public void BuildCache(string targetDir, string[] traces, string[] metadaFiles)
         {
-            if (!Directory.Exists(CacheDir))
-                Directory.CreateDirectory(CacheDir);
-
-            foreach (string f in metadaFiles)
+            foreach (string f in metadaFiles.Concat(traces))
             {
-                string output = Path.Combine(CacheDir, 
+                string output = Path.Combine(GetCacheDir(targetDir), 
                         Path.ChangeExtension(
                             Path.GetFileName(f), 
                             ".dll"));
 
                 DateTime metadataTimestamp = File.GetLastWriteTimeUtc(f);
+                DateTime outputTimestamp = File.GetLastWriteTimeUtc(output);
+
+                if (outputTimestamp == metadataTimestamp)
+                    continue;
 
                 Dictionary<string, string> sources;
                 switch(Path.GetExtension(f).ToLower())
@@ -46,7 +47,12 @@ namespace Tx.LinqPad
                         sources = ManifestParser.Parse(manifest);
                         break;
 
+                    case ".etl":
+                        continue; // TODO: read the manifests EventSource emits as events
+
                     case ".blg":
+                    case ".csv":
+                    case ".tsv":
                         sources = PerfCounterParser.Parse(f);
                         break;
 
@@ -55,37 +61,31 @@ namespace Tx.LinqPad
                 }
 
                 AssemblyBuilder.OutputAssembly(sources, output);
+                File.SetLastWriteTimeUtc(output, metadataTimestamp);
             }
         }
 
-        public static Assembly[] Assemblies
+        public Assembly[] GetAssemblies(string targetDir, string[] traces, string[] metadaFiles)
         {
-            get 
-            {
-                Assembly[] assemblies = (from file in Directory.GetFiles(CacheDir, "*.dll")
-                        select Assembly.LoadFrom(file)).ToArray();
+            Assembly[] assemblies = (from file in Directory.GetFiles(GetCacheDir(targetDir), "*.dll")
+                    select Assembly.LoadFrom(file)).ToArray();
 
-                return assemblies;
-            }
-        }
-            
-        public static Type[] AvailableTypes
-        {
-            get 
-            {
-                Assembly[] assemblies = (from file in Directory.GetFiles(CacheDir, "*.dll")
-                                         select Assembly.LoadFrom(file)).ToArray();
-
-                return (from a in assemblies
-                        from t in a.GetTypes()
-                        where t.IsPublic
-                        select t).ToArray();
-            }
+            return assemblies;
         }
 
-        static string CacheDir
+        public Type[] GetAvailableTypes(string targetDir, string[] traces, string[] metadaFiles)
         {
-            get { return Path.Combine(Path.GetTempPath(), "TxTypeCache"); }
+            Assembly[] assemblies = GetAssemblies(targetDir, traces, metadaFiles);
+
+            return (from a in assemblies
+                    from t in a.GetTypes()
+                    where t.IsPublic
+                    select t).ToArray();
+        }
+
+        string GetCacheDir(string targetDir)
+        {
+            return Path.Combine(Path.GetTempPath(), "TxTypeCache", targetDir); 
         }
     }
 }

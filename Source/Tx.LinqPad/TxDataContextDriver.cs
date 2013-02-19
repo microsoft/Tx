@@ -52,24 +52,19 @@ namespace Tx.LinqPad
 }";
 
         static readonly LocalDataStoreSlot _threadStorageSlot;
+        TypeCache _typeCache;
+        ParserRegistry _parserRegistry;
 
         static TxDataContextDriver()
         {
-            try
-            {
-                ParserRegistry.Init();
-                //TypeCache.Init();
+            AppDomain.CurrentDomain.AssemblyResolve += TxDataContextDriver.AssemblyResolve;
+            _threadStorageSlot = Thread.AllocateDataSlot();
+        }
 
-                AppDomain.CurrentDomain.AssemblyResolve += TxDataContextDriver.AssemblyResolve;
-
-                _threadStorageSlot = Thread.AllocateDataSlot();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(
-                    "Exception " + ex.Message + "\n\nAt stack Trace: " + ex.StackTrace
-                    , "Error during TraceInsihgt Express initialization");
-            }
+        public TxDataContextDriver()
+        {
+            _typeCache = new TypeCache();
+            _parserRegistry = new ParserRegistry(_typeCache);
         }
 
         public override string Author
@@ -87,18 +82,21 @@ namespace Tx.LinqPad
             get { return "Tx (LINQ to Traces)"; }
         }
 
-        public override IEnumerable<string> GetAssembliesToAdd()
+        public override IEnumerable<string> GetAssembliesToAdd(IConnectionInfo cxn)
         {
-            List<Assembly> assemblies = new List<Assembly>(ParserRegistry.GetAssemblies())
+            List<Assembly> assemblies = new List<Assembly>()
             {
-                typeof(ISubject<>).Assembly, // Interfaces
-                typeof(Observer).Assembly,   // Core
-                typeof(Subject<>).Assembly,  // Linq
-                typeof(Playback).Assembly,  // Linq
+                typeof(ObservableCollection<>).Assembly, // System
+                typeof(Expression).Assembly, // System.Core
+                typeof(ISubject<>).Assembly, // System.Reactive.Interfaces
+                typeof(Observer).Assembly,   // System.Reactive.Core
+                typeof(Subject<>).Assembly,  // System.Reactive.Linq
+                typeof(Playback).Assembly,   // Tx.Core
             };
 
-            assemblies.AddRange(ParserRegistry.GetAssemblies());
-            assemblies.AddRange(TypeCache.Assemblies);
+            TxProperties properties = new TxProperties(cxn);
+            assemblies.AddRange(_parserRegistry.GetAssemblies());
+            assemblies.AddRange(_typeCache.GetAssemblies(properties.ContextName, properties.Files, properties.MetadataFiles));
 
             return from a in assemblies select a.Location;
         }
@@ -114,7 +112,7 @@ namespace Tx.LinqPad
                "System.Reactive.Linq",
             };
 
-            return namespaces.Concat(ParserRegistry.GetNamespaces());
+            return namespaces.Concat(_parserRegistry.GetNamespaces());
         } 
         
         public override string GetConnectionDescription(IConnectionInfo cxInfo)
@@ -126,7 +124,7 @@ namespace Tx.LinqPad
         public override bool ShowConnectionDialog(IConnectionInfo cxInfo, bool isNewConnection)
         {
             TxProperties properties = new TxProperties(cxInfo);
-            return new ConnectionDialog(properties).ShowDialog() ?? false;
+            return new ConnectionDialog(properties, _parserRegistry.Filter).ShowDialog() ?? false;
         }
 
         public override ParameterDescriptor[] GetContextConstructorParameters(IConnectionInfo cxInfo)
@@ -142,11 +140,11 @@ namespace Tx.LinqPad
 
             if (properties.IsRealTime)
             {
-                ParserRegistry.AddSession(playback, properties.SessionName);
+                _parserRegistry.AddSession(playback, properties.SessionName);
             }
             else
             {
-                ParserRegistry.AddFiles(playback, properties.Files);
+                _parserRegistry.AddFiles(playback, properties.Files);
             }
 
             Thread.SetData(_threadStorageSlot, playback);
@@ -163,13 +161,15 @@ namespace Tx.LinqPad
             StringBuilder sbContextProperties = new StringBuilder();
 
             TxProperties properties = new TxProperties(cxInfo);
+            _typeCache.Init(properties.ContextName);
+
             if (properties.IsUsingDirectoryLookup)
             {
-                TypeCache.BuildCache(properties.MetadataDirectory);
+                _typeCache.BuildCache(properties.ContextName, properties.Files, properties.MetadataDirectory);
             }
             else
             {
-                TypeCache.BuildCache(properties.MetadataFiles);
+                _typeCache.BuildCache(properties.ContextName, properties.Files, properties.MetadataFiles);
             }
 
             string dataContext = DataContextTemplate
@@ -181,13 +181,7 @@ namespace Tx.LinqPad
             string outputName = assemblyToBuild.CodeBase;
             using (var codeProvider = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } }))
             {
-                string[] assemblies =
-                    (GetAssembliesToAdd().Concat(new[] 
-                    { 
-                        typeof(Expression).Assembly.Location,
-                        typeof(Subject<>).Assembly.Location,
-                        typeof(ObservableCollection<>).Assembly.Location, 
-                    }).ToArray());
+                string[] assemblies = GetAssembliesToAdd(cxInfo).ToArray();
 
                 var compilerOptions = new CompilerParameters(assemblies, outputName, true);
 
@@ -205,7 +199,12 @@ namespace Tx.LinqPad
                 }
             }
 
-            Dictionary<Type, long> stat = ParserRegistry.GetTypeStatistics(properties.Files);
+            Dictionary<Type, long> stat =  _parserRegistry.GetTypeStatistics(
+                _typeCache.GetAvailableTypes(
+                    properties.ContextName, 
+                    properties.Files, 
+                    properties.MetadataFiles), 
+                properties.Files);
             return CreateTree(stat);
         }
 

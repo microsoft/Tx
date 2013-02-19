@@ -16,7 +16,7 @@ namespace Tx.Windows
                 typeof(EtwTypeMap));
         }
 
-        [FileParser(".etl", "Event Trace Log")]
+        [FileParser("Event Trace Log", ".etl")]
         public static void AddEtlFiles(this IPlaybackConfiguration playback, params string[] files)
         {
             playback.AddInput(

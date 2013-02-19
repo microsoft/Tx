@@ -8,7 +8,7 @@ namespace Tx.Windows
 {
     public static class EvtxExtensions
     {
-        [FileParser(".evtx", "Event Log")]
+        [FileParser("Event Logs", ".evtx")]
         public static void AddLogFiles(this IPlaybackConfiguration playback, params string[] files)
         {
             playback.AddInput(

@@ -30,18 +30,18 @@ namespace System.Reactive
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class FileParserAttribute : Attribute
     {
-        readonly string _extension;
+        readonly string[] _extensions;
         readonly string _description;
 
-        public FileParserAttribute(string extension, string description)
+        public FileParserAttribute(string description, params string[] extensions)
         {
-            _extension = extension;
+            _extensions = extensions;
             _description = description;
         }
 
-        public string Extension
+        public string[] Extensions
         {
-            get { return _extension; }
+            get { return _extensions; }
         }
 
         public string Description

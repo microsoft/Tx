@@ -13,7 +13,7 @@ namespace Tx.Windows
 {
     public class AssemblyBuilder
     {
-        public static Assembly OutputAssembly(Dictionary<string, string> generated, string assemblyPath)
+        public static void OutputAssembly(Dictionary<string, string> generated, string assemblyPath)
         {
             Dictionary<string, string> providerOptions = new Dictionary<string, string>();
 
@@ -26,7 +26,7 @@ namespace Tx.Windows
                 CompilerResults results = codeProvider.CompileAssemblyFromSource(compilerParameters, sources);
 
                 if (results.Errors.Count == 0)
-                    return results.CompiledAssembly;
+                    return;
 
                 StringBuilder sb = new StringBuilder();
                 foreach (object o in results.Errors)
