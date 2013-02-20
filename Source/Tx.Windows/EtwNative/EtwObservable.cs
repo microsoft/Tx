@@ -2,6 +2,8 @@
 
 using System;
 using System.Reactive.Linq;
+using System.Text;
+using System.Threading;
 
 namespace Tx.Windows
 {
@@ -37,6 +39,50 @@ namespace Tx.Windows
                 throw new ArgumentNullException("sessionName");
 
             return Observable.Create<EtwNativeEvent>(o=>new EtwListener(o, sessionName));
+        }
+
+         /// <summary>
+        /// Extracts manifest from .etl file that was produced using System.Diagnostics.Tracing.EventSource
+        /// </summary>
+        /// <param name="etlFile">Trace file</param>
+        /// <returns></returns>
+        public static string ExtractManifest(string etlFile)
+        {
+            IObservable<EtwNativeEvent> all = EtwObservable.FromFiles(etlFile);
+
+            StringBuilder sb = new StringBuilder();
+            ManualResetEvent evt = new ManualResetEvent(false);
+
+            IDisposable d = all.Subscribe(e =>
+            {
+                if (e.Id != 0xfffe) // 65534
+                    return;
+
+                byte format = e.ReadByte();
+                if (format != 1)
+                    throw new Exception("Unsuported manifest format found in EventSource event" + format);
+
+                byte majorVersion = e.ReadByte();
+                byte minorVersion = e.ReadByte();
+                byte magic = e.ReadByte();
+                if (magic != 0x5b)
+                    throw new Exception("Unexpected content in EventSource event that was supposed to have manifest");
+
+                ushort totalChunks = e.ReadUInt16();
+                ushort chunkNumber = e.ReadUInt16();
+
+                string chunk = e.ReadAnsiString();
+                sb.Append(chunk);
+
+                if (chunkNumber == totalChunks - 1)
+                    evt.Set();
+            },
+            ()=> evt.Set());
+
+            evt.WaitOne();
+            d.Dispose();
+
+            return sb.ToString();
         }
     }
 }

@@ -61,6 +61,13 @@ namespace Tx.Windows
         internal byte* _end;
         internal uint _length; // used to remember the last UInt32, and as length to read the following win:Binary
 
+        public byte ReadByte()
+        {
+            byte value = *((byte*)_data);
+            _data += sizeof(byte);
+            return value;
+        }
+
         public char ReadAnsiChar()
         {
             byte value = *((byte*)_data);

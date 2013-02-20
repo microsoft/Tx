@@ -43,12 +43,18 @@ namespace Tx.LinqPad
                 switch(Path.GetExtension(f).ToLower())
                 {
                     case ".man":
-                        string manifest = File.ReadAllText(f);
-                        sources = ManifestParser.Parse(manifest);
-                        break;
+                        {
+                            string manifest = File.ReadAllText(f);
+                            sources = ManifestParser.Parse(manifest);
+                            break;
+                        }
 
                     case ".etl":
-                        continue; // TODO: read the manifests EventSource emits as events
+                        {
+                            string manifest = ManifestParser.ExtractFromTrace(f);
+                            sources = ManifestParser.Parse(manifest);
+                            break;
+                        }
 
                     case ".blg":
                     case ".csv":
