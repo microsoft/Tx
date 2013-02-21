@@ -64,7 +64,7 @@ namespace Tx.LinqPad
         public TxDataContextDriver()
         {
             _typeCache = new TypeCache();
-            _parserRegistry = new ParserRegistry(_typeCache);
+            _parserRegistry = new ParserRegistry();
         }
 
         public override string Author
@@ -96,7 +96,11 @@ namespace Tx.LinqPad
 
             TxProperties properties = new TxProperties(cxn);
             assemblies.AddRange(_parserRegistry.GetAssemblies());
-            assemblies.AddRange(_typeCache.GetAssemblies(properties.ContextName, properties.Files, properties.MetadataFiles));
+
+            _typeCache.Init(properties.ContextName);
+            assemblies.AddRange(_typeCache.GetAssemblies(properties.ContextName, 
+                ReplaceSampleTracesDir(properties.Files), 
+                ReplaceSampleTracesDir(properties.MetadataFiles)));
 
             return from a in assemblies select a.Location;
         }
@@ -144,7 +148,7 @@ namespace Tx.LinqPad
             }
             else
             {
-                _parserRegistry.AddFiles(playback, properties.Files);
+                _parserRegistry.AddFiles(playback, ReplaceSampleTracesDir(properties.Files));
             }
 
             Thread.SetData(_threadStorageSlot, playback);
@@ -169,7 +173,10 @@ namespace Tx.LinqPad
             }
             else
             {
-                _typeCache.BuildCache(properties.ContextName, properties.Files, properties.MetadataFiles);
+                _typeCache.BuildCache(
+                    properties.ContextName, 
+                    ReplaceSampleTracesDir(properties.Files),
+                    ReplaceSampleTracesDir(properties.MetadataFiles));
             }
 
             string dataContext = DataContextTemplate
@@ -201,10 +208,11 @@ namespace Tx.LinqPad
 
             Dictionary<Type, long> stat =  _parserRegistry.GetTypeStatistics(
                 _typeCache.GetAvailableTypes(
-                    properties.ContextName, 
-                    properties.Files, 
-                    properties.MetadataFiles), 
-                properties.Files);
+                    properties.ContextName,
+                    ReplaceSampleTracesDir(properties.Files), 
+                    ReplaceSampleTracesDir(properties.MetadataFiles)), 
+                ReplaceSampleTracesDir(properties.Files));
+
             return CreateTree(stat);
         }
 
@@ -311,6 +319,27 @@ namespace Tx.LinqPad
             }
 
             return null;
+        }
+
+        string[] ReplaceSampleTracesDir(string[] files)
+        {
+            string prefix="($SampleTraces)";
+            string samplrDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            List<string> result = new List<string>();
+
+            foreach (string f in files)
+            {
+                if (f.StartsWith(prefix))
+                {
+                    result.Add(Path.Combine(samplrDir, f.Substring(prefix.Length)));
+                }
+                else
+                {
+                    result.Add(f);
+                }
+            }
+
+            return result.ToArray();
         }
 
     }

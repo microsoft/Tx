@@ -69,10 +69,24 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Manifests\HTTP_Server.man">
+      <Link>HTTP_Server.man</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Traces\BasicPerfCounters.blg">
+      <Link>BasicPerfCounters.blg</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Traces\HTTP_Server.etl">
+      <Link>HTTP_Server.etl</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="..\devsetup.cmd">
       <Link>devsetup.cmd</Link>
     </None>
-    <None Include="..\key.snk" />
+    <None Include="..\key.snk">
+      <Link>Properties\key.snk</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="header.xml">

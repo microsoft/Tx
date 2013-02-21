@@ -17,7 +17,7 @@ namespace Tx.LinqPad
         Dictionary<string, Type> _typeStats;
         Type[] _availableTypes;
 
-        public ParserRegistry(TypeCache _typeCache)
+        public ParserRegistry()
         {
             string dir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 

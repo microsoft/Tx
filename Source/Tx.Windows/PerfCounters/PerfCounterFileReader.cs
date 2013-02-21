@@ -58,16 +58,10 @@ namespace Tx.Windows
                     long time;
                     status = PdhNativeMethods.PdhCollectQueryDataWithTime(_query, out time);
                     if (status == PdhStatus.PDH_NO_MORE_DATA)
-                    {
-                        Console.WriteLine("PDH_NO_MORE_DATA");
                         break;
-                    }
 
                     if (status == PdhStatus.PDH_NO_DATA)
-                    {
-                        Console.WriteLine("PDH_NO_DATA");
                         break; // looks like this occurs at the end of .csv files?
-                    }
 
                     PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
                     DateTime timestamp = TimeUtil.FromFileTime(time);
@@ -110,11 +104,15 @@ namespace Tx.Windows
                         ref bufferSize,
                         out bufferCount,
                         (IntPtr)pb);
-                    if (status == PdhStatus.PDH_INVALID_DATA 
+                    if (status == PdhStatus.PDH_INVALID_DATA
                         || status == PdhStatus.PDH_CALC_NEGATIVE_VALUE
                         || status == PdhStatus.PDH_CALC_NEGATIVE_DENOMINATOR
                         || status == PdhStatus.PDH_CALC_NEGATIVE_TIMEBASE)
+                    {
+                        PerformanceSample sample = new PerformanceSample(counterInfo, timestamp, double.NaN);
+                        _observer.OnNext(sample);
                         return;
+                    }
 
                     PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 

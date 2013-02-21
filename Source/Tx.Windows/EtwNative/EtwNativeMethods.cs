@@ -9,7 +9,7 @@ namespace Tx.Windows
     [SuppressUnmanagedCodeSecurityAttribute]
     static class EtwNativeMethods 
     {
-        public const Int32 ErrorNotFound = 0x000000a1;
+        public const Int32 ErrorNotFound = 0x2; //0x000000a1 ?;
         public const Int32 ErrorUnreadable = 0x00000570;
         public const uint TraceModeRealTime = 0x00000100;
         public const uint TraceModeEventRecord = 0x10000000;

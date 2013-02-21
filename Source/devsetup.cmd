@@ -24,6 +24,11 @@ copy ..\References\DESKTOPCLR40\System.Reactive.PlatformServices.dll "%DRIVER_DI
 echo header.xml
 copy Tx.LinqPad\header.xml "%DRIVER_DIR%"\
 
+echo Sample Traces
+copy ..\Manifests\HTTP_Server.man "%DRIVER_DIR%"\
+copy ..\Traces\HTTP_Server.etl "%DRIVER_DIR%"\
+copy ..\Traces\BasicPerfCounters.blg "%DRIVER_DIR%"\
+
 goto end
 
 :copy_dll

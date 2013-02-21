@@ -8,6 +8,10 @@ msbuild /p:Configuration=Debug45
 copy ..\tools\NuGet.exe %bin%\
 copy ..\tools\zip.exe %bin%\
 
+pushd  ..\Samples\LinqPad\Queries
+call create_samples_package.cmd
+popd
+
 pushd
 
 cd %bin%\Debug
@@ -19,7 +23,7 @@ call :setVersion
 call :packAll
 
 cd %bin%\Release\Net40
-..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.LinqPad.dll
+..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg
 
 
 popd

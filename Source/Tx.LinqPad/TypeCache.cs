@@ -52,6 +52,9 @@ namespace Tx.LinqPad
                     case ".etl":
                         {
                             string manifest = ManifestParser.ExtractFromTrace(f);
+                            if (manifest == "")
+                                continue;
+
                             sources = ManifestParser.Parse(manifest);
                             break;
                         }
@@ -73,6 +76,7 @@ namespace Tx.LinqPad
 
         public Assembly[] GetAssemblies(string targetDir, string[] traces, string[] metadaFiles)
         {
+
             Assembly[] assemblies = (from file in Directory.GetFiles(GetCacheDir(targetDir), "*.dll")
                     select Assembly.LoadFrom(file)).ToArray();
 
