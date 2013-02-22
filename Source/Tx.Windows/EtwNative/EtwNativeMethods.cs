@@ -315,7 +315,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct EVENT_DESCRIPTOR 
+    struct EVENT_DESCRIPTOR 
     {
         public UInt16 Id;
         public byte Version;
@@ -328,7 +328,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct EVENT_HEADER 
+    struct EVENT_HEADER 
     {
         public UInt16 Size;
         public UInt16 HeaderType;
@@ -344,7 +344,7 @@ namespace Tx.Windows
     }
 
     [Serializable]
-    public enum EventHeaderExtType : ushort
+    enum EventHeaderExtType : ushort
     {
         RelatedActivityId = 1,
         Sid,
@@ -358,7 +358,7 @@ namespace Tx.Windows
     
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct EventHeaderExtendedDataItem
+    struct EventHeaderExtendedDataItem
     {
         UInt16 Reserved1;
         public EventHeaderExtType ExtType;
@@ -369,7 +369,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct EVENT_RECORD 
+    struct EVENT_RECORD 
     {
         public EVENT_HEADER EventHeader;
         public ETW_BUFFER_CONTEXT BufferContext;

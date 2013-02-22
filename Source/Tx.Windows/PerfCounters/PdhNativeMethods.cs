@@ -9,11 +9,8 @@ using System.Security.Permissions;
 
 namespace Tx.Windows
 {
-    /// A safe wrapper around a PDH Log handle.
-    /// Use this along with PdhBindInputDataSource and the "H" APIs to bind multiple logs together
-    /// 
     [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-    public class PdhLogHandle : SafeHandleZeroOrMinusOneIsInvalid
+    class PdhLogHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public PdhLogHandle()
             : base(true)
@@ -29,7 +26,7 @@ namespace Tx.Windows
     }
 
     [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-    public class PdhQueryHandle : SafeHandleZeroOrMinusOneIsInvalid
+    class PdhQueryHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public PdhQueryHandle()
             : base(true)
@@ -45,7 +42,7 @@ namespace Tx.Windows
     }
 
     [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-    public class PdhCounterHandle : SafeHandleZeroOrMinusOneIsInvalid
+    class PdhCounterHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public PdhCounterHandle()
             : base(true)
@@ -61,7 +58,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    public struct PDH_FMT_COUNTERVALUE
+    struct PDH_FMT_COUNTERVALUE
     {
         [FieldOffset(0)]
         public uint CStatus;
@@ -77,7 +74,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    public struct PDH_FMT_COUNTERVALUE_ITEM
+    struct PDH_FMT_COUNTERVALUE_ITEM
     {
         //[MarshalAs(UnmanagedType.LPWStr)]
         //public string szName;
@@ -87,7 +84,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    public struct PDH_COUNTER_INFO 
+    struct PDH_COUNTER_INFO 
     {
         public UInt32 dwLength;
         public UInt32 dwType;
@@ -108,7 +105,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PDH_TIME_INFO
+    struct PDH_TIME_INFO
     {
         public UInt64 StartTime;
         public UInt64 EndTime;
@@ -116,7 +113,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct PDH_RAW_COUNTER
+    struct PDH_RAW_COUNTER
     {
         public uint CStatus;
         public System.Runtime.InteropServices.ComTypes.FILETIME TimeStamp;
@@ -125,7 +122,7 @@ namespace Tx.Windows
         public uint MultiCount;
     } 
 
-    public enum PdhStatus : uint
+    enum PdhStatus : uint
     {
         PDH_CSTATUS_VALID_DATA = 0x00000000,
         PDH_CSTATUS_NEW_DATA = 0x00000001,
@@ -217,7 +214,7 @@ namespace Tx.Windows
     }
     
     [Flags()]
-    public enum PdhFormat : uint
+    enum PdhFormat : uint
     {
         PDH_FMT_RAW = 0x00000010,
         PDH_FMT_ANSI = 0x00000020,
@@ -230,7 +227,7 @@ namespace Tx.Windows
         PDH_FMT_NODATA = 0x00004000
     }
 
-    public enum PdhDetailLevel : uint
+    enum PdhDetailLevel : uint
     {
         PERF_DETAIL_NOVICE = 100, // The uninformed can understand it
         PERF_DETAIL_ADVANCED = 200, // For the advanced user
@@ -239,7 +236,7 @@ namespace Tx.Windows
     }
 
     [SuppressUnmanagedCodeSecurity()]
-    public class PdhNativeMethods
+    class PdhNativeMethods
     {
         #region A few common flags and status codes
         public const UInt32 PDH_FLAGS_CLOSE_QUERY = 1;
@@ -258,7 +255,7 @@ namespace Tx.Windows
         /// Opens a query against a bound input source.
         /// 
         [DllImport("pdh.dll", SetLastError = true)]
-        public static extern PdhStatus PdhOpenQueryH(
+        static extern PdhStatus PdhOpenQueryH(
             PdhLogHandle hDataSource,
             IntPtr dwUserData,
             out  PdhQueryHandle phQuery);
@@ -269,7 +266,7 @@ namespace Tx.Windows
         /// Use this along with the API's ending in 'H' to string multiple files together.
         /// 
         [DllImport("pdh.dll", SetLastError = true)]
-        public static extern PdhStatus PdhBindInputDataSource(
+        static extern PdhStatus PdhBindInputDataSource(
             out PdhLogHandle phDataSource,
             string szLogFileNameList);
 

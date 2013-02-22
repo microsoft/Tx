@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Tx.Windows
 {
-    public static class PdhUtils
+    static class PdhUtils
     {
         public static List<string> MultiSzToStringList(char[] multiSz)
         {
@@ -33,7 +33,7 @@ namespace Tx.Windows
             return returnValue;
         }
 
-        public static void AssertPdhStatus(PdhStatus actualStatus, params PdhStatus[] expectedStatus)
+        public static void CheckStatus(PdhStatus actualStatus, params PdhStatus[] expectedStatus)
         {
             for (int i = 0; i <= expectedStatus.GetUpperBound(0); i++)
             {
@@ -56,7 +56,7 @@ namespace Tx.Windows
                 null,
                 ref objectBufferLength);
 
-            AssertPdhStatus(pdhStatus, PdhStatus.PDH_MORE_DATA);
+            CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA);
 
             char[] objectListBuffer = new char[objectBufferLength];
 
@@ -65,7 +65,7 @@ namespace Tx.Windows
             objectListBuffer,
             ref objectBufferLength);
 
-            AssertPdhStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            CheckStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
             machines = MultiSzToStringList(objectListBuffer);
 
@@ -85,7 +85,7 @@ namespace Tx.Windows
                 PdhDetailLevel.PERF_DETAIL_WIZARD,
                 0);
 
-            AssertPdhStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
             if (pdhStatus == PdhStatus.PDH_MORE_DATA)
             {
                 char[] objectListBuffer = new char[objectBufferLength];
@@ -98,16 +98,12 @@ namespace Tx.Windows
                     PdhDetailLevel.PERF_DETAIL_WIZARD,
                     0);
 
-                AssertPdhStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
+                CheckStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
-                objectList = MultiSzToStringList(objectListBuffer);
-            }
-            else
-            {
-                objectList = new List<string>();
+                return MultiSzToStringList(objectListBuffer);
             }
 
-            return objectList;
+            return new List<string>();
         }
 
         public static void GetCounterAndInstanceList(
@@ -131,7 +127,7 @@ namespace Tx.Windows
                 PdhDetailLevel.PERF_DETAIL_WIZARD,
                 0);
 
-            AssertPdhStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
             if (pdhStatus == PdhStatus.PDH_MORE_DATA)
             {
                 char[] counterListBuffer = new char[counterBufferLength];
@@ -148,7 +144,7 @@ namespace Tx.Windows
                     PdhDetailLevel.PERF_DETAIL_WIZARD,
                     0);
 
-                AssertPdhStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
+                CheckStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
                 counterList = MultiSzToStringList(counterListBuffer);
                 instanceList = MultiSzToStringList(instanceListBuffer);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Tx.Windows
 {
-    public class PerfCounterFileReader : IDisposable
+    public sealed class PerfCounterFileReader : IDisposable
     {
         IObserver<PerformanceSample> _observer;
         PdhQueryHandle _query;
@@ -20,7 +20,7 @@ namespace Tx.Windows
             string[] counterPaths = PdhUtils.GetCounterPaths(file);
 
             PdhStatus status = PdhNativeMethods.PdhOpenQuery(file, IntPtr.Zero, out _query);
-            PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
             foreach (string counter in counterPaths)
             {
@@ -63,7 +63,7 @@ namespace Tx.Windows
                     if (status == PdhStatus.PDH_NO_DATA)
                         break; // looks like this occurs at the end of .csv files?
 
-                    PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
+                    PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
                     DateTime timestamp = TimeUtil.FromFileTime(time);
 
                     foreach (PerfCounterInfo counterInfo in _counters)
@@ -91,7 +91,7 @@ namespace Tx.Windows
                 ref bufferSize,
                 out bufferCount,
                 IntPtr.Zero);
-            PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_MORE_DATA);
+            PdhUtils.CheckStatus(status, PdhStatus.PDH_MORE_DATA);
 
             byte[] buffer = new byte[bufferSize];
             unsafe
@@ -114,7 +114,7 @@ namespace Tx.Windows
                         return;
                     }
 
-                    PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
+                    PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
                     PDH_FMT_COUNTERVALUE_ITEM* items = (PDH_FMT_COUNTERVALUE_ITEM*)pb;
                     for (int i = 0; i < bufferCount; i++)
@@ -135,15 +135,15 @@ namespace Tx.Windows
             if (status == PdhStatus.PDH_ENTRY_NOT_IN_LOG_FILE)
                 return;
 
-            PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
-            uint bufferSize = 0;
-            status =  PdhNativeMethods.PdhGetCounterInfo(counter, true, ref bufferSize, IntPtr.Zero);
-            PdhUtils.AssertPdhStatus(status, PdhStatus.PDH_MORE_DATA);
-
-           var  counterInfo = new PerfCounterInfo(counterPath, counter);
+            var  counterInfo = new PerfCounterInfo(counterPath, counter);
             _counters.Add(counterInfo);
         }
 
+        ~PerfCounterFileReader()
+        {
+            Dispose();
+        }
     }
 }
