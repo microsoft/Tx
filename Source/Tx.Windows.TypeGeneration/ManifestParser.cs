@@ -19,9 +19,9 @@ namespace Tx.Windows
             return parser._code;
         }
 
-        public static string ExtractFromTrace(string etlFile)
+        public static string[] ExtractFromTrace(string etlFile)
         {
-            return EtwObservable.ExtractManifest(etlFile);
+            return EtwObservable.ExtractManifests(etlFile);
         }
 
         XElement _root;

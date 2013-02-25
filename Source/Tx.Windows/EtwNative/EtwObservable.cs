@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
@@ -46,17 +47,20 @@ namespace Tx.Windows
         /// </summary>
         /// <param name="etlFile">Trace file</param>
         /// <returns></returns>
-        public static string ExtractManifest(string etlFile)
+        public static string[] ExtractManifests(string etlFile)
         {
             IObservable<EtwNativeEvent> all = EtwObservable.FromFiles(etlFile);
 
-            StringBuilder sb = new StringBuilder();
-            ManualResetEvent evt = new ManualResetEvent(false);
+            var manifests = new SortedSet<string>();
+            var sb = new StringBuilder();
+            var evt = new ManualResetEvent(false);
 
             IDisposable d = all.Subscribe(e =>
             {
                 if (e.Id != 0xfffe) // 65534
+                {
                     return;
+                }
 
                 byte format = e.ReadByte();
                 if (format != 1)
@@ -75,14 +79,22 @@ namespace Tx.Windows
                 sb.Append(chunk);
 
                 if (chunkNumber == totalChunks - 1)
-                    evt.Set();
+                {
+                    string manifest = sb.ToString();
+                    sb = new StringBuilder();
+
+                    if (!manifests.Contains(manifest))
+                    {
+                        manifests.Add(manifest);
+                    }
+                }
             },
             ()=> evt.Set());
 
             evt.WaitOne();
             d.Dispose();
 
-            return sb.ToString();
+            return new List<string>(manifests).ToArray();
         }
     }
 }

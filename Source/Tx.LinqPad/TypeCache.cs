@@ -39,30 +39,57 @@ namespace Tx.LinqPad
                 if (outputTimestamp == metadataTimestamp)
                     continue;
 
-                Dictionary<string, string> sources;
+                Dictionary<string, string> sources = new Dictionary<string,string>();
                 switch(Path.GetExtension(f).ToLower())
                 {
                     case ".man":
                         {
                             string manifest = File.ReadAllText(f);
-                            sources = ManifestParser.Parse(manifest);
+                            var s = ManifestParser.Parse(manifest);
+                            foreach (string type in s.Keys)
+                            {
+                                if (!sources.ContainsKey(type))
+                                {
+                                    sources.Add(type, s[type]);
+                                }
+                            }
                             break;
                         }
 
                     case ".etl":
                         {
-                            string manifest = ManifestParser.ExtractFromTrace(f);
-                            if (manifest == "")
+                            string[] manifests = ManifestParser.ExtractFromTrace(f);
+                            if (manifests.Length == 0)
                                 continue;
 
-                            sources = ManifestParser.Parse(manifest);
-                            break;
+                            foreach (string manifest in manifests)
+                            {
+                                Dictionary<string, string> s = ManifestParser.Parse(manifest);
+
+                                foreach (string type in s.Keys)
+                                {
+                                    if (!sources.ContainsKey(type))
+                                    {
+                                        sources.Add(type, s[type]);
+                                    }
+                                }
+                            }
                         }
+                        break;
 
                     case ".blg":
                     case ".csv":
                     case ".tsv":
-                        sources = PerfCounterParser.Parse(f);
+                        {
+                            var s = PerfCounterParser.Parse(f);
+                            foreach (string type in s.Keys)
+                            {
+                                if (!sources.ContainsKey(type))
+                                {
+                                    sources.Add(type, s[type]);
+                                }
+                            }
+                        }
                         break;
 
                     default:
