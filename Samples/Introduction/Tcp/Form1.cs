@@ -21,39 +21,37 @@ namespace Tcp
         Dictionary<string, Series> _adresses = new Dictionary<string, Series>();
         DateTime _start = DateTime.Now;
 
-        IDisposable subscription;
+        IDisposable _subscription;
+        Playback _playback;
 
         public Form1()
         {
             InitializeComponent();
             chart1.Series.Clear();
-
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             StartSession(SessionName, ProviderId);
 
-            Playback playback = new Playback();
-            playback.AddRealTimeSession("tcp");
+            _playback = new Playback();
+            _playback.AddRealTimeSession("tcp");
 
-            var c = from req in playback.GetObservable<KNetEvt_RecvIPV4>()
+            var c = from req in _playback.GetObservable<KNetEvt_RecvIPV4>()
                         select new
                         {
                             Time = req.OccurenceTime,
                             Address = new IPAddress(req.daddr)
                         };
 
-            subscription = c.ObserveOn(this).Subscribe(d =>
+            _subscription = c.ObserveOn(this).Subscribe(d =>
                 {
                     double x = (d.Time - _start).TotalMinutes;
                     double y = d.Address.Address;
                     AddPoint(d.Address.ToString(), x, y);
                 });
 
-            playback.Start();
+            _playback.Start();
         }
 
         void AddPoint(string seriesName, double x, double y)

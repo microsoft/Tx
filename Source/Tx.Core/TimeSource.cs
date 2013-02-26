@@ -158,7 +158,8 @@ namespace System.Reactive
                 public void Dispose()
                 {
                     _parent._postponed.Remove(this);
-                    _disposable.Dispose();
+                    if (_disposable != null)
+                        _disposable.Dispose();
                 }
             }
 
