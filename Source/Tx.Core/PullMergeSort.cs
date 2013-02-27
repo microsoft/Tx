@@ -31,17 +31,17 @@ namespace System.Reactive
         class Enumerator : IEnumerator<T>
         {
             PullMergeSort<T> _parent;
-            List<Reader<T>> _inputs;
+            List<Reader> _inputs;
             T _current;
             bool _initialized = false;
 
             public Enumerator(PullMergeSort<T> parent, IEnumerable<IEnumerator<T>> inputs)
             {
                 _parent = parent;
-                _inputs = new  List<Reader<T>>();
+                _inputs = new  List<Reader>();
                 foreach(var i in inputs)
                 {
-                    _inputs.Add(new Reader<T>(i));
+                    _inputs.Add(new Reader(i));
                 }
             }
 
@@ -57,7 +57,7 @@ namespace System.Reactive
                     _initialized = true;
                 }
                 
-                Reader<T> streamToRead = FindStreamToRead();
+                Reader streamToRead = FindStreamToRead();
 
                 if (streamToRead == null)
                     return false;
@@ -90,13 +90,13 @@ namespace System.Reactive
                 throw new NotImplementedException();
             }
 
-            Reader<T> FindStreamToRead()
+            Reader FindStreamToRead()
             {
-                Reader<T> streamToRead = null;
+                Reader streamToRead = null;
                 DateTime earliestTimestamp = DateTime.MaxValue;
-                List<Reader<T>> toRemove = new List<Reader<T>>();
+                List<Reader> toRemove = new List<Reader>();
 
-                foreach (Reader<T> s in _inputs)
+                foreach (Reader s in _inputs)
                 {
                     if (s.IsCompleted)
                     {
@@ -122,7 +122,7 @@ namespace System.Reactive
             }
         }
 
-        class Reader<T> : IDisposable
+        class Reader : IDisposable
         {
             IEnumerator<T> _enumerator;
             bool _isCompleted;

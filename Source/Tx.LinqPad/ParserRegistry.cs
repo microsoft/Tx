@@ -14,8 +14,6 @@ namespace Tx.LinqPad
     {
         MethodInfo[] _addSessions;
         MethodInfo[] _addFiles;
-        Dictionary<string, Type> _typeStats;
-        Type[] _availableTypes;
 
         public ParserRegistry()
         {

@@ -44,13 +44,6 @@ namespace Tx.Windows
         }
     }
 
-    public class SystemEventFormatted : SystemEvent
-    {
-        string _message;
-
-        public string Message { get { return _message; } }
-    }
-
     public enum EventLevel
     {
         LogAlways = 0,

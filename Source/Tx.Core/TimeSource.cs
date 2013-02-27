@@ -26,6 +26,7 @@ namespace System.Reactive
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="source">The event sequence to use as source</param>
         /// <param name="timeFunction">Expression to extract the timestamp</param>
         public TimeSource(
             IObservable<T> source, 

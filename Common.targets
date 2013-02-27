@@ -17,19 +17,25 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug45|AnyCPU' ">
     <BuildConfig>Debug</BuildConfig>
     <BuildTarget>45</BuildTarget>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release45|AnyCPU' ">
     <BuildConfig>Release</BuildConfig>
     <BuildTarget>45</BuildTarget>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug40|AnyCPU' ">
     <BuildConfig>Debug</BuildConfig>
     <BuildTarget>40</BuildTarget>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release40|AnyCPU' ">
     <BuildConfig>Release</BuildConfig>
     <BuildTarget>40</BuildTarget>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(BuildTarget)' == '45' ">

@@ -22,7 +22,6 @@ namespace Tx.Windows
         Thread _thread;
         ulong[] _handles;
         bool _disposed;
-        EtwNativeEvent _evt;
 
         /// <summary>
         /// Constructor

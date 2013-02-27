@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Tx.Windows
 {
@@ -10,12 +11,13 @@ namespace Tx.Windows
         IObserver<PerformanceSample> _observer;
         PdhQueryHandle _query;
         List<PerfCounterInfo> _counters = new List<PerfCounterInfo>();
-        PerformanceSample _current;
         bool _firstMove = true;
+        bool _binaryLog;
 
         public PerfCounterFileReader(IObserver<PerformanceSample> observer, string file)
         {
             _observer = observer;
+            _binaryLog = Path.GetExtension(file).ToLowerInvariant() == ".blg";
 
             string[] counterPaths = PdhUtils.GetCounterPaths(file);
 
@@ -61,7 +63,10 @@ namespace Tx.Windows
                         break;
 
                     if (status == PdhStatus.PDH_NO_DATA)
-                        break; // looks like this occurs at the end of .csv files?
+                        if (_binaryLog) 
+                            continue;
+                        else 
+                            break;
 
                     PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
                     DateTime timestamp = TimeUtil.FromFileTime(time);

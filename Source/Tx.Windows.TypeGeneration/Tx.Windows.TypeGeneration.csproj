@@ -11,10 +11,6 @@
     <RootNamespace>Tx.Windows</RootNamespace>
     <AssemblyName>Tx.Windows.TypeGeneration</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <Import Project="..\..\Common.targets" />
   <PropertyGroup>

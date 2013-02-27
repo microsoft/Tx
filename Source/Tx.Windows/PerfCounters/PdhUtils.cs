@@ -74,7 +74,6 @@ namespace Tx.Windows
 
         public static List<string> GetObjectList(string logFilename, string machineName)
         {
-            List<string> objectList;
             uint objectBufferLength = 0;
 
             PdhStatus pdhStatus = PdhNativeMethods.PdhEnumObjects(

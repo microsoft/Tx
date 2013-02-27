@@ -11,10 +11,6 @@
     <RootNamespace>Tx.SqlServer</RootNamespace>
     <AssemblyName>Tx.SqlServer</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="..\..\Common.targets" />

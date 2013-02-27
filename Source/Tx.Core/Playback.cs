@@ -67,7 +67,7 @@ namespace System.Reactive
         /// <summary>
         /// The event types that are known
         /// 
-        /// If you do playback.GetObservable&lt;A&gt:();  playback.GetObservable&lt;B&gt:();
+        /// If you do playback.GetObservable&lt;A&gt;();  playback.GetObservable&lt;B&gt;();
         /// the known types will be A and B
         /// 
         /// Only known event types can be formatted to text
@@ -101,7 +101,7 @@ namespace System.Reactive
         /// </summary>
         /// <typeparam name="TInput">Universal type that can can contain events of different actual (static) types</typeparam>
         /// <param name="createInput">How to create the input observalbe</param>
-        /// <param name="createDeserializers">How to create the deserializers that understand TInput</param>
+        /// <param name="typeMaps">The available type maps</param>
         void IPlaybackConfiguration.AddInput<TInput>(
             Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps)

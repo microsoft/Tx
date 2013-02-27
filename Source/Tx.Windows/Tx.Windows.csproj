@@ -11,10 +11,6 @@
     <RootNamespace>Tx.Windows</RootNamespace>
     <AssemblyName>Tx.Windows</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <Import Project="..\..\Common.targets" />

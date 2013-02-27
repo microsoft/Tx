@@ -105,7 +105,7 @@ namespace Tx.LinqPad
             return from a in assemblies select a.Location;
         }
 
-        public override IEnumerable<string> GetNamespacesToAdd()
+        public override IEnumerable<string> GetNamespacesToAdd(IConnectionInfo cxInfo)
         {
             List<string> namespaces = new List<string>()
             {
