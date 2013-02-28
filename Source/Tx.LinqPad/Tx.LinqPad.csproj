@@ -42,6 +42,9 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive.Windows.Forms">
+      <HintPath>$(CPReferencePath)\System.Reactive.Windows.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

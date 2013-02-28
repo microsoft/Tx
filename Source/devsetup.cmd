@@ -20,6 +20,7 @@ copy ..\References\DESKTOPCLR40\System.Reactive.Interfaces.dll "%DRIVER_DIR%"\
 copy ..\References\DESKTOPCLR40\System.Reactive.Core.dll "%DRIVER_DIR%"\
 copy ..\References\DESKTOPCLR40\System.Reactive.Linq.dll "%DRIVER_DIR%"\
 copy ..\References\DESKTOPCLR40\System.Reactive.PlatformServices.dll "%DRIVER_DIR%"\
+copy ..\References\DESKTOPCLR40\System.Reactive.Windows.Forms.dll "%DRIVER_DIR%"\
 
 echo header.xml
 copy Tx.LinqPad\header.xml "%DRIVER_DIR%"\

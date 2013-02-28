@@ -1,0 +1,24 @@
+<p class="download">
+
+	<img src="../downloadglyph.png" />
+
+	<a class="download" href="http://linqpadupdates.net/tx/samples.zip">Download Tx samples</a>
+<br />
+	</p>
+<p>Tx is surfacing real event sources such as Event Tracing for Windows (ETW) as IObservable sequences. This allows using Reactive Extensions (Rx) and LINQ to Objects to perform query on:</p>
+<ul>
+<li>Raw files such as .etl, .evtx and .blg</li>
+<li>Real-time sessions (nothing hits the disk)</li>
+</ul>
+<p>     Assuming the above parsing is done, the Tx samples show how to to overcome the last challenge - LINQ on <b>unbound</b> sequences:
+</p?
+<ul>
+<li>Distinguishing between queried that assume small collections, the ones that unbound</li>
+<li>Mixing Reactive Extnsions and LINQ to Objects efficiently</li>
+</ul>
+<p>
+     For more information, check out the Tx 		
+	<a href="http://tx.codeplex.com/documentation" target="_blank">documentation</a>
+.	
+</p>
+

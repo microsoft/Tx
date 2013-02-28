@@ -19,6 +19,7 @@ namespace Tx.LinqPad
     using System.Reactive.Subjects;
     using System.Reactive;
     using System.Reactive.Linq;
+    using System.Reactive.Concurrency;
 
     public sealed class TxDataContextDriver : DynamicDataContextDriver
     {
@@ -69,7 +70,7 @@ namespace Tx.LinqPad
 
         public override string Author
         {
-            get { return "MS Open Tech"; }
+            get { return "Microsoft Open Technologies, Inc."; }
         }
 
         public override bool DisallowQueryDisassembly
@@ -91,6 +92,8 @@ namespace Tx.LinqPad
                 typeof(ISubject<>).Assembly, // System.Reactive.Interfaces
                 typeof(Observer).Assembly,   // System.Reactive.Core
                 typeof(Subject<>).Assembly,  // System.Reactive.Linq
+                typeof(ThreadPoolScheduler).Assembly, // System.Reactive.PlatformServices
+                typeof(ControlObservable).Assembly,    // System.Reactive.Windows.Forms
                 typeof(Playback).Assembly,   // Tx.Core
             };
 
