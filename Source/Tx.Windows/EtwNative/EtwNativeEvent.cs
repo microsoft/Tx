@@ -36,7 +36,7 @@ namespace Tx.Windows
             }
         } }
 
-        public DateTimeOffset TimeStamp { get { return TimeUtil.DateTimeOffsetFromFileTime(record->EventHeader.TimeStamp); } }
+        public DateTimeOffset TimeStamp { get { return DateTime.FromFileTimeUtc(record->EventHeader.TimeStamp); } }
         public Int64 TimeStampRaw { get { return record->EventHeader.TimeStamp; } }
         public Guid ProviderId { get { return record->EventHeader.ProviderId; } }
 #region struct EVENT_DESCRIPTOR

@@ -69,7 +69,7 @@ namespace Tx.Windows
                             break;
 
                     PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
-                    DateTime timestamp = TimeUtil.FromFileTime(time);
+                    DateTime timestamp = DateTime.FromFileTimeUtc(time);
 
                     foreach (PerfCounterInfo counterInfo in _counters)
                     {
