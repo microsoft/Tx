@@ -1,6 +1,6 @@
 <p>
 
-	<i>By Microsoft Open Technologies Inc.</i>
+	<i>By Microsoft Open Technologies, Inc.</i>
 <b> Requires LINQPad 4.x.</b>
 
 </p>
@@ -16,13 +16,14 @@
 </p>
 
 
-<p>Tx is surfacing event sources such as Event Tracing for Windows (ETW) as IObservable sequences. This allows using Reactive Extensions (Rx) and LINQ to Objects to perform queries on:</p>
+<p>Tx surfaces event sources such as Event Tracing for Windows (ETW) as IObservable sequences.
+This allows using Reactive Extensions (Rx) and LINQ to Objects to perform queries on:</p>
 <ul>
 <li>Raw files such as .etl, .evtx and .blg</li>
 <li>Real-time sessions (nothing hits the disk)</li>
 </ul>
 <p>
-     Tx is delivered as Open Source project at:		
+     Tx is delivered as an Open Source project at:
 	<a href="http://tx.codeplex.com" target="_blank">http://tx.codeplex.com</a>
 	
 </p>
