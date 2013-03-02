@@ -1,18 +1,14 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Linq.Expressions;
 
 namespace System.Reactive
 {
     public class CompositeDeserializer<TInput> : IObserver<TInput>, IDeserializer
     {
-        List<IDeserializer<TInput>> _deserializers;
-        IObserver<Timestamped<object>> _observer;
+        private readonly List<IDeserializer<TInput>> _deserializers;
+        private readonly IObserver<Timestamped<object>> _observer;
 
         public CompositeDeserializer(
             IObserver<Timestamped<object>> observer,
@@ -22,48 +18,43 @@ namespace System.Reactive
             _deserializers = new List<IDeserializer<TInput>>();
             foreach (Type mapType in typeMaps)
             {
-                Type mapInterface = null;
-                var mapInstance = Activator.CreateInstance(mapType);
+                object mapInstance = Activator.CreateInstance(mapType);
 
-                foreach (Type i in mapType.GetInterfaces())
-                {
-                    if (i.Name == typeof(IPartitionableTypeMap<,>).Name)
-                    {
-                        mapInterface = i;
-                        break;
-                    }
-                }
+                Type mapInterface = mapType.GetInterfaces().FirstOrDefault(i => i.Name == typeof (IPartitionableTypeMap<,>).Name);
 
                 if (mapInterface != null)
                 {
-                    var deserializerType = typeof(PartitionKeyDeserializer<,>).MakeGenericType(mapInterface.GetGenericArguments());
-                    var deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
-                    _deserializers.Add((IDeserializer<TInput>)deserializerInstance);
+                    Type deserializerType =
+                        typeof (PartitionKeyDeserializer<,>).MakeGenericType(mapInterface.GetGenericArguments());
+                    object deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
+                    _deserializers.Add((IDeserializer<TInput>) deserializerInstance);
                     continue;
                 }
 
-                mapInterface = mapType.GetInterface(typeof(IRootTypeMap<,>).Name);
+                mapInterface = mapType.GetInterface(typeof (IRootTypeMap<,>).Name);
                 if (mapInterface != null)
                 {
-                    var deserializerType = typeof(RootDeserializer<,>).MakeGenericType(mapInterface.GetGenericArguments());
-                    var deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
-                    _deserializers.Add((IDeserializer<TInput>)deserializerInstance);
+                    Type deserializerType =
+                        typeof (RootDeserializer<,>).MakeGenericType(mapInterface.GetGenericArguments());
+                    object deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
+                    _deserializers.Add((IDeserializer<TInput>) deserializerInstance);
                     continue;
                 }
 
-                mapInterface = mapType.GetInterface(typeof(ITypeMap<>).Name);
+                mapInterface = mapType.GetInterface(typeof (ITypeMap<>).Name);
                 if (mapInterface != null)
                 {
-                    var deserializerType = typeof(TransformDeserializer<>).MakeGenericType(mapInterface.GetGenericArguments());
-                    var deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
-                    _deserializers.Add((IDeserializer<TInput>)deserializerInstance);
+                    Type deserializerType =
+                        typeof (TransformDeserializer<>).MakeGenericType(mapInterface.GetGenericArguments());
+                    object deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
+                    _deserializers.Add((IDeserializer<TInput>) deserializerInstance);
                     continue;
                 }
 
                 throw new Exception("The type " + mapType.FullName + " must implement one of these interfaces :"
-                    + typeof(ITypeMap<>).Name + ", "
-                    + typeof(IRootTypeMap<,>).Name + ", "
-                    + typeof(IPartitionableTypeMap<,>).Name);
+                                    + typeof (ITypeMap<>).Name + ", "
+                                    + typeof (IRootTypeMap<,>).Name + ", "
+                                    + typeof (IPartitionableTypeMap<,>).Name);
             }
         }
 
@@ -87,9 +78,9 @@ namespace System.Reactive
 
         public void OnNext(TInput value)
         {
-            Timestamped<object> ts;
-            foreach (IDeserializer<TInput> d in _deserializers)
+            foreach (var d in _deserializers)
             {
+                Timestamped<object> ts;
                 if (d.TryDeserialize(value, out ts))
                 {
                     _observer.OnNext(ts);

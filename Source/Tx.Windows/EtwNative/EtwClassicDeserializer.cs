@@ -8,8 +8,8 @@ namespace Tx.Windows
 {
     public class EtwClassicTypeMap : EtwTypeMap, IPartitionableTypeMap<EtwNativeEvent, ClassicEventPartitionKey>
     {
-        ClassicEventPartitionKey.Comparer _comparer = new ClassicEventPartitionKey.Comparer();
-        ClassicEventPartitionKey _key = new ClassicEventPartitionKey();
+        private readonly ClassicEventPartitionKey.Comparer _comparer = new ClassicEventPartitionKey.Comparer();
+        private ClassicEventPartitionKey _key = new ClassicEventPartitionKey();
 
         public IEqualityComparer<ClassicEventPartitionKey> Comparer
         {
@@ -25,11 +25,11 @@ namespace Tx.Windows
             //return _key;
 
             return new ClassicEventPartitionKey
-            {
-                Opcode = evt.Opcode,
-                EventGuid = evt.ProviderId,
-                Version = evt.Version
-            };
+                {
+                    Opcode = evt.Opcode,
+                    EventGuid = evt.ProviderId,
+                    Version = evt.Version
+                };
         }
 
         public ClassicEventPartitionKey GetTypeKey(Type outputType)
@@ -39,11 +39,11 @@ namespace Tx.Windows
                 return null;
 
             return new ClassicEventPartitionKey
-            {
-                EventGuid = eventAttribute.EventGuid,
-                Opcode = (byte)eventAttribute.Opcode,
-                Version = eventAttribute.Version
-            };
+                {
+                    EventGuid = eventAttribute.EventGuid,
+                    Opcode = (byte) eventAttribute.Opcode,
+                    Version = eventAttribute.Version
+                };
         }
     }
 }

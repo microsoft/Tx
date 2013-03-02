@@ -7,7 +7,7 @@ namespace System.Reactive
     public interface IPlaybackConfiguration
     {
         void AddInput<TInput>(
-            Expression<Func<IObservable<TInput>>> createInput, 
+            Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps);
     }
 }

@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System.Linq.Expressions;
+using System.Collections.Generic;
 using System.Reactive.Concurrency;
 using System.Reactive.Subjects;
-using System.Collections.Generic;
 
 namespace System.Reactive
 {
@@ -13,23 +12,23 @@ namespace System.Reactive
     }
 
     /// <summary>
-    /// TimeSource constructs an "Virtual Time" scheduler based on expression over the event data
+    ///     TimeSource constructs an "Virtual Time" scheduler based on expression over the event data
     /// </summary>
     /// <typeparam name="T">Type of the events in the sequence</typeparam>
     public class TimeSource<T> : IConnectableObservable<T>, ITimeSource
     {
-        TimeSegmentScheduler _scheduler;
-        Func<T, DateTimeOffset> _timeFunction;
-        IObservable<T> _source;
-        Subject<T> _subject;
+        private readonly TimeSegmentScheduler _scheduler;
+        private readonly IObservable<T> _source;
+        private readonly Subject<T> _subject;
+        private readonly Func<T, DateTimeOffset> _timeFunction;
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="source">The event sequence to use as source</param>
         /// <param name="timeFunction">Expression to extract the timestamp</param>
         public TimeSource(
-            IObservable<T> source, 
+            IObservable<T> source,
             Func<T, DateTimeOffset> timeFunction)
         {
             if (timeFunction == null)
@@ -51,31 +50,6 @@ namespace System.Reactive
                 else
                     _scheduler.AdvanceTo(value);
             }
-        }   
- 
-        void  OnCompleted()
-        {
-            _subject.OnCompleted();
-        }
-
-        void  OnError(Exception error)
-        {
-            _subject.OnError(error);
-        }
-
-        void  OnNext(T value)
-        {
-            DateTimeOffset time = _timeFunction(value);
-
-            if (!_scheduler._running)
-                _scheduler.Init(time);
-            else
-                if (time > _scheduler.Now)
-                {
-                    _scheduler.AdvanceTo(time);
-                }
-
-            _subject.OnNext(value);      
         }
 
         public IDisposable Subscribe(IObserver<T> observer)
@@ -83,85 +57,49 @@ namespace System.Reactive
             return _subject.Subscribe(observer);
         }
 
-        public IScheduler Scheduler
-        {
-            get { return _scheduler; }
-        }
-
         public IDisposable Connect()
         {
             return _source.Subscribe(OnNext, OnError, OnCompleted);
         }
 
-        class TimeSegmentScheduler : IScheduler
+        public IScheduler Scheduler
         {
-            HistoricalScheduler _historical = new HistoricalScheduler();
-            List<IPostponedWorkItem> _postponed;
+            get { return _scheduler; }
+        }
+
+        private void OnCompleted()
+        {
+            _subject.OnCompleted();
+        }
+
+        private void OnError(Exception error)
+        {
+            _subject.OnError(error);
+        }
+
+        private void OnNext(T value)
+        {
+            DateTimeOffset time = _timeFunction(value);
+
+            if (!_scheduler._running)
+                _scheduler.Init(time);
+            else if (time > _scheduler.Now)
+            {
+                _scheduler.AdvanceTo(time);
+            }
+
+            _subject.OnNext(value);
+        }
+
+        private class TimeSegmentScheduler : IScheduler
+        {
+            private readonly HistoricalScheduler _historical = new HistoricalScheduler();
+            private readonly List<IPostponedWorkItem> _postponed;
             public bool _running;
 
             public TimeSegmentScheduler()
             {
                 _postponed = new List<IPostponedWorkItem>();
-            }
-
-            public void Init(DateTimeOffset startTime)
-            {
-                _historical.AdvanceTo(startTime);
-                _running = true; 
-                foreach (IPostponedWorkItem item in _postponed)
-                {
-                    item.Reschedule(_historical);
-                }
-
-            }
-
-            interface IPostponedWorkItem
-            {
-                void Reschedule(HistoricalScheduler historical);
-            }
-
-            class PostponedWorkItem<TState> : IPostponedWorkItem, IDisposable
-            {
-                TimeSegmentScheduler _parent;
-                
-                DateTimeOffset? _dueTime; // only set one of _dueTime or _relativeTime
-                TimeSpan _relativeTime;   // relative to start of playback
-                
-                TState _state;
-                Func<IScheduler, TState, IDisposable> _action;
-                IDisposable _disposable;
-
-                public PostponedWorkItem(TimeSegmentScheduler parent, TState state, DateTimeOffset dueTime, Func<IScheduler, TState, IDisposable> action)
-                {
-                    _parent = parent;
-                    _state = state;
-                    _dueTime = dueTime;
-                    _action = action;
-                    _parent._postponed.Add(this);
-                }
-                public PostponedWorkItem(TimeSegmentScheduler parent, TState state, TimeSpan relativeTime, Func<IScheduler, TState, IDisposable> action)
-                {
-                    _parent = parent;
-                    _state = state;
-                    _relativeTime = relativeTime;
-                    _action = action;
-                    _parent._postponed.Add(this);
-                }
-
-                public void Reschedule(HistoricalScheduler historical)
-                {
-                    if (_dueTime.HasValue)
-                        _disposable = historical.Schedule(_state, _dueTime.Value, _action);
-                    else
-                        _disposable = historical.Schedule(_state, _relativeTime, _action);
-                }
-
-                public void Dispose()
-                {
-                    _parent._postponed.Remove(this);
-                    if (_disposable != null)
-                        _disposable.Dispose();
-                }
             }
 
             public DateTimeOffset Now
@@ -170,33 +108,29 @@ namespace System.Reactive
                 {
                     if (!_running)
                         throw new NotImplementedException();
-                    
+
                     return _historical.Clock;
                 }
             }
 
-            public IDisposable Schedule<TState>(TState state, DateTimeOffset dueTime, Func<IScheduler, TState, IDisposable> action)
+            public IDisposable Schedule<TState>(TState state, DateTimeOffset dueTime,
+                                                Func<IScheduler, TState, IDisposable> action)
             {
                 if (_running)
                 {
-                    return _historical.ScheduleAbsolute<TState>(state, dueTime, action);
+                    return _historical.ScheduleAbsolute(state, dueTime, action);
                 }
-                else
-                {
-                    return new PostponedWorkItem<TState>(this, state, dueTime, action);
-                }
+                return new PostponedWorkItem<TState>(this, state, dueTime, action);
             }
 
-            public IDisposable Schedule<TState>(TState state, TimeSpan relativeTime, Func<IScheduler, TState, IDisposable> action)
+            public IDisposable Schedule<TState>(TState state, TimeSpan relativeTime,
+                                                Func<IScheduler, TState, IDisposable> action)
             {
                 if (_running)
                 {
-                    return _historical.ScheduleRelative<TState>(state, relativeTime, action);
+                    return _historical.ScheduleRelative(state, relativeTime, action);
                 }
-                else
-                {
-                    return new PostponedWorkItem<TState>(this, state, relativeTime, action);
-                }
+                return new PostponedWorkItem<TState>(this, state, relativeTime, action);
             }
 
             public IDisposable Schedule<TState>(TState state, Func<IScheduler, TState, IDisposable> action)
@@ -204,9 +138,70 @@ namespace System.Reactive
                 throw new NotImplementedException();
             }
 
+            public void Init(DateTimeOffset startTime)
+            {
+                _historical.AdvanceTo(startTime);
+                _running = true;
+                foreach (IPostponedWorkItem item in _postponed)
+                {
+                    item.Reschedule(_historical);
+                }
+            }
+
             public void AdvanceTo(DateTimeOffset value)
             {
                 _historical.AdvanceTo(value);
+            }
+
+            private interface IPostponedWorkItem
+            {
+                void Reschedule(HistoricalScheduler historical);
+            }
+
+            private class PostponedWorkItem<TState> : IPostponedWorkItem, IDisposable
+            {
+                private readonly Func<IScheduler, TState, IDisposable> _action;
+                private readonly TimeSegmentScheduler _parent;
+
+                private readonly TimeSpan _relativeTime; // relative to start of playback
+
+                private readonly TState _state;
+                private IDisposable _disposable;
+                private DateTimeOffset? _dueTime; // only set one of _dueTime or _relativeTime
+
+                public PostponedWorkItem(TimeSegmentScheduler parent, TState state, DateTimeOffset dueTime,
+                                         Func<IScheduler, TState, IDisposable> action)
+                {
+                    _parent = parent;
+                    _state = state;
+                    _dueTime = dueTime;
+                    _action = action;
+                    _parent._postponed.Add(this);
+                }
+
+                public PostponedWorkItem(TimeSegmentScheduler parent, TState state, TimeSpan relativeTime,
+                                         Func<IScheduler, TState, IDisposable> action)
+                {
+                    _parent = parent;
+                    _state = state;
+                    _relativeTime = relativeTime;
+                    _action = action;
+                    _parent._postponed.Add(this);
+                }
+
+                public void Dispose()
+                {
+                    _parent._postponed.Remove(this);
+                    if (_disposable != null)
+                        _disposable.Dispose();
+                }
+
+                public void Reschedule(HistoricalScheduler historical)
+                {
+                    _disposable = _dueTime.HasValue ? 
+                        historical.Schedule(_state, _dueTime.Value, _action) :
+                        historical.Schedule(_state, _relativeTime, _action);
+                }
             }
         }
     }

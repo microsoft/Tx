@@ -6,9 +6,9 @@ namespace Tx.Windows
 {
     public class PerformanceSample
     {
-        PerfCounterInfo _counterInfo;
-        DateTime _timestamp;
-        double _value;
+        private readonly PerfCounterInfo _counterInfo;
+        private readonly DateTime _timestamp;
+        private readonly double _value;
 
         internal PerformanceSample(PerfCounterInfo counterInfo, DateTime timestamp, double value)
         {
@@ -24,11 +24,29 @@ namespace Tx.Windows
             _value = other._value;
         }
 
-        public string CounterSet { get { return _counterInfo.CounterSet; } }
-        public string CounterName { get { return _counterInfo.CounterName; } }
-        public string Instance { get { return _counterInfo.Instance; } }
+        public string CounterSet
+        {
+            get { return _counterInfo.CounterSet; }
+        }
 
-        public DateTime Timestamp { get { return _timestamp; } }
-        public double Value { get { return _value; } }
+        public string CounterName
+        {
+            get { return _counterInfo.CounterName; }
+        }
+
+        public string Instance
+        {
+            get { return _counterInfo.Instance; }
+        }
+
+        public DateTime Timestamp
+        {
+            get { return _timestamp; }
+        }
+
+        public double Value
+        {
+            get { return _value; }
+        }
     }
 }

@@ -2,39 +2,28 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
-using System.IO;
+using System.Windows;
+using Microsoft.Win32;
 
 namespace Tx.LinqPad
 {
     /// <summary>
-    /// Interaction logic for ConnectionDialog.xaml
+    ///     Interaction logic for ConnectionDialog.xaml
     /// </summary>
     public partial class ConnectionDialog : Window
     {
-        string _filter;
-        ObservableCollection<string> _files;
-        ObservableCollection<string> _metadataFiles;
-        TxProperties _properties;
-        const string ErrorMessageTitle = "Tx LINQPad Driver";
+        private const string ErrorMessageTitle = "Tx LINQPad Driver";
+        private readonly ObservableCollection<string> _files;
+        private readonly string _filter;
+        private readonly ObservableCollection<string> _metadataFiles;
+        private readonly TxProperties _properties;
 
         internal ConnectionDialog(TxProperties properties, string filter)
         {
-
-            this.DataContext = properties;
+            DataContext = properties;
             _properties = properties;
             _filter = filter;
 
@@ -53,7 +42,7 @@ namespace Tx.LinqPad
         {
             if (String.IsNullOrWhiteSpace(_properties.ContextName))
             {
-                System.Windows.MessageBox.Show("The connection name can not be empty", ErrorMessageTitle);
+                MessageBox.Show("The connection name can not be empty", ErrorMessageTitle);
                 return;
             }
 
@@ -61,26 +50,26 @@ namespace Tx.LinqPad
             {
                 if (_files.Count == 0)
                 {
-                    System.Windows.MessageBox.Show("Empty list of files", ErrorMessageTitle);
+                    MessageBox.Show("Empty list of files", ErrorMessageTitle);
                     return;
                 }
             }
-            
+
             _properties.Files = _files.ToArray();
             _properties.MetadataFiles = _metadataFiles.ToArray();
             _properties.IsRealTime = rbRealTime.IsChecked.Value;
             _properties.IsUsingDirectoryLookup = rbLookup.IsChecked.Value;
-            this.DialogResult = true;
+            DialogResult = true;
         }
 
         private void AddFiles_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog()
-            {
-                Title = "Add file to the query context",
-                Multiselect = true,
-                Filter = _filter
-            };
+            var fileDialog = new OpenFileDialog
+                {
+                    Title = "Add file to the query context",
+                    Multiselect = true,
+                    Filter = _filter
+                };
             if (fileDialog.ShowDialog().GetValueOrDefault())
             {
                 foreach (string name in fileDialog.FileNames)
@@ -92,7 +81,7 @@ namespace Tx.LinqPad
 
         private void RemoveFiles_Click(object sender, RoutedEventArgs e)
         {
-            List<string> removed = new List<string>();
+            var removed = new List<string>();
             foreach (string name in FileList.SelectedItems)
             {
                 removed.Add(name);
@@ -105,17 +94,17 @@ namespace Tx.LinqPad
 
         private void btnBrowseDefinition_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog()
-            {
-                Title = "Select Data Collector Set Template",
-                Multiselect = false,
-                Filter = "Data Collector Set Templates (*.xml)|*.xml"
-            };
+            var fileDialog = new OpenFileDialog
+                {
+                    Title = "Select Data Collector Set Template",
+                    Multiselect = false,
+                    Filter = "Data Collector Set Templates (*.xml)|*.xml"
+                };
         }
 
-        static T GetAttribute<T>(ICustomAttributeProvider provider)
+        private static T GetAttribute<T>(ICustomAttributeProvider provider)
         {
-            return (T)(provider.GetCustomAttributes(typeof(T), false))[0];
+            return (T) (provider.GetCustomAttributes(typeof (T), false))[0];
         }
 
         private void SwitchPastOrRealTime(object sender, RoutedEventArgs e)
@@ -125,13 +114,13 @@ namespace Tx.LinqPad
 
             if (rbRealTime.IsChecked.Value)
             {
-                PastUI.Visibility = System.Windows.Visibility.Collapsed;
-                RealTimeUI.Visibility = System.Windows.Visibility.Visible;
+                PastUI.Visibility = Visibility.Collapsed;
+                RealTimeUI.Visibility = Visibility.Visible;
             }
             else
             {
-                PastUI.Visibility = System.Windows.Visibility.Visible;
-                RealTimeUI.Visibility = System.Windows.Visibility.Collapsed;
+                PastUI.Visibility = Visibility.Visible;
+                RealTimeUI.Visibility = Visibility.Collapsed;
             }
 
             LookupOrSelectMetadata_Checked(sender, e);
@@ -144,24 +133,24 @@ namespace Tx.LinqPad
 
             if (rbLookup.IsChecked.Value)
             {
-                LookupDirPanel.Visibility = System.Windows.Visibility.Visible;
-                AddMetadataPanel.Visibility = System.Windows.Visibility.Collapsed;
+                LookupDirPanel.Visibility = Visibility.Visible;
+                AddMetadataPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
-                LookupDirPanel.Visibility = System.Windows.Visibility.Collapsed;
-                AddMetadataPanel.Visibility = System.Windows.Visibility.Visible;
+                LookupDirPanel.Visibility = Visibility.Collapsed;
+                AddMetadataPanel.Visibility = Visibility.Visible;
             }
         }
 
         private void AddMetadataFiles_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog()
-            {
-                Title = "Add metadata files",
-                Multiselect = true,
-                Filter = "All Files|*.man|Manifests|*.man;"
-            };
+            var fileDialog = new OpenFileDialog
+                {
+                    Title = "Add metadata files",
+                    Multiselect = true,
+                    Filter = "All Files|*.man|Manifests|*.man;"
+                };
             if (fileDialog.ShowDialog().GetValueOrDefault())
             {
                 foreach (string name in fileDialog.FileNames)
@@ -173,7 +162,7 @@ namespace Tx.LinqPad
 
         private void RemoveMetadataFiles_Click(object sender, RoutedEventArgs e)
         {
-            List<string> removed = new List<string>();
+            var removed = new List<string>();
             foreach (string name in FileList.SelectedItems)
             {
                 removed.Add(name);

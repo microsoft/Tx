@@ -9,14 +9,14 @@ using Tx.Windows;
 
 namespace TxFmt
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (args.Length < 2)
             {
                 Console.WriteLine(
-@"Usage: TxFmt files...
+                    @"Usage: TxFmt files...
  
 Supported files are 
     .man   : Manifest
@@ -28,7 +28,7 @@ Supported files are
 
             try
             {
-                Playback pb = new Playback();
+                var pb = new Playback();
 
                 string asmDir = Path.Combine(Path.GetTempPath(), "TxFmt");
                 if (Directory.Exists(asmDir))
@@ -38,6 +38,7 @@ Supported files are
                 foreach (string a in args)
                 {
                     string ext = Path.GetExtension(a).ToLower();
+
                     switch (ext)
                     {
                         case ".etl":
@@ -50,9 +51,9 @@ Supported files are
 
                         case ".man":
                             string manifest = File.ReadAllText(a);
-                            var generated = ManifestParser.Parse(manifest);
+                            Dictionary<string, string> generated = ManifestParser.Parse(manifest);
 
-                            string assemblyPath = Path.Combine(asmDir, Path.ChangeExtension(Path.GetFileName(a),".dll"));
+                            string assemblyPath = Path.Combine(asmDir, Path.ChangeExtension(Path.GetFileName(a), ".dll"));
                             AssemblyBuilder.OutputAssembly(generated, assemblyPath);
                             break;
 
@@ -61,7 +62,7 @@ Supported files are
                     }
                 }
 
-                List<Type> knownTypes = new List<Type>();
+                var knownTypes = new List<Type>();
 
                 foreach (string a in Directory.GetFiles(asmDir, "*.dll"))
                 {

@@ -7,24 +7,23 @@ using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Tx.Windows
-{    
+{
     /// <summary>
-    /// Observable that will read .etl files and push the 
-    /// and produce the events in the ETW native format
+    ///     Observable that will read .etl files and push the
+    ///     and produce the events in the ETW native format
     /// </summary>
-    class EtwFileReader : IDisposable
+    internal class EtwFileReader : IDisposable
     {
-        readonly Guid system = new Guid("{68fdd900-4a3e-11d1-84f4-0000f80464e3}");
-
-        IObserver<EtwNativeEvent> _observer;
-        EVENT_TRACE_LOGFILE[] _logFiles;
-        GCHandle[] _logFileHandles;
-        Thread _thread;
-        ulong[] _handles;
-        bool _disposed;
+        private readonly GCHandle[] _logFileHandles;
+        private readonly EVENT_TRACE_LOGFILE[] _logFiles;
+        private readonly IObserver<EtwNativeEvent> _observer;
+        private readonly Thread _thread;
+        private readonly Guid system = new Guid("{68fdd900-4a3e-11d1-84f4-0000f80464e3}");
+        private bool _disposed;
+        private ulong[] _handles;
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="observer">Observer to push events into</param>
         /// <param name="etlFiles">.etl (Event Trace Log) files to read. Up to 63 files are supported</param>
@@ -38,11 +37,11 @@ namespace Tx.Windows
             for (int i = 0; i < _logFileHandles.Length; i++)
             {
                 _logFiles[i] = new EVENT_TRACE_LOGFILE
-                {
-                    ProcessTraceMode = EtwNativeMethods.TraceModeEventRecord,
-                    LogFileName = Path.GetFullPath(etlFiles[i]),
-                    EventRecordCallback = EtwCallback
-                };
+                    {
+                        ProcessTraceMode = EtwNativeMethods.TraceModeEventRecord,
+                        LogFileName = Path.GetFullPath(etlFiles[i]),
+                        EventRecordCallback = EtwCallback
+                    };
                 _logFileHandles[i] = GCHandle.Alloc(_logFiles[i]);
             }
 
@@ -51,7 +50,20 @@ namespace Tx.Windows
             _thread.Start();
         }
 
-        void ThreadProc()
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                for (int i = 0; i < _handles.Length; i++)
+                {
+                    EtwNativeMethods.CloseTrace(_handles[i]);
+                    _logFileHandles[i].Free();
+                }
+            }
+        }
+
+        private void ThreadProc()
         {
             int error = 0;
             _handles = new ulong[_logFiles.Length];
@@ -77,7 +89,7 @@ namespace Tx.Windows
 
             try
             {
-                error = EtwNativeMethods.ProcessTrace(_handles, (uint)_handles.Length, IntPtr.Zero, IntPtr.Zero);
+                error = EtwNativeMethods.ProcessTrace(_handles, (uint) _handles.Length, IntPtr.Zero, IntPtr.Zero);
             }
             catch (Exception ex)
             {
@@ -93,7 +105,7 @@ namespace Tx.Windows
             _observer.OnCompleted();
         }
 
-        unsafe void EtwCallback(ref EVENT_RECORD record)
+        private unsafe void EtwCallback(ref EVENT_RECORD record)
         {
             if (record.EventHeader.ProviderId == system)
                 return;
@@ -102,23 +114,10 @@ namespace Tx.Windows
             {
                 EtwNativeEvent evt;
                 evt.record = p;
-                evt._data = (byte*)record.UserData.ToPointer();
+                evt._data = (byte*) record.UserData.ToPointer();
                 evt._end = evt._data + record.UserDataLength;
                 evt._length = 0;
                 _observer.OnNext(evt);
-            }
-        }
-
-        public void Dispose()
-        {
-            if (!_disposed)
-            {
-                _disposed = true;
-                for (int i = 0; i < _handles.Length; i++)
-                {
-                    EtwNativeMethods.CloseTrace(_handles[i]);
-                    _logFileHandles[i].Free();
-                }
             }
         }
 

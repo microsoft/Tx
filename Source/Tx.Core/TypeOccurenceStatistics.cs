@@ -1,54 +1,58 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Reactive.Subjects;
+using System.Threading;
 
 namespace System.Reactive
 {
     public class TypeOccurenceStatistics : IPlaybackConfiguration
     {
-        Type[] _availableTypes;
-        List<TypeOccurenceAggregator> _aggregators;
-        List<InputStream> _inputs;
-        Dictionary<Type, long> _statistics;
+        private readonly List<TypeOccurenceAggregator> _aggregators;
+        private readonly Type[] _availableTypes;
+        private readonly List<IInputStream> _inputs;
+        private Dictionary<Type, long> _statistics;
 
         public TypeOccurenceStatistics(Type[] availableTypes)
         {
             _availableTypes = availableTypes;
             _aggregators = new List<TypeOccurenceAggregator>();
-            _inputs = new List<InputStream>();
+            _inputs = new List<IInputStream>();
+        }
+
+        public Dictionary<Type, long> Statistics
+        {
+            get { return _statistics; }
         }
 
         public void AddInput<TInput>(
-            Expression<Func<IObservable<TInput>>> createInput, 
+            Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps)
         {
-            Subject<TInput> subject = new Subject<TInput>();
+            var subject = new Subject<TInput>();
 
             foreach (Type mapType in typeMaps)
             {
-                var mapInstance = Activator.CreateInstance(mapType);
-                var mapInterface = mapType.GetInterface(typeof(IPartitionableTypeMap<,>).Name);
+                object mapInstance = Activator.CreateInstance(mapType);
+                Type mapInterface = mapType.GetInterface(typeof (IPartitionableTypeMap<,>).Name);
                 if (mapInterface == null)
                     continue;
-                var aggregatorType = typeof(TypeOccurenceAggregator<,>).MakeGenericType(mapInterface.GetGenericArguments());
-                var aggregatorInstance = Activator.CreateInstance(aggregatorType, mapInstance, _availableTypes);
-                _aggregators.Add((TypeOccurenceAggregator)aggregatorInstance);
+                Type aggregatorType =
+                    typeof (TypeOccurenceAggregator<,>).MakeGenericType(mapInterface.GetGenericArguments());
+                object aggregatorInstance = Activator.CreateInstance(aggregatorType, mapInstance, _availableTypes);
+                _aggregators.Add((TypeOccurenceAggregator) aggregatorInstance);
 
-                subject.Subscribe((IObserver<TInput>)aggregatorInstance);
+                subject.Subscribe((IObserver<TInput>) aggregatorInstance);
             }
 
-            _inputs.Add(new InputStream<TInput>(this, createInput, subject));
+            _inputs.Add(new InputStream<TInput>(createInput, subject));
         }
 
         public void Run()
         {
-            foreach (InputStream i in _inputs)
+            foreach (IInputStream i in _inputs)
             {
                 i.Start();
             }
@@ -64,7 +68,7 @@ namespace System.Reactive
                 if (a.Exception != null)
                     throw a.Exception;
 
-                foreach(KeyValuePair<Type,long> pair in a.OccurenceStatistics)
+                foreach (var pair in a.OccurenceStatistics)
                 {
                     if (_statistics.ContainsKey(pair.Key))
                         _statistics[pair.Key] += pair.Value;
@@ -74,28 +78,20 @@ namespace System.Reactive
             }
         }
 
-        public Dictionary<Type, long> Statistics
-        {
-            get { return _statistics; }
-        }
-
-        interface InputStream
+        private interface IInputStream
         {
             void Start();
         }
 
-        class InputStream<TInput> : InputStream
+        private class InputStream<TInput> : IInputStream
         {
-            TypeOccurenceStatistics _parent;
-            IObserver<TInput> _observer;
-            IObservable<TInput> _input;
+            private readonly IObservable<TInput> _input;
+            private readonly IObserver<TInput> _observer;
 
             public InputStream(
-                TypeOccurenceStatistics parent,                 
-                Expression<Func<IObservable<TInput>>> createInput, 
+                Expression<Func<IObservable<TInput>>> createInput,
                 IObserver<TInput> observer)
             {
-                _parent = parent;
                 _input = createInput.Compile()();
                 _observer = observer;
             }
@@ -104,11 +100,6 @@ namespace System.Reactive
             {
                 _input.Subscribe(_observer);
             }
-        }
-
-        class CountHolder
-        {
-            public long Count { get; set; }
         }
     }
 }

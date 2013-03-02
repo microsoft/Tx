@@ -6,10 +6,10 @@ namespace System.Reactive
 {
     public sealed class PartitionKeyDeserializer<TInput, TKey> : IDeserializer<TInput>
     {
-        IPartitionableTypeMap<TInput, TKey> _typeMap;
-        Func<TInput, DateTimeOffset> _timeFunction;
-        Dictionary<TKey, Func<TInput, object>> _transforms;
-        Dictionary<TKey, Type> _knownTypes;
+        private readonly Dictionary<TKey, Type> _knownTypes;
+        private readonly Func<TInput, DateTimeOffset> _timeFunction;
+        private readonly Dictionary<TKey, Func<TInput, object>> _transforms;
+        private readonly IPartitionableTypeMap<TInput, TKey> _typeMap;
 
         public PartitionKeyDeserializer(IPartitionableTypeMap<TInput, TKey> typeMap)
         {

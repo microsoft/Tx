@@ -2,39 +2,39 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Reactive;
+using System.Reflection;
+using System.Text;
 
 namespace Tx.LinqPad
 {
-    class ParserRegistry
+    internal class ParserRegistry
     {
-        MethodInfo[] _addSessions;
-        MethodInfo[] _addFiles;
+        private readonly MethodInfo[] _addFiles;
+        private readonly MethodInfo[] _addSessions;
 
         public ParserRegistry()
         {
-            string dir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            var types = from file in Directory.GetFiles(dir, "*.dll")
-                        from t in Assembly.LoadFrom(file).GetTypes()
-                        where t.IsPublic
-                        select t;
+            IEnumerable<Type> types = from file in Directory.GetFiles(dir, "*.dll")
+                                      from t in Assembly.LoadFrom(file).GetTypes()
+                                      where t.IsPublic
+                                      select t;
 
-            var methods = from t in types
-                          from m in t.GetMethods()
-                          where m.GetAttribute<FileParserAttribute>() != null
-                          select m;
+            IEnumerable<MethodInfo> methods = from t in types
+                                              from m in t.GetMethods()
+                                              where m.GetAttribute<FileParserAttribute>() != null
+                                              select m;
 
             _addFiles = methods.ToArray();
 
             methods = from t in types
-                          from m in t.GetMethods()
-                          where m.GetAttribute<RealTimeFeedAttribute>() != null
-                          select m;
+                      from m in t.GetMethods()
+                      where m.GetAttribute<RealTimeFeedAttribute>() != null
+                      select m;
 
             _addSessions = methods.ToArray();
         }
@@ -43,10 +43,10 @@ namespace Tx.LinqPad
         {
             get
             {
-                var attributes = (from mi in _addFiles
-                                  select mi.GetAttribute<FileParserAttribute>()).ToArray();
+                FileParserAttribute[] attributes = (from mi in _addFiles
+                                                    select mi.GetAttribute<FileParserAttribute>()).ToArray();
 
-                StringBuilder sb = new StringBuilder("All Files|");
+                var sb = new StringBuilder("All Files|");
                 foreach (string ext in attributes.SelectMany(a => a.Extensions))
                 {
                     sb.Append('*');
@@ -83,10 +83,10 @@ namespace Tx.LinqPad
 
         public Dictionary<Type, long> GetTypeStatistics(Type[] types, string[] files)
         {
-            TypeOccurenceStatistics stat = new TypeOccurenceStatistics(types);
+            var stat = new TypeOccurenceStatistics(types);
             AddFiles(stat, files);
             stat.Run();
-             
+
             return stat.Statistics;
         }
 
@@ -113,7 +113,7 @@ namespace Tx.LinqPad
                                         where mi.GetAttribute<FileParserAttribute>().Extensions.Contains(ext)
                                         select mi).FirstOrDefault();
 
-                addMethod.Invoke(null, new object[] { playback, filesByExtension[ext].ToArray() });
+                addMethod.Invoke(null, new object[] {playback, filesByExtension[ext].ToArray()});
             }
         }
 
@@ -121,13 +121,13 @@ namespace Tx.LinqPad
         {
             foreach (MethodInfo addMethod in _addSessions)
             {
-                addMethod.Invoke(null, new object[] { playback, session });
+                addMethod.Invoke(null, new object[] {playback, session});
             }
         }
 
-        T GetAttribute<T>(ICustomAttributeProvider provider)
+        private T GetAttribute<T>(ICustomAttributeProvider provider)
         {
-            return (T)(provider.GetCustomAttributes(typeof(T), false))[0];
+            return (T) (provider.GetCustomAttributes(typeof (T), false))[0];
         }
     }
 }

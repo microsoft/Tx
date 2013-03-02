@@ -6,27 +6,31 @@ using System.Security;
 
 namespace Tx.Windows
 {
-    [SuppressUnmanagedCodeSecurityAttribute]
-    static class EtwNativeMethods 
+    [SuppressUnmanagedCodeSecurity]
+    internal static class EtwNativeMethods
     {
         public const Int32 ErrorNotFound = 0x2; //0x000000a1 ?;
         public const Int32 ErrorUnreadable = 0x00000570;
         public const uint TraceModeRealTime = 0x00000100;
         public const uint TraceModeEventRecord = 0x10000000;
-        public static readonly ulong InvalidHandle = (Environment.OSVersion.Version.Major >= 6 ? 0x00000000FFFFFFFF : 0xFFFFFFFFFFFFFFFF);
 
-        public const UInt16 EVENT_HEADER_FLAG_32_BIT_HEADER =   0x20;
-        public const UInt16 EVENT_HEADER_FLAG_64_BIT_HEADER =   0x40;
+        public const UInt16 EVENT_HEADER_FLAG_32_BIT_HEADER = 0x20;
+        public const UInt16 EVENT_HEADER_FLAG_64_BIT_HEADER = 0x40;
         public const UInt16 EVENT_HEADER_FLAG_PROCESSOR_INDEX = 0x0200;
 
-        [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "OpenTraceW", SetLastError = true, CharSet = CharSet.Unicode)]
+        public static readonly ulong InvalidHandle = (Environment.OSVersion.Version.Major >= 6
+                                                          ? 0x00000000FFFFFFFF
+                                                          : 0xFFFFFFFFFFFFFFFF);
+
+        [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "OpenTraceW", SetLastError = true,
+            CharSet = CharSet.Unicode)]
         public static extern UInt64 OpenTrace(ref EVENT_TRACE_LOGFILE logfile);
 
         [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "ProcessTrace")]
         public static extern Int32 ProcessTrace(UInt64[] HandleArray,
-                                                 UInt32 HandleCount,
-                                                 IntPtr StartTime,
-                                                 IntPtr EndTime);
+                                                UInt32 HandleCount,
+                                                IntPtr StartTime,
+                                                IntPtr EndTime);
 
         [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "CloseTrace")]
         public static extern Int32 CloseTrace(UInt64 traceHandle);
@@ -40,27 +44,25 @@ namespace Tx.Windows
             ref Int32 BufferSize);
     }
 
-    [SuppressUnmanagedCodeSecurityAttribute]
-    delegate void PEVENT_RECORD_CALLBACK([In] ref EVENT_RECORD eventRecord);
+    [SuppressUnmanagedCodeSecurity]
+    internal delegate void PEVENT_RECORD_CALLBACK([In] ref EVENT_RECORD eventRecord);
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    struct Win32TimeZoneInfo 
+    internal struct Win32TimeZoneInfo
     {
         public Int32 Bias;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-        public char[] StandardName;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] StandardName;
         public SystemTime StandardDate;
         public Int32 StandardBias;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-        public char[] DaylightName;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] DaylightName;
         public SystemTime DaylightDate;
         public Int32 DaylightBias;
     }
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct SystemTime 
+    internal struct SystemTime
     {
         public Int16 Year;
         public Int16 Month;
@@ -74,7 +76,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct TRACE_LOGFILE_HEADER 
+    internal struct TRACE_LOGFILE_HEADER
     {
         public UInt32 BufferSize;
         public UInt32 Version;
@@ -100,7 +102,7 @@ namespace Tx.Windows
     }
 
     [Serializable]
-    enum PROPERTY_FLAGS 
+    internal enum PROPERTY_FLAGS
     {
         PropertyStruct = 0x1,
         PropertyParamLength = 0x2,
@@ -110,7 +112,7 @@ namespace Tx.Windows
     }
 
     [Serializable]
-    enum TdhInType : ushort 
+    internal enum TdhInType : ushort
     {
         Null,
         UnicodeString,
@@ -133,7 +135,7 @@ namespace Tx.Windows
         SystemTime,
         SID,
         HexInt32,
-        HexInt64,  // End of winmeta intypes
+        HexInt64, // End of winmeta intypes
         CountedString = 300, // Start of TDH intypes for WBEM
         CountedAnsiString,
         ReversedCountedString,
@@ -148,7 +150,7 @@ namespace Tx.Windows
     };
 
     [Serializable]
-    enum TdhOutType : ushort 
+    internal enum TdhOutType : ushort
     {
         Null,
         String,
@@ -179,22 +181,20 @@ namespace Tx.Windows
         CimDateTime,
         EtwTime,
         Xml,
-        ErrorCode,              // End of winmeta outtypes
-        ReducedString = 300,    // Start of TDH outtypes for WBEM
+        ErrorCode, // End of winmeta outtypes
+        ReducedString = 300, // Start of TDH outtypes for WBEM
         NoPrint
     };
 
     [Serializable]
     [StructLayout(LayoutKind.Explicit)]
-    sealed class EVENT_PROPERTY_INFO 
+    internal sealed class EVENT_PROPERTY_INFO
     {
-        [FieldOffset(0)]
-        public PROPERTY_FLAGS Flags;
-        [FieldOffset(4)]
-        public UInt32 NameOffset;
+        [FieldOffset(0)] public PROPERTY_FLAGS Flags;
+        [FieldOffset(4)] public UInt32 NameOffset;
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct NonStructType 
+        public struct NonStructType
         {
             public TdhInType InType;
             public TdhOutType OutType;
@@ -202,35 +202,30 @@ namespace Tx.Windows
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct StructType 
+        public struct StructType
         {
             public UInt16 StructStartIndex;
             public UInt16 NumOfStructMembers;
-            private UInt32 _Padding;
+            private readonly UInt32 _Padding;
         }
 
-        [FieldOffset(8)]
-        public NonStructType NonStructTypeValue;
-        [FieldOffset(8)]
-        public StructType StructTypeValue;
+        [FieldOffset(8)] public NonStructType NonStructTypeValue;
+        [FieldOffset(8)] public StructType StructTypeValue;
 
-        [FieldOffset(16)]
-        public UInt16 CountPropertyIndex;
-        [FieldOffset(18)]
-        public UInt16 LengthPropertyIndex;
-        [FieldOffset(20)]
-        private UInt32 _Reserved;
+        [FieldOffset(16)] public UInt16 CountPropertyIndex;
+        [FieldOffset(18)] public UInt16 LengthPropertyIndex;
+        [FieldOffset(20)] private UInt32 _Reserved;
     }
 
     [Serializable]
-    enum TEMPLATE_FLAGS 
+    internal enum TEMPLATE_FLAGS
     {
         TemplateEventDdata = 1,
         TemplateUserData = 2
     }
 
     [Serializable]
-    enum DECODING_SOURCE 
+    internal enum DECODING_SOURCE
     {
         DecodingSourceXmlFile,
         DecodingSourceWbem,
@@ -239,7 +234,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    sealed class TRACE_EVENT_INFO 
+    internal sealed class TRACE_EVENT_INFO
     {
         public Guid ProviderGuid;
         public Guid EventGuid;
@@ -264,7 +259,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct EVENT_TRACE_HEADER 
+    internal struct EVENT_TRACE_HEADER
     {
         public UInt16 Size;
         public UInt16 FieldTypeFlags;
@@ -279,7 +274,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct EVENT_TRACE 
+    internal struct EVENT_TRACE
     {
         public EVENT_TRACE_HEADER Header;
         public UInt32 InstanceId;
@@ -292,12 +287,10 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    struct EVENT_TRACE_LOGFILE 
+    internal struct EVENT_TRACE_LOGFILE
     {
-        [MarshalAs(UnmanagedType.LPWStr)]
-        public string LogFileName;
-        [MarshalAs(UnmanagedType.LPWStr)]
-        public string LoggerName;
+        [MarshalAs(UnmanagedType.LPWStr)] public string LogFileName;
+        [MarshalAs(UnmanagedType.LPWStr)] public string LoggerName;
         public Int64 CurrentTime;
         public UInt32 BuffersRead;
         public UInt32 ProcessTraceMode;
@@ -307,15 +300,14 @@ namespace Tx.Windows
         public UInt32 BufferSize;
         public UInt32 Filled;
         public UInt32 EventsLost;
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public PEVENT_RECORD_CALLBACK EventRecordCallback;
+        [MarshalAs(UnmanagedType.FunctionPtr)] public PEVENT_RECORD_CALLBACK EventRecordCallback;
         public UInt32 IsKernelTrace;
         public IntPtr Context;
     }
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct EVENT_DESCRIPTOR 
+    internal struct EVENT_DESCRIPTOR
     {
         public UInt16 Id;
         public byte Version;
@@ -328,7 +320,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct EVENT_HEADER 
+    internal struct EVENT_HEADER
     {
         public UInt16 Size;
         public UInt16 HeaderType;
@@ -344,7 +336,7 @@ namespace Tx.Windows
     }
 
     [Serializable]
-    enum EventHeaderExtType : ushort
+    internal enum EventHeaderExtType : ushort
     {
         RelatedActivityId = 1,
         Sid,
@@ -355,21 +347,21 @@ namespace Tx.Windows
         PebsIndex,
         PmcCounters,
     }
-    
+
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct EventHeaderExtendedDataItem
+    internal struct EventHeaderExtendedDataItem
     {
-        UInt16 Reserved1;
+        private readonly UInt16 Reserved1;
         public EventHeaderExtType ExtType;
-        UInt16 Reserved2;
+        private readonly UInt16 Reserved2;
         public UInt16 DataSize;
         public IntPtr DataPtr;
     }
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    struct EVENT_RECORD 
+    internal struct EVENT_RECORD
     {
         public EVENT_HEADER EventHeader;
         public ETW_BUFFER_CONTEXT BufferContext;
@@ -377,22 +369,18 @@ namespace Tx.Windows
         public UInt16 UserDataLength;
         public IntPtr ExtendedData;
         public IntPtr UserData;
-        public IntPtr UserContext;            
+        public IntPtr UserContext;
 
         [StructLayout(LayoutKind.Explicit)]
-        public struct ETW_BUFFER_CONTEXT 
+        public struct ETW_BUFFER_CONTEXT
         {
-            [FieldOffset(0)]
-            public byte ProcessorNumber;
+            [FieldOffset(0)] public byte ProcessorNumber;
 
-            [FieldOffset(1)]
-            public byte Alignment;
+            [FieldOffset(1)] public byte Alignment;
 
-            [FieldOffset(0)]
-            public UInt16 ProcessorIndex;
+            [FieldOffset(0)] public UInt16 ProcessorIndex;
 
-            [FieldOffset(2)]
-            public UInt16 LoggerId;
+            [FieldOffset(2)] public UInt16 LoggerId;
         }
     }
 }

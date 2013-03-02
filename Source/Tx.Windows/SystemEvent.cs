@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
+using System.Reactive;
+
 namespace Tx.Windows
 {
-    using System;
-    using System.Reactive;
-
     // Class used to represent any ETW event, 
     // by taking the system header and no user payload data
     public class SystemHeader
@@ -39,7 +39,7 @@ namespace Tx.Windows
 
         public override string ToString()
         {
-            Func<SystemEvent, string> func = EventFormatter.GetFormatFunction(this.GetType());
+            Func<SystemEvent, string> func = EventFormatter.GetFormatFunction(GetType());
             return func(this);
         }
     }

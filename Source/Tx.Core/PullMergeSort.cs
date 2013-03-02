@@ -1,16 +1,14 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace System.Reactive
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-    public partial class PullMergeSort<T> : IEnumerable<T>
+    public class PullMergeSort<T> : IEnumerable<T>
     {
-        Func<T, DateTime> _keyFunction;
-        List<IEnumerator<T>> _inputs;
+        private readonly List<IEnumerator<T>> _inputs;
+        private readonly Func<T, DateTime> _keyFunction;
 
         public PullMergeSort(Func<T, DateTime> keyFunction, IEnumerable<IEnumerator<T>> inputs)
         {
@@ -23,23 +21,23 @@ namespace System.Reactive
             return new Enumerator(this, _inputs);
         }
 
-        Collections.IEnumerator Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-        
-        class Enumerator : IEnumerator<T>
+
+        private class Enumerator : IEnumerator<T>
         {
-            PullMergeSort<T> _parent;
-            List<Reader> _inputs;
-            T _current;
-            bool _initialized = false;
+            private readonly List<Reader> _inputs;
+            private readonly PullMergeSort<T> _parent;
+            private T _current;
+            private bool _initialized;
 
             public Enumerator(PullMergeSort<T> parent, IEnumerable<IEnumerator<T>> inputs)
             {
                 _parent = parent;
-                _inputs = new  List<Reader>();
-                foreach(var i in inputs)
+                _inputs = new List<Reader>();
+                foreach (var i in inputs)
                 {
                     _inputs.Add(new Reader(i));
                 }
@@ -49,14 +47,14 @@ namespace System.Reactive
             {
                 if (!_initialized)
                 {
-                    foreach (var reader in _inputs)
+                    foreach (Reader reader in _inputs)
                     {
                         reader.ReadOne();
-                    };
+                    }
 
                     _initialized = true;
                 }
-                
+
                 Reader streamToRead = FindStreamToRead();
 
                 if (streamToRead == null)
@@ -74,15 +72,15 @@ namespace System.Reactive
 
             public void Dispose()
             {
-                foreach (var input in _inputs)
+                foreach (Reader input in _inputs)
                 {
                     input.Dispose();
                 }
             }
 
-            object System.Collections.IEnumerator.Current
+            object IEnumerator.Current
             {
-                get { throw new NotImplementedException(); }
+                get { return Current; }
             }
 
             public void Reset()
@@ -90,11 +88,11 @@ namespace System.Reactive
                 throw new NotImplementedException();
             }
 
-            Reader FindStreamToRead()
+            private Reader FindStreamToRead()
             {
                 Reader streamToRead = null;
                 DateTime earliestTimestamp = DateTime.MaxValue;
-                List<Reader> toRemove = new List<Reader>();
+                var toRemove = new List<Reader>();
 
                 foreach (Reader s in _inputs)
                 {
@@ -112,7 +110,7 @@ namespace System.Reactive
                     }
                 }
 
-                foreach (var r in toRemove)
+                foreach (Reader r in toRemove)
                 {
                     _inputs.Remove(r);
                     r.Dispose();
@@ -122,10 +120,10 @@ namespace System.Reactive
             }
         }
 
-        class Reader : IDisposable
+        private class Reader : IDisposable
         {
-            IEnumerator<T> _enumerator;
-            bool _isCompleted;
+            private readonly IEnumerator<T> _enumerator;
+            private bool _isCompleted;
 
             public Reader(IEnumerator<T> enumerator)
             {
@@ -142,12 +140,12 @@ namespace System.Reactive
                 get { return _enumerator.Current; }
             }
 
-            public void  Dispose()
+            public void Dispose()
             {
- 	            _enumerator.Dispose();
+                _enumerator.Dispose();
             }
 
-            public void  ReadOne()
+            public void ReadOne()
             {
                 _isCompleted = !_enumerator.MoveNext();
             }

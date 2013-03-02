@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace System.Reactive
 {
-
     public interface ITypeMap<TInput>
     {
         Func<TInput, DateTimeOffset> TimeFunction { get; }
@@ -20,5 +19,5 @@ namespace System.Reactive
         IEqualityComparer<TKey> Comparer { get; }
         TKey GetTypeKey(Type outputType);
         TKey GetInputKey(TInput evt);
-     }
+    }
 }

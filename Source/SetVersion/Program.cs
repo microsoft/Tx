@@ -1,20 +1,16 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SetVersion
 {
-    class Program
+    internal class Program
     {
-        const string Prefix = "[assembly: AssemblyVersion(";
+        private const string Prefix = "[assembly: AssemblyVersion(";
 
-        static void Main(string[] args)
+        private static void Main()
         {
             string version = GetVersion();
             Console.WriteLine(version);
@@ -27,7 +23,7 @@ namespace SetVersion
             }
         }
 
-        static string GetVersion()
+        private static string GetVersion()
         {
             StreamReader reader = File.OpenText("AssemblyInfo.cs");
             string line = reader.ReadLine();
@@ -48,7 +44,7 @@ namespace SetVersion
             throw new Exception("could not find AssemblyVersion attribute");
         }
 
-        static void FixNuSpec(string path, string version)
+        private static void FixNuSpec(string path, string version)
         {
             XDocument spec = XDocument.Load(path);
             XElement xeMetadata = spec.Element("package").Element("metadata");

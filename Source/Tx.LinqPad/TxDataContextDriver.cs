@@ -1,30 +1,29 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Windows;
+using LINQPad.Extensibility.DataContext;
+using Microsoft.CSharp;
+using Expression = System.Linq.Expressions.Expression;
+
 namespace Tx.LinqPad
 {
-    using System;
-    using System.CodeDom.Compiler;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using System.Text;
-    using System.Threading;
-    using LINQPad.Extensibility.DataContext;
-    using Microsoft.CSharp;
-    using Microsoft.Win32;
-    using System.Reactive.Subjects;
-    using System.Reactive;
-    using System.Reactive.Linq;
-    using System.Reactive.Concurrency;
-
     public sealed class TxDataContextDriver : DynamicDataContextDriver
     {
-        const string DataContextTemplate =
-@"namespace System.Reactive.Tx
+        private const string DataContextTemplate =
+            @"namespace System.Reactive.Tx
 {
     using System;
     using System.Linq;
@@ -52,13 +51,13 @@ namespace Tx.LinqPad
     }
 }";
 
-        static readonly LocalDataStoreSlot _threadStorageSlot;
-        TypeCache _typeCache;
-        ParserRegistry _parserRegistry;
+        private static readonly LocalDataStoreSlot _threadStorageSlot;
+        private readonly ParserRegistry _parserRegistry;
+        private readonly TypeCache _typeCache;
 
         static TxDataContextDriver()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += TxDataContextDriver.AssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolve;
             _threadStorageSlot = Thread.AllocateDataSlot();
         }
 
@@ -85,65 +84,65 @@ namespace Tx.LinqPad
 
         public override IEnumerable<string> GetAssembliesToAdd(IConnectionInfo cxn)
         {
-            List<Assembly> assemblies = new List<Assembly>()
-            {
-                typeof(ObservableCollection<>).Assembly, // System
-                typeof(Expression).Assembly, // System.Core
-                typeof(ISubject<>).Assembly, // System.Reactive.Interfaces
-                typeof(Observer).Assembly,   // System.Reactive.Core
-                typeof(Subject<>).Assembly,  // System.Reactive.Linq
-                typeof(ThreadPoolScheduler).Assembly, // System.Reactive.PlatformServices
-                typeof(ControlObservable).Assembly,    // System.Reactive.Windows.Forms
-                typeof(Playback).Assembly,   // Tx.Core
-            };
+            var assemblies = new List<Assembly>
+                {
+                    typeof (ObservableCollection<>).Assembly, // System
+                    typeof (Expression).Assembly, // System.Core
+                    typeof (ISubject<>).Assembly, // System.Reactive.Interfaces
+                    typeof (Observer).Assembly, // System.Reactive.Core
+                    typeof (Subject<>).Assembly, // System.Reactive.Linq
+                    typeof (ThreadPoolScheduler).Assembly, // System.Reactive.PlatformServices
+                    typeof (ControlObservable).Assembly, // System.Reactive.Windows.Forms
+                    typeof (Playback).Assembly, // Tx.Core
+                };
 
-            TxProperties properties = new TxProperties(cxn);
+            var properties = new TxProperties(cxn);
             assemblies.AddRange(_parserRegistry.GetAssemblies());
 
             _typeCache.Init(properties.ContextName);
-            assemblies.AddRange(_typeCache.GetAssemblies(properties.ContextName, 
-                ReplaceSampleTracesDir(properties.Files), 
-                ReplaceSampleTracesDir(properties.MetadataFiles)));
+            assemblies.AddRange(_typeCache.GetAssemblies(properties.ContextName,
+                                                         ReplaceSampleTracesDir(properties.Files),
+                                                         ReplaceSampleTracesDir(properties.MetadataFiles)));
 
             return from a in assemblies select a.Location;
         }
 
         public override IEnumerable<string> GetNamespacesToAdd(IConnectionInfo cxInfo)
         {
-            List<string> namespaces = new List<string>()
-            {
-               "System",
-               "System.Linq",
-               "System.Linq.Expressions",
-               "System.Reactive",
-               "System.Reactive.Linq",
-            };
+            var namespaces = new List<string>
+                {
+                    "System",
+                    "System.Linq",
+                    "System.Linq.Expressions",
+                    "System.Reactive",
+                    "System.Reactive.Linq",
+                };
 
             return namespaces.Concat(_parserRegistry.GetNamespaces());
-        } 
-        
+        }
+
         public override string GetConnectionDescription(IConnectionInfo cxInfo)
         {
-            TxProperties properties = new TxProperties(cxInfo);
+            var properties = new TxProperties(cxInfo);
             return properties.ContextName;
         }
 
         public override bool ShowConnectionDialog(IConnectionInfo cxInfo, bool isNewConnection)
         {
-            TxProperties properties = new TxProperties(cxInfo);
+            var properties = new TxProperties(cxInfo);
             return new ConnectionDialog(properties, _parserRegistry.Filter).ShowDialog() ?? false;
         }
 
         public override ParameterDescriptor[] GetContextConstructorParameters(IConnectionInfo cxInfo)
         {
-            ParameterDescriptor desc = new ParameterDescriptor("playback", typeof(Playback).FullName);
-            return new ParameterDescriptor[] { desc };
+            var desc = new ParameterDescriptor("playback", typeof (Playback).FullName);
+            return new[] {desc};
         }
 
         public override object[] GetContextConstructorArguments(IConnectionInfo cxInfo)
         {
-            Playback playback = new Playback();
-            TxProperties properties = new TxProperties(cxInfo);
+            var playback = new Playback();
+            var properties = new TxProperties(cxInfo);
 
             if (properties.IsRealTime)
             {
@@ -155,19 +154,21 @@ namespace Tx.LinqPad
             }
 
             Thread.SetData(_threadStorageSlot, playback);
-            return new[] { playback };
+            return new[] {playback};
         }
 
-        public override List<ExplorerItem> GetSchemaAndBuildAssembly(IConnectionInfo cxInfo, AssemblyName assemblyToBuild, ref string nameSpace, ref string typeName)
+        public override List<ExplorerItem> GetSchemaAndBuildAssembly(IConnectionInfo cxInfo,
+                                                                     AssemblyName assemblyToBuild, ref string nameSpace,
+                                                                     ref string typeName)
         {
             nameSpace = "System.Reactive.Tx";
             typeName = "StreamScopeWrapper";
 
-            List<string> allGeneratedSources = new List<string>();
-            StringBuilder sbContextUsings = new StringBuilder();
-            StringBuilder sbContextProperties = new StringBuilder();
+            var allGeneratedSources = new List<string>();
+            var sbContextUsings = new StringBuilder();
+            var sbContextProperties = new StringBuilder();
 
-            TxProperties properties = new TxProperties(cxInfo);
+            var properties = new TxProperties(cxInfo);
             _typeCache.Init(properties.ContextName);
 
             if (properties.IsUsingDirectoryLookup)
@@ -177,7 +178,7 @@ namespace Tx.LinqPad
             else
             {
                 _typeCache.BuildCache(
-                    properties.ContextName, 
+                    properties.ContextName,
                     ReplaceSampleTracesDir(properties.Files),
                     ReplaceSampleTracesDir(properties.MetadataFiles));
             }
@@ -189,7 +190,8 @@ namespace Tx.LinqPad
 
             CompilerResults results;
             string outputName = assemblyToBuild.CodeBase;
-            using (var codeProvider = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } }))
+            using (
+                var codeProvider = new CSharpCodeProvider(new Dictionary<string, string> {{"CompilerVersion", "v4.0"}}))
             {
                 string[] assemblies = GetAssembliesToAdd(cxInfo).ToArray();
 
@@ -199,47 +201,48 @@ namespace Tx.LinqPad
 
                 if (results.Errors.Count > 0)
                 {
-                    StringBuilder sbErr = new StringBuilder();
+                    var sbErr = new StringBuilder();
                     foreach (object o in results.Errors)
                     {
                         sbErr.AppendLine(o.ToString());
                     }
                     // Is there any better troubleshooting mechanism? 
-                    System.Windows.MessageBox.Show(sbErr.ToString(), "Error compiling generated code");
+                    MessageBox.Show(sbErr.ToString(), "Error compiling generated code");
                 }
             }
 
-            Dictionary<Type, long> stat =  _parserRegistry.GetTypeStatistics(
+            Dictionary<Type, long> stat = _parserRegistry.GetTypeStatistics(
                 _typeCache.GetAvailableTypes(
                     properties.ContextName,
-                    ReplaceSampleTracesDir(properties.Files), 
-                    ReplaceSampleTracesDir(properties.MetadataFiles)), 
+                    ReplaceSampleTracesDir(properties.Files),
+                    ReplaceSampleTracesDir(properties.MetadataFiles)),
                 ReplaceSampleTracesDir(properties.Files));
 
             return CreateTree(stat);
         }
 
-        List<ExplorerItem> CreateTree(Dictionary<Type, long> stat)
+        private List<ExplorerItem> CreateTree(Dictionary<Type, long> stat)
         {
-            List<ExplorerItem> result = new List<ExplorerItem>();
+            var result = new List<ExplorerItem>();
 
-            var x = (from pair in stat
-                     orderby pair.Key.Namespace, pair.Key.Name
-                     select pair).ToArray();
+            KeyValuePair<Type, long>[] x = (from pair in stat
+                                            orderby pair.Key.Namespace, pair.Key.Name
+                                            select pair).ToArray();
 
             string currentNamespace = null;
             ExplorerItem scope = null;
-            foreach(KeyValuePair<Type, long> pair in x)
+            foreach (var pair in x)
             {
                 if (pair.Key.Namespace != currentNamespace)
                 {
                     scope = CreateNamespace(pair.Key.Namespace, result);
                     currentNamespace = pair.Key.Namespace;
-                };
+                }
+                ;
 
-                ExplorerItem eventType = new ExplorerItem(pair.Key.Name, ExplorerItemKind.QueryableObject, ExplorerIcon.Table);
+                var eventType = new ExplorerItem(pair.Key.Name, ExplorerItemKind.QueryableObject, ExplorerIcon.Table);
                 eventType.ToolTipText = "Occurences: " + pair.Value + "\n";
-                foreach (var a in pair.Key.GetCustomAttributes(false).OrderBy(a=>a.GetType().Name))
+                foreach (object a in pair.Key.GetCustomAttributes(false).OrderBy(a => a.GetType().Name))
                 {
                     eventType.ToolTipText += '\n' + a.ToString() + '\n';
                 }
@@ -247,10 +250,10 @@ namespace Tx.LinqPad
                 eventType.DragText = "playback.GetObservable<" + pair.Key.FullName + ">()";
                 eventType.Children = new List<ExplorerItem>();
                 scope.Children.Add(eventType);
- 
+
                 foreach (PropertyInfo p in pair.Key.GetProperties())
                 {
-                    ExplorerItem field = new ExplorerItem(p.Name, ExplorerItemKind.Property, ExplorerIcon.Column);
+                    var field = new ExplorerItem(p.Name, ExplorerItemKind.Property, ExplorerIcon.Column);
                     eventType.Children.Add(field);
                     field.ToolTipText = p.PropertyType.Name;
                 }
@@ -259,7 +262,7 @@ namespace Tx.LinqPad
             return result;
         }
 
-        ExplorerItem CreateNamespace(string name, List<ExplorerItem> root)
+        private ExplorerItem CreateNamespace(string name, List<ExplorerItem> root)
         {
             ExplorerItem item = null;
             List<ExplorerItem> currentScope = root;
@@ -287,14 +290,14 @@ namespace Tx.LinqPad
                 return;
 
             Type type = objectToWrite.GetType();
-            if (type.IsGenericType && type.GetInterface(typeof(IObservable<>).Name) != null)
+            if (type.IsGenericType && type.GetInterface(typeof (IObservable<>).Name) != null)
             {
                 Type[] genericArguments = type.GetGenericArguments();
                 Type eventType = genericArguments[genericArguments.Length - 1];
 
-                MethodInfo process = this.GetType().GetMethod("RunSingleOutput", BindingFlags.Static | BindingFlags.Public);
+                MethodInfo process = GetType().GetMethod("RunSingleOutput", BindingFlags.Static | BindingFlags.Public);
                 process = process.MakeGenericMethod(eventType);
-                objectToWrite = process.Invoke(null, new object[] { objectToWrite });
+                objectToWrite = process.Invoke(null, new[] {objectToWrite});
                 return;
             }
         }
@@ -303,19 +306,19 @@ namespace Tx.LinqPad
         //// In ohter modes Run or Start must be called from the queries
         public static IEnumerable<T> RunSingleOutput<T>(IObservable<T> output)
         {
-            var playback = (Playback)Thread.GetData(_threadStorageSlot);
-            var list = playback.BufferOutput(output);
+            var playback = (Playback) Thread.GetData(_threadStorageSlot);
+            IEnumerable<T> list = playback.BufferOutput(output);
 
             playback.Run();
 
             return list;
         }
 
-        static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
+        private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
         {
             string assemblyname = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
-            string root = System.IO.Path.Combine(System.IO.Path.GetTempPath(), @"LINQPad\");
-            var assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
+            string root = Path.Combine(Path.GetTempPath(), @"LINQPad\");
+            IEnumerable<string> assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
             foreach (string path in assemblies)
             {
                 return Assembly.LoadFrom(path);
@@ -324,11 +327,11 @@ namespace Tx.LinqPad
             return null;
         }
 
-        string[] ReplaceSampleTracesDir(string[] files)
+        private string[] ReplaceSampleTracesDir(string[] files)
         {
-            string prefix="($SampleTraces)";
+            string prefix = "($SampleTraces)";
             string samplrDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            List<string> result = new List<string>();
+            var result = new List<string>();
 
             foreach (string f in files)
             {
@@ -344,6 +347,5 @@ namespace Tx.LinqPad
 
             return result.ToArray();
         }
-
     }
 }

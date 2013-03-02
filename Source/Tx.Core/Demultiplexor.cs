@@ -1,44 +1,24 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Reactive.Subjects;
+using System.Linq;
 using System.Reactive.Disposables;
+using System.Reactive.Subjects;
 
 namespace System.Reactive
 {
     /// <summary>
-    /// Efficiently demultiplexes input sequence of objects into output sequences of fixed types
-    /// The callbacks on the output sequences are called in the order of occurence of input events
-    /// 
-    /// OnNext of the Demultiplexor should not be called from multiple threads
+    ///     Efficiently demultiplexes input sequence of objects into output sequences of fixed types
+    ///     The callbacks on the output sequences are called in the order of occurence of input events
+    ///     OnNext of the Demultiplexor should not be called from multiple threads
     /// </summary>
     public class Demultiplexor : IObserver<object>
     {
-        Dictionary<Type, IObserver<object>> _outputs = new Dictionary<Type,IObserver<object>>();
-
-        /// <summary>
-        /// Returns an output sequence of given type
-        /// </summary>
-        /// <typeparam name="TOutput">The desired type</typeparam>
-        /// <returns>Sequence in which all events are of type TOutput</returns>
-        public IObservable<TOutput> GetObservable<TOutput>() 
-        {
-            IObserver<object> o;
-            if (!_outputs.TryGetValue(typeof(TOutput), out o))
-            {
-                o = new OutputSubject<TOutput>(this);
-                _outputs.Add(typeof(TOutput), o);
-            }
-
-            var output = (IObservable<TOutput>)o;
-            return output;
-        }
+        private readonly Dictionary<Type, IObserver<object>> _outputs = new Dictionary<Type, IObserver<object>>();
 
         public void OnCompleted()
         {
-            foreach (IObserver<object> output in _outputs.Values.ToArray())
+            foreach (var output in _outputs.Values.ToArray())
             {
                 output.OnCompleted();
             }
@@ -46,7 +26,7 @@ namespace System.Reactive
 
         public void OnError(Exception error)
         {
-            foreach (IObserver<object> output in _outputs.Values)
+            foreach (var output in _outputs.Values)
             {
                 output.OnError(error);
             }
@@ -66,17 +46,41 @@ namespace System.Reactive
             }
         }
 
-        class OutputSubject<T> : ISubject<object,T>, IDisposable 
+        /// <summary>
+        ///     Returns an output sequence of given type
+        /// </summary>
+        /// <typeparam name="TOutput">The desired type</typeparam>
+        /// <returns>Sequence in which all events are of type TOutput</returns>
+        public IObservable<TOutput> GetObservable<TOutput>()
         {
-            readonly object _gate = new object();
-            Demultiplexor _parent;
-            Subject<T> _subject;
-            int _refcount = 0;
-
-            public OutputSubject(Demultiplexor parent)
+            IObserver<object> o;
+            if (!_outputs.TryGetValue(typeof (TOutput), out o))
             {
-                _parent = parent;
+                o = new OutputSubject<TOutput>();
+                _outputs.Add(typeof (TOutput), o);
+            }
+
+            var output = (IObservable<TOutput>) o;
+            return output;
+        }
+
+        private class OutputSubject<T> : ISubject<object, T>, IDisposable
+        {
+            private readonly Subject<T> _subject;
+            private int _refcount;
+
+            public OutputSubject()
+            {
                 _subject = new Subject<T>();
+            }
+
+            public void Dispose()
+            {
+                _refcount--;
+                //if (_refcount == 0)
+                //{
+                //    _parent._outputs.Remove(typeof(T));
+                //}
             }
 
             public void OnCompleted()
@@ -91,7 +95,7 @@ namespace System.Reactive
 
             public void OnNext(object value)
             {
-                _subject.OnNext((T)value);
+                _subject.OnNext((T) value);
             }
 
             public IDisposable Subscribe(IObserver<T> observer)
@@ -100,15 +104,6 @@ namespace System.Reactive
                 _refcount++;
 
                 return new CompositeDisposable(subscription, this);
-            }
-
-            public void Dispose()
-            {
-                _refcount--; 
-                //if (_refcount == 0)
-                //{
-                //    _parent._outputs.Remove(typeof(T));
-                //}
             }
         }
     }

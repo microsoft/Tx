@@ -4,19 +4,19 @@ namespace System.Reactive
 {
     public sealed class TransformDeserializer<TInput> : IDeserializer<TInput>
     {
-        Func<TInput, DateTimeOffset> _timeFunction;
-        Func<TInput, object> _transform;
-        bool _enabled = false;
+        private readonly Func<TInput, DateTimeOffset> _timeFunction;
+        private readonly Func<TInput, object> _transform;
+        private bool _enabled;
 
         public TransformDeserializer(ITypeMap<TInput> typeMap)
         {
             _timeFunction = typeMap.TimeFunction;
-            _transform = typeMap.GetTransform(typeof(TInput));
+            _transform = typeMap.GetTransform(typeof (TInput));
         }
 
         public void AddKnownType(Type type)
         {
-            if (type == typeof(TInput))
+            if (type == typeof (TInput))
                 _enabled = true;
         }
 

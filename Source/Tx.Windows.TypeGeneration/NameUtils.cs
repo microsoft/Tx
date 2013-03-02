@@ -2,9 +2,9 @@
 
 namespace Tx.Windows
 {
-    class NameUtils
+    internal class NameUtils
     {
-        static CSharpCodeProvider _provider = new CSharpCodeProvider();
+        private static readonly CSharpCodeProvider _provider = new CSharpCodeProvider();
 
         public static string CreateIdentifier(string s)
         {
@@ -15,7 +15,7 @@ namespace Tx.Windows
                 {
                     chars[i] = '_';
                 }
-            };
+            }
 
             return _provider.CreateValidIdentifier(new string(chars));
         }

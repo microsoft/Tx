@@ -6,14 +6,14 @@ namespace Tx.Windows
 {
     public static class EtwExtensions
     {
-        [RealTimeFeed("ETW","Event Tracing for Windows")]
+        [RealTimeFeed("ETW", "Event Tracing for Windows")]
         public static void AddRealTimeSession(this IPlaybackConfiguration playback, string session)
         {
             playback.AddInput(
                 () => EtwObservable.FromSession(session),
-                typeof(EtwManifestTypeMap),
-                typeof(EtwClassicTypeMap),
-                typeof(EtwTypeMap));
+                typeof (EtwManifestTypeMap),
+                typeof (EtwClassicTypeMap),
+                typeof (EtwTypeMap));
         }
 
         [FileParser("Event Trace Log", ".etl")]
@@ -21,9 +21,9 @@ namespace Tx.Windows
         {
             playback.AddInput(
                 () => EtwObservable.FromFiles(files),
-                typeof(EtwManifestTypeMap),
-                typeof(EtwClassicTypeMap),
-                typeof(EtwTypeMap));
+                typeof (EtwManifestTypeMap),
+                typeof (EtwClassicTypeMap),
+                typeof (EtwTypeMap));
         }
     }
 }

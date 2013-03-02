@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Tx.Windows;
+using System.Linq;
 using System.Reflection;
+using Tx.Windows;
 
 namespace Tx.LinqPad
 {
-    class TypeCache
+    internal class TypeCache
     {
         public void Init(string targetDir)
         {
@@ -28,10 +27,10 @@ namespace Tx.LinqPad
         {
             foreach (string f in metadaFiles.Concat(traces))
             {
-                string output = Path.Combine(GetCacheDir(targetDir), 
-                        Path.ChangeExtension(
-                            Path.GetFileName(f), 
-                            ".dll"));
+                string output = Path.Combine(GetCacheDir(targetDir),
+                                             Path.ChangeExtension(
+                                                 Path.GetFileName(f),
+                                                 ".dll"));
 
                 DateTime metadataTimestamp = File.GetLastWriteTimeUtc(f);
                 DateTime outputTimestamp = File.GetLastWriteTimeUtc(output);
@@ -39,13 +38,13 @@ namespace Tx.LinqPad
                 if (outputTimestamp == metadataTimestamp)
                     continue;
 
-                Dictionary<string, string> sources = new Dictionary<string,string>();
-                switch(Path.GetExtension(f).ToLower())
+                var sources = new Dictionary<string, string>();
+                switch (Path.GetExtension(f).ToLower())
                 {
                     case ".man":
                         {
                             string manifest = File.ReadAllText(f);
-                            var s = ManifestParser.Parse(manifest);
+                            Dictionary<string, string> s = ManifestParser.Parse(manifest);
                             foreach (string type in s.Keys)
                             {
                                 if (!sources.ContainsKey(type))
@@ -81,7 +80,7 @@ namespace Tx.LinqPad
                     case ".csv":
                     case ".tsv":
                         {
-                            var s = PerfCounterParser.Parse(f);
+                            Dictionary<string, string> s = PerfCounterParser.Parse(f);
                             foreach (string type in s.Keys)
                             {
                                 if (!sources.ContainsKey(type))
@@ -103,9 +102,8 @@ namespace Tx.LinqPad
 
         public Assembly[] GetAssemblies(string targetDir, string[] traces, string[] metadaFiles)
         {
-
             Assembly[] assemblies = (from file in Directory.GetFiles(GetCacheDir(targetDir), "*.dll")
-                    select Assembly.LoadFrom(file)).ToArray();
+                                     select Assembly.LoadFrom(file)).ToArray();
 
             return assemblies;
         }
@@ -120,9 +118,9 @@ namespace Tx.LinqPad
                     select t).ToArray();
         }
 
-        string GetCacheDir(string targetDir)
+        private string GetCacheDir(string targetDir)
         {
-            return Path.Combine(Path.GetTempPath(), "TxTypeCache", targetDir); 
+            return Path.Combine(Path.GetTempPath(), "TxTypeCache", targetDir);
         }
     }
 }

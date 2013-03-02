@@ -14,17 +14,17 @@ namespace Tx.Windows
             if (logfiles.Length == 1)
                 return FromFile(logfiles[0]);
 
-            var inputs = from file in logfiles select FromFile(file).GetEnumerator();
+            IEnumerable<IEnumerator<EventRecord>> inputs = from file in logfiles select FromFile(file).GetEnumerator();
 
             return new PullMergeSort<EventRecord>(e => e.TimeCreated.Value.ToUniversalTime(), inputs);
         }
 
-        static IEnumerable<EventRecord> FromFile(string logFile)
+        private static IEnumerable<EventRecord> FromFile(string logFile)
         {
             long eventCount = 0; // for debugging
-            using (EventLogReader reader = new EventLogReader(logFile, PathType.FilePath))
+            using (var reader = new EventLogReader(logFile, PathType.FilePath))
             {
-                for (; ; )
+                for (;;)
                 {
                     EventRecord record = reader.ReadEvent();
                     if (record == null)

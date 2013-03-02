@@ -16,13 +16,13 @@ namespace Tx.Windows
             public bool Equals(ClassicEventPartitionKey x, ClassicEventPartitionKey y)
             {
                 return (x.Opcode == y.Opcode) &&
-                    (x.EventGuid == y.EventGuid) &&
-                    (x.Version == y.Version);
+                       (x.EventGuid == y.EventGuid) &&
+                       (x.Version == y.Version);
             }
 
             public int GetHashCode(ClassicEventPartitionKey obj)
             {
-                return (int)obj.Opcode;
+                return obj.Opcode;
             }
         }
     }

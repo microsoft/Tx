@@ -8,16 +8,17 @@ namespace Tx.Windows
 {
     public sealed class PerfCounterFileReader : IDisposable
     {
-        IObserver<PerformanceSample> _observer;
-        PdhQueryHandle _query;
-        List<PerfCounterInfo> _counters = new List<PerfCounterInfo>();
-        bool _firstMove = true;
-        bool _binaryLog;
+        private readonly bool _binaryLog;
+        private readonly List<PerfCounterInfo> _counters = new List<PerfCounterInfo>();
+        private readonly IObserver<PerformanceSample> _observer;
+        private readonly PdhQueryHandle _query;
+        private bool _firstMove = true;
 
         public PerfCounterFileReader(IObserver<PerformanceSample> observer, string file)
         {
             _observer = observer;
-            _binaryLog = Path.GetExtension(file).ToLowerInvariant() == ".blg";
+            string extension = Path.GetExtension(file);
+            if (extension != null) _binaryLog = extension.ToLowerInvariant() == ".blg";
 
             string[] counterPaths = PdhUtils.GetCounterPaths(file);
 
@@ -44,28 +45,27 @@ namespace Tx.Windows
 
         public void Read()
         {
-            PdhStatus status;
             try
             {
                 if (_firstMove)
                 {
                     // some counters need two samples to calculate their value
                     // so skip a sample to make sure there are no further complications
-                    status = PdhNativeMethods.PdhCollectQueryData(_query);
+                    PdhNativeMethods.PdhCollectQueryData(_query);
                     _firstMove = false;
                 }
 
                 while (true)
                 {
                     long time;
-                    status = PdhNativeMethods.PdhCollectQueryDataWithTime(_query, out time);
+                    PdhStatus status = PdhNativeMethods.PdhCollectQueryDataWithTime(_query, out time);
                     if (status == PdhStatus.PDH_NO_MORE_DATA)
                         break;
 
                     if (status == PdhStatus.PDH_NO_DATA)
-                        if (_binaryLog) 
+                        if (_binaryLog)
                             continue;
-                        else 
+                        else
                             break;
 
                     PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
@@ -85,10 +85,10 @@ namespace Tx.Windows
             }
         }
 
-        void ProduceCounterSamples(PerfCounterInfo counterInfo, DateTime timestamp)
+        private void ProduceCounterSamples(PerfCounterInfo counterInfo, DateTime timestamp)
         {
             uint bufferSize = 0;
-            uint bufferCount = 0;
+            uint bufferCount;
 
             PdhStatus status = PdhNativeMethods.PdhGetFormattedCounterArray(
                 counterInfo.Handle,
@@ -98,7 +98,7 @@ namespace Tx.Windows
                 IntPtr.Zero);
             PdhUtils.CheckStatus(status, PdhStatus.PDH_MORE_DATA);
 
-            byte[] buffer = new byte[bufferSize];
+            var buffer = new byte[bufferSize];
             unsafe
             {
                 fixed (byte* pb = buffer)
@@ -108,24 +108,24 @@ namespace Tx.Windows
                         PdhFormat.PDH_FMT_DOUBLE,
                         ref bufferSize,
                         out bufferCount,
-                        (IntPtr)pb);
+                        (IntPtr) pb);
                     if (status == PdhStatus.PDH_INVALID_DATA
                         || status == PdhStatus.PDH_CALC_NEGATIVE_VALUE
                         || status == PdhStatus.PDH_CALC_NEGATIVE_DENOMINATOR
                         || status == PdhStatus.PDH_CALC_NEGATIVE_TIMEBASE)
                     {
-                        PerformanceSample sample = new PerformanceSample(counterInfo, timestamp, double.NaN);
+                        var sample = new PerformanceSample(counterInfo, timestamp, double.NaN);
                         _observer.OnNext(sample);
                         return;
                     }
 
                     PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
-                    PDH_FMT_COUNTERVALUE_ITEM* items = (PDH_FMT_COUNTERVALUE_ITEM*)pb;
+                    var items = (PDH_FMT_COUNTERVALUE_ITEM*) pb;
                     for (int i = 0; i < bufferCount; i++)
                     {
                         PDH_FMT_COUNTERVALUE_ITEM* item = items + i;
-                        PerformanceSample sample = new PerformanceSample(counterInfo, timestamp, item->FmtValue.doubleValue);
+                        var sample = new PerformanceSample(counterInfo, timestamp, item->FmtValue.doubleValue);
 
                         _observer.OnNext(sample);
                     }
@@ -133,7 +133,7 @@ namespace Tx.Windows
             }
         }
 
-        void AddCounter(string counterPath)
+        private void AddCounter(string counterPath)
         {
             PdhCounterHandle counter;
             PdhStatus status = PdhNativeMethods.PdhAddCounter(_query, counterPath, IntPtr.Zero, out counter);
@@ -142,7 +142,7 @@ namespace Tx.Windows
 
             PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
-            var  counterInfo = new PerfCounterInfo(counterPath, counter);
+            var counterInfo = new PerfCounterInfo(counterPath, counter);
             _counters.Add(counterInfo);
         }
 

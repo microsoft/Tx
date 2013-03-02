@@ -4,16 +4,16 @@ using System;
 
 namespace Tx.Windows
 {
-    class PerfCounterInfo : IDisposable
+    internal class PerfCounterInfo : IDisposable
     {
-        string _counterSet;
-        string _counterName;
-        string _instance;
-        PdhCounterHandle _counterHandle;
+        private readonly PdhCounterHandle _counterHandle;
+        private readonly string _counterName;
+        private readonly string _counterSet;
+        private readonly string _instance;
 
         public PerfCounterInfo(string counterPath, PdhCounterHandle handle)
         {
-            string[] tokens = counterPath.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] tokens = counterPath.Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
             _counterSet = tokens[1];
             _counterName = tokens[2];
             _counterHandle = handle;
@@ -26,10 +26,25 @@ namespace Tx.Windows
             }
         }
 
-        public string CounterSet { get { return _counterSet; } }
-        public string CounterName { get { return _counterName; } }
-        public string Instance { get { return _instance; } }
-        public PdhCounterHandle Handle { get { return _counterHandle; } }
+        public string CounterSet
+        {
+            get { return _counterSet; }
+        }
+
+        public string CounterName
+        {
+            get { return _counterName; }
+        }
+
+        public string Instance
+        {
+            get { return _instance; }
+        }
+
+        public PdhCounterHandle Handle
+        {
+            get { return _counterHandle; }
+        }
 
         public void Dispose()
         {

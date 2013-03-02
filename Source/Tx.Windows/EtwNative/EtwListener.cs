@@ -9,18 +9,18 @@ using System.Threading;
 namespace Tx.Windows
 {
     /// <summary>
-    /// Listener to real-time event tracing session
+    ///     Listener to real-time event tracing session
     /// </summary>
-    class EtwListener : IDisposable
+    internal class EtwListener : IDisposable
     {
-        IObserver<EtwNativeEvent> _observer;
-        EVENT_TRACE_LOGFILE _logFile;
-        ulong _handle;
-        Thread _thread;
-        bool _disposed;
+        private readonly IObserver<EtwNativeEvent> _observer;
+        private readonly Thread _thread;
+        private bool _disposed;
+        private ulong _handle;
+        private EVENT_TRACE_LOGFILE _logFile;
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="observer">Observer to push events into</param>
         /// <param name="sessionName">real-time session name</param>
@@ -31,7 +31,7 @@ namespace Tx.Windows
 
             // I don't know how to check for "Performance Log Users" group
             var principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-            if (!principal.IsInRole(WindowsBuiltInRole.Administrator)) 
+            if (!principal.IsInRole(WindowsBuiltInRole.Administrator))
                 throw new Exception("To use ETW real-time session, you have to be Administrator");
 
             _observer = observer;
@@ -41,13 +41,23 @@ namespace Tx.Windows
                     LoggerName = sessionName,
                     EventRecordCallback = EtwCallback
                 };
-                
+
             _thread = new Thread(ThreadProc);
             _thread.Name = "EtwSession " + sessionName;
             _thread.Start();
         }
 
-        void ThreadProc()
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                EtwNativeMethods.CloseTrace(_handle);
+                _thread.Join();
+            }
+        }
+
+        private void ThreadProc()
         {
             int error;
 
@@ -70,7 +80,7 @@ namespace Tx.Windows
 
             try
             {
-                error = EtwNativeMethods.ProcessTrace(new ulong[] { _handle }, 1, IntPtr.Zero, IntPtr.Zero);
+                error = EtwNativeMethods.ProcessTrace(new[] {_handle}, 1, IntPtr.Zero, IntPtr.Zero);
             }
             catch (Exception ex)
             {
@@ -86,26 +96,16 @@ namespace Tx.Windows
             _observer.OnCompleted();
         }
 
-        unsafe void EtwCallback(ref EVENT_RECORD record)
+        private unsafe void EtwCallback(ref EVENT_RECORD record)
         {
             fixed (EVENT_RECORD* p = &record)
             {
                 EtwNativeEvent evt;
                 evt.record = p;
-                evt._data = (byte*)record.UserData.ToPointer();
+                evt._data = (byte*) record.UserData.ToPointer();
                 evt._end = evt._data + record.UserDataLength;
                 evt._length = 0;
                 _observer.OnNext(evt);
-            }
-        }
-
-        public void Dispose()
-        {
-            if (!_disposed)
-            {
-                _disposed = true;
-                EtwNativeMethods.CloseTrace(_handle);
-                _thread.Join();
             }
         }
     }

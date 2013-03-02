@@ -1,32 +1,38 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using System.Reactive.Linq;
+using System.Linq;
 using System.Threading;
 
 namespace System.Reactive
 {
-    abstract class TypeOccurenceAggregator
+    internal abstract class TypeOccurenceAggregator
     {
         protected ManualResetEvent _completed = new ManualResetEvent(false);
-        protected Exception _exception; 
+        protected Exception _exception;
 
-        public WaitHandle Completed { get { return _completed; } }
-        public Exception Exception { get { return _exception; } }
+        public WaitHandle Completed
+        {
+            get { return _completed; }
+        }
+
+        public Exception Exception
+        {
+            get { return _exception; }
+        }
 
         public abstract Dictionary<Type, long> OccurenceStatistics { get; }
     }
 
-    class TypeOccurenceAggregator<TInput, TKey> : TypeOccurenceAggregator, IObserver<TInput>
+    internal class TypeOccurenceAggregator<TInput, TKey> : TypeOccurenceAggregator, IObserver<TInput>
     {
-        Dictionary<TKey, Type> _types;
-        IPartitionableTypeMap<TInput, TKey> _typeMap;
-        Dictionary<TKey, OccurenceRecord> _occurences;
-        object _gate = new object();
+        private readonly Dictionary<TKey, OccurenceRecord> _occurences;
+        private readonly IPartitionableTypeMap<TInput, TKey> _typeMap;
+        private readonly Dictionary<TKey, Type> _types;
 
         public TypeOccurenceAggregator(
             IPartitionableTypeMap<TInput, TKey> typeMap,
-            Type[] AvailableTypes)
+            IEnumerable<Type> availableTypes)
         {
             _typeMap = typeMap;
             _occurences = new Dictionary<TKey, OccurenceRecord>(_typeMap.Comparer);
@@ -34,9 +40,9 @@ namespace System.Reactive
             // The usage pattern is to pass all types in the Appdomain.
             // Only small subset will be recognized by this type-map
             // Let's build index for quick lookup
-            _types = new Dictionary<TKey,Type>(_typeMap.Comparer);
+            _types = new Dictionary<TKey, Type>(_typeMap.Comparer);
 
-            foreach(Type t in AvailableTypes)
+            foreach (Type t in availableTypes)
             {
                 TKey key = typeMap.GetTypeKey(t);
 
@@ -45,6 +51,14 @@ namespace System.Reactive
                     if (!_types.ContainsKey(key))
                         _types.Add(key, t);
                 }
+            }
+        }
+
+        public override Dictionary<Type, long> OccurenceStatistics
+        {
+            get
+            {
+                return _occurences.Values.ToDictionary(record => record.Type, record => record.Occurences);
             }
         }
 
@@ -70,10 +84,10 @@ namespace System.Reactive
             if (!_occurences.TryGetValue(key, out record))
             {
                 _occurences.Add(key, new OccurenceRecord
-                {
-                    Occurences = 1,
-                    Type = type
-                });
+                    {
+                        Occurences = 1,
+                        Type = type
+                    });
             }
             else
             {
@@ -81,21 +95,7 @@ namespace System.Reactive
             }
         }
 
-        public override Dictionary<Type, long> OccurenceStatistics
-        {
-            get
-            {
-                Dictionary<Type, long> result = new Dictionary<Type, long>();
-                foreach (OccurenceRecord record in _occurences.Values)
-                {
-                    result.Add(record.Type, record.Occurences);
-                }
-
-                return result;
-            }
-        }
-
-        class OccurenceRecord
+        private class OccurenceRecord
         {
             public long Occurences;
             public Type Type;

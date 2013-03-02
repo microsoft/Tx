@@ -2,16 +2,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reactive;
 using System.Reflection;
 
 namespace Tx.Windows
 {
-    class PerfCounterPartitionTypeMap : PerfCounterTypeMap, IPartitionableTypeMap<PerformanceSample, PerfCounterPartitionKey>
+    internal class PerfCounterPartitionTypeMap : PerfCounterTypeMap,
+                                                 IPartitionableTypeMap<PerformanceSample, PerfCounterPartitionKey>
     {
-        PerfCounterPartitionKey.Comparer _comparer = new PerfCounterPartitionKey.Comparer();
-        PerfCounterPartitionKey _key = new PerfCounterPartitionKey("", "");
+        private readonly PerfCounterPartitionKey.Comparer _comparer = new PerfCounterPartitionKey.Comparer();
 
         public IEqualityComparer<PerfCounterPartitionKey> Comparer
         {
@@ -33,7 +34,7 @@ namespace Tx.Windows
         }
     }
 
-    class PerfCounterTypeMap : ITypeMap<PerformanceSample>
+    internal class PerfCounterTypeMap : ITypeMap<PerformanceSample>
     {
         public Func<PerformanceSample, DateTimeOffset> TimeFunction
         {
@@ -43,25 +44,28 @@ namespace Tx.Windows
         public Func<PerformanceSample, object> GetTransform(Type outputType)
         {
             Expression<Func<PerformanceSample, PerformanceSample>> template = e =>
-                new PerformanceSample(e);
+                                                                              new PerformanceSample(e);
 
-            if (outputType == typeof(PerformanceSample))
+            if (outputType == typeof (PerformanceSample))
                 return template.Compile();
 
-            LambdaExpression ex = (LambdaExpression)template;
-            ConstructorInfo constructor = outputType.GetConstructor(new Type[] { typeof(PerformanceSample) });
-            var n = Expression.New(constructor, ex.Parameters);
-            var cast = Expression.Convert(n, typeof(object));
-            var exp = Expression.Lambda<Func<PerformanceSample, object>>(cast, ex.Parameters);
+            LambdaExpression ex = template;
+            ConstructorInfo constructor = outputType.GetConstructor(new[] {typeof (PerformanceSample)});
+            Debug.Assert(constructor != null, "constructor != null");
+            NewExpression n = Expression.New(constructor, ex.Parameters);
+            UnaryExpression cast = Expression.Convert(n, typeof (object));
+            Expression<Func<PerformanceSample, object>> exp = Expression.Lambda<Func<PerformanceSample, object>>(cast,
+                                                                                                                 ex
+                                                                                                                     .Parameters);
             return exp.Compile();
         }
     }
 
     public class PerfCounterPartitionKey
     {
-        string _counterSet;
-        string _counterName;
-        int _hashCode;
+        private readonly string _counterName;
+        private readonly string _counterSet;
+        private readonly int _hashCode;
 
         public PerfCounterPartitionKey(string counterSet, string counterName)
         {
@@ -75,7 +79,7 @@ namespace Tx.Windows
             public bool Equals(PerfCounterPartitionKey x, PerfCounterPartitionKey y)
             {
                 return (x._counterSet == y._counterSet) &&
-                    (x._counterName == y._counterName);
+                       (x._counterName == y._counterName);
             }
 
             public int GetHashCode(PerfCounterPartitionKey obj)

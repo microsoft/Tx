@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System;
 using System.Reactive;
 
 namespace Tx.SqlServer
@@ -9,17 +8,16 @@ namespace Tx.SqlServer
     {
         public static void AddXelFiles(this IPlaybackConfiguration playback, params string[] xeFiles)
         {
-             playback.AddInput(
+            playback.AddInput(
                 () => XeObservable.FromFiles(xeFiles),
-                typeof(XeTypeMap));
+                typeof (XeTypeMap));
         }
 
         public static void AddXeTarget<TTarget>(this IPlaybackConfiguration playback) where TTarget : XeSubject, new()
         {
             playback.AddInput(
-               () => XeObservable.FromTarget<TTarget>(),
-                typeof(XeTypeMap));
+                () => XeObservable.FromTarget<TTarget>(),
+                typeof (XeTypeMap));
         }
     }
-
 }

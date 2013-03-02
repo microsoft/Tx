@@ -2,8 +2,6 @@
 
 namespace System.Reactive
 {
-    using System;
-
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class OccurenceTimeAttribute : Attribute
     {
@@ -12,7 +10,7 @@ namespace System.Reactive
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class TypeStatisticsAttribute : Attribute
     {
-        readonly string _extension;
+        private readonly string _extension;
 
         public TypeStatisticsAttribute(string extension)
         {
@@ -24,14 +22,13 @@ namespace System.Reactive
         {
             get { return _extension; }
         }
-
     }
 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class FileParserAttribute : Attribute
     {
-        readonly string[] _extensions;
-        readonly string _description;
+        private readonly string _description;
+        private readonly string[] _extensions;
 
         public FileParserAttribute(string description, params string[] extensions)
         {
@@ -53,8 +50,8 @@ namespace System.Reactive
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class RealTimeFeedAttribute : Attribute
     {
-        readonly string _extension;
-        readonly string _description;
+        private readonly string _description;
+        private readonly string _extension;
 
         public RealTimeFeedAttribute(string extension, string description)
         {
@@ -76,13 +73,16 @@ namespace System.Reactive
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class DeserializerAttribute : Attribute
     {
-        readonly Type _attributeType;
+        private readonly Type _attributeType;
 
         public DeserializerAttribute(Type attributeType)
         {
             _attributeType = attributeType;
         }
 
-        public Type AttributeType { get { return _attributeType; } }
+        public Type AttributeType
+        {
+            get { return _attributeType; }
+        }
     }
 }

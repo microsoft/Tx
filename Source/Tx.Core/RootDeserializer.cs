@@ -1,27 +1,22 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace System.Reactive
 {
     public sealed class RootDeserializer<TInput, TOutputBase> : IDeserializer<TInput> where TOutputBase : new()
     {
-        Func<TInput, DateTimeOffset> _timeFunction;
-        Func<TInput, object> _transform;
-        bool _rootOfInterest = false;
+        private readonly Func<TInput, DateTimeOffset> _timeFunction;
+        private readonly Func<TInput, object> _transform;
+        private bool _rootOfInterest;
 
         public RootDeserializer(ITypeMap<TInput> typeMap)
         {
             _timeFunction = typeMap.TimeFunction;
-            _transform = typeMap.GetTransform(typeof(TOutputBase));
+            _transform = typeMap.GetTransform(typeof (TOutputBase));
         }
 
         public void AddKnownType(Type type)
         {
-            if (type == typeof(TOutputBase))
+            if (type == typeof (TOutputBase))
                 _rootOfInterest = true;
         }
 

@@ -1,21 +1,21 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
+using Microsoft.Win32.SafeHandles;
+using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
 namespace Tx.Windows
 {
     [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-    class PdhLogHandle : SafeHandleZeroOrMinusOneIsInvalid
+    internal class PdhLogHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public PdhLogHandle()
             : base(true)
         {
-
         }
 
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
@@ -26,12 +26,11 @@ namespace Tx.Windows
     }
 
     [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-    class PdhQueryHandle : SafeHandleZeroOrMinusOneIsInvalid
+    internal class PdhQueryHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public PdhQueryHandle()
             : base(true)
         {
-
         }
 
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
@@ -42,12 +41,11 @@ namespace Tx.Windows
     }
 
     [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-    class PdhCounterHandle : SafeHandleZeroOrMinusOneIsInvalid
+    internal class PdhCounterHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public PdhCounterHandle()
             : base(true)
         {
-
         }
 
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
@@ -58,23 +56,19 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    struct PDH_FMT_COUNTERVALUE
+    internal struct PDH_FMT_COUNTERVALUE
     {
-        [FieldOffset(0)]
-        public uint CStatus;
+        [FieldOffset(0)] public uint CStatus;
 
-        [FieldOffset(8)]
-        public int longValue;
+        [FieldOffset(8)] public int longValue;
 
-        [FieldOffset(8)]
-        public double doubleValue;
+        [FieldOffset(8)] public double doubleValue;
 
-        [FieldOffset(8)]
-        public Int64 largeValue;
+        [FieldOffset(8)] public Int64 largeValue;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    struct PDH_FMT_COUNTERVALUE_ITEM
+    internal struct PDH_FMT_COUNTERVALUE_ITEM
     {
         //[MarshalAs(UnmanagedType.LPWStr)]
         //public string szName;
@@ -84,7 +78,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    struct PDH_COUNTER_INFO 
+    internal struct PDH_COUNTER_INFO
     {
         public UInt32 dwLength;
         public UInt32 dwType;
@@ -105,7 +99,7 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    struct PDH_TIME_INFO
+    internal struct PDH_TIME_INFO
     {
         public UInt64 StartTime;
         public UInt64 EndTime;
@@ -113,16 +107,16 @@ namespace Tx.Windows
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    struct PDH_RAW_COUNTER
+    internal struct PDH_RAW_COUNTER
     {
         public uint CStatus;
-        public System.Runtime.InteropServices.ComTypes.FILETIME TimeStamp;
+        public FILETIME TimeStamp;
         public Int64 FirstValue;
         public Int64 SecondValue;
         public uint MultiCount;
-    } 
+    }
 
-    enum PdhStatus : uint
+    internal enum PdhStatus : uint
     {
         PDH_CSTATUS_VALID_DATA = 0x00000000,
         PDH_CSTATUS_NEW_DATA = 0x00000001,
@@ -212,9 +206,9 @@ namespace Tx.Windows
         PDH_QUERY_PERF_DATA_TIMEOUT = 0xC0000BFE,
         PDH_UNKNOWN = 0xFFFFFFFF
     }
-    
-    [Flags()]
-    enum PdhFormat : uint
+
+    [Flags]
+    internal enum PdhFormat : uint
     {
         PDH_FMT_RAW = 0x00000010,
         PDH_FMT_ANSI = 0x00000020,
@@ -227,46 +221,44 @@ namespace Tx.Windows
         PDH_FMT_NODATA = 0x00004000
     }
 
-    enum PdhDetailLevel : uint
+    internal enum PdhDetailLevel : uint
     {
         PERF_DETAIL_NOVICE = 100, // The uninformed can understand it
         PERF_DETAIL_ADVANCED = 200, // For the advanced user
         PERF_DETAIL_EXPERT = 300, // For the expert user
-        PERF_DETAIL_WIZARD = 400  // For the system designer
+        PERF_DETAIL_WIZARD = 400 // For the system designer
     }
 
-    [SuppressUnmanagedCodeSecurity()]
-    class PdhNativeMethods
+    [SuppressUnmanagedCodeSecurity]
+    internal class PdhNativeMethods
     {
         #region A few common flags and status codes
+
         public const UInt32 PDH_FLAGS_CLOSE_QUERY = 1;
         public const UInt32 PDH_NO_MORE_DATA = 0xC0000BCC;
         public const UInt32 PDH_INVALID_DATA = 0xC0000BC6;
         public const UInt32 PDH_ENTRY_NOT_IN_LOG_FILE = 0xC0000BCD;
+
         #endregion
 
         [DllImport("pdh.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern PdhStatus PdhOpenQuery(
             string szDataSource,
             IntPtr dwUserData,
-            out  PdhQueryHandle phQuery);
+            out PdhQueryHandle phQuery);
 
-        /// 
         /// Opens a query against a bound input source.
-        /// 
         [DllImport("pdh.dll", SetLastError = true)]
-        static extern PdhStatus PdhOpenQueryH(
+        private static extern PdhStatus PdhOpenQueryH(
             PdhLogHandle hDataSource,
             IntPtr dwUserData,
-            out  PdhQueryHandle phQuery);
+            out PdhQueryHandle phQuery);
 
-        /// 
         /// Binds multiple logs files together.
         /// 
         /// Use this along with the API's ending in 'H' to string multiple files together.
-        /// 
         [DllImport("pdh.dll", SetLastError = true)]
-        static extern PdhStatus PdhBindInputDataSource(
+        private static extern PdhStatus PdhBindInputDataSource(
             out PdhLogHandle phDataSource,
             string szLogFileNameList);
 
@@ -279,28 +271,28 @@ namespace Tx.Windows
         public static extern PdhStatus PdhCloseQuery(
             IntPtr hQuery);
 
-       [DllImport("pdh.dll", SetLastError = true)]
+        [DllImport("pdh.dll", SetLastError = true)]
         public static extern PdhStatus PdhRemoveCounter(
             IntPtr hQuery);
 
         [DllImport("pdh.dll", SetLastError = true, CharSet = CharSet.Auto)]
-       public static extern PdhStatus PdhAddCounter(
+        public static extern PdhStatus PdhAddCounter(
             PdhQueryHandle hQuery,
             string szFullCounterPath,
             IntPtr dwUserData,
             out PdhCounterHandle phCounter);
 
-       [DllImport("pdh.dll", SetLastError = true)]
+        [DllImport("pdh.dll", SetLastError = true)]
         public static extern PdhStatus PdhCollectQueryData(
             PdhQueryHandle phQuery);
 
-       [DllImport("pdh.dll", SetLastError = true)]
-       public static extern PdhStatus PdhCollectQueryDataWithTime(
-           PdhQueryHandle phQuery,
-           out long timestamp);
+        [DllImport("pdh.dll", SetLastError = true)]
+        public static extern PdhStatus PdhCollectQueryDataWithTime(
+            PdhQueryHandle phQuery,
+            out long timestamp);
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
-       public static extern PdhStatus PdhGetFormattedCounterValue(
+        public static extern PdhStatus PdhGetFormattedCounterValue(
             PdhCounterHandle phCounter,
             PdhFormat dwFormat,
             ref uint lpdwType,
@@ -312,7 +304,7 @@ namespace Tx.Windows
             ref uint pdwNumEntries,
             ref PDH_TIME_INFO pInfo,
             ref uint dwBufferSize
-        );
+            );
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
         public static extern PdhStatus PdhGetFormattedCounterArray(
@@ -320,17 +312,17 @@ namespace Tx.Windows
             PdhFormat dwFormat,
             ref UInt32 dwBufferSize,
             out UInt32 dwBufferCount,
-            IntPtr ItemBuffer);
+            IntPtr itemBuffer);
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
         public static extern PdhStatus PdhGetRawCounterValue(
             PdhCounterHandle phCounter,
-            out uint lpdwType, 
+            out uint lpdwType,
             out PDH_RAW_COUNTER pValue);
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
         public static extern PdhStatus PdhGetCounterTimeBase(
-            PdhCounterHandle phCounter, 
+            PdhCounterHandle phCounter,
             out UInt64 pTimeBase);
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
@@ -338,7 +330,7 @@ namespace Tx.Windows
             string szDataSource,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] char[] mszMachineNameList,
             ref uint pcchBufferLength
-        );
+            );
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
         public static extern PdhStatus PdhEnumObjects(
@@ -348,7 +340,7 @@ namespace Tx.Windows
             ref uint pcchBufferLength,
             PdhDetailLevel dwDetailLevel,
             int bRefresh
-        );
+            );
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
         public static extern PdhStatus PdhEnumObjectItems(
@@ -361,13 +353,13 @@ namespace Tx.Windows
             ref uint pcchInstanceListLength,
             PdhDetailLevel dwDetailLevel,
             uint dwFlags
-        );
+            );
 
         [DllImport("pdh.dll", CharSet = CharSet.Unicode)]
         public static extern PdhStatus PdhGetCounterInfo(
-           PdhCounterHandle phCounter,
-           bool bRetrieveExplainText,
-           ref UInt32 pdwBufferSize,
-           IntPtr lpBuffer);
+            PdhCounterHandle phCounter,
+            bool bRetrieveExplainText,
+            ref UInt32 pdwBufferSize,
+            IntPtr lpBuffer);
     }
 }

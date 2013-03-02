@@ -7,7 +7,7 @@ namespace Tx.Windows
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class FormatAttribute : Attribute
     {
-        readonly string _formatString;
+        private readonly string _formatString;
 
         public FormatAttribute(string formatString)
         {

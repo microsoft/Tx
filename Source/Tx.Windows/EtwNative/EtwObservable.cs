@@ -9,12 +9,12 @@ using System.Threading;
 namespace Tx.Windows
 {
     /// <summary>
-    /// Factory for creating raw ETW (Event Tracing for Windows) observable sources
+    ///     Factory for creating raw ETW (Event Tracing for Windows) observable sources
     /// </summary>
-    public static class EtwObservable 
+    public static class EtwObservable
     {
         /// <summary>
-        /// Creates a reader for one or more .etl (Event Trace Log) files
+        ///     Creates a reader for one or more .etl (Event Trace Log) files
         /// </summary>
         /// <param name="etlFiles">up to 63 files to read</param>
         /// <returns>sequence of events ordered by timestamp</returns>
@@ -26,11 +26,11 @@ namespace Tx.Windows
             if (etlFiles.Length == 0 || etlFiles.Length > 63)
                 throw new ArgumentException("the supported count of files is from 1 to 63");
 
-            return Observable.Create<EtwNativeEvent>(o=>new EtwFileReader(o, etlFiles));
+            return Observable.Create<EtwNativeEvent>(o => new EtwFileReader(o, etlFiles));
         }
 
         /// <summary>
-        /// Creates a listener to ETW real-time session
+        ///     Creates a listener to ETW real-time session
         /// </summary>
         /// <param name="sessionName">session name</param>
         /// <returns>events received from the session</returns>
@@ -39,57 +39,57 @@ namespace Tx.Windows
             if (sessionName == null)
                 throw new ArgumentNullException("sessionName");
 
-            return Observable.Create<EtwNativeEvent>(o=>new EtwListener(o, sessionName));
+            return Observable.Create<EtwNativeEvent>(o => new EtwListener(o, sessionName));
         }
 
-         /// <summary>
-        /// Extracts manifest from .etl file that was produced using System.Diagnostics.Tracing.EventSource
+        /// <summary>
+        ///     Extracts manifest from .etl file that was produced using System.Diagnostics.Tracing.EventSource
         /// </summary>
         /// <param name="etlFile">Trace file</param>
         /// <returns></returns>
         public static string[] ExtractManifests(string etlFile)
         {
-            IObservable<EtwNativeEvent> all = EtwObservable.FromFiles(etlFile);
+            IObservable<EtwNativeEvent> all = FromFiles(etlFile);
 
             var manifests = new SortedSet<string>();
             var sb = new StringBuilder();
             var evt = new ManualResetEvent(false);
 
             IDisposable d = all.Subscribe(e =>
-            {
-                if (e.Id != 0xfffe) // 65534
                 {
-                    return;
-                }
-
-                byte format = e.ReadByte();
-                if (format != 1)
-                    throw new Exception("Unsuported manifest format found in EventSource event" + format);
-
-                byte majorVersion = e.ReadByte();
-                byte minorVersion = e.ReadByte();
-                byte magic = e.ReadByte();
-                if (magic != 0x5b)
-                    throw new Exception("Unexpected content in EventSource event that was supposed to have manifest");
-
-                ushort totalChunks = e.ReadUInt16();
-                ushort chunkNumber = e.ReadUInt16();
-
-                string chunk = e.ReadAnsiString();
-                sb.Append(chunk);
-
-                if (chunkNumber == totalChunks - 1)
-                {
-                    string manifest = sb.ToString();
-                    sb = new StringBuilder();
-
-                    if (!manifests.Contains(manifest))
+                    if (e.Id != 0xfffe) // 65534
                     {
-                        manifests.Add(manifest);
+                        return;
                     }
-                }
-            },
-            ()=> evt.Set());
+
+                    byte format = e.ReadByte();
+                    if (format != 1)
+                        throw new Exception("Unsuported manifest format found in EventSource event" + format);
+
+                    byte majorVersion = e.ReadByte();
+                    byte minorVersion = e.ReadByte();
+                    byte magic = e.ReadByte();
+                    if (magic != 0x5b)
+                        throw new Exception("Unexpected content in EventSource event that was supposed to have manifest");
+
+                    ushort totalChunks = e.ReadUInt16();
+                    ushort chunkNumber = e.ReadUInt16();
+
+                    string chunk = e.ReadAnsiString();
+                    sb.Append(chunk);
+
+                    if (chunkNumber == totalChunks - 1)
+                    {
+                        string manifest = sb.ToString();
+                        sb = new StringBuilder();
+
+                        if (!manifests.Contains(manifest))
+                        {
+                            manifests.Add(manifest);
+                        }
+                    }
+                },
+                                          () => evt.Set());
 
             evt.WaitOne();
             d.Dispose();

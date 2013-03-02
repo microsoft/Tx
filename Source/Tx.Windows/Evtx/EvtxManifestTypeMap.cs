@@ -9,8 +9,7 @@ namespace Tx.Windows
 {
     public class EvtxManifestTypeMap : EvtxTypeMap, IPartitionableTypeMap<EventRecord, ManifestEventPartitionKey>
     {
-        ManifestEventPartitionKey.Comparer _comparer = new ManifestEventPartitionKey.Comparer();
-        ManifestEventPartitionKey _key = new ManifestEventPartitionKey();
+        private readonly ManifestEventPartitionKey.Comparer _comparer = new ManifestEventPartitionKey.Comparer();
 
         public IEqualityComparer<ManifestEventPartitionKey> Comparer
         {
@@ -20,11 +19,11 @@ namespace Tx.Windows
         public ManifestEventPartitionKey GetInputKey(EventRecord evt)
         {
             return new ManifestEventPartitionKey
-            {
-                EventId = (ushort)evt.Id,
-                ProviderId = evt.ProviderId.Value,
-                Version = evt.Version.Value
-            };
+                {
+                    EventId = (ushort) evt.Id,
+                    ProviderId = evt.ProviderId.Value,
+                    Version = evt.Version.Value
+                };
         }
 
         public ManifestEventPartitionKey GetTypeKey(Type outputType)
@@ -34,11 +33,11 @@ namespace Tx.Windows
                 return null;
 
             return new ManifestEventPartitionKey
-            {
-                ProviderId = eventAttribute.ProviderGuid,
-                EventId = (ushort)eventAttribute.EventId,
-                Version = eventAttribute.Version
-            };
+                {
+                    ProviderId = eventAttribute.ProviderGuid,
+                    EventId = (ushort) eventAttribute.EventId,
+                    Version = eventAttribute.Version
+                };
         }
     }
 }

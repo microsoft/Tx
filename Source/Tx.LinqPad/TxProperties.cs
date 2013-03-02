@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
+using System.Text;
+using System.Xml.Linq;
+using LINQPad.Extensibility.DataContext;
+
 namespace Tx.LinqPad
 {
-    using LINQPad.Extensibility.DataContext;
-    using System.Xml.Linq;
-    using System.Text;
-    using System;
-    
-    class TxProperties
+    internal class TxProperties
     {
-        readonly IConnectionInfo connectionInfo;
+        private readonly IConnectionInfo connectionInfo;
 
         public TxProperties(IConnectionInfo connectionInfo)
         {
@@ -18,14 +18,14 @@ namespace Tx.LinqPad
 
         public string ContextName
         {
-            get { return (string)this.connectionInfo.DriverData.Element("ContextName") ?? string.Empty; }
-            set { this.connectionInfo.DriverData.SetElementValue("ContextName", value); }
+            get { return (string) connectionInfo.DriverData.Element("ContextName") ?? string.Empty; }
+            set { connectionInfo.DriverData.SetElementValue("ContextName", value); }
         }
 
         public bool IsRealTime
         {
-            get 
-            { 
+            get
+            {
                 XElement attribute = connectionInfo.DriverData.Element("IsRealTime");
                 if (null == attribute)
                 {
@@ -36,10 +36,7 @@ namespace Tx.LinqPad
                     return bool.Parse(attribute.Value);
                 }
             }
-            set 
-            {
-                this.connectionInfo.DriverData.SetElementValue("IsRealTime", value); 
-            }
+            set { connectionInfo.DriverData.SetElementValue("IsRealTime", value); }
         }
 
         public bool IsUsingDirectoryLookup
@@ -56,59 +53,44 @@ namespace Tx.LinqPad
                     return bool.Parse(attribute.Value);
                 }
             }
-            set
-            {
-                this.connectionInfo.DriverData.SetElementValue("IsUsingDirectoryLookup", value);
-            }
+            set { connectionInfo.DriverData.SetElementValue("IsUsingDirectoryLookup", value); }
         }
 
         public string SessionName
         {
-            get { return (string)this.connectionInfo.DriverData.Element("SessionName") ?? string.Empty; }
-            set { this.connectionInfo.DriverData.SetElementValue("SessionName", value); }
+            get { return (string) connectionInfo.DriverData.Element("SessionName") ?? string.Empty; }
+            set { connectionInfo.DriverData.SetElementValue("SessionName", value); }
         }
 
         public string[] Files
         {
-            get
-            {
-                return(Unpack(connectionInfo.DriverData.Element("Files")));
-            }
-            set 
-            {
-                this.connectionInfo.DriverData.SetElementValue("Files", Pack(value)); 
-            }
+            get { return (Unpack(connectionInfo.DriverData.Element("Files"))); }
+            set { connectionInfo.DriverData.SetElementValue("Files", Pack(value)); }
         }
 
         public string MetadataDirectory
         {
-            get { return (string)this.connectionInfo.DriverData.Element("MetadataDirectory") ?? string.Empty; }
-            set { this.connectionInfo.DriverData.SetElementValue("MetadataDirectory", value); }
+            get { return (string) connectionInfo.DriverData.Element("MetadataDirectory") ?? string.Empty; }
+            set { connectionInfo.DriverData.SetElementValue("MetadataDirectory", value); }
         }
 
         public string[] MetadataFiles
         {
-            get
-            {
-                return(Unpack(connectionInfo.DriverData.Element("MetadataFiles")));
-            }
-            set 
-            {
-                this.connectionInfo.DriverData.SetElementValue("MetadataFiles", Pack(value)); 
-            }
+            get { return (Unpack(connectionInfo.DriverData.Element("MetadataFiles"))); }
+            set { connectionInfo.DriverData.SetElementValue("MetadataFiles", Pack(value)); }
         }
 
-        string[] Unpack(XElement element)
+        private string[] Unpack(XElement element)
         {
             if (element == null)
-                return new string[] { };
+                return new string[] {};
 
-            return ((string)element).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            return ((string) element).Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        string Pack(string[] tokens)
+        private string Pack(string[] tokens)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (string file in tokens)
             {
                 sb.Append(file);

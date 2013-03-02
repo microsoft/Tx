@@ -13,8 +13,8 @@ namespace Tx.Windows
         {
             playback.AddInput(
                 () => EvtxEnumerable.FromFiles(files).ToObservable(ThreadPoolScheduler.Instance),
-                typeof(EvtxManifestTypeMap),
-                typeof(EvtxTypeMap));
+                typeof (EvtxManifestTypeMap),
+                typeof (EvtxTypeMap));
         }
     }
 }

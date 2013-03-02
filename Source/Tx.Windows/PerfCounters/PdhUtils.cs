@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Tx.Windows
 {
-    static class PdhUtils
+    internal static class PdhUtils
     {
         public static List<string> MultiSzToStringList(char[] multiSz)
         {
-            List<string> returnValue = new List<string>();
-            StringBuilder buildBuffer = new StringBuilder();
+            var returnValue = new List<string>();
+            var buildBuffer = new StringBuilder();
 
             for (int i = 0; i <= multiSz.GetUpperBound(0); i++)
             {
@@ -48,7 +48,7 @@ namespace Tx.Windows
 
         public static List<string> GetMachineList(string logFileName)
         {
-            List<string> machines = null;
+            List<string> machines;
             uint objectBufferLength = 0;
 
             PdhStatus pdhStatus = PdhNativeMethods.PdhEnumMachines(
@@ -58,12 +58,12 @@ namespace Tx.Windows
 
             CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA);
 
-            char[] objectListBuffer = new char[objectBufferLength];
+            var objectListBuffer = new char[objectBufferLength];
 
             pdhStatus = PdhNativeMethods.PdhEnumMachines(
-            logFileName,
-            objectListBuffer,
-            ref objectBufferLength);
+                logFileName,
+                objectListBuffer,
+                ref objectBufferLength);
 
             CheckStatus(pdhStatus, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
@@ -87,7 +87,7 @@ namespace Tx.Windows
             CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
             if (pdhStatus == PdhStatus.PDH_MORE_DATA)
             {
-                char[] objectListBuffer = new char[objectBufferLength];
+                var objectListBuffer = new char[objectBufferLength];
 
                 pdhStatus = PdhNativeMethods.PdhEnumObjects(
                     logFilename,
@@ -106,11 +106,11 @@ namespace Tx.Windows
         }
 
         public static void GetCounterAndInstanceList(
-             string logFilename,
-             string machineName,
-             string objectName,
-             out List<string> counterList,
-             out List<string> instanceList)
+            string logFilename,
+            string machineName,
+            string objectName,
+            out List<string> counterList,
+            out List<string> instanceList)
         {
             uint counterBufferLength = 0;
             uint instanceBufferLength = 0;
@@ -129,8 +129,8 @@ namespace Tx.Windows
             CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
             if (pdhStatus == PdhStatus.PDH_MORE_DATA)
             {
-                char[] counterListBuffer = new char[counterBufferLength];
-                char[] instanceListBuffer = new char[instanceBufferLength];
+                var counterListBuffer = new char[counterBufferLength];
+                var instanceListBuffer = new char[instanceBufferLength];
 
                 pdhStatus = PdhNativeMethods.PdhEnumObjectItems(
                     logFilename,
@@ -205,7 +205,7 @@ namespace Tx.Windows
                     {
                         if (instances.Count == 0)
                         {
-                            StringBuilder sb = new StringBuilder();
+                            var sb = new StringBuilder();
                             sb.Append(machine);
                             sb.Append('\\');
                             sb.Append(counterSet);
@@ -216,9 +216,9 @@ namespace Tx.Windows
                         }
                         else
                         {
-                            foreach(string instance in instances)
+                            foreach (string instance in instances)
                             {
-                                StringBuilder sb = new StringBuilder();
+                                var sb = new StringBuilder();
                                 sb.Append(machine);
                                 sb.Append('\\');
                                 sb.Append(counterSet);

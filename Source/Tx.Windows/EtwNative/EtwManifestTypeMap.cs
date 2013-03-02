@@ -8,8 +8,8 @@ namespace Tx.Windows
 {
     public class EtwManifestTypeMap : EtwTypeMap, IPartitionableTypeMap<EtwNativeEvent, ManifestEventPartitionKey>
     {
-        ManifestEventPartitionKey.Comparer _comparer = new ManifestEventPartitionKey.Comparer();
-        ManifestEventPartitionKey _key = new ManifestEventPartitionKey();
+        private readonly ManifestEventPartitionKey.Comparer _comparer = new ManifestEventPartitionKey.Comparer();
+        private ManifestEventPartitionKey _key = new ManifestEventPartitionKey();
 
         public IEqualityComparer<ManifestEventPartitionKey> Comparer
         {
@@ -28,25 +28,25 @@ namespace Tx.Windows
             //return _key;
 
             return new ManifestEventPartitionKey
-            {
-                EventId = evt.Id,
-                ProviderId = evt.ProviderId,
-                Version = evt.Version
-            };
+                {
+                    EventId = evt.Id,
+                    ProviderId = evt.ProviderId,
+                    Version = evt.Version
+                };
         }
 
-        public ManifestEventPartitionKey GetTypeKey(Type outputType) 
+        public ManifestEventPartitionKey GetTypeKey(Type outputType)
         {
             var eventAttribute = outputType.GetAttribute<ManifestEventAttribute>();
             if (eventAttribute == null)
                 return null;
 
             return new ManifestEventPartitionKey
-            {
-                ProviderId = eventAttribute.ProviderGuid,
-                EventId = (ushort)eventAttribute.EventId,
-                Version = eventAttribute.Version
-            };
+                {
+                    ProviderId = eventAttribute.ProviderGuid,
+                    EventId = (ushort) eventAttribute.EventId,
+                    Version = eventAttribute.Version
+                };
         }
     }
 }

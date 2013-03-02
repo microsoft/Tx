@@ -1,19 +1,19 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Tx.Windows;
+
 namespace Microsoft.Etw
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using Tx.Windows;
-    
-    class Program
+    internal class Program
     {
-        static string assembly = "";
-        static string outputDirectory = "";
-        static Dictionary<string, string> generated = new Dictionary<string, string>();
+        private static string assembly = "";
+        private static string outputDirectory = "";
+        private static readonly Dictionary<string, string> generated = new Dictionary<string, string>();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Parse(args);
 
@@ -36,12 +36,12 @@ namespace Microsoft.Etw
             }
         }
 
-        static void Parse(string[] args)
+        private static void Parse(string[] args)
         {
             if (args.Length == 0)
             {
                 Console.WriteLine(
-@"Usage: 
+                    @"Usage: 
     EtwEventTypeGen [/o:dir] [/a:name] [/m:file] [/t:file] [/w:path]
 
 Switches:
@@ -107,19 +107,17 @@ Examples:
                             manifests = Directory.GetFiles(
                                 manifestDir,
                                 Path.GetFileName(value));
-
                         }
 
                         foreach (string manifest in manifests)
                         {
                             string content = File.ReadAllText(manifest);
-                            var code = ManifestParser.Parse(content);
+                            Dictionary<string, string> code = ManifestParser.Parse(content);
 
                             foreach (string provider in code.Keys)
                             {
                                 generated.Add(provider, code[provider]);
                             }
-
                         }
                         break;
 
@@ -135,7 +133,6 @@ Examples:
                             tmfs = Directory.GetFiles(
                                 tmfDir,
                                 Path.GetFileName(value));
-
                         }
 
                         foreach (string tmf in tmfs)
@@ -159,13 +156,12 @@ Examples:
                             perfTraces = Directory.GetFiles(
                                 perfDir,
                                 Path.GetFileName(value));
-
                         }
 
                         foreach (string perfTrace in perfTraces)
                         {
                             Console.WriteLine(perfTrace);
-                            var code = PerfCounterParser.Parse(perfTrace);
+                            Dictionary<string, string> code = PerfCounterParser.Parse(perfTrace);
 
                             foreach (string provider in code.Keys)
                             {
@@ -187,7 +183,7 @@ Examples:
             }
         }
 
-        static void OutputCode()
+        private static void OutputCode()
         {
             foreach (string provider in generated.Keys)
             {
@@ -199,4 +195,3 @@ Examples:
         }
     }
 }
-

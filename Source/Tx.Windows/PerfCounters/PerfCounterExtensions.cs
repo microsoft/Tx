@@ -2,8 +2,6 @@
 
 using System;
 using System.Reactive;
-using System.Reactive.Concurrency;
-using System.Reactive.Linq;
 
 namespace Tx.Windows
 {
@@ -14,11 +12,12 @@ namespace Tx.Windows
         {
             playback.AddInput(
                 () => PerfCounterObservable.FromFile(files[0]),
-                typeof(PerfCounterPartitionTypeMap),
-                typeof(PerfCounterTypeMap));
+                typeof (PerfCounterPartitionTypeMap),
+                typeof (PerfCounterTypeMap));
         }
 
-        public static IObservable<PerformanceSample> GetPerformanceCounter(this IPlaybackConfiguration playback, string counterPath)
+        public static IObservable<PerformanceSample> GetPerformanceCounter(this IPlaybackConfiguration playback,
+                                                                           string counterPath)
         {
             return null;
         }

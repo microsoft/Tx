@@ -10,21 +10,21 @@ namespace Tx.Windows
     {
         public static IObservable<EventRecord> FromLog(string name)
         {
-            EventLogQuery q = new EventLogQuery(name, PathType.LogName);
-            EventLogWatcher watcher = new EventLogWatcher(q);
+            var q = new EventLogQuery(name, PathType.LogName);
+            var watcher = new EventLogWatcher(q);
 
             return Observable.Create<EventRecord>(o =>
                 {
                     watcher.EventRecordWritten +=
-                    new EventHandler<EventRecordWrittenEventArgs>((sender, args) =>
-                        {
-                            if (args.EventException != null)
-                                o.OnError(args.EventException);
-                            else
-                                o.OnNext(args.EventRecord);
-                        });
+                        (sender, args) =>
+                            {
+                                if (args.EventException != null)
+                                    o.OnError(args.EventException);
+                                else
+                                    o.OnNext(args.EventRecord);
+                            };
 
-                    watcher.Enabled = true;  
+                    watcher.Enabled = true;
 
                     return watcher;
                 });

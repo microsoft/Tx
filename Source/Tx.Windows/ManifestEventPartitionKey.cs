@@ -16,13 +16,13 @@ namespace Tx.Windows
             public bool Equals(ManifestEventPartitionKey x, ManifestEventPartitionKey y)
             {
                 return (x.EventId == y.EventId) &&
-                    (x.ProviderId == y.ProviderId) &&
-                    (x.Version == y.Version);
+                       (x.ProviderId == y.ProviderId) &&
+                       (x.Version == y.Version);
             }
 
             public int GetHashCode(ManifestEventPartitionKey obj)
             {
-                return (int)obj.EventId;
+                return obj.EventId;
             }
         }
     }

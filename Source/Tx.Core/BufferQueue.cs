@@ -1,44 +1,23 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+
 namespace System.Reactive
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    
-    class BufferQueue<T> : IObserver<T>, IEnumerator<T>, IDisposable
+    internal class BufferQueue<T> : IObserver<T>, IEnumerator<T>
     {
-        BlockingCollection<T> _queue = new BlockingCollection<T>();
-        T _current;
-        Exception _error;
-
-        public void OnCompleted()
-        {
-            _queue.CompleteAdding();
-        }
-
-        public void OnError(Exception error)
-        {
-            _error = error;
-            _queue.CompleteAdding();
-        }
-
-        public void OnNext(T value)
-        {
-            _queue.Add(value);
-        }
+        private readonly BlockingCollection<T> _queue = new BlockingCollection<T>();
+        private T _current;
+        private Exception _error;
 
         public T Current
         {
             get { return _current; }
         }
 
-        public void Dispose()
-        {
-            _queue.Dispose();
-        }
-
-        object System.Collections.IEnumerator.Current
+        object IEnumerator.Current
         {
             get { return _current; }
         }
@@ -69,6 +48,27 @@ namespace System.Reactive
         }
 
         void IDisposable.Dispose()
+        {
+            _queue.Dispose();
+        }
+
+        public void OnCompleted()
+        {
+            _queue.CompleteAdding();
+        }
+
+        public void OnError(Exception error)
+        {
+            _error = error;
+            _queue.CompleteAdding();
+        }
+
+        public void OnNext(T value)
+        {
+            _queue.Add(value);
+        }
+
+        public void Dispose()
         {
             _queue.Dispose();
         }
