@@ -12,49 +12,31 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <Import Project="..\..\..\Common.targets" />
+  <PropertyGroup>
+    <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LINQ2Charts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LINQ2Charts">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\References\Linq2Charts\LINQ2Charts.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core">
-      <HintPath>..\..\..\References\DESKTOPCLR45\System.Reactive.Core.dll</HintPath>
+      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=2.1.30214.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR45\System.Reactive.Interfaces.dll</HintPath>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Linq, Version=2.1.30214.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR45\System.Reactive.Linq.dll</HintPath>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=2.1.30214.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR45\System.Reactive.PlatformServices.dll</HintPath>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Windows.Forms">
-      <HintPath>..\..\..\References\DESKTOPCLR45\System.Reactive.Windows.Forms.dll</HintPath>
+      <HintPath>$(CPReferencePath)\System.Reactive.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
