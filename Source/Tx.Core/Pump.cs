@@ -5,19 +5,7 @@ using System.Threading;
 
 namespace System.Reactive
 {
-    // BUGBUG: The Pump seems something that should exist in Rx
-    // Exposing this here as public is weird
-    public abstract class Pump
-    {
-        protected ManualResetEvent _completed = new ManualResetEvent(false);
-
-        public WaitHandle Completed
-        {
-            get { return _completed; }
-        }
-    }
-
-    internal class OutputPump<T> : Pump, IDisposable
+    internal class OutputPump<T> : IDisposable
     {
         private readonly IEnumerator<T> _source;
         private readonly IObserver<T> _target;
@@ -37,7 +25,6 @@ namespace System.Reactive
         public void Dispose()
         {
             _waitStart.Dispose();
-            _completed.Dispose();
         }
 
         private void ThreadProc()
@@ -80,7 +67,6 @@ namespace System.Reactive
             }
 
             _target.OnCompleted();
-            _completed.Set();
         }
     }
 }

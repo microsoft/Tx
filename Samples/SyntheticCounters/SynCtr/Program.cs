@@ -19,8 +19,10 @@ namespace SynCtr
 
         static void Main()
         {
+            StartSession(SessionName, ProviderId);
+
             _playback = new Playback();
-            _playback.AddRealTimeSession("tcp");
+            _playback.AddRealTimeSession(SessionName);
 
             var received = from r in _playback.GetObservable<KNetEvt_RecvIPV4>()
                            select new PacketEvent { addr = r.daddr, received = r.size };
@@ -46,7 +48,13 @@ namespace SynCtr
                             .ToList()
                     select stats.OrderBy(s => s.address);
 
-            _subscription = x.Subscribe(v => Console.Write(" {0}", v.Count()));
+            _subscription = x.Subscribe(v =>
+                {
+                    Console.WriteLine("--- {0} ---", DateTime.Now);
+                    foreach (var s in v)
+                        Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received + s.send);
+                    Console.WriteLine();
+                });
 
             _playback.Start();
         }

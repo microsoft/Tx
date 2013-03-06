@@ -152,17 +152,32 @@ namespace System.Reactive
                 }
             }
 
-            IEnumerator<Timestamped<object>>[] queues = (from i in _inputs select i.Output).ToArray();
-            _mergesort = new PullMergeSort<Timestamped<object>>(e => e.Timestamp.DateTime, queues);
-            _timeSource.Connect();
-            _pumpStart = new ManualResetEvent(false);
-            _pump = new OutputPump<Timestamped<object>>(_mergesort, _subject, _pumpStart);
-            _pumpStart.Set();
-            _stopwatch.Start();
-            foreach (IInputStream i in _inputs)
+            if (_inputs.Count == 0)
+                throw new Exception("No input sequences were added to the Playback");
+
+            if (_inputs.Count > 1)
             {
-                i.Start();
+                IEnumerator<Timestamped<object>>[] queues = (from i in _inputs select i.Output).ToArray();
+                _mergesort = new PullMergeSort<Timestamped<object>>(e => e.Timestamp.DateTime, queues);
+                _timeSource.Connect();
+                _pumpStart = new ManualResetEvent(false);
+                _pump = new OutputPump<Timestamped<object>>(_mergesort, _subject, _pumpStart);
+                _pumpStart.Set();
+
+                _stopwatch.Start();
+                foreach (IInputStream i in _inputs)
+                {
+                    i.Start();
+                }
             }
+            else
+            {
+                _timeSource.Connect();
+                IInputStream singleInput = _inputs[0];
+                _stopwatch.Start();
+                singleInput.Start(_subject);
+            }
+
         }
 
         /// <summary>
@@ -172,7 +187,7 @@ namespace System.Reactive
         {
             Start();
 
-            _pump.Completed.WaitOne();
+            _timeSource.Completed.WaitOne();
             _stopwatch.Stop();
         }
 
@@ -200,14 +215,15 @@ namespace System.Reactive
             IEnumerator<Timestamped<object>> Output { get; }
             void AddKnownType(Type t);
             void Start();
+            void Start(IObserver<Timestamped<object>> observer);
         }
 
         private class InputStream<TInput> : IInputStream, IDisposable
         {
-            private readonly IObserver<TInput> _deserializer;
             private readonly BufferQueue<Timestamped<object>> _output;
             private readonly IObservable<TInput> _source;
             private IDisposable _subscription;
+            private CompositeDeserializer<TInput> _deserializer;
 
             public InputStream(
                 Expression<Func<IObservable<TInput>>> createInput,
@@ -239,6 +255,12 @@ namespace System.Reactive
 
             public void Start()
             {
+                _subscription = _source.Subscribe(_deserializer);
+            }
+
+            public void Start(IObserver<Timestamped<object>> observer)
+            {
+                _deserializer.SetOutput(observer);
                 _subscription = _source.Subscribe(_deserializer);
             }
         }

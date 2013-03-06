@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Reactive.Concurrency;
 using System.Reactive.Subjects;
+using System.Threading;
 
 namespace System.Reactive
 {
@@ -15,12 +16,13 @@ namespace System.Reactive
     ///     TimeSource constructs an "Virtual Time" scheduler based on expression over the event data
     /// </summary>
     /// <typeparam name="T">Type of the events in the sequence</typeparam>
-    public class TimeSource<T> : IConnectableObservable<T>, ITimeSource
+    public class TimeSource<T> : IConnectableObservable<T>, ITimeSource, IDisposable
     {
         private readonly TimeSegmentScheduler _scheduler;
         private readonly IObservable<T> _source;
         private readonly Subject<T> _subject;
         private readonly Func<T, DateTimeOffset> _timeFunction;
+        private readonly ManualResetEvent _completed;
 
         /// <summary>
         ///     Constructor
@@ -38,6 +40,7 @@ namespace System.Reactive
             _scheduler = new TimeSegmentScheduler();
             _timeFunction = timeFunction;
             _subject = new Subject<T>();
+            _completed = new ManualResetEvent(false);
         }
 
         public DateTimeOffset StartTime
@@ -50,6 +53,11 @@ namespace System.Reactive
                 else
                     _scheduler.AdvanceTo(value);
             }
+        }
+
+        public WaitHandle Completed
+        {
+            get { return _completed; }
         }
 
         public IDisposable Subscribe(IObserver<T> observer)
@@ -70,6 +78,7 @@ namespace System.Reactive
         private void OnCompleted()
         {
             _subject.OnCompleted();
+            _completed.Set();
         }
 
         private void OnError(Exception error)
@@ -89,6 +98,11 @@ namespace System.Reactive
             }
 
             _subject.OnNext(value);
+        }
+
+        public void Dispose()
+        {
+            if (_completed != null) _completed.Dispose();
         }
 
         private class TimeSegmentScheduler : IScheduler

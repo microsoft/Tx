@@ -8,7 +8,7 @@ namespace System.Reactive
     public class CompositeDeserializer<TInput> : IObserver<TInput>, IDeserializer
     {
         private readonly List<IDeserializer<TInput>> _deserializers;
-        private readonly IObserver<Timestamped<object>> _observer;
+        private IObserver<Timestamped<object>> _observer;
 
         public CompositeDeserializer(
             IObserver<Timestamped<object>> observer,
@@ -64,6 +64,11 @@ namespace System.Reactive
             {
                 d.AddKnownType(type);
             }
+        }
+
+        public void SetOutput(IObserver<Timestamped<object>> observer)
+        {
+            _observer = observer;
         }
 
         public void OnCompleted()
