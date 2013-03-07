@@ -32,7 +32,7 @@ namespace SynCtr
 
             var all = received.Merge(send);
 
-            var x = from window in all.Window(TimeSpan.FromSeconds(1))
+            var x = from window in all.Window(TimeSpan.FromSeconds(1), _playback.Scheduler)
                     from stats in
                         (from packet in window
                          group packet by packet.addr into g
