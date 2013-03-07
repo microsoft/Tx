@@ -24,26 +24,17 @@ namespace SynCtr
             _playback = new Playback();
             _playback.AddRealTimeSession(SessionName);
 
-            var received = from r in _playback.GetObservable<KNetEvt_RecvIPV4>()
-                           select new PacketEvent { addr = r.daddr, received = r.size };
+            var received = _playback.GetObservable<KNetEvt_RecvIPV4>();
 
-            var send = from r in _playback.GetObservable<KNetEvt_SendIPV4>()
-                       select new PacketEvent { addr = r.daddr, send = r.size };
-
-            var all = received.Merge(send);
-
-            var x = from window in all.Window(TimeSpan.FromSeconds(1), _playback.Scheduler)
+            var x = from window in received.Window(TimeSpan.FromSeconds(1), _playback.Scheduler)
                     from stats in
                         (from packet in window
-                         group packet by packet.addr into g
-                         from aggregate in g.Aggregate(
-                             new { send = 0.0, received = 0.0 },
-                             (ac, p) => new { send = ac.send + p.send, received = ac.received + p.received })
+                         group packet by packet.daddr into g
+                         from total in g.Sum(p => p.size)
                          select new
                          {
                              address = new IPAddress(g.Key).ToString(),
-                             aggregate.received,
-                             aggregate.send
+                             received = total
                          })
                             .ToList()
                     select stats.OrderBy(s => s.address);
@@ -52,7 +43,7 @@ namespace SynCtr
                 {
                     Console.WriteLine("--- {0} ---", DateTime.Now);
                     foreach (var s in v)
-                        Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received + s.send);
+                        Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received);
                     Console.WriteLine();
                 });
 
