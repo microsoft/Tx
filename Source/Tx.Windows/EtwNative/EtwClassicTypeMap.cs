@@ -9,7 +9,7 @@ namespace Tx.Windows
     public class EtwClassicTypeMap : EtwTypeMap, IPartitionableTypeMap<EtwNativeEvent, ClassicEventPartitionKey>
     {
         private readonly ClassicEventPartitionKey.Comparer _comparer = new ClassicEventPartitionKey.Comparer();
-        private ClassicEventPartitionKey _key = new ClassicEventPartitionKey();
+        private readonly ClassicEventPartitionKey _key = new ClassicEventPartitionKey();
 
         public IEqualityComparer<ClassicEventPartitionKey> Comparer
         {
@@ -18,18 +18,11 @@ namespace Tx.Windows
 
         public ClassicEventPartitionKey GetInputKey(EtwNativeEvent evt)
         {
-            // See comments in ManifestEventTypeMap
-            //_key.Opcode = evt.Opcode;
-            //_key.EventGuid = evt.ProviderId;
-            //_key.Version = evt.Version;
-            //return _key;
-
-            return new ClassicEventPartitionKey
-                {
-                    Opcode = evt.Opcode,
-                    EventGuid = evt.ProviderId,
-                    Version = evt.Version
-                };
+            // this avoids memory allocation per each event
+            _key.Opcode = evt.Opcode;
+            _key.EventGuid = evt.ProviderId;
+            _key.Version = evt.Version;
+            return _key;
         }
 
         public ClassicEventPartitionKey GetTypeKey(Type outputType)

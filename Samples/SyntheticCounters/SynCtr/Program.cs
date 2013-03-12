@@ -14,16 +14,39 @@ namespace SynCtr
     {
         static IDisposable _subscription;
         static Playback _playback;
-        private static IObservable<EtwNativeEvent> _raw;
 
         static void Main(string[] args)
         {
            Baseline.StartSession();
 
-           if (args.Length > 0 && args[0] == "baseline")
-               Baseline.ListenWithImperativeCode();
-            else
-                ListenWithQuery();
+           if (args.Length == 0)
+           {
+               Console.WriteLine(
+@"Usage: SynCtr [option]
+
+Options are:
+    Playback   - use playback and Rx query
+    Raw        - Rx query on EtwNativeEvent-s (co copy to typed objects)
+    Imperative - use imperative code, over EtwNativeEvent-s");
+               return;
+           }
+
+            switch (args[0])
+            {
+                case "Playback":
+                    ListenWithQuery();
+                    break;
+
+                case "Raw":
+                    RxRaw.ListenWintQueryOnEtwNativeEvent();
+                    break;
+
+                case "Imperative":
+                    Baseline.ListenWithImperativeCode();
+                    break;
+                default:
+                    throw new Exception("Unknown option " + args[0]);
+            }
         }
 
         static void ListenWithQuery()
@@ -53,17 +76,10 @@ namespace SynCtr
                 foreach (var s in v)
                     Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received);
                 Console.WriteLine();
+                GC.Collect();
             });
 
             _playback.Start();         
         }
     }
-
-    class PacketEvent
-    {
-        public uint addr;
-        public uint send;
-        public uint received;
-    }
-
 }

@@ -35,6 +35,7 @@
     <Compile Include="Baseline.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RxRaw.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Source\Tx.Core\Tx.Core.csproj">

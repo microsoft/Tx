@@ -10,6 +10,8 @@ namespace Tx.Windows
 {
     public class EtwTypeMap : IRootTypeMap<EtwNativeEvent, SystemEvent>
     {
+        static ulong[] s_EmptyPmcCounters = new ulong[0]; // avoid allocation if the counters are not present
+
         public Func<EtwNativeEvent, DateTimeOffset> TimeFunction
         {
             get { return e => e.TimeStamp; }
@@ -224,7 +226,7 @@ namespace Tx.Windows
                 }
             }
 
-            return new ulong[0];
+            return s_EmptyPmcCounters;
         }
     }
 }

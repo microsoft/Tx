@@ -18,7 +18,6 @@ namespace SynCtr
     {
         public const string SessionName = "tcp";
         static Guid ProviderId = new Guid("{7dd42a49-5329-4832-8dfd-43d979153a88}");
-        static IDisposable _subscription;
 
         private static IObservable<EtwNativeEvent> _raw;
         private static object _lock = new object();
