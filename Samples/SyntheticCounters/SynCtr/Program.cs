@@ -17,8 +17,6 @@ namespace SynCtr
 
         static void Main(string[] args)
         {
-           Baseline.StartSession();
-
            if (args.Length == 0)
            {
                Console.WriteLine(
@@ -30,6 +28,8 @@ Options are:
     Imperative - use imperative code, over EtwNativeEvent-s");
                return;
            }
+
+           Baseline.StartSession();
 
             switch (args[0])
             {
@@ -69,17 +69,18 @@ Options are:
                          })
                             .ToList()
                     select stats.OrderBy(s => s.address);
-
+            
             _subscription = x.Subscribe(v =>
             {
                 Console.WriteLine("--- {0} ---", DateTime.Now);
                 foreach (var s in v)
                     Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received);
                 Console.WriteLine();
-                GC.Collect();
             });
 
-            _playback.Start();         
+            _playback.Start();
+            Console.ReadLine();
+            _subscription.Dispose();
         }
     }
 }

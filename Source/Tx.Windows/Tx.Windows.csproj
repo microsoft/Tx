@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="Configuration\FormatAttribute.cs" />
     <Compile Include="Configuration\PerformanceCounterAttribute.cs" />
+    <Compile Include="EtwNative\EtwClassicTypeMap.cs" />
     <Compile Include="EventFormatter.cs" />
     <Compile Include="Evtx\EvtxObservable.cs" />
     <Compile Include="Configuration\ClassicEventAttribute.cs" />
@@ -54,9 +55,6 @@
     <Compile Include="Configuration\ManifestEventAttribute.cs" />
     <Compile Include="EtwNative\EtwExtensions.cs" />
     <Compile Include="ClassicEventPartitionKey.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EtwNative\EtwClassicDeserializer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="EtwNative\EtwTypeMap.cs" />
