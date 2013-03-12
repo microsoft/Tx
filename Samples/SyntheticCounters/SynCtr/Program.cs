@@ -1,10 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using System;
 using System.Linq;
 using System.Net;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Security.Principal;
 using Tx.Windows;
 using Tx.Windows.Microsoft_Windows_Kernel_Network;
 
@@ -12,17 +12,25 @@ namespace SynCtr
 {
     class Program
     {
-        const string SessionName = "tcp";
-        static Guid ProviderId = new Guid("{7dd42a49-5329-4832-8dfd-43d979153a88}");
         static IDisposable _subscription;
         static Playback _playback;
+        private static IObservable<EtwNativeEvent> _raw;
 
-        static void Main()
+        static void Main(string[] args)
         {
-            StartSession(SessionName, ProviderId);
+           Baseline.StartSession();
 
+           if (args.Length > 0 && args[0] == "baseline")
+               Baseline.ListenWithImperativeCode();
+            else
+                ListenWithQuery();
+        }
+
+        static void ListenWithQuery()
+        {
+            Console.WriteLine("----- Listening with Tx-Playback and Rx query -----");
             _playback = new Playback();
-            _playback.AddRealTimeSession(SessionName);
+            _playback.AddRealTimeSession(Baseline.SessionName);
 
             var received = _playback.GetObservable<KNetEvt_RecvIPV4>();
 
@@ -40,27 +48,14 @@ namespace SynCtr
                     select stats.OrderBy(s => s.address);
 
             _subscription = x.Subscribe(v =>
-                {
-                    Console.WriteLine("--- {0} ---", DateTime.Now);
-                    foreach (var s in v)
-                        Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received);
-                    Console.WriteLine();
-                });
+            {
+                Console.WriteLine("--- {0} ---", DateTime.Now);
+                foreach (var s in v)
+                    Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received);
+                Console.WriteLine();
+            });
 
-            _playback.Start();
-        }
-
-        static void StartSession(string sessionName, Guid providerId)
-        {
-            var principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-            if (!principal.IsInRole(WindowsBuiltInRole.Administrator))
-                throw new Exception("To use ETW real-time session you must be administrator");
-
-            Process logman = Process.Start("logman.exe", "stop " + sessionName + " -ets");
-            logman.WaitForExit();
-
-            logman = Process.Start("logman.exe", "create trace " + sessionName + " -rt -nb 2 2 -bs 1024 -p {" + providerId + "} 0xffffffffffffffff -ets");
-            logman.WaitForExit();
+            _playback.Start();         
         }
     }
 
@@ -70,4 +65,5 @@ namespace SynCtr
         public uint send;
         public uint received;
     }
+
 }

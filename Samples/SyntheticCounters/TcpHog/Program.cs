@@ -25,8 +25,14 @@ namespace TcpHog
                 Console.Write("Sleep in milliseconds between bursts:");
                 int sleepMilliseconds = int.Parse(Console.ReadLine());
 
-                double estimatedThroughtput = PacketSize * packetsPerBurst / sleepMilliseconds;
-                Console.Write("Target throughtput {0:n} bytes/sec", estimatedThroughtput);
+                if (sleepMilliseconds > 0)
+                {
+                    double estimatedThroughtput = PacketSize * packetsPerBurst / sleepMilliseconds;
+                    Console.Write("Target throughtput {0:n} bytes/sec", estimatedThroughtput); 
+                }
+                else
+                    Console.WriteLine("No sleep at all");
+
 
                 Console.WriteLine();
 
