@@ -7,6 +7,7 @@ msbuild /p:Configuration=Debug45
 
 copy ..\tools\NuGet.exe %bin%\
 copy ..\tools\zip.exe %bin%\
+copy ..\tools\PushPackages.cmd %bin%\
 
 pushd  ..\Samples\LinqPad\Queries
 call create_samples_package.cmd

@@ -1,0 +1,1 @@
+for %%p in (Release\*.nupkg) do nuget push %%p
