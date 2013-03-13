@@ -66,5 +66,59 @@ namespace SynCtr
             _subscription.Dispose();
             timeSource.Dispose();
         }
+
+        public static void ListenWintUnsafeClass()
+        {
+            Console.WriteLine("----- Listening with Unsafe wrapper class and Rx query -----");
+
+            var instance = new RecvV4();
+
+            _raw = EtwObservable.FromSession(Baseline.SessionName);
+            var timeSource = new TimeSource<EtwNativeEvent>(_raw, e => e.TimeStamp);
+
+            var received = timeSource.Select(e =>
+                {
+                    unsafe
+                    {
+                        instance.userData = (byte*) e.UserData.ToPointer();
+                    }
+                    return instance;
+                });
+
+            var x = from window in received.Window(TimeSpan.FromSeconds(1), timeSource.Scheduler)
+                    from stats in
+                        (from packet in window
+                         group packet by packet.daddr into g
+                         from total in g.Sum(p => p.size)
+                         select new
+                         {
+                             address = new IPAddress(g.Key).ToString(),
+                             received = total
+                         })
+                            .ToList()
+                    select stats.OrderBy(s => s.address);
+
+            _subscription = x.Subscribe(v =>
+            {
+                //Console.WriteLine("--- {0} ---", DateTime.Now);
+                //foreach (var s in v)
+                //    Console.WriteLine("{0, -15} {1,-10:n0} ", s.address, s.received);
+                //Console.WriteLine();
+            });
+            timeSource.Connect();
+
+            Console.ReadLine();
+            _subscription.Dispose();
+            timeSource.Dispose();
+        }
+    }
+
+    unsafe class RecvV4
+    {
+        public byte* userData;
+
+        public uint PID { get { return *((uint*)(userData)); } }
+        public uint size { get { return *((uint*)(userData + 4)); } }
+        public uint daddr { get { return *((uint*)(userData + 8)); } }
     }
 }

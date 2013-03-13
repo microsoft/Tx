@@ -16,7 +16,7 @@ namespace Tx.Windows
         internal byte* _data;
         internal byte* _end;
         internal uint _length; // used to remember the last UInt32, and as length to read the following win:Binary
-        internal EVENT_RECORD* record;
+        public EVENT_RECORD* record;
 
         #region struct EVENT_HEADER
 

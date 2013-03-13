@@ -44,6 +44,11 @@ Options are:
                 case "Imperative":
                     Baseline.ListenWithImperativeCode();
                     break;
+
+                case "Unsafe":
+                    RxRaw.ListenWintUnsafeClass();
+                    break;
+
                 default:
                     throw new Exception("Unknown option " + args[0]);
             }
