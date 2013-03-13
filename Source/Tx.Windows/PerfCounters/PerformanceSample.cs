@@ -39,6 +39,11 @@ namespace Tx.Windows
             get { return _counterInfo.Instance; }
         }
 
+        public string Machine
+        {
+            get { return _counterInfo.Machine; }
+        }
+
         public DateTime Timestamp
         {
             get { return _timestamp; }

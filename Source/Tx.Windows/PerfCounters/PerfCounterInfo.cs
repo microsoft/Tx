@@ -7,6 +7,7 @@ namespace Tx.Windows
     internal class PerfCounterInfo : IDisposable
     {
         private readonly PdhCounterHandle _counterHandle;
+        private readonly string _machine;
         private readonly string _counterName;
         private readonly string _counterSet;
         private readonly string _instance;
@@ -14,6 +15,7 @@ namespace Tx.Windows
         public PerfCounterInfo(string counterPath, PdhCounterHandle handle)
         {
             string[] tokens = counterPath.Split(new[] {'\\'}, StringSplitOptions.RemoveEmptyEntries);
+            _machine = tokens[0];
             _counterSet = tokens[1];
             _counterName = tokens[2];
             _counterHandle = handle;
@@ -44,6 +46,11 @@ namespace Tx.Windows
         public PdhCounterHandle Handle
         {
             get { return _counterHandle; }
+        }
+
+        public string Machine
+        {
+            get { return _machine; }
         }
 
         public void Dispose()
