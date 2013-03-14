@@ -6,10 +6,10 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_File
 {
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 12, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_CREATE")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
 
     public class KFileEvt_Create_V0 : SystemEvent
     {
@@ -35,10 +35,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 13, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4")]
 
     public class KFileEvt_Cleanup_V0 : SystemEvent
     {
@@ -55,10 +55,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public ulong FileKey { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 14, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4")]
 
     public class KFileEvt_Close_V0 : SystemEvent
     {
@@ -75,10 +75,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public ulong FileKey { get; set; }
     }
 
+    [Format("ByteOffset=%1, Irp=%2, ThreadId=%3, FileObject=%4, FileKey=%5, IOSize=%6, IOFlags=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 15, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_READ")]
-
-    [Format("ByteOffset=%1, Irp=%2, ThreadId=%3, FileObject=%4, FileKey=%5, IOSize=%6, IOFlags=%7")]
 
     public class KFileEvt_Read_V0 : SystemEvent
     {
@@ -104,10 +104,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint IOFlags { get; set; }
     }
 
+    [Format("ByteOffset=%1, Irp=%2, ThreadId=%3, FileObject=%4, FileKey=%5, IOSize=%6, IOFlags=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 16, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_WRITE")]
-
-    [Format("ByteOffset=%1, Irp=%2, ThreadId=%3, FileObject=%4, FileKey=%5, IOSize=%6, IOFlags=%7")]
 
     public class KFileEvt_Write_V0 : SystemEvent
     {
@@ -133,10 +133,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint IOFlags { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 17, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
 
     public class KFileEvt_SetInformation_V0 : SystemEvent
     {
@@ -159,10 +159,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 18, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
 
     public class KFileEvt_Delete_V0 : SystemEvent
     {
@@ -185,10 +185,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 19, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
 
     public class KFileEvt_Rename_V0 : SystemEvent
     {
@@ -211,10 +211,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 20, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
 
     public class KFileEvt_DirEnum_V0 : SystemEvent
     {
@@ -243,10 +243,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 21, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4")]
 
     public class KFileEvt_Flush_V0 : SystemEvent
     {
@@ -263,10 +263,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public ulong FileKey { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 22, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
 
     public class KFileEvt_QueryInformation_V0 : SystemEvent
     {
@@ -289,10 +289,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 23, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
 
     public class KFileEvt_FSCTL_V0 : SystemEvent
     {
@@ -315,10 +315,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 25, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
 
     public class KFileEvt_DirNotify_V0 : SystemEvent
     {
@@ -347,10 +347,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6, FilePath=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 26, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_DELETE_PATH")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6, FilePath=%7")]
 
     public class KFileEvt_DeletePath_V0 : SystemEvent
     {
@@ -376,10 +376,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FilePath { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6, FilePath=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 27, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_RENAME_SETLINK_PATH")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6, FilePath=%7")]
 
     public class KFileEvt_RenamePath_V0 : SystemEvent
     {
@@ -405,10 +405,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FilePath { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6, FilePath=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 28, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_RENAME_SETLINK_PATH")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6, FilePath=%7")]
 
     public class KFileEvt_SetLinkPath_V0 : SystemEvent
     {
@@ -434,10 +434,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FilePath { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 29, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, FileKey=%4, ExtraInformation=%5, InfoClass=%6")]
 
     public class KFileEvt_SetLink_V0 : SystemEvent
     {
@@ -460,10 +460,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ThreadId=%2, FileObject=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 30, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_CREATE_NEW_FILE")]
-
-    [Format("Irp=%1, ThreadId=%2, FileObject=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
 
     public class KFileEvt_CreateNewFile_V0 : SystemEvent
     {
@@ -489,10 +489,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("FileKey=%1, FileName=%2")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 10, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILENAME")]
-
-    [Format("FileKey=%1, FileName=%2")]
 
     public class KFileEvt_NameCreate : SystemEvent
     {
@@ -503,10 +503,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("FileKey=%1, FileName=%2")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 11, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILENAME")]
-
-    [Format("FileKey=%1, FileName=%2")]
 
     public class KFileEvt_NameDelete : SystemEvent
     {
@@ -517,10 +517,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, IssuingThreadId=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 12, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_CREATE")]
-
-    [Format("Irp=%1, FileObject=%2, IssuingThreadId=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
 
     public class KFileEvt_Create_V1 : SystemEvent
     {
@@ -546,10 +546,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 13, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4")]
 
     public class KFileEvt_Cleanup_V1 : SystemEvent
     {
@@ -566,10 +566,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint IssuingThreadId { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 14, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4")]
 
     public class KFileEvt_Close_V1 : SystemEvent
     {
@@ -586,10 +586,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint IssuingThreadId { get; set; }
     }
 
+    [Format("ByteOffset=%1, Irp=%2, FileObject=%3, FileKey=%4, IssuingThreadId=%5, IOSize=%6, IOFlags=%7, ExtraFlags=%8")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 15, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_READ")]
-
-    [Format("ByteOffset=%1, Irp=%2, FileObject=%3, FileKey=%4, IssuingThreadId=%5, IOSize=%6, IOFlags=%7, ExtraFlags=%8")]
 
     public class KFileEvt_Read_V1 : SystemEvent
     {
@@ -618,10 +618,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint ExtraFlags { get; set; }
     }
 
+    [Format("ByteOffset=%1, Irp=%2, FileObject=%3, FileKey=%4, IssuingThreadId=%5, IOSize=%6, IOFlags=%7, ExtraFlags=%8")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 16, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_WRITE")]
-
-    [Format("ByteOffset=%1, Irp=%2, FileObject=%3, FileKey=%4, IssuingThreadId=%5, IOSize=%6, IOFlags=%7, ExtraFlags=%8")]
 
     public class KFileEvt_Write_V1 : SystemEvent
     {
@@ -650,10 +650,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint ExtraFlags { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 17, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
 
     public class KFileEvt_SetInformation_V1 : SystemEvent
     {
@@ -676,10 +676,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 18, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
 
     public class KFileEvt_Delete_V1 : SystemEvent
     {
@@ -702,10 +702,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 19, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
 
     public class KFileEvt_Rename_V1 : SystemEvent
     {
@@ -728,10 +728,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 20, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
 
     public class KFileEvt_DirEnum_V1 : SystemEvent
     {
@@ -760,10 +760,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 21, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4")]
 
     public class KFileEvt_Flush_V1 : SystemEvent
     {
@@ -780,10 +780,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint IssuingThreadId { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 22, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
 
     public class KFileEvt_QueryInformation_V1 : SystemEvent
     {
@@ -806,10 +806,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 23, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
 
     public class KFileEvt_FSCTL_V1 : SystemEvent
     {
@@ -832,10 +832,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, ExtraInformation=%2, Status=%3")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 24, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO", "KERNEL_FILE_KEYWORD_OP_END")]
-
-    [Format("Irp=%1, ExtraInformation=%2, Status=%3")]
 
     public class KFileEvt_OperationEnd : SystemEvent
     {
@@ -849,10 +849,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint Status { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 25, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, IssuingThreadId=%4, Length=%5, InfoClass=%6, FileIndex=%7, FileName=%8")]
 
     public class KFileEvt_DirNotify_V1 : SystemEvent
     {
@@ -881,10 +881,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FileName { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6, FilePath=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 26, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_DELETE_PATH")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6, FilePath=%7")]
 
     public class KFileEvt_DeletePath_V1 : SystemEvent
     {
@@ -910,10 +910,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FilePath { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6, FilePath=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 27, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_RENAME_SETLINK_PATH")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6, FilePath=%7")]
 
     public class KFileEvt_RenamePath_V1 : SystemEvent
     {
@@ -939,10 +939,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FilePath { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6, FilePath=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 28, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_RENAME_SETLINK_PATH")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6, FilePath=%7")]
 
     public class KFileEvt_SetLinkPath_V1 : SystemEvent
     {
@@ -968,10 +968,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public string FilePath { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 29, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_FILEIO")]
-
-    [Format("Irp=%1, FileObject=%2, FileKey=%3, ExtraInformation=%4, IssuingThreadId=%5, InfoClass=%6")]
 
     public class KFileEvt_SetLink_V1 : SystemEvent
     {
@@ -994,10 +994,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_File
         public uint InfoClass { get; set; }
     }
 
+    [Format("Irp=%1, FileObject=%2, IssuingThreadId=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
+
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 30, 1,
     "", "win:Informational", "Microsoft-Windows-Kernel-File/Analytic", "KERNEL_FILE_KEYWORD_CREATE_NEW_FILE")]
-
-    [Format("Irp=%1, FileObject=%2, IssuingThreadId=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
 
     public class KFileEvt_CreateNewFile_V1 : SystemEvent
     {

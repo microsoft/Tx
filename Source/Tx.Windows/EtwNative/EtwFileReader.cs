@@ -18,7 +18,7 @@ namespace Tx.Windows
         private readonly EVENT_TRACE_LOGFILE[] _logFiles;
         private readonly IObserver<EtwNativeEvent> _observer;
         private readonly Thread _thread;
-        private readonly Guid system = new Guid("{68fdd900-4a3e-11d1-84f4-0000f80464e3}");
+        private readonly Guid _system = new Guid("{68fdd900-4a3e-11d1-84f4-0000f80464e3}");
         private bool _disposed;
         private ulong[] _handles;
 
@@ -45,8 +45,7 @@ namespace Tx.Windows
                 _logFileHandles[i] = GCHandle.Alloc(_logFiles[i]);
             }
 
-            _thread = new Thread(ThreadProc);
-            _thread.Name = "EtwFileObservable";
+            _thread = new Thread(ThreadProc) {Name = "EtwFileObservable"};
             _thread.Start();
         }
 
@@ -65,7 +64,7 @@ namespace Tx.Windows
 
         private void ThreadProc()
         {
-            int error = 0;
+            int error;
             _handles = new ulong[_logFiles.Length];
             for (int i = 0; i < _logFiles.Length; i++)
             {
@@ -79,11 +78,9 @@ namespace Tx.Windows
                         _observer.OnError(new FileNotFoundException("Could not find file " + _logFiles[i].LogFileName));
                         return;
                     }
-                    else
-                    {
-                        _observer.OnError(new Win32Exception(error));
-                        return;
-                    }
+
+                    _observer.OnError(new Win32Exception(error));
+                    return;
                 }
             }
 
@@ -107,7 +104,7 @@ namespace Tx.Windows
 
         private unsafe void EtwCallback(ref EVENT_RECORD record)
         {
-            if (record.EventHeader.ProviderId == system)
+            if (record.EventHeader.ProviderId == _system)
                 return;
 
             fixed (EVENT_RECORD* p = &record)

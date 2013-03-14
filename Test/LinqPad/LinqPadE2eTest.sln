@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqPadE2eTest", "LinqPadE2eTest.csproj", "{11F497FD-2497-48C0-A715-8CCAFA80F376}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug40|Any CPU = Debug40|Any CPU
+		Debug45|Any CPU = Debug45|Any CPU
+		Release40|Any CPU = Release40|Any CPU
+		Release45|Any CPU = Release45|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Debug40|Any CPU.ActiveCfg = Debug40|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Debug40|Any CPU.Build.0 = Debug40|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Debug45|Any CPU.ActiveCfg = Debug45|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Debug45|Any CPU.Build.0 = Debug45|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Release40|Any CPU.ActiveCfg = Release40|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Release40|Any CPU.Build.0 = Release40|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Release45|Any CPU.ActiveCfg = Release45|Any CPU
+		{11F497FD-2497-48C0-A715-8CCAFA80F376}.Release45|Any CPU.Build.0 = Release45|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

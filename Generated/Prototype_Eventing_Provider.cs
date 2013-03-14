@@ -6,10 +6,10 @@ using System;
 
 namespace Tx.Windows.Prototype_Eventing_Provider
 {
+    [Format("This is a small event.")]
+
     [ManifestEvent("{3838EF9A-CB6F-4A1C-9033-84C0E8EBF5A7}", 1, 0,
     "", "win:LogAlways", "PrototypeEventing/Analytic", "MyKeyword")]
-
-    [Format("This is a small event.")]
 
     public class SmallEvent : SystemEvent
     {
@@ -17,10 +17,10 @@ namespace Tx.Windows.Prototype_Eventing_Provider
         public uint ID { get; set; }
     }
 
+    [Format("This is a medium event.")]
+
     [ManifestEvent("{3838EF9A-CB6F-4A1C-9033-84C0E8EBF5A7}", 2, 0,
     "", "win:LogAlways", "PrototypeEventing/Analytic", "MyKeyword")]
-
-    [Format("This is a medium event.")]
 
     public class MediumEvent : SystemEvent
     {
@@ -40,10 +40,10 @@ namespace Tx.Windows.Prototype_Eventing_Provider
         public string string2 { get; set; }
     }
 
+    [Format("This is a large event.")]
+
     [ManifestEvent("{3838EF9A-CB6F-4A1C-9033-84C0E8EBF5A7}", 3, 0,
     "", "win:LogAlways", "PrototypeEventing/Analytic", "MyKeyword")]
-
-    [Format("This is a large event.")]
 
     public class LargeEvent : SystemEvent
     {

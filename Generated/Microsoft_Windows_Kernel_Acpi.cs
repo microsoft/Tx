@@ -6,10 +6,10 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
 {
+    [Format("A memory range descriptor has been marked as reserved.")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 1, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Diagnostic")]
-
-    [Format("A memory range descriptor has been marked as reserved.")]
 
     public class ACPI_ETW_EVENT_MEMORY_RESERVED : SystemEvent
     {
@@ -38,10 +38,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public ulong AddressLength { get; set; }
     }
 
+    [Format("Unexpected GPE event was fired on GPE bits that should be disabled.")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 2, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Diagnostic")]
-
-    [Format("Unexpected GPE event was fired on GPE bits that should be disabled.")]
 
     public class ACPI_ETW_EVENT_UNEXPECTED_GPE : SystemEvent
     {
@@ -52,10 +52,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public byte UnexpectedEventMap { get; set; }
     }
 
+    [Format("A temperature change notification (Notify(thermal_zone, 0x80)) for ACPI thermal zone %2 has been received.             %n_TMP = %3K             %n_PSV = %4K             %n_AC0 = %5K             %n_AC1 = %6K             %n_AC2 = %7K             %n_AC3 = %8K             %n_AC4 = %9K             %n_AC5 = %10K             %n_AC6 = %11K             %n_AC7 = %12K             %n_AC8 = %13K             %n_AC9 = %14K             %n_HOT = %15K             %n_CRT = %16K")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 3, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("A temperature change notification (Notify(thermal_zone, 0x80)) for ACPI thermal zone %2 has been received.             %n_TMP = %3K             %n_PSV = %4K             %n_AC0 = %5K             %n_AC1 = %6K             %n_AC2 = %7K             %n_AC3 = %8K             %n_AC4 = %9K             %n_AC5 = %10K             %n_AC6 = %11K             %n_AC7 = %12K             %n_AC8 = %13K             %n_AC9 = %14K             %n_HOT = %15K             %n_CRT = %16K")]
 
     public class ACPI_ETW_EVENT_TEMPERATURE_NOTIFICATION : SystemEvent
     {
@@ -108,10 +108,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public uint _CRT { get; set; }
     }
 
+    [Format("A trip point change notification (Notify(thermal_zone, 0x81)) for ACPI thermal zone %2 has been received.             %n_TMP = %3K             %n_PSV = %4K             %n_AC0 = %5K             %n_AC1 = %6K             %n_AC2 = %7K             %n_AC3 = %8K             %n_AC4 = %9K             %n_AC5 = %10K             %n_AC6 = %11K             %n_AC7 = %12K             %n_AC8 = %13K             %n_AC9 = %14K             %n_HOT = %15K             %n_CRT = %16K")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 4, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("A trip point change notification (Notify(thermal_zone, 0x81)) for ACPI thermal zone %2 has been received.             %n_TMP = %3K             %n_PSV = %4K             %n_AC0 = %5K             %n_AC1 = %6K             %n_AC2 = %7K             %n_AC3 = %8K             %n_AC4 = %9K             %n_AC5 = %10K             %n_AC6 = %11K             %n_AC7 = %12K             %n_AC8 = %13K             %n_AC9 = %14K             %n_HOT = %15K             %n_CRT = %16K")]
 
     public class ACPI_ETW_EVENT_TRIP_POINT_NOTIFICATION : SystemEvent
     {
@@ -164,10 +164,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public uint _CRT { get; set; }
     }
 
+    [Format("The active cooling device %6 has been turned %8.             %nThermal zone device instance: %2             %nActive cooling package: _AC%3             %nNamespace object: _AL%4")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 5, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("The active cooling device %6 has been turned %8.             %nThermal zone device instance: %2             %nActive cooling package: _AC%3             %nNamespace object: _AL%4")]
 
     public class ACPI_ETW_EVENT_ACTIVE_COOLING_DEVICE_POWER_V0 : SystemEvent
     {
@@ -196,10 +196,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public string PowerState { get; set; }
     }
 
+    [Format("The active cooling device %6 has been turned %7.             %nThermal zone device instance: %2             %nActive cooling package: _AC%3             %nNamespace object: _AL%4")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 6, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("The active cooling device %6 has been turned %7.             %nThermal zone device instance: %2             %nActive cooling package: _AC%3             %nNamespace object: _AL%4")]
 
     public class ACPI_ETW_EVENT_ACTIVE_COOLING_DEVICE_POWER : SystemEvent
     {
@@ -225,10 +225,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public ushort PowerState { get; set; }
     }
 
+    [Format("ACPI method %2 evaluation has %3.")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 7, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Diagnostic")]
-
-    [Format("ACPI method %2 evaluation has %3.")]
 
     public class ACPI_ETW_EVENT_AML_METHOD_TRACE : SystemEvent
     {
@@ -242,10 +242,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public ushort AmlMethodState { get; set; }
     }
 
+    [Format("The active cooling device %2 has been turned %3.")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 8, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("The active cooling device %2 has been turned %3.")]
 
     public class ACPI_ETW_EVENT_DEVICE_ACTIVE_COOLING : SystemEvent
     {
@@ -259,10 +259,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public ushort PowerState { get; set; }
     }
 
+    [Format("The passive cooling device %2 throttle has changed to %3 percent.")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 9, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("The passive cooling device %2 throttle has changed to %3 percent.")]
 
     public class ACPI_ETW_EVENT_DEVICE_PASSIVE_COOLING : SystemEvent
     {
@@ -276,10 +276,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public byte Throttle { get; set; }
     }
 
+    [Format("The device %2 has the following cooling state.              %nActive cooling: %3             %nPassive cooling: %4 percent")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 10, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("The device %2 has the following cooling state.              %nActive cooling: %3             %nPassive cooling: %4 percent")]
 
     public class ACPI_ETW_EVENT_DEVICE_COOLING_RUNDOWN : SystemEvent
     {
@@ -296,10 +296,10 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public byte Throttle { get; set; }
     }
 
+    [Format("ThermalZoneDeviceInstanceLength=%1, ThermalZoneDeviceInstance=%2, Temperature=%3")]
+
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 11, 0,
     "", "win:Informational", "Microsoft-Windows-Kernel-Acpi/Diagnostic", "acpi:Thermal")]
-
-    [Format("ThermalZoneDeviceInstanceLength=%1, ThermalZoneDeviceInstance=%2, Temperature=%3")]
 
     public class ACPI_ETW_EVENT_TEMPERATURE_CHANGE : SystemEvent
     {
