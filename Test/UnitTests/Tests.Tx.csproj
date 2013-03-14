@@ -14,15 +14,15 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
-  <Import Project="..\Common.targets" />
+  <Import Project="..\..\Common.targets" />
   <PropertyGroup>
-    <CPReferencePath>..\References\$(BuildFlavor)</CPReferencePath>
+    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Source\key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Source\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Reactive.Testing">
@@ -50,13 +50,13 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Generated\AspNetTrace.cs">
+    <Compile Include="..\..\Generated\AspNetTrace.cs">
       <Link>AspNetTrace.cs</Link>
     </Compile>
-    <Compile Include="..\Generated\Microsoft_Windows_HttpService.cs">
+    <Compile Include="..\..\Generated\Microsoft_Windows_HttpService.cs">
       <Link>Microsoft_Windows_HttpService.cs</Link>
     </Compile>
-    <Compile Include="..\Generated\Microsoft_Windows_Kernel_Process.cs">
+    <Compile Include="..\..\Generated\Microsoft_Windows_Kernel_Process.cs">
       <Link>Microsoft_Windows_Kernel_Process.cs</Link>
     </Compile>
     <Compile Include="AspRequestInstance.cs" />
@@ -77,24 +77,24 @@
     <Compile Include="TypeStatisticsTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Source\key.snk" />
-    <None Include="..\Traces\AspTrace.etl">
+    <None Include="..\..\Source\key.snk" />
+    <None Include="..\..\Traces\AspTrace.etl">
       <Link>AspTrace.etl</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="..\Traces\BasicPerfCounters.blg">
+    <Content Include="..\..\Traces\BasicPerfCounters.blg">
       <Link>BasicPerfCounters.blg</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="..\Traces\HTTP_Server.etl">
+    <None Include="..\..\Traces\HTTP_Server.etl">
       <Link>HTTP_Server.etl</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\Traces\HTTP_Server.evtx">
+    <None Include="..\..\Traces\HTTP_Server.evtx">
       <Link>HTTP_Server.evtx</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\Traces\Process.etl">
+    <None Include="..\..\Traces\Process.etl">
       <Link>Process.etl</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -103,11 +103,11 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Source\Tx.Core\Tx.Core.csproj">
+    <ProjectReference Include="..\..\Source\Tx.Core\Tx.Core.csproj">
       <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
       <Name>Tx.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Source\Tx.Windows\Tx.Windows.csproj">
+    <ProjectReference Include="..\..\Source\Tx.Windows\Tx.Windows.csproj">
       <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
       <Name>Tx.Windows</Name>
     </ProjectReference>
