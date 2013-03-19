@@ -15,16 +15,16 @@ popd
 
 pushd
 
-cd %bin%\Debug
+cd /d %bin%\Debug
 call :setVersion
 call :packAll
 
-cd %bin%\Release
+cd /d %bin%\Release
 call :setVersion
 call :packAll
 
-cd %bin%\Release\Net40
-..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg
+cd /d %bin%\Release\Net40
+..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Reactive.Windows.Forms.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg
 
 
 popd
@@ -53,7 +53,7 @@ exit /b 0
 
 :pack %1
 call Net40\Properties\%1.Layout.cmd
-cd %1
+cd /d %1
 copy ..\Net40\Properties\%1.nuspec
 ..\..\NuGet pack %1.nuspec
 move *.nupkg ..\

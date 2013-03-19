@@ -59,6 +59,8 @@ namespace Tx.LinqPad
         {
             AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolve;
             _threadStorageSlot = Thread.AllocateDataSlot();
+
+            CopySampleTraces();
         }
 
         public TxDataContextDriver()
@@ -317,8 +319,15 @@ namespace Tx.LinqPad
         private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
         {
             string assemblyname = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
+            string driverDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IEnumerable<string> assemblies = Directory.EnumerateFiles(driverDir, assemblyname);
+            foreach (string path in assemblies)
+            {
+                return Assembly.LoadFrom(path);
+            }
+
             string root = Path.Combine(Path.GetTempPath(), @"LINQPad\");
-            IEnumerable<string> assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
+            assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
             foreach (string path in assemblies)
             {
                 return Assembly.LoadFrom(path);
@@ -347,5 +356,28 @@ namespace Tx.LinqPad
 
             return result.ToArray();
         }
+
+        private static void CopySampleTraces()
+        {
+            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string txDir = Path.Combine(myDocuments, @"LINQPad Queries\Tx");
+
+            if (Directory.Exists(txDir))
+                return;
+
+            Directory.CreateDirectory(txDir);
+
+            string sourceDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            List<string> files = new List<string>(Directory.GetFiles(sourceDir,"*.etl"));
+            files.AddRange(Directory.GetFiles(sourceDir,"*.man"));
+            files.AddRange(Directory.GetFiles(sourceDir,"*.blg"));
+
+            foreach (string file in files)
+            {
+                string target = Path.Combine(txDir, Path.GetFileName(file));
+                File.Copy(file, target);
+            }
+        }
+
     }
 }
