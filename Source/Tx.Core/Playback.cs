@@ -121,6 +121,18 @@ namespace System.Reactive
             get { return _timeSource.Scheduler; }
         }
 
+        public IObservable<Timestamped<object>> GetAll(Type[] types)
+        {
+            foreach (IInputStream i in _inputs)
+            {
+                foreach (Type t in types)
+                {
+                     i.AddKnownType(t);
+                }
+            }
+            return _timeSource;
+        }
+
         /// <summary>
         ///     Call this to get just the events of given type
         /// </summary>
