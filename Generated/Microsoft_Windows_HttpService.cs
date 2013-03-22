@@ -6,6 +6,23 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_HttpService
 {
+    public enum HTTP_TEMPLATE_LOGGING_LogType_ValueMap    {
+        ResponseLogging=0,
+        ErrorLogging=1,
+    }
+
+    public enum HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap    {
+        Site=0,
+        Centralized=1,
+    }
+
+    public enum HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap    {
+        W3C=0,
+        IIS=1,
+        NCSA=2,
+        Binary=3,
+    }
+
     [Format("Thread gone. Pool type: %1, active pools: %2, thread count: %3")]
 
     [ManifestEvent("{dd5ef90a-6398-47a4-ad34-4dcecdef795f}", 88, 0,
@@ -666,13 +683,13 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         public ulong Handle { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Type { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogType_ValueMap Type { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Group { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap Group { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Format { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap Format { get; set; }
 
         [EventField("win:AnsiString")]
         public string ResType { get; set; }
@@ -692,13 +709,13 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         public ulong Handle { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Type { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogType_ValueMap Type { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Group { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap Group { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Format { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap Format { get; set; }
 
         [EventField("win:UnicodeString")]
         public string Filename { get; set; }
@@ -718,13 +735,13 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         public uint Status { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Type { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogType_ValueMap Type { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Group { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap Group { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Format { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap Format { get; set; }
 
         [EventField("win:UnicodeString")]
         public string Filename { get; set; }
@@ -744,13 +761,13 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         public uint Present { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Type { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogType_ValueMap Type { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Group { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap Group { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Format { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap Format { get; set; }
 
         [EventField("win:UnicodeString")]
         public string Directory { get; set; }
@@ -773,10 +790,10 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         public uint Status { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Type { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogType_ValueMap Type { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Group { get; set; }
+        public HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap Group { get; set; }
 
         [EventField("win:UnicodeString")]
         public string Directory { get; set; }

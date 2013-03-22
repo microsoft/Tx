@@ -95,7 +95,7 @@ namespace Tx.LinqPad
             var filesByExtension = new Dictionary<string, List<string>>();
             foreach (string f in files)
             {
-                string extension = Path.GetExtension(f);
+                string extension = Path.GetExtension(f).ToLowerInvariant();
 
                 List<string> sameExtension;
                 if (!filesByExtension.TryGetValue(extension, out sameExtension))

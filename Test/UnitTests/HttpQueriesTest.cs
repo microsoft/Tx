@@ -220,5 +220,26 @@ namespace Tests.Tx
 
             Assert.AreEqual(msg, "Parsed request (request pointer 18446738026454074672, method 4) with URI http://georgis2:80/windir.txt");
         }
+
+        [TestMethod]
+        public void HTTP_Enumerations()
+        {
+            var pb = new Playback();
+            pb.AddEtlFiles(EtlFileName);
+
+            object type = null, group = null, format = null;
+            var parsed = pb.GetObservable<LogFileWrite>().Take(1);
+            parsed.Subscribe(p =>
+                {
+                    type = p.Type;
+                    group = p.Group;
+                    format = p.Format;
+                });
+            pb.Run();
+
+            Assert.AreSame(type.GetType(), typeof(HTTP_TEMPLATE_LOGGING_LogType_ValueMap));
+            Assert.AreSame(group.GetType(), typeof(HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap));
+            Assert.AreSame(format.GetType(), typeof(HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap));
+        }
     }
 }

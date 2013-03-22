@@ -157,6 +157,13 @@ namespace Tx.Windows
                     default:
                         throw new NotImplementedException("Unknown primitive type " + attribute.OriginalType);
                 }
+
+                // the following is to handle value maps, that were emitted as enumerations
+                if (p.PropertyType.IsEnum)
+                {
+                    readExpression = Expression.Convert(readExpression, p.PropertyType);
+                }
+
                 MemberBinding b = Expression.Bind(p, readExpression);
                 bindings.Add(b);
             }

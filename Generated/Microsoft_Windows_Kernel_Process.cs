@@ -6,6 +6,10 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Process
 {
+    public enum ProcessFlags    {
+        PackageId=0x1,
+    }
+
     [Format("Process %1 started at time %2 by parent %3 running in session %4 with name %5.")]
 
     [ManifestEvent("{22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716}", 1, 0,
@@ -49,7 +53,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Process
         public uint SessionID { get; set; }
 
         [EventField("win:UInt32")]
-        public uint Flags { get; set; }
+        public ProcessFlags Flags { get; set; }
 
         [EventField("win:UnicodeString")]
         public string ImageName { get; set; }

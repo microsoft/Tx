@@ -6,6 +6,16 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
 {
+    public enum MapActiveCoolingDevicePowerState    {
+        on=1,
+        off=0,
+    }
+
+    public enum MapAmlMethodInvocationState    {
+        started=1,
+        finished=0,
+    }
+
     [Format("A memory range descriptor has been marked as reserved.")]
 
     [ManifestEvent("{C514638F-7723-485b-BCFC-96565D735D4A}", 1, 0,
@@ -222,7 +232,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public string FanDeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
-        public ushort PowerState { get; set; }
+        public MapActiveCoolingDevicePowerState PowerState { get; set; }
     }
 
     [Format("ACPI method %2 evaluation has %3.")]
@@ -239,7 +249,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public string AmlMethodName { get; set; }
 
         [EventField("win:UInt16")]
-        public ushort AmlMethodState { get; set; }
+        public MapAmlMethodInvocationState AmlMethodState { get; set; }
     }
 
     [Format("The active cooling device %2 has been turned %3.")]
@@ -256,7 +266,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public string DeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
-        public ushort PowerState { get; set; }
+        public MapActiveCoolingDevicePowerState PowerState { get; set; }
     }
 
     [Format("The passive cooling device %2 throttle has changed to %3 percent.")]
@@ -290,7 +300,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         public string DeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
-        public ushort PowerState { get; set; }
+        public MapActiveCoolingDevicePowerState PowerState { get; set; }
 
         [EventField("win:UInt8")]
         public byte Throttle { get; set; }

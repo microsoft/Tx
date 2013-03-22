@@ -101,6 +101,7 @@ namespace Tx.Windows
             XElement opcodes = provider.Element(ElementNames.Opcodes);
             XElement channels = provider.Element(ElementNames.Channels);
             XElement keywords = provider.Element(ElementNames.Keywords);
+            XElement maps = provider.Element(ElementNames.Maps);
 
             var sb = new StringBuilder(
                 @"// 
@@ -114,6 +115,29 @@ using System;");
             sb.Append(providerName);
             sb.AppendLine();
             sb.AppendLine("{");
+
+            if (maps!=null)
+            {
+                foreach (XElement map in maps.Elements())
+                {
+                    string className = map.Attribute(AttributeNames.Name).Value;
+
+                    sb.AppendFormat("    public enum {0}", className);
+                    sb.AppendLine("    {");
+
+                    foreach (XElement mapValue in map.Elements())
+                    {
+                        sb.AppendFormat(
+                            "        {0}={1},",
+                            LookupResourceString(mapValue.Attribute(AttributeNames.Message).Value),
+                            mapValue.Attribute(AttributeNames.Value).Value);
+                        sb.AppendLine();
+                    }
+
+                    sb.AppendLine("    }");
+                    sb.AppendLine();
+                }
+            }
 
             foreach (XElement evt in events.Elements())
             {
@@ -269,9 +293,18 @@ using System;");
                                 f.Attribute(AttributeNames.InType).Value);
                 sb.AppendLine();
 
-                sb.AppendFormat("        public {0} {1}",
-                                CleanType(f.Attribute(AttributeNames.InType).Value),
-                                NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
+                if (f.Attribute(AttributeNames.Map) == null)
+                {
+                    sb.AppendFormat("        public {0} {1}",
+                                    CleanType(f.Attribute(AttributeNames.InType).Value),
+                                    NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
+                }
+                else
+                {
+                    sb.AppendFormat("        public {0} {1}",
+                        f.Attribute(AttributeNames.Map).Value,
+                        NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
+                }
 
                 sb.AppendLine(" { get; set; }");
                 order++;
@@ -665,6 +698,7 @@ using System;");
             public const string Value = "value";
             public const string Symbol = "symbol";
             public const string Task = "task";
+            public const string Map = "map";
             public const string Template = "template";
             public const string Tid = "tid";
             public const string InType = "inType";
@@ -693,6 +727,7 @@ using System;");
             public static readonly XName Provider = ns + "provider";
             public static readonly XName Events = ns + "events";
             public static readonly XName Tasks = ns + "tasks";
+            public static readonly XName Maps = ns + "maps";
             public static readonly XName Templates = ns + "templates";
             public static readonly XName Opcodes = ns + "opcodes";
             public static readonly XName Localization = ns + "localization";
