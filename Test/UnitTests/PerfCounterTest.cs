@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
@@ -74,7 +75,53 @@ namespace Tests.Tx
 
             var all = grouped.ToArray().First();
 
-            Assert.AreEqual(all.Length, 600);
+            Assert.AreEqual(600, all.Length);
+        }
+
+        [TestMethod]
+        public void BlgPivotTwo()
+        {
+            // this query pivots the counters into separate collections for Processor and PhysicalDisk
+
+            Playback playback = new Playback();
+            playback.AddPerfCounterTraces(BlgFileName);
+
+            var all = playback.GetObservable<PerformanceSample>();
+
+            var processor = PivotToInstanceSnapshots(playback, "Processor");
+            var disk = PivotToInstanceSnapshots(playback,"PhysicalDisk");
+
+            playback.Run();
+
+            Assert.AreEqual(3000, processor.Count()); // there are 5 instances: _Total, 0, 1, 2, 3
+            Assert.AreEqual(600, disk.Count());
+        }
+
+        IEnumerable<InstanceCounterSnapshot> PivotToInstanceSnapshots(Playback playback, string counterSet)
+        {
+            var all = playback.GetObservable<PerformanceSample>();
+
+            var instanceSnapshots = from a in all
+                          where a.CounterSet == counterSet
+                          group a by new { a.Machine, a.Instance, a.Timestamp } into groups
+                          from g in groups.ToArray()
+                          select new InstanceCounterSnapshot
+                          {
+                              Machhine = groups.Key.Machine,
+                              Instance = groups.Key.Instance,
+                              Timestamp = groups.Key.Timestamp,
+                              Counters = g
+                          };
+
+            return playback.BufferOutput(instanceSnapshots);
+        }
+
+        class InstanceCounterSnapshot
+        {
+            public string Machhine { get; set; }
+            public string Instance { get; set; }
+            public DateTime Timestamp { get; set; }
+            public PerformanceSample[] Counters { get; set; }
         }
     }
 }
