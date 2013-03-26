@@ -52,6 +52,7 @@
     <Compile Include="BufferQueue.cs" />
     <Compile Include="IPlaybackConfiguration.cs" />
     <Compile Include="ITypeMap.cs" />
+    <Compile Include="CsvExtensions.cs" />
     <Compile Include="PullMergeSort.cs" />
     <Compile Include="Pump.cs" />
     <Compile Include="ITypeStatistics.cs" />

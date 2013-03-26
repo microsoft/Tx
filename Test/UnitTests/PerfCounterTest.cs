@@ -79,6 +79,49 @@ namespace Tests.Tx
         }
 
         [TestMethod]
+        public void BlgPivotTwoToFiles()
+        {
+            // this query pivots the counters into separate collections for Processor and PhysicalDisk
+
+            Playback playback = new Playback();
+            playback.AddPerfCounterTraces(BlgFileName);
+
+            var all = playback.GetObservable<PerformanceSample>();
+
+            IDisposable processor = PivotToInstanceSnapshots(playback, "Processor", "Processor.csv");
+            IDisposable disk = PivotToInstanceSnapshots(playback, "PhysicalDisk", "PhysicalDisk.csv");
+
+            playback.Run();
+
+            processor.Dispose();
+            disk.Dispose();
+
+            Assert.IsTrue(File.Exists("Processor.csv"));
+            Assert.IsTrue(File.Exists("PhysicalDisk.csv"));
+        }
+
+        IDisposable PivotToInstanceSnapshots(Playback playback, string counterSet, string filePath)
+        {
+            var all = playback.GetObservable<PerformanceSample>();
+
+            var instanceSnapshots = from a in all
+                                    where a.CounterSet == counterSet
+                                    group a by new { a.Machine, a.Instance, a.Timestamp } into groups
+                                    from g in groups.ToArray()
+                                    select new 
+                                    {
+                                        groups.Key.Machine,
+                                        groups.Key.Instance,
+                                        groups.Key.Timestamp,
+                                        Counters = g.ToDictionary(
+                                            ps=>ps.CounterName,
+                                            ps=>ps.Value)
+                                    };
+
+            return instanceSnapshots.ToCsvFile(filePath);
+        }
+
+        [TestMethod]
         public void BlgPivotTwo()
         {
             // this query pivots the counters into separate collections for Processor and PhysicalDisk
