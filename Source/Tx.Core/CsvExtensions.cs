@@ -25,6 +25,7 @@ namespace System.Reactive
 
             public TextFileWriter(string separator, string filePath)
             {
+                _separator = separator;
                 _writer = File.CreateText(filePath);
             }
 
@@ -54,7 +55,7 @@ namespace System.Reactive
                     else
                         _writer.Write(_writer);
 
-                    var propValue = p.GetValue(value);
+                    var propValue = p.GetValue(value, new object[] {});
                     IDictionary dictionary = propValue as IDictionary;
 
                     if (dictionary == null)
@@ -85,7 +86,7 @@ namespace System.Reactive
                     else
                         _writer.Write(_separator);
 
-                    var propValue = p.GetValue(firstValue);
+                    var propValue = p.GetValue(firstValue, new object[] { }); ;
                     IDictionary dictionary = propValue as IDictionary;
 
                     if (dictionary == null)
