@@ -163,7 +163,7 @@ namespace Tx.LinqPad
         private void RemoveMetadataFiles_Click(object sender, RoutedEventArgs e)
         {
             var removed = new List<string>();
-            foreach (string name in FileList.SelectedItems)
+            foreach (string name in MetadataFileList.SelectedItems)
             {
                 removed.Add(name);
             }

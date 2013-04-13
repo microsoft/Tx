@@ -32,7 +32,8 @@ namespace Tx.Windows
                 _instrumentation = _root.Element(ElementNames.Instrumentation1);
                 localization = _root.Element(ElementNames.Localization1);
                 resources = localization.Element(ElementNames.Resources1);
-                _stringTable = resources.Element(ElementNames.StringTable1);
+                if (resources != null)
+                    _stringTable = resources.Element(ElementNames.StringTable1);
             }
             else
             {
@@ -129,7 +130,7 @@ using System;");
                     {
                         sb.AppendFormat(
                             "        {0}={1},",
-                            LookupResourceString(mapValue.Attribute(AttributeNames.Message).Value),
+                            MakeIdentifier(LookupResourceString(mapValue.Attribute(AttributeNames.Message).Value)),
                             mapValue.Attribute(AttributeNames.Value).Value);
                         sb.AppendLine();
                     }
@@ -566,6 +567,9 @@ using System;");
 
         private string LookupResourceString(string message)
         {
+            if (_stringTable == null)
+                return message;
+
             string stringId = message.Substring(9) // skip "$(string."
                                      .TrimEnd(')');
 
