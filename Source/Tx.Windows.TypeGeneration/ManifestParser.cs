@@ -123,7 +123,7 @@ using System;");
                 {
                     string className = map.Attribute(AttributeNames.Name).Value;
 
-                    sb.AppendFormat("    public enum {0}", className);
+                    sb.AppendFormat("    public enum {0} : uint", className);
                     sb.AppendLine("    {");
 
                     foreach (XElement mapValue in map.Elements())

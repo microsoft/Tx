@@ -19,10 +19,10 @@ namespace System.Reactive
     ///     (a) The order within one input file/session (inputs events must be in order of occurence, and have increasing timestamps)
     ///     (b) The illusion of global order - merging different files/streams on timestamp
     /// </summary>
-    public class Playback : ITimeSource, IPlaybackConfiguration, IDisposable
+    public abstract class PlaybackBase : ITimeSource, IPlaybackConfiguration, IDisposable
     {
-        private readonly Demultiplexor _demux;
-        private readonly List<IInputStream> _inputs;
+        protected readonly Demultiplexor _demux;
+        protected readonly List<IInputStream> _inputs;
         private readonly List<IDisposable> _outputBuffers;
         private readonly Stopwatch _stopwatch;
         private readonly Subject<Timestamped<object>> _subject = new Subject<Timestamped<object>>();
@@ -35,7 +35,7 @@ namespace System.Reactive
         /// <summary>
         ///     Constructor
         /// </summary>
-        public Playback()
+        protected PlaybackBase()
         {
             _inputs = new List<IInputStream>();
             _demux = new Demultiplexor();
@@ -134,20 +134,6 @@ namespace System.Reactive
         }
 
         /// <summary>
-        ///     Call this to get just the events of given type
-        /// </summary>
-        /// <typeparam name="TOutput">The type of interest</typeparam>
-        /// <returns>Sequence of events of type TOutput from all inputs added to the playback</returns>
-        public IObservable<TOutput> GetObservable<TOutput>()
-        {
-            foreach (IInputStream i in _inputs)
-            {
-                i.AddKnownType(typeof (TOutput));
-            }
-            return _demux.GetObservable<TOutput>();
-        }
-
-        /// <summary>
         ///     Starts the playback and returns immediately
         ///     The main use case is real-time feeds.
         /// </summary>
@@ -217,12 +203,12 @@ namespace System.Reactive
             return list;
         }
 
-        ~Playback()
+        ~PlaybackBase()
         {
             Dispose();
         }
 
-        private interface IInputStream
+        protected interface IInputStream
         {
             IEnumerator<Timestamped<object>> Output { get; }
             void AddKnownType(Type t);
@@ -230,7 +216,7 @@ namespace System.Reactive
             void Start(IObserver<Timestamped<object>> observer);
         }
 
-        private class InputStream<TInput> : IInputStream, IDisposable
+        protected class InputStream<TInput> : IInputStream, IDisposable
         {
             private readonly BufferQueue<Timestamped<object>> _output;
             private readonly IObservable<TInput> _source;
@@ -276,5 +262,22 @@ namespace System.Reactive
                 _subscription = _source.Subscribe(_deserializer);
             }
         }
+    }
+
+    public class Playback : PlaybackBase
+    {
+        /// <summary>
+        ///     Call this to get just the events of given type
+        /// </summary>
+        /// <typeparam name="TOutput">The type of interest</typeparam>
+        /// <returns>Sequence of events of type TOutput from all inputs added to the playback</returns>
+        public IObservable<TOutput> GetObservable<TOutput>()
+        {
+            foreach (IInputStream i in _inputs)
+            {
+                i.AddKnownType(typeof(TOutput));
+            }
+            return _demux.GetObservable<TOutput>();
+        }      
     }
 }
