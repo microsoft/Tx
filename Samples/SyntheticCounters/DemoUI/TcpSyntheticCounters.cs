@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Charting;
 using System.Net;
@@ -33,11 +34,20 @@ namespace TcpSyntheticCounters
         {
             InitializeComponent();
 
+            ChartArea area = new ChartArea();
+            area.AxisX.Title = "Minutes since start";
+            area.AxisX.TitleFont = new System.Drawing.Font(area.AxisX.TitleFont, FontStyle.Bold);
+            area.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.Triangle;
+
+            area.AxisY.Title = "Bytes per second";
+            area.AxisY.TitleFont = new System.Drawing.Font(area.AxisY.TitleFont, FontStyle.Bold);
+            area.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.Triangle;
+
             _received = new Column { Points = { }, LegendText = "Received" };
             _send = new Column { Points = { }, LegendText = "Send" };
             _chart = new Chart
             {
-                ChartAreas = { new ChartArea() },
+                ChartAreas = { area },
                 Dock = DockStyle.Fill, 
             };
             this.Controls.Add(_chart);
