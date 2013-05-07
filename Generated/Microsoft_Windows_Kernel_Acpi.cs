@@ -6,12 +6,12 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
 {
-    public enum MapActiveCoolingDevicePowerState    {
+    public enum MapActiveCoolingDevicePowerState : uint    {
         on=1,
         off=0,
     }
 
-    public enum MapAmlMethodInvocationState    {
+    public enum MapAmlMethodInvocationState : uint    {
         started=1,
         finished=0,
     }

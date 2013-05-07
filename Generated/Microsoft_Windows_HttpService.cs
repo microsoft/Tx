@@ -6,17 +6,17 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_HttpService
 {
-    public enum HTTP_TEMPLATE_LOGGING_LogType_ValueMap    {
+    public enum HTTP_TEMPLATE_LOGGING_LogType_ValueMap : uint    {
         ResponseLogging=0,
         ErrorLogging=1,
     }
 
-    public enum HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap    {
+    public enum HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap : uint    {
         Site=0,
         Centralized=1,
     }
 
-    public enum HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap    {
+    public enum HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap : uint    {
         W3C=0,
         IIS=1,
         NCSA=2,

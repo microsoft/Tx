@@ -6,7 +6,7 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Process
 {
-    public enum ProcessFlags    {
+    public enum ProcessFlags : uint    {
         PackageId=0x1,
     }
 
