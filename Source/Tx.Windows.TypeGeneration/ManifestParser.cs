@@ -119,25 +119,7 @@ using System;");
 
             if (maps!=null)
             {
-                foreach (XElement map in maps.Elements())
-                {
-                    string className = map.Attribute(AttributeNames.Name).Value;
-
-                    sb.AppendFormat("    public enum {0} : uint", className);
-                    sb.AppendLine("    {");
-
-                    foreach (XElement mapValue in map.Elements())
-                    {
-                        sb.AppendFormat(
-                            "        {0}={1},",
-                            MakeIdentifier(LookupResourceString(mapValue.Attribute(AttributeNames.Message).Value)),
-                            mapValue.Attribute(AttributeNames.Value).Value);
-                        sb.AppendLine();
-                    }
-
-                    sb.AppendLine("    }");
-                    sb.AppendLine();
-                }
+                this.EmitMapValue(maps, sb);
             }
 
             foreach (XElement evt in events.Elements())
@@ -303,7 +285,7 @@ using System;");
                 else
                 {
                     sb.AppendFormat("        public {0} {1}",
-                        f.Attribute(AttributeNames.Map).Value,
+                        NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Map).Value),
                         NameUtils.CreateIdentifier(f.Attribute(AttributeNames.Name).Value));
                 }
 
@@ -691,6 +673,50 @@ using System;");
 
                 default:
                     throw new InvalidOperationException("unknown type " + typeName);
+            }
+        }
+
+        private void EmitMapValue(XElement maps, StringBuilder sb)
+        {
+            foreach (XElement map in maps.Elements())
+            {
+                string className = map.Attribute(AttributeNames.Name).Value;
+
+                bool isInt = map.Elements()
+                                .Select(e => e.Attribute(AttributeNames.Value).Value)
+                                .All(s =>
+                                {
+                                    int val;
+                                    return Int32.TryParse(s, out val);
+                                });
+
+                string mapType = isInt ? "int" : "uint";
+
+                sb.AppendFormat("    public enum {0} : {1}", NameUtils.CreateIdentifier(className), mapType);
+                sb.AppendLine("    {");
+                var mapCollection = new Dictionary<string, string>();
+                foreach (var mapValue in map.Elements())
+                {
+                    var mapEnumIdentifier = NameUtils.CreateIdentifier(LookupResourceString(mapValue.Attribute(AttributeNames.Message).Value));
+                    var mapEnumValue = mapValue.Attribute(AttributeNames.Value).Value;
+                    if (mapCollection.ContainsKey(mapEnumIdentifier))
+                    {
+                        mapCollection[mapEnumIdentifier] += " | " + mapEnumValue;
+                    }
+                    else
+                    {
+                        mapCollection[mapEnumIdentifier] = mapEnumValue;
+                    }
+                }
+
+                foreach (var mapValue in mapCollection)
+                {
+                    sb.AppendFormat("        {0} = {1},", mapValue.Key, mapValue.Value);
+                    sb.AppendLine();
+                }
+
+                sb.AppendLine("    }");
+                sb.AppendLine();
             }
         }
 
