@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace Tx.LinqPad
 {
@@ -171,6 +172,12 @@ namespace Tx.LinqPad
             {
                 _metadataFiles.Remove(name);
             }
+        }
+
+        private void TxDocs_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(e.Uri.AbsoluteUri);
+            e.Handled = true;
         }
     }
 }

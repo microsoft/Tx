@@ -5,11 +5,13 @@
     <title>Tx.Windows</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
-    <description>IObservable sources for Event Tracing for Windows (ETW) and Event Log</description>
+    <description>IObservable-s for Event Tracing for Windows (ETW), Perormance Counter files (.blg, .csv, .tsv) and Event Log</description>
     <authors>Microsoft Open Technologies, Inc.</authors>
     <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
 
     <projectUrl>http://tx.codeplex.com</projectUrl>
+    <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
+
     <!--
     <projectUrl>http://go.microsoft.com/fwlink/?LinkID=179929</projectUrl>
     <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=186234</licenseUrl>

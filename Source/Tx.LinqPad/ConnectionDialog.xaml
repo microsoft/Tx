@@ -63,6 +63,9 @@
             </Grid.ColumnDefinitions>
             <Button Name="buttonOK" Grid.Column="1" Margin="5,3" IsDefault="true" Click="ClickOK">OK</Button>
             <Button Name="buttonCancel" Grid.Column="2" Margin="5,3" IsCancel="true">Cancel</Button>
+            <TextBlock Margin="5,3">
+                <Hyperlink Name="TxDocs" NavigateUri="http://tx.codeplex.com/documentation" RequestNavigate="TxDocs_RequestNavigate">Tx Documentation</Hyperlink>
+            </TextBlock>
         </Grid>
     </StackPanel>
 </Window>

@@ -101,12 +101,14 @@ namespace Tx.LinqPad
             var properties = new TxProperties(cxn);
             assemblies.AddRange(_parserRegistry.GetAssemblies());
 
+            var assemblyNames = new List<string>(from a in assemblies select a.Location);
+
             _typeCache.Init(properties.ContextName);
-            assemblies.AddRange(_typeCache.GetAssemblies(properties.ContextName,
+            assemblyNames.AddRange(_typeCache.GetAssemblies(properties.ContextName,
                                                          ReplaceSampleTracesDir(properties.Files),
                                                          ReplaceSampleTracesDir(properties.MetadataFiles)));
 
-            return from a in assemblies select a.Location;
+            return assemblyNames;
         }
 
         public override IEnumerable<string> GetNamespacesToAdd(IConnectionInfo cxInfo)

@@ -100,17 +100,15 @@ namespace Tx.LinqPad
             }
         }
 
-        public Assembly[] GetAssemblies(string targetDir, string[] traces, string[] metadaFiles)
+        public string[] GetAssemblies(string targetDir, string[] traces, string[] metadaFiles)
         {
-            Assembly[] assemblies = (from file in Directory.GetFiles(GetCacheDir(targetDir), "*.dll")
-                                     select Assembly.LoadFrom(file)).ToArray();
-
-            return assemblies;
+            return Directory.GetFiles(GetCacheDir(targetDir), "*.dll");
         }
 
         public Type[] GetAvailableTypes(string targetDir, string[] traces, string[] metadaFiles)
         {
-            Assembly[] assemblies = GetAssemblies(targetDir, traces, metadaFiles);
+            Assembly[] assemblies = (from file in GetAssemblies(targetDir, traces, metadaFiles)
+                                     select Assembly.LoadFrom(file)).ToArray();
 
             return (from a in assemblies
                     from t in a.GetTypes()
