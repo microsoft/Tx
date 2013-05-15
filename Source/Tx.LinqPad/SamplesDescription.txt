@@ -4,15 +4,9 @@
 
 	<a class="download" href="http://linqpadupdates.net/tx/samples.zip">Download Tx samples</a>
 <br />
-	</p>
-<p>Tx surfaces event sources such as Event Tracing for Windows (ETW) as IObservable sequences.
-This allows using Reactive Extensions (Rx) and LINQ to Objects to perform queries on:</p>
-<ul>
-<li>Raw files such as .etl, .evtx and .blg</li>
-<li>Real-time sessions (nothing hits the disk)</li>
-</ul>
+</p>
 <p>     The Tx samples show how to mix Reactive Extensions and LINQ to Objects
-        to create efficient queries on logs/traces.
+        to create efficient queries on raw logs/traces, such as ETW, .blg files from PerfMon and Windows Event Logs
 </p>
 <p>
      For more information, check out the Tx

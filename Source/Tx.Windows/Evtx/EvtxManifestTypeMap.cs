@@ -21,8 +21,8 @@ namespace Tx.Windows
             return new ManifestEventPartitionKey
                 {
                     EventId = (ushort) evt.Id,
-                    ProviderId = evt.ProviderId.Value,
-                    Version = evt.Version.Value
+                    ProviderId = evt.ProviderId.HasValue ? evt.ProviderId.Value : Guid.Empty, // looks like in evtx files we can also have name instead of Guid?
+                    Version = evt.Version.HasValue ? evt.Version.Value : (byte) 0
                 };
         }
 

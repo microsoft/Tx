@@ -44,7 +44,7 @@ namespace Tx.Windows
                             EventId = (ushort) e.Id,
                             Keywords = e.Keywords.HasValue ? (ulong) e.Keywords.Value : (ulong) 0,
                             Opcode = e.Opcode.HasValue ? (byte) e.Opcode.Value : (byte) 0,
-                            ProcessId = (uint) e.ProcessId.Value,
+                            ProcessId = e.ProcessId.HasValue ? (uint) e.ProcessId.Value : 0,
                             ProviderId = e.ProviderId.HasValue ? e.ProviderId.Value : Guid.Empty,
                             RelatedActivityId = e.RelatedActivityId.HasValue ? e.RelatedActivityId.Value : Guid.Empty,
                             Task = e.Task.HasValue ? (ushort) e.Task.Value : (ushort) 0,

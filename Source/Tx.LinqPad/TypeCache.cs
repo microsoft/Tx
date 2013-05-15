@@ -91,6 +91,9 @@ namespace Tx.LinqPad
                         }
                         break;
 
+                    case ".evtx":
+                        break;
+
                     default:
                         throw new Exception("Unknown metadata format " + f);
                 }
