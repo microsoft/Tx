@@ -1,2 +1,2 @@
 del c:\bin\TxLinqPadSamples.zip 
-..\..\..\Tools\zip -r c:\bin\samples.zip header.xml "HTTP.sys" "Performance Counters"
+..\..\..\Tools\zip -r c:\bin\samples.zip header.xml "NoManifest" "HTTP.sys" "Performance Counters"
