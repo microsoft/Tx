@@ -364,10 +364,8 @@ namespace Tx.LinqPad
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string txDir = Path.Combine(myDocuments, @"LINQPad Queries\Tx");
 
-            if (Directory.Exists(txDir))
-                return;
-
-            Directory.CreateDirectory(txDir);
+            if (!Directory.Exists(txDir))
+                Directory.CreateDirectory(txDir);
 
             string sourceDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             List<string> files = new List<string>(Directory.GetFiles(sourceDir,"*.etl"));
@@ -377,7 +375,7 @@ namespace Tx.LinqPad
             foreach (string file in files)
             {
                 string target = Path.Combine(txDir, Path.GetFileName(file));
-                File.Copy(file, target);
+                File.Copy(file, target, true);
             }
         }
 

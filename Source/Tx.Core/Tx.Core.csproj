@@ -62,6 +62,7 @@
     <Compile Include="PartitionKeyDeserializer.cs" />
     <Compile Include="Playback.cs" />
     <Compile Include="RootDeserializer.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="TimeSource.cs" />
     <Compile Include="TransformDeserializer.cs" />
     <Compile Include="TypeOccurenceAggregator.cs" />

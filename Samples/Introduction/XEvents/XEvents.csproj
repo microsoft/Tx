@@ -11,6 +11,9 @@
     <RootNamespace>XEvents</RootNamespace>
     <AssemblyName>XEvents</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release40|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
     <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
@@ -19,19 +22,11 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.XE.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent">
-      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent.Linq">
-      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent.Targets">
-      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.SqlServer.XE.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64" />
+    <Reference Include="Microsoft.SqlServer.XEvent, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64" />
+    <Reference Include="Microsoft.SqlServer.XEvent.Configuration, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64" />
+    <Reference Include="Microsoft.SqlServer.XEvent.Linq, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64" />
+    <Reference Include="Microsoft.SqlServer.XEvent.Targets, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core">

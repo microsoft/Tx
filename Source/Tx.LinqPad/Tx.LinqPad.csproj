@@ -84,6 +84,18 @@
       <Link>HTTP_Server.etl</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\Traces\CrossMachineHTTP.etl">
+      <Link>CrossMachineHTTP.etl</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Traces\CrossMachineIE.etl">
+      <Link>CrossMachineIE.etl</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Manifests\IE_Client.man">
+      <Link>IE_Client.man</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="..\devsetup.cmd">
       <Link>devsetup.cmd</Link>
     </None>

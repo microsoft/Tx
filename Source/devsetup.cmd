@@ -27,8 +27,11 @@ copy Tx.LinqPad\header.xml "%DRIVER_DIR%"\
 
 echo Sample Traces
 copy ..\Manifests\HTTP_Server.man "%DRIVER_DIR%"\
+copy ..\Manifests\IE_Client.man "%DRIVER_DIR%"\
 copy ..\Traces\HTTP_Server.etl "%DRIVER_DIR%"\
 copy ..\Traces\BasicPerfCounters.blg "%DRIVER_DIR%"\
+copy ..\Traces\CrossMachineHTTP.etl "%DRIVER_DIR%"\
+copy ..\Traces\CrossMachineIE.etl "%DRIVER_DIR%"\
 
 goto end
 

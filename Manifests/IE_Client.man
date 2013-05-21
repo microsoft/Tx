@@ -1,0 +1,1724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instrumentationManifest    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:trace="http://schemas.microsoft.com/win/2004/08/events/trace"
+    xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd"
+    >
+  <instrumentation>
+    <events>
+	<provider name="Microsoft-IE" symbol="provider0" guid="{9e3b3947-ca5d-4614-91a2-7b624e0e7244}" source="Xml" messageFileName="noMessageFile" resourceFileName="noResourceFile" message="$(string.string0)">
+		<events>
+			<event value="152" version="0" opcode="win:Stop" task="task0" keywords="keyword2 keyword4 " />
+			<event value="151" version="0" template="tid_0" opcode="win:Start" task="task0" keywords="keyword2 keyword4 " />
+			<event value="150" version="0" template="tid_1" opcode="win:Info" task="task1" keywords="keyword2 keyword4 keyword11 " />
+			<event value="148" version="0" template="tid_2" opcode="win:Stop" task="task2" keywords="keyword1 keyword10 " />
+			<event value="147" version="0" template="tid_3" opcode="win:Start" task="task2" keywords="keyword1 keyword10 " />
+			<event value="146" version="0" template="tid_4" opcode="win:Stop" task="task3" keywords="keyword1 keyword10 " />
+			<event value="145" version="0" template="tid_5" opcode="win:Start" task="task3" keywords="keyword1 keyword10 " />
+			<event value="144" version="0" template="tid_6" opcode="win:Stop" task="task4" keywords="keyword1 keyword10 " />
+			<event value="143" version="0" template="tid_7" opcode="win:Start" task="task4" keywords="keyword1 keyword10 " />
+			<event value="142" version="0" template="tid_8" opcode="win:Stop" task="task5" keywords="keyword1 keyword10 " />
+			<event value="141" version="0" template="tid_9" opcode="win:Start" task="task5" keywords="keyword1 keyword10 " />
+			<event value="140" version="0" template="tid_10" opcode="win:Info" task="task6" keywords="keyword4 " />
+			<event value="139" version="0" template="tid_11" opcode="win:Info" task="task7" keywords="keyword4 " />
+			<event value="138" version="0" template="tid_12" opcode="win:Stop" task="task8" keywords="keyword1 keyword4 " />
+			<event value="137" version="0" template="tid_13" opcode="win:Start" task="task8" keywords="keyword1 keyword4 " />
+			<event value="136" version="0" template="tid_14" opcode="win:Stop" task="task9" keywords="keyword1 keyword4 " />
+			<event value="135" version="0" template="tid_15" opcode="win:Start" task="task9" keywords="keyword1 keyword4 " />
+			<event value="134" version="0" template="tid_16" opcode="win:Stop" task="task10" keywords="keyword1 " />
+			<event value="133" version="0" template="tid_17" opcode="win:Start" task="task10" keywords="keyword1 " />
+			<event value="132" version="0" template="tid_18" opcode="win:Stop" task="task11" keywords="keyword1 keyword6 " />
+			<event value="131" version="0" template="tid_19" opcode="win:Start" task="task11" keywords="keyword1 keyword6 " />
+			<event value="130" version="0" template="tid_20" opcode="win:Stop" task="task12" keywords="keyword1 keyword6 " />
+			<event value="129" version="0" template="tid_21" opcode="win:Start" task="task12" keywords="keyword1 keyword6 " />
+			<event value="128" version="0" template="tid_22" opcode="win:Stop" task="task13" keywords="keyword1 keyword6 " />
+			<event value="127" version="0" template="tid_23" opcode="win:Start" task="task13" keywords="keyword1 keyword6 " />
+			<event value="126" version="0" template="tid_24" opcode="win:Stop" task="task14" keywords="keyword1 keyword4 " />
+			<event value="125" version="0" template="tid_25" opcode="win:Start" task="task14" keywords="keyword1 keyword4 " />
+			<event value="124" version="0" template="tid_26" opcode="win:Stop" task="task15" keywords="keyword1 keyword4 " />
+			<event value="123" version="0" template="tid_27" opcode="win:Start" task="task15" keywords="keyword1 keyword4 " />
+			<event value="122" version="0" template="tid_28" opcode="win:Stop" task="task16" keywords="keyword1 keyword4 " />
+			<event value="121" version="0" template="tid_29" opcode="win:Start" task="task16" keywords="keyword1 keyword4 " />
+			<event value="120" version="0" template="tid_30" opcode="win:Stop" task="task17" keywords="keyword1 keyword4 " />
+			<event value="119" version="0" template="tid_31" opcode="win:Start" task="task17" keywords="keyword1 keyword4 " />
+			<event value="118" version="0" template="tid_32" opcode="win:Stop" task="task18" keywords="keyword2 keyword4 " />
+			<event value="117" version="0" template="tid_33" opcode="win:Start" task="task18" keywords="keyword2 keyword4 " />
+			<event value="116" version="0" template="tid_34" opcode="win:Stop" task="task19" keywords="keyword1 " />
+			<event value="115" version="0" template="tid_35" opcode="win:Start" task="task19" keywords="keyword1 " />
+			<event value="114" version="0" template="tid_36" opcode="win:Stop" task="task20" keywords="keyword1 " />
+			<event value="113" version="0" template="tid_37" opcode="win:Start" task="task20" keywords="keyword1 " />
+			<event value="112" version="0" template="tid_38" opcode="win:Stop" task="task21" keywords="keyword1 " />
+			<event value="111" version="0" template="tid_39" opcode="win:Start" task="task21" keywords="keyword1 " />
+			<event value="110" version="0" template="tid_40" opcode="win:Stop" task="task22" keywords="keyword1 " />
+			<event value="109" version="0" template="tid_41" opcode="win:Start" task="task22" keywords="keyword1 " />
+			<event value="108" version="0" template="tid_42" opcode="win:Stop" task="task23" keywords="keyword1 " />
+			<event value="107" version="0" template="tid_43" opcode="win:Start" task="task23" keywords="keyword1 " />
+			<event value="106" version="0" template="tid_44" opcode="win:Stop" task="task24" keywords="keyword1 " />
+			<event value="105" version="0" template="tid_45" opcode="win:Start" task="task24" keywords="keyword1 " />
+			<event value="104" version="0" template="tid_46" opcode="win:Stop" task="task25" keywords="keyword1 " />
+			<event value="103" version="0" template="tid_47" opcode="win:Start" task="task25" keywords="keyword1 " />
+			<event value="102" version="0" opcode="win:Stop" task="task26" keywords="keyword1 " />
+			<event value="101" version="0" opcode="win:Start" task="task26" keywords="keyword1 " />
+			<event value="100" version="0" template="tid_48" opcode="win:Info" task="task27" keywords="keyword1 " />
+			<event value="92" version="0" template="tid_49" opcode="win:Info" task="task28" keywords="keyword0 keyword4 " />
+			<event value="91" version="0" opcode="win:Info" task="task29" keywords="keyword0 keyword4 " />
+			<event value="90" version="0" template="tid_50" opcode="win:Info" task="task30" keywords="keyword0 " />
+			<event value="89" version="0" template="tid_51" opcode="win:Stop" task="task31" keywords="keyword0 keyword4 " />
+			<event value="88" version="0" template="tid_52" opcode="win:Start" task="task31" keywords="keyword0 keyword4 " />
+			<event value="87" version="0" template="tid_53" opcode="win:Stop" task="task32" keywords="keyword0 keyword4 " />
+			<event value="86" version="0" template="tid_54" opcode="win:Start" task="task32" keywords="keyword0 keyword4 " />
+			<event value="85" version="0" template="tid_55" opcode="win:Stop" task="task33" keywords="keyword0 " />
+			<event value="84" version="0" template="tid_56" opcode="win:Start" task="task33" keywords="keyword0 " />
+			<event value="83" version="0" template="tid_57" opcode="win:Stop" task="task34" keywords="keyword0 " />
+			<event value="82" version="0" template="tid_58" opcode="win:Start" task="task34" keywords="keyword0 " />
+			<event value="81" version="0" template="tid_59" opcode="win:Stop" task="task35" keywords="keyword0 " />
+			<event value="80" version="0" template="tid_60" opcode="win:Start" task="task35" keywords="keyword0 " />
+			<event value="79" version="0" template="tid_61" opcode="win:Info" task="task36" keywords="keyword0 " />
+			<event value="78" version="0" template="tid_62" opcode="win:Stop" task="task37" keywords="keyword0 " />
+			<event value="77" version="0" template="tid_63" opcode="win:Start" task="task37" keywords="keyword0 " />
+			<event value="76" version="0" template="tid_64" opcode="win:Stop" task="task38" keywords="keyword0 " />
+			<event value="75" version="0" template="tid_65" opcode="win:Start" task="task38" keywords="keyword0 " />
+			<event value="74" version="0" template="tid_66" opcode="win:Stop" task="task39" keywords="keyword0 keyword4 " />
+			<event value="73" version="0" template="tid_67" opcode="win:Start" task="task39" keywords="keyword0 keyword4 " />
+			<event value="72" version="0" template="tid_68" opcode="win:Info" task="task40" keywords="keyword0 " />
+			<event value="71" version="0" template="tid_69" opcode="win:Stop" task="task41" keywords="keyword0 " />
+			<event value="70" version="0" template="tid_70" opcode="win:Start" task="task41" keywords="keyword0 " />
+			<event value="69" version="0" template="tid_71" opcode="win:Info" task="task42" keywords="keyword0 " />
+			<event value="68" version="0" template="tid_72" opcode="win:Info" task="task43" keywords="keyword1 " />
+			<event value="67" version="0" template="tid_73" opcode="win:Info" task="task44" keywords="keyword1 " />
+			<event value="66" version="0" template="tid_74" opcode="win:Info" task="task45" keywords="keyword1 " />
+			<event value="65" version="0" template="tid_75" opcode="win:Info" task="task46" keywords="keyword1 " />
+			<event value="64" version="0" template="tid_76" opcode="win:Stop" task="task47" keywords="keyword1 keyword4 " />
+			<event value="63" version="0" template="tid_77" opcode="win:Start" task="task47" keywords="keyword1 keyword4 " />
+			<event value="62" version="0" template="tid_78" opcode="win:Stop" task="task48" keywords="keyword1 " />
+			<event value="61" version="0" template="tid_79" opcode="win:Start" task="task48" keywords="keyword1 " />
+			<event value="60" version="0" template="tid_80" opcode="win:Stop" task="task49" keywords="keyword1 " />
+			<event value="59" version="0" template="tid_81" opcode="win:Start" task="task49" keywords="keyword1 " />
+			<event value="58" version="0" template="tid_82" opcode="win:Stop" task="task50" keywords="keyword1 keyword4 " />
+			<event value="57" version="0" template="tid_83" opcode="win:Start" task="task50" keywords="keyword1 keyword4 " />
+			<event value="56" version="0" template="tid_84" opcode="win:Info" task="task51" keywords="keyword1 " />
+			<event value="55" version="0" template="tid_85" opcode="win:Info" task="task52" keywords="keyword1 " />
+			<event value="54" version="0" template="tid_86" opcode="win:Info" task="task53" keywords="keyword0 " />
+			<event value="53" version="0" template="tid_87" opcode="win:Info" task="task54" keywords="keyword1 keyword4 " />
+			<event value="52" version="0" template="tid_88" opcode="win:Stop" task="task55" keywords="keyword1 keyword4 " />
+			<event value="51" version="0" template="tid_89" opcode="win:Start" task="task55" keywords="keyword1 keyword4 " />
+			<event value="50" version="0" template="tid_90" opcode="win:Info" task="task56" keywords="keyword1 keyword4 " />
+			<event value="49" version="0" template="tid_91" opcode="win:Info" task="task57" keywords="keyword1 keyword4 " />
+			<event value="48" version="0" template="tid_92" opcode="win:Info" task="task58" keywords="keyword1 keyword4 " />
+			<event value="47" version="0" template="tid_93" opcode="win:Stop" task="task59" keywords="keyword1 keyword4 " />
+			<event value="46" version="0" template="tid_94" opcode="win:Start" task="task59" keywords="keyword1 keyword4 " />
+			<event value="45" version="0" template="tid_95" opcode="win:Info" task="task60" keywords="keyword1 keyword4 " />
+			<event value="44" version="0" template="tid_96" opcode="win:Info" task="task61" keywords="keyword1 keyword4 " />
+			<event value="43" version="0" template="tid_97" opcode="win:Info" task="task62" keywords="keyword0 " />
+			<event value="42" version="0" template="tid_98" opcode="win:Info" task="task63" keywords="keyword0 " />
+			<event value="41" version="0" template="tid_99" opcode="win:Info" task="task64" keywords="keyword0 " />
+			<event value="40" version="0" template="tid_100" opcode="win:Stop" task="task65" keywords="keyword0 " />
+			<event value="39" version="0" template="tid_101" opcode="win:Start" task="task65" keywords="keyword0 " />
+			<event value="38" version="0" template="tid_102" opcode="win:Stop" task="task66" keywords="keyword0 " />
+			<event value="37" version="0" template="tid_103" opcode="win:Start" task="task66" keywords="keyword0 " />
+			<event value="36" version="0" template="tid_104" opcode="win:Info" task="task67" keywords="keyword0 keyword7 " />
+			<event value="35" version="0" template="tid_105" opcode="win:Stop" task="task68" keywords="keyword0 keyword7 " />
+			<event value="34" version="0" template="tid_106" opcode="win:Start" task="task68" keywords="keyword0 keyword7 " />
+			<event value="33" version="0" template="tid_107" opcode="win:Info" task="task69" keywords="keyword0 " />
+			<event value="32" version="0" template="tid_108" opcode="win:Info" task="task70" keywords="keyword0 " />
+			<event value="6" version="0" template="tid_109" opcode="win:Info" task="task71" keywords="keyword0 " />
+			<event value="5" version="0" template="tid_110" opcode="win:Info" task="task72" keywords="keyword0 " />
+			<event value="4" version="0" template="tid_111" opcode="win:Stop" task="task73" keywords="keyword0 " />
+			<event value="3" version="0" template="tid_112" opcode="win:Start" task="task73" keywords="keyword0 " />
+			<event value="2" version="0" template="tid_113" opcode="win:Stop" task="task74" keywords="keyword0 " />
+			<event value="1" version="0" template="tid_114" opcode="win:Start" task="task74" keywords="keyword0 " />
+		</events>
+		<channels>
+			<channel value="16" chid="channel0" name="Microsoft-IE/Diagnostic" type="Debug" />
+		</channels>
+		<keywords>
+			<keyword name="keyword0" mask="0x100" message="$(string.string1)" />
+			<keyword name="keyword1" mask="0x200" message="$(string.string2)" />
+			<keyword name="keyword2" mask="0x400" message="$(string.string3)" />
+			<keyword name="keyword3" mask="0x800" message="$(string.string4)" />
+			<keyword name="keyword4" mask="0x1000" message="$(string.string5)" />
+			<keyword name="keyword5" mask="0x4000" message="$(string.string6)" />
+			<keyword name="keyword6" mask="0x8000" message="$(string.string7)" />
+			<keyword name="keyword7" mask="0x10000" message="$(string.string8)" />
+			<keyword name="keyword8" mask="0x20000" message="$(string.string9)" />
+			<keyword name="keyword9" mask="0x40000" message="$(string.string10)" />
+			<keyword name="keyword10" mask="0x80000" message="$(string.string11)" />
+			<keyword name="keyword11" mask="0x100000" message="$(string.string12)" />
+		</keywords>
+		<tasks>
+			<task value="105" name="task0" message="$(string.string13)" />
+			<task value="104" name="task1" message="$(string.string14)" />
+			<task value="103" name="task2" message="$(string.string15)" />
+			<task value="102" name="task3" message="$(string.string16)" />
+			<task value="101" name="task4" message="$(string.string17)" />
+			<task value="100" name="task5" message="$(string.string18)" />
+			<task value="99" name="task6" message="$(string.string19)" />
+			<task value="98" name="task7" message="$(string.string20)" />
+			<task value="97" name="task8" message="$(string.string21)" />
+			<task value="96" name="task9" message="$(string.string22)" />
+			<task value="95" name="task10" message="$(string.string23)" />
+			<task value="94" name="task11" message="$(string.string24)" />
+			<task value="93" name="task12" message="$(string.string25)" />
+			<task value="92" name="task13" message="$(string.string26)" />
+			<task value="91" name="task14" message="$(string.string27)" />
+			<task value="90" name="task15" message="$(string.string28)" />
+			<task value="89" name="task16" message="$(string.string29)" />
+			<task value="88" name="task17" message="$(string.string30)" />
+			<task value="87" name="task18" message="$(string.string31)" />
+			<task value="86" name="task19" message="$(string.string32)" />
+			<task value="85" name="task20" message="$(string.string33)" />
+			<task value="84" name="task21" message="$(string.string34)" />
+			<task value="83" name="task22" message="$(string.string35)" />
+			<task value="82" name="task23" message="$(string.string36)" />
+			<task value="81" name="task24" message="$(string.string37)" />
+			<task value="80" name="task25" message="$(string.string38)" />
+			<task value="79" name="task26" message="$(string.string39)" />
+			<task value="78" name="task27" message="$(string.string40)" />
+			<task value="73" name="task28" message="$(string.string41)" />
+			<task value="72" name="task29" message="$(string.string42)" />
+			<task value="71" name="task30" message="$(string.string43)" />
+			<task value="70" name="task31" message="$(string.string44)" />
+			<task value="69" name="task32" message="$(string.string45)" />
+			<task value="68" name="task33" message="$(string.string46)" />
+			<task value="67" name="task34" message="$(string.string47)" />
+			<task value="66" name="task35" message="$(string.string48)" />
+			<task value="65" name="task36" message="$(string.string49)" />
+			<task value="64" name="task37" message="$(string.string50)" />
+			<task value="63" name="task38" message="$(string.string51)" />
+			<task value="62" name="task39" message="$(string.string52)" />
+			<task value="61" name="task40" message="$(string.string53)" />
+			<task value="60" name="task41" message="$(string.string54)" />
+			<task value="59" name="task42" message="$(string.string55)" />
+			<task value="58" name="task43" message="$(string.string56)" />
+			<task value="57" name="task44" message="$(string.string57)" />
+			<task value="56" name="task45" message="$(string.string58)" />
+			<task value="55" name="task46" message="$(string.string59)" />
+			<task value="54" name="task47" message="$(string.string60)" />
+			<task value="53" name="task48" message="$(string.string61)" />
+			<task value="52" name="task49" message="$(string.string62)" />
+			<task value="51" name="task50" message="$(string.string63)" />
+			<task value="50" name="task51" message="$(string.string64)" />
+			<task value="49" name="task52" message="$(string.string65)" />
+			<task value="48" name="task53" message="$(string.string66)" />
+			<task value="47" name="task54" message="$(string.string67)" />
+			<task value="46" name="task55" message="$(string.string68)" />
+			<task value="45" name="task56" message="$(string.string69)" />
+			<task value="44" name="task57" message="$(string.string70)" />
+			<task value="43" name="task58" message="$(string.string71)" />
+			<task value="42" name="task59" message="$(string.string72)" />
+			<task value="41" name="task60" message="$(string.string73)" />
+			<task value="40" name="task61" message="$(string.string74)" />
+			<task value="39" name="task62" message="$(string.string75)" />
+			<task value="38" name="task63" message="$(string.string76)" />
+			<task value="37" name="task64" message="$(string.string77)" />
+			<task value="36" name="task65" message="$(string.string78)" />
+			<task value="35" name="task66" message="$(string.string79)" />
+			<task value="34" name="task67" message="$(string.string80)" />
+			<task value="32" name="task68" message="$(string.string81)" />
+			<task value="31" name="task69" message="$(string.string82)" />
+			<task value="30" name="task70" message="$(string.string83)" />
+			<task value="4" name="task71" message="$(string.string84)" />
+			<task value="3" name="task72" message="$(string.string85)" />
+			<task value="2" name="task73" message="$(string.string86)" />
+			<task value="1" name="task74" message="$(string.string87)" />
+		</tasks>
+		<templates>
+			<template tid="tid_0">
+				<data name="COleSite" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="CLSID" inType="win:GUID" outType="xs:GUID"></data>
+				<data name="left" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="top" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="right" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="bottom" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_1">
+				<data name="CWindow" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="EventName" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_2">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_3">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_4">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_5">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_6">
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_7">
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_8">
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_9">
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_10">
+				<data name="View" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_11">
+				<data name="View" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_12">
+				<data name="View" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Exit" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_13">
+				<data name="View" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_14">
+				<data name="Cache" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Index" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_15">
+				<data name="Cache" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Index" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_16">
+				<data name="Cache" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Index" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_17">
+				<data name="Cache" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Index" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_18">
+				<data name="Element" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_19">
+				<data name="Element" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_20">
+				<data name="Element" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_21">
+				<data name="Element" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_22">
+				<data name="Element" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_23">
+				<data name="Element" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_24">
+				<data name="TreeNode" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="NodeType" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_25">
+				<data name="TreeNode" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="NodeType" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_26">
+				<data name="Parser" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ParserType" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_27">
+				<data name="Parser" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ParserType" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_28">
+				<data name="Instance" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="OptionalArgs" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_29">
+				<data name="VTable" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="MethodType" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_30">
+				<data name="Thunk" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="DispID" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Derived" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="hr" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_31">
+				<data name="Thunk" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="DispID" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_32">
+				<data name="Thunk" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="hr" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="DispID" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Versioned" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_33">
+				<data name="Thunk" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="GrfDex" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Zero1" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Zero2" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_34">
+				<data name="StorageListHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_35">
+				<data name="StorageListHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_36">
+				<data name="StorageListHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_37">
+				<data name="StorageListHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_38">
+				<data name="StorageHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Domain" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_39">
+				<data name="StorageHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Domain" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_40">
+				<data name="StorageHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Domain" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_41">
+				<data name="StorageHelper" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Domain" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_42">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_43">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_44">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_45">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_46">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_47">
+				<data name="Storage" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Key" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_48">
+				<data name="left" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="top" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="right" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="bottom" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_49">
+				<data name="Buffer" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Depth" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Width" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Height" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_50">
+				<data name="CImgTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_51">
+				<data name="PtrOut" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ExitCode" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_52">
+				<data name="PtrIn" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="dwTimeout" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_53">
+				<data name="PtrOut" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ExitCode" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_54">
+				<data name="PtrIn" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="dwTimeout" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_55">
+				<data name="CDoc" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HR" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_56">
+				<data name="CDoc" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_57">
+				<data name="CDoc" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Nesting" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_58">
+				<data name="CDoc" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Nesting" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_59">
+				<data name="CDwnTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_60">
+				<data name="CDwnTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_61">
+				<data name="CDwnTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_62">
+				<data name="CImgTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="cbRead" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_63">
+				<data name="CImgTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="cbRead" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_64">
+				<data name="CImgTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_65">
+				<data name="CImgTaskPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_66">
+				<data name="HR" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="CHtmPrePtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="fDataPend" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="fSuspended" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_67">
+				<data name="CHtmPrePtr" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_68">
+				<data name="zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="zero1" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_69">
+				<data name="window" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="FlagsOrResult" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_70">
+				<data name="window" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="FlagsOrResult" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_71">
+				<data name="fParseNow" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Length" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Script" inType="win:UnicodeString" outType="xs:string" length="Length"></data>
+			</template>
+			<template tid="tid_72">
+				<data name="HRGN" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="dwFlags" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="left" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="top" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="right" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="bottom" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NoUpdSink" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_73">
+				<data name="CView" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="fSynchronousRedraw" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="left" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="top" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="right" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="bottom" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="fInvalChildWindows" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="fPostRender" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_74">
+				<data name="CView" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="fSynchronousRedraw" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="left" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="top" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="right" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="bottom" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="fInvalChildWindows" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="fPostRender" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_75">
+				<data name="CDoc" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_76">
+				<data name="Zero2" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero1" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_77">
+				<data name="Zero2" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero1" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_78">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HR" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_79">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_80">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HR" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_81">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_82">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_83">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_84">
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_85">
+				<data name="SourceIndex" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="NumElemsAdded" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_86">
+				<data name="Length" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Script" inType="win:UnicodeString" outType="xs:string" length="Length"></data>
+			</template>
+			<template tid="tid_87">
+				<data name="HTMPOST" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_88">
+				<data name="HTMPOST" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_89">
+				<data name="HTMPOST" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Zero" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_90">
+				<data name="HTMPOST" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="OneExec2PT3ST4Run" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_91">
+				<data name="HTMPOST" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="Line" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Offset" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_92">
+				<data name="HTMPOST" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="Line" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Offset" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_93">
+				<data name="cPts" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HWND" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_94">
+				<data name="cPts" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HWND" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_95">
+				<data name="dw" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HWND" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_96">
+				<data name="dw" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="HWND" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_97">
+				<data name="DOC" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Length" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="SRC" inType="win:UnicodeString" outType="xs:string" length="Length"></data>
+			</template>
+			<template tid="tid_98">
+				<data name="DOC" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HtmlTag" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_99">
+				<data name="DOC" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HtmlTag" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_100">
+				<data name="dwCode" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="dwPos" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="dwMax" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Text" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_101">
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="Text" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_102">
+				<data name="DOC" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="dwCode" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_103">
+				<data name="dwCode" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="dwPos" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="dwMax" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Text" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_104">
+				<data name="ThisPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="PCL" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_105">
+				<data name="ThisPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_106">
+				<data name="ThisPtr" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="URL" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_107">
+				<data name="AddressName" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_108">
+				<data name="AddressName" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_109">
+				<data name="AddressName" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_110">
+				<data name="AddressName" inType="win:UnicodeString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_111">
+				<data name="DOC" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_112">
+				<data name="View" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="grfLAYOUT" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_113">
+				<data name="HWND" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_114">
+				<data name="DOC" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Markup" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+		</templates>
+	</provider>
+	<provider name="Microsoft-Windows-WinINet" symbol="provider1" guid="{43d1a55c-76d6-4f7e-995c-64c711e5cafe}" source="Xml" messageFileName="noMessageFile" resourceFileName="noResourceFile" message="$(string.string88)">
+		<events>
+			<event value="1056" version="0" template="tid_0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task0" keywords="keyword7 " />
+			<event value="1055" version="0" template="tid_1" opcode="win:Start" channel="channel0" level="win:Informational" task="task0" keywords="keyword7 " />
+			<event value="1054" version="0" template="tid_2" opcode="win:Stop" channel="channel0" level="win:Informational" task="task1" keywords="keyword7 " />
+			<event value="1053" version="0" template="tid_3" opcode="win:Start" channel="channel0" level="win:Informational" task="task1" keywords="keyword7 " />
+			<event value="1052" version="0" template="tid_4" opcode="win:Stop" channel="channel0" level="win:Informational" task="task2" keywords="keyword7 " />
+			<event value="1051" version="0" template="tid_5" opcode="win:Start" channel="channel0" level="win:Informational" task="task2" keywords="keyword7 " />
+			<event value="1049" version="0" template="tid_6" opcode="win:Info" channel="channel0" level="win:Informational" task="task3" keywords="keyword7 " />
+			<event value="1048" version="0" template="tid_7" opcode="win:Stop" channel="channel0" level="win:Informational" task="task4" keywords="keyword7 " />
+			<event value="1047" version="0" template="tid_8" opcode="win:Start" channel="channel0" level="win:Informational" task="task4" keywords="keyword7 " />
+			<event value="1046" version="0" template="tid_9" opcode="win:Stop" channel="channel0" level="win:Informational" task="task5" keywords="keyword7 " />
+			<event value="1045" version="0" template="tid_10" opcode="win:Start" channel="channel0" level="win:Informational" task="task5" keywords="keyword7 " />
+			<event value="1043" version="0" template="tid_11" opcode="win:Info" channel="channel0" level="win:Informational" task="task6" keywords="keyword7 " />
+			<event value="1041" version="0" template="tid_12" opcode="win:Info" channel="channel0" level="win:Informational" task="task7" keywords="keyword7 " />
+			<event value="1039" version="0" template="tid_13" opcode="win:Info" channel="channel0" level="win:Informational" task="task8" keywords="keyword7 " />
+			<event value="1037" version="0" template="tid_14" opcode="win:Info" channel="channel0" level="win:Informational" task="task9" keywords="keyword7 " />
+			<event value="1035" version="0" template="tid_15" opcode="win:Info" channel="channel0" level="win:Informational" task="task10" keywords="keyword7 " />
+			<event value="1033" version="0" template="tid_16" opcode="win:Info" channel="channel0" level="win:Informational" task="task11" keywords="keyword7 " />
+			<event value="1031" version="0" template="tid_17" opcode="win:Info" channel="channel0" level="win:Informational" task="task12" keywords="keyword7 " />
+			<event value="1030" version="0" template="tid_18" opcode="win:Stop" channel="channel0" level="win:Informational" task="task13" keywords="keyword7 " />
+			<event value="1029" version="0" template="tid_19" opcode="win:Start" channel="channel0" level="win:Informational" task="task13" keywords="keyword7 " />
+			<event value="1028" version="0" template="tid_20" opcode="win:Stop" channel="channel0" level="win:Informational" task="task14" keywords="keyword7 " />
+			<event value="1027" version="0" template="tid_21" opcode="win:Start" channel="channel0" level="win:Informational" task="task14" keywords="keyword7 " />
+			<event value="1025" version="0" template="tid_22" opcode="win:Info" channel="channel0" level="win:Informational" task="task15" keywords="keyword7 " />
+			<event value="1023" version="0" template="tid_23" opcode="win:Info" channel="channel0" level="win:Informational" task="task16" keywords="keyword7 " />
+			<event value="1021" version="0" template="tid_24" opcode="win:Info" channel="channel0" level="win:Informational" task="task17" keywords="keyword7 " />
+			<event value="1019" version="0" template="tid_25" opcode="win:Info" channel="channel0" level="win:Informational" task="task18" keywords="keyword7 " />
+			<event value="1017" version="0" template="tid_26" opcode="win:Info" channel="channel0" level="win:Informational" task="task19" keywords="keyword7 " />
+			<event value="1015" version="0" template="tid_27" opcode="win:Info" channel="channel0" level="win:Informational" task="task20" keywords="keyword7 " />
+			<event value="1013" version="0" template="tid_28" opcode="win:Info" channel="channel0" level="win:Informational" task="task21" keywords="keyword7 " />
+			<event value="1011" version="0" template="tid_29" opcode="win:Info" channel="channel0" level="win:Informational" task="task22" keywords="keyword7 " />
+			<event value="1009" version="0" template="tid_30" opcode="win:Info" channel="channel0" level="win:Informational" task="task23" keywords="keyword7 " />
+			<event value="1008" version="0" template="tid_31" opcode="win:Stop" channel="channel0" level="win:Informational" task="task24" keywords="keyword7 " />
+			<event value="1007" version="0" template="tid_32" opcode="win:Start" channel="channel0" level="win:Informational" task="task24" keywords="keyword7 " />
+			<event value="1000" version="0" template="tid_33" opcode="win:Info" channel="channel0" level="win:Informational" task="task25" keywords="keyword2 " />
+			<event value="835" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task26" keywords="keyword5 win:ResponseTime " message="$(string.string125)" />
+			<event value="834" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task26" keywords="keyword5 win:ResponseTime " message="$(string.string126)" />
+			<event value="829" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task27" keywords="keyword5 win:ResponseTime " message="$(string.string128)" />
+			<event value="828" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task27" keywords="keyword5 win:ResponseTime " message="$(string.string129)" />
+			<event value="827" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task28" keywords="keyword5 win:ResponseTime " message="$(string.string131)" />
+			<event value="826" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task28" keywords="keyword5 win:ResponseTime " message="$(string.string132)" />
+			<event value="825" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task29" keywords="keyword5 win:ResponseTime " message="$(string.string134)" />
+			<event value="824" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task29" keywords="keyword5 win:ResponseTime " message="$(string.string135)" />
+			<event value="823" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task30" keywords="keyword5 win:ResponseTime " message="$(string.string137)" />
+			<event value="822" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task30" keywords="keyword5 win:ResponseTime " message="$(string.string138)" />
+			<event value="821" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task31" keywords="keyword5 win:ResponseTime " message="$(string.string140)" />
+			<event value="820" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task31" keywords="keyword5 win:ResponseTime " message="$(string.string141)" />
+			<event value="819" version="0" template="tid_34" opcode="win:Info" channel="channel0" level="win:Informational" task="task32" keywords="keyword5 " message="$(string.string143)" />
+			<event value="818" version="0" opcode="win:Info" channel="channel0" level="win:Informational" task="task33" keywords="keyword0 " message="$(string.string145)" />
+			<event value="817" version="0" opcode="win:Stop" channel="channel0" level="win:Informational" task="task34" keywords="keyword5 win:ResponseTime " message="$(string.string147)" />
+			<event value="816" version="0" opcode="win:Start" channel="channel0" level="win:Informational" task="task34" keywords="keyword5 win:ResponseTime " message="$(string.string148)" />
+			<event value="815" version="0" template="tid_35" opcode="opcode0" channel="channel0" level="win:Error" task="task35" keywords="keyword5 " message="$(string.string151)" />
+			<event value="814" version="0" template="tid_36" opcode="win:Stop" channel="channel0" level="win:Informational" task="task35" keywords="keyword5 " message="$(string.string152)" />
+			<event value="813" version="0" template="tid_37" opcode="win:Start" channel="channel0" level="win:Informational" task="task35" keywords="keyword5 " message="$(string.string153)" />
+			<event value="812" version="0" template="tid_38" opcode="opcode0" channel="channel0" level="win:Error" task="task36" keywords="keyword5 " message="$(string.string155)" />
+			<event value="811" version="0" template="tid_39" opcode="opcode0" channel="channel0" level="win:Error" task="task36" keywords="keyword5 " message="$(string.string156)" />
+			<event value="810" version="0" template="tid_40" opcode="win:Stop" channel="channel0" level="win:Informational" task="task36" keywords="keyword5 " message="$(string.string157)" />
+			<event value="809" version="0" template="tid_41" opcode="win:Start" channel="channel0" level="win:Informational" task="task36" keywords="keyword5 " message="$(string.string158)" />
+			<event value="808" version="0" template="tid_42" opcode="opcode0" channel="channel0" level="win:Error" task="task37" keywords="keyword5 " message="$(string.string160)" />
+			<event value="807" version="0" template="tid_43" opcode="opcode0" channel="channel0" level="win:Error" task="task38" keywords="keyword5 " message="$(string.string162)" />
+			<event value="806" version="0" template="tid_44" opcode="win:Stop" channel="channel0" level="win:Verbose" task="task38" keywords="keyword5 " message="$(string.string163)" />
+			<event value="805" version="0" template="tid_45" opcode="win:Start" channel="channel0" level="win:Verbose" task="task38" keywords="keyword5 " message="$(string.string164)" />
+			<event value="804" version="0" template="tid_46" opcode="opcode0" channel="channel0" level="win:Error" task="task39" keywords="keyword5 " message="$(string.string166)" />
+			<event value="803" version="0" template="tid_47" opcode="win:Stop" channel="channel0" level="win:Verbose" task="task39" keywords="keyword5 " message="$(string.string167)" />
+			<event value="802" version="0" template="tid_48" opcode="win:Start" channel="channel0" level="win:Verbose" task="task39" keywords="keyword5 " message="$(string.string168)" />
+			<event value="801" version="0" template="tid_49" opcode="win:Start" channel="channel0" level="win:Informational" task="task37" keywords="keyword5 " message="$(string.string169)" />
+			<event value="713" version="0" template="tid_50" opcode="opcode0" channel="channel0" level="win:Error" task="task40" keywords="keyword4 " message="$(string.string171)" />
+			<event value="712" version="0" template="tid_51" opcode="win:Stop" channel="channel0" level="win:Informational" task="task40" keywords="keyword4 " message="$(string.string172)" />
+			<event value="711" version="0" template="tid_52" opcode="win:Start" channel="channel0" level="win:Informational" task="task40" keywords="keyword4 " message="$(string.string173)" />
+			<event value="708" version="0" template="tid_53" opcode="win:Info" channel="channel0" level="win:Informational" task="task41" keywords="keyword4 " message="$(string.string175)" />
+			<event value="707" version="0" template="tid_54" opcode="win:Info" channel="channel0" level="win:Error" task="task42" keywords="keyword4 " message="$(string.string177)" />
+			<event value="706" version="0" template="tid_55" opcode="win:Info" channel="channel0" level="win:Informational" task="task43" keywords="keyword4 " message="$(string.string179)" />
+			<event value="705" version="0" template="tid_56" opcode="win:Info" channel="channel0" level="win:Informational" task="task44" keywords="keyword4 " message="$(string.string181)" />
+			<event value="704" version="0" template="tid_57" opcode="win:Info" channel="channel0" level="win:Error" task="task45" keywords="keyword4 " message="$(string.string183)" />
+			<event value="703" version="0" template="tid_58" opcode="opcode0" channel="channel0" level="win:Error" task="task46" keywords="keyword4 " message="$(string.string185)" />
+			<event value="702" version="0" template="tid_59" opcode="win:Stop" channel="channel0" level="win:Informational" task="task46" keywords="keyword4 " message="$(string.string186)" />
+			<event value="701" version="0" template="tid_60" opcode="win:Start" channel="channel0" level="win:Informational" task="task46" keywords="keyword4 " message="$(string.string187)" />
+			<event value="606" version="0" template="tid_61" opcode="win:Info" channel="channel0" level="win:Informational" task="task47" keywords="keyword3 " message="$(string.string189)" />
+			<event value="605" version="0" template="tid_62" opcode="win:Info" channel="channel0" level="win:Informational" task="task48" keywords="keyword3 " message="$(string.string191)" />
+			<event value="604" version="0" template="tid_63" opcode="win:Info" channel="channel0" level="win:Informational" task="task49" keywords="keyword3 " message="$(string.string193)" />
+			<event value="603" version="0" template="tid_64" opcode="win:Info" channel="channel0" level="win:Informational" task="task50" keywords="keyword3 " message="$(string.string195)" />
+			<event value="602" version="0" template="tid_65" opcode="win:Info" channel="channel0" level="win:Informational" task="task51" keywords="keyword3 " message="$(string.string197)" />
+			<event value="601" version="0" template="tid_66" opcode="win:Info" channel="channel0" level="win:Informational" task="task52" keywords="keyword3 " message="$(string.string199)" />
+			<event value="507" version="0" template="tid_67" opcode="win:Info" channel="channel0" level="win:Verbose" task="task53" keywords="keyword6 " message="$(string.string201)" />
+			<event value="506" version="0" template="tid_68" opcode="win:Info" channel="channel0" level="win:Informational" task="task54" keywords="keyword6 " message="$(string.string203)" />
+			<event value="505" version="0" template="tid_69" opcode="win:Info" channel="channel0" level="win:Informational" task="task55" keywords="keyword6 " message="$(string.string205)" />
+			<event value="504" version="0" template="tid_70" opcode="win:Info" channel="channel0" level="win:Informational" task="task56" keywords="keyword6 " message="$(string.string207)" />
+			<event value="503" version="0" template="tid_71" opcode="win:Info" channel="channel0" level="win:Informational" task="task57" keywords="keyword6 " message="$(string.string209)" />
+			<event value="502" version="0" template="tid_72" opcode="win:Info" channel="channel0" level="win:Verbose" task="task58" keywords="keyword6 " message="$(string.string211)" />
+			<event value="501" version="0" template="tid_73" opcode="win:Info" channel="channel0" level="win:Informational" task="task59" keywords="keyword6 " message="$(string.string213)" />
+			<event value="308" version="0" template="tid_74" opcode="win:Info" channel="channel0" level="win:Informational" task="task60" keywords="keyword2 " message="$(string.string215)" />
+			<event value="307" version="0" template="tid_75" opcode="win:Stop" channel="channel0" level="win:Informational" task="task61" keywords="keyword2 " message="$(string.string217)" />
+			<event value="306" version="0" template="tid_76" opcode="opcode0" channel="channel0" level="win:Error" task="task61" keywords="keyword2 " message="$(string.string218)" />
+			<event value="305" version="0" template="tid_77" opcode="win:Stop" channel="channel0" level="win:Informational" task="task61" keywords="keyword2 " message="$(string.string219)" />
+			<event value="304" version="0" template="tid_78" opcode="win:Start" channel="channel0" level="win:Informational" task="task61" keywords="keyword2 " message="$(string.string220)" />
+			<event value="303" version="0" template="tid_79" opcode="win:Stop" channel="channel0" level="win:Informational" task="task62" keywords="keyword2 " message="$(string.string222)" />
+			<event value="302" version="0" template="tid_80" opcode="opcode0" channel="channel0" level="win:Error" task="task62" keywords="keyword2 " message="$(string.string223)" />
+			<event value="301" version="0" template="tid_81" opcode="win:Start" channel="channel0" level="win:Informational" task="task62" keywords="keyword2 " message="$(string.string224)" />
+			<event value="211" version="0" template="tid_82" opcode="win:Info" channel="channel0" level="win:Verbose" task="task63" keywords="keyword1 keyword8 " message="$(string.string226)" />
+			<event value="210" version="0" template="tid_83" opcode="win:Info" channel="channel0" level="win:Verbose" task="task64" keywords="keyword1 keyword8 " message="$(string.string228)" />
+			<event value="209" version="0" template="tid_84" opcode="win:Info" channel="channel0" level="win:Informational" task="task65" keywords="keyword1 " message="$(string.string230)" />
+			<event value="208" version="0" template="tid_85" opcode="win:Info" channel="channel0" level="win:Informational" task="task66" keywords="keyword1 " message="$(string.string232)" />
+			<event value="207" version="0" template="tid_86" opcode="win:Info" channel="channel0" level="win:Informational" task="task67" keywords="keyword1 " message="$(string.string234)" />
+			<event value="206" version="0" template="tid_87" opcode="win:Info" channel="channel0" level="win:Informational" task="task68" keywords="keyword1 " message="$(string.string236)" />
+			<event value="205" version="0" template="tid_88" opcode="win:Info" channel="channel0" level="win:Informational" task="task69" keywords="keyword1 " message="$(string.string238)" />
+			<event value="204" version="0" template="tid_89" opcode="opcode0" channel="channel0" level="win:Informational" task="task70" keywords="keyword1 " message="$(string.string240)" />
+			<event value="203" version="0" template="tid_90" opcode="win:Stop" channel="channel0" level="win:Informational" task="task70" keywords="keyword1 " message="$(string.string241)" />
+			<event value="202" version="0" template="tid_91" opcode="opcode0" channel="channel0" level="win:Error" task="task71" keywords="keyword1 " message="$(string.string243)" />
+			<event value="201" version="0" template="tid_92" opcode="win:Stop" channel="channel0" level="win:Informational" task="task71" keywords="keyword1 " message="$(string.string244)" />
+			<event value="200" version="0" template="tid_93" opcode="win:Start" channel="channel0" level="win:Informational" task="task71" keywords="keyword1 " message="$(string.string245)" />
+			<event value="108" version="0" template="tid_94" opcode="win:Info" channel="channel0" level="win:Informational" task="task72" keywords="keyword0 " message="$(string.string247)" />
+			<event value="107" version="0" template="tid_95" opcode="win:Info" channel="channel0" level="win:Error" task="task73" keywords="keyword0 " message="$(string.string249)" />
+			<event value="106" version="0" template="tid_96" opcode="win:Info" channel="channel0" level="win:Error" task="task74" keywords="keyword0 " message="$(string.string251)" />
+			<event value="105" version="0" template="tid_97" opcode="win:Info" channel="channel0" level="win:Informational" task="task75" keywords="keyword0 " message="$(string.string253)" />
+			<event value="104" version="0" template="tid_98" opcode="win:Info" channel="channel0" level="win:Informational" task="task72" keywords="keyword0 " message="$(string.string254)" />
+			<event value="103" version="0" template="tid_99" opcode="win:Info" channel="channel0" level="win:Informational" task="task76" keywords="keyword0 " message="$(string.string256)" />
+			<event value="102" version="0" template="tid_100" opcode="win:Info" channel="channel0" level="win:Informational" task="task77" keywords="keyword0 " message="$(string.string258)" />
+			<event value="101" version="0" template="tid_101" opcode="win:Info" channel="channel0" level="win:Informational" task="task78" keywords="keyword0 " message="$(string.string260)" />
+		</events>
+		<channels>
+			<channel value="16" chid="channel0" name="Microsoft-Windows-WinINet/Analytic" type="Debug" />
+		</channels>
+		<keywords>
+			<keyword name="keyword0" mask="0x1" message="$(string.string89)" />
+			<keyword name="keyword1" mask="0x2" message="$(string.string90)" />
+			<keyword name="keyword2" mask="0x4" message="$(string.string91)" />
+			<keyword name="keyword3" mask="0x8" message="$(string.string92)" />
+			<keyword name="keyword4" mask="0x10" message="$(string.string93)" />
+			<keyword name="keyword5" mask="0x20" message="$(string.string94)" />
+			<keyword name="keyword6" mask="0x40" message="$(string.string95)" />
+			<keyword name="keyword7" mask="0x80" message="$(string.string96)" />
+			<keyword name="keyword8" mask="0x20000000000" message="$(string.string97)" />
+		</keywords>
+		<tasks>
+			<task value="574" name="task0" message="$(string.string98)" />
+			<task value="573" name="task1" message="$(string.string99)" />
+			<task value="572" name="task2" message="$(string.string100)" />
+			<task value="571" name="task3" message="$(string.string101)" />
+			<task value="570" name="task4" message="$(string.string102)" />
+			<task value="569" name="task5" message="$(string.string103)" />
+			<task value="568" name="task6" message="$(string.string104)" />
+			<task value="567" name="task7" message="$(string.string105)" />
+			<task value="566" name="task8" message="$(string.string106)" />
+			<task value="565" name="task9" message="$(string.string107)" />
+			<task value="564" name="task10" message="$(string.string108)" />
+			<task value="563" name="task11" message="$(string.string109)" />
+			<task value="562" name="task12" message="$(string.string110)" />
+			<task value="561" name="task13" message="$(string.string111)" />
+			<task value="560" name="task14" message="$(string.string112)" />
+			<task value="559" name="task15" message="$(string.string113)" />
+			<task value="558" name="task16" message="$(string.string114)" />
+			<task value="557" name="task17" message="$(string.string115)" />
+			<task value="556" name="task18" message="$(string.string116)" />
+			<task value="555" name="task19" message="$(string.string117)" />
+			<task value="554" name="task20" message="$(string.string118)" />
+			<task value="553" name="task21" message="$(string.string119)" />
+			<task value="552" name="task22" message="$(string.string120)" />
+			<task value="551" name="task23" message="$(string.string121)" />
+			<task value="550" name="task24" message="$(string.string122)" />
+			<task value="542" name="task25" message="$(string.string123)" />
+			<task value="587" name="task26" message="$(string.string124)" />
+			<task value="584" name="task27" message="$(string.string127)" />
+			<task value="583" name="task28" message="$(string.string130)" />
+			<task value="582" name="task29" message="$(string.string133)" />
+			<task value="581" name="task30" message="$(string.string136)" />
+			<task value="580" name="task31" message="$(string.string139)" />
+			<task value="545" name="task32" message="$(string.string142)" />
+			<task value="544" name="task33" message="$(string.string144)" />
+			<task value="543" name="task34" message="$(string.string146)" />
+			<task value="541" name="task35" message="$(string.string150)" />
+			<task value="540" name="task36" message="$(string.string154)" />
+			<task value="537" name="task37" message="$(string.string159)" />
+			<task value="539" name="task38" message="$(string.string161)" />
+			<task value="538" name="task39" message="$(string.string165)" />
+			<task value="536" name="task40" message="$(string.string170)" />
+			<task value="535" name="task41" message="$(string.string174)" />
+			<task value="534" name="task42" message="$(string.string176)" />
+			<task value="533" name="task43" message="$(string.string178)" />
+			<task value="532" name="task44" message="$(string.string180)" />
+			<task value="531" name="task45" message="$(string.string182)" />
+			<task value="530" name="task46" message="$(string.string184)" />
+			<task value="529" name="task47" message="$(string.string188)" />
+			<task value="528" name="task48" message="$(string.string190)" />
+			<task value="527" name="task49" message="$(string.string192)" />
+			<task value="526" name="task50" message="$(string.string194)" />
+			<task value="525" name="task51" message="$(string.string196)" />
+			<task value="524" name="task52" message="$(string.string198)" />
+			<task value="523" name="task53" message="$(string.string200)" />
+			<task value="522" name="task54" message="$(string.string202)" />
+			<task value="521" name="task55" message="$(string.string204)" />
+			<task value="520" name="task56" message="$(string.string206)" />
+			<task value="519" name="task57" message="$(string.string208)" />
+			<task value="518" name="task58" message="$(string.string210)" />
+			<task value="517" name="task59" message="$(string.string212)" />
+			<task value="516" name="task60" message="$(string.string214)" />
+			<task value="515" name="task61" message="$(string.string216)" />
+			<task value="514" name="task62" message="$(string.string221)" />
+			<task value="547" name="task63" message="$(string.string225)" />
+			<task value="546" name="task64" message="$(string.string227)" />
+			<task value="513" name="task65" message="$(string.string229)" />
+			<task value="512" name="task66" message="$(string.string231)" />
+			<task value="511" name="task67" message="$(string.string233)" />
+			<task value="510" name="task68" message="$(string.string235)" />
+			<task value="509" name="task69" message="$(string.string237)" />
+			<task value="508" name="task70" message="$(string.string239)" />
+			<task value="507" name="task71" message="$(string.string242)" />
+			<task value="503" name="task72" message="$(string.string246)" />
+			<task value="506" name="task73" message="$(string.string248)" />
+			<task value="505" name="task74" message="$(string.string250)" />
+			<task value="504" name="task75" message="$(string.string252)" />
+			<task value="502" name="task76" message="$(string.string255)" />
+			<task value="501" name="task77" message="$(string.string257)" />
+			<task value="500" name="task78" message="$(string.string259)" />
+		</tasks>
+		<opcodes>
+			<opcode value="11" name="opcode0" message="$(string.string149)"/>
+		</opcodes>
+		<templates>
+			<template tid="tid_0">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_1">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_2">
+				<data name="error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AddressName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_3">
+				<data name="Order" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="AddressName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_4">
+				<data name="error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="AddressName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_5">
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+				<data name="AddressName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_6">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="AddressName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_7">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Socket" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_8">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_9">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Socket" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_10">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_11">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_12">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_13">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_14">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_15">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_16">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_17">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Size" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_18">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_19">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_20">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_21">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_22">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_23">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_24">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_25">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_26">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_27">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_28">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_29">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_30">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_31">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="StatusLineLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="StatusLine" inType="win:AnsiString" outType="xs:string" length="StatusLineLength"></data>
+			</template>
+			<template tid="tid_32">
+				<data name="Request" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="AddressName" inType="win:AnsiString" outType="xs:string"></data>
+			</template>
+			<template tid="tid_33">
+				<data name="_TestStr0Length" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="TestStr0" inType="win:AnsiString" outType="xs:string" length="_TestStr0Length"></data>
+				<data name="_TestStr1Length" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="TestStr1" inType="win:AnsiString" outType="xs:string" length="_TestStr1Length"></data>
+				<data name="_TestStr2Length" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TestStr2" inType="win:AnsiString" outType="xs:string" length="_TestStr2Length"></data>
+				<data name="_TestStr0WLength" inType="win:UInt8" outType="xs:unsignedByte"></data>
+				<data name="TestStr0W" inType="win:UnicodeString" outType="xs:string" length="_TestStr0WLength"></data>
+				<data name="_TestStr1WLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="TestStr1W" inType="win:UnicodeString" outType="xs:string" length="_TestStr1WLength"></data>
+				<data name="_TestStr2WLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="TestStr2W" inType="win:UnicodeString" outType="xs:string" length="_TestStr2WLength"></data>
+				<data name="TestStrLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="TestStr" inType="win:AnsiString" outType="xs:string" length="TestStrLength"></data>
+				<data name="TestStrWLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="TestStrW" inType="win:UnicodeString" outType="xs:string" length="TestStrWLength"></data>
+			</template>
+			<template tid="tid_34">
+				<data name="WPADNetworkDecision" inType="win:UInt32" outType="win:HexInt32" map="mapWPADNetworkDecision"></data>
+				<data name="NetworkCount" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_35">
+				<data name="_URLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="URL" inType="win:AnsiString" outType="xs:string" length="_URLLength"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_36">
+				<data name="_URLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="URL" inType="win:AnsiString" outType="xs:string" length="_URLLength"></data>
+				<data name="_ProxyStringLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ProxyString" inType="win:AnsiString" outType="xs:string" length="_ProxyStringLength"></data>
+			</template>
+			<template tid="tid_37">
+				<data name="_URLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="URL" inType="win:AnsiString" outType="xs:string" length="_URLLength"></data>
+			</template>
+			<template tid="tid_38">
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+				<data name="_MIMETypeLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="MIMEType" inType="win:AnsiString" outType="xs:string" length="_MIMETypeLength"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_39">
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_40">
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+			</template>
+			<template tid="tid_41">
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+			</template>
+			<template tid="tid_42">
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_43">
+				<data name="DetectFlags" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_44">
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+				<data name="DetectFlags" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_45">
+				<data name="DetectFlags" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_46">
+				<data name="_InterfaceLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Interface" inType="win:AnsiString" outType="xs:string" length="_InterfaceLength"></data>
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_47">
+				<data name="_InterfaceLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Interface" inType="win:AnsiString" outType="xs:string" length="_InterfaceLength"></data>
+				<data name="_ConfigurationURLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConfigurationURL" inType="win:AnsiString" outType="xs:string" length="_ConfigurationURLLength"></data>
+			</template>
+			<template tid="tid_48">
+				<data name="_InterfaceLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Interface" inType="win:AnsiString" outType="xs:string" length="_InterfaceLength"></data>
+			</template>
+			<template tid="tid_49">
+				<data name="_ConnectionNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ConnectionName" inType="win:AnsiString" outType="xs:string" length="_ConnectionNameLength"></data>
+				<data name="DetectFlags" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_50">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_51">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_52">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_53">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_CertHashLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="CertHash" inType="win:AnsiString" outType="xs:string" length="_CertHashLength"></data>
+			</template>
+			<template tid="tid_54">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_55">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_56">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_CertHashLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="CertHash" inType="win:AnsiString" outType="xs:string" length="_CertHashLength"></data>
+				<data name="WarningFlags" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_57">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_58">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_59">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_60">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_61">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_SchemeLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Scheme" inType="win:AnsiString" outType="xs:string" length="_SchemeLength"></data>
+				<data name="IsProxy" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_62">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="IsProxy" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_63">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="IsProxy" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_64">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="IsProxy" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_65">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="IsProxy" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_66">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_SchemeLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Scheme" inType="win:AnsiString" outType="xs:string" length="_SchemeLength"></data>
+				<data name="IsProxy" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_67">
+				<data name="_DomainLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Domain" inType="win:AnsiString" outType="xs:string" length="_DomainLength"></data>
+				<data name="_PathLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Path" inType="win:AnsiString" outType="xs:string" length="_PathLength"></data>
+				<data name="_NameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Name" inType="win:AnsiString" outType="xs:string" length="_NameLength"></data>
+				<data name="_ValueLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Value" inType="win:AnsiString" outType="xs:string" length="_ValueLength"></data>
+			</template>
+			<template tid="tid_68">
+				<data name="URLLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="URL" inType="win:AnsiString" outType="xs:string" length="URLLength"></data>
+			</template>
+			<template tid="tid_69">
+				<data name="_DomainLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Domain" inType="win:AnsiString" outType="xs:string" length="_DomainLength"></data>
+				<data name="_PathLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Path" inType="win:AnsiString" outType="xs:string" length="_PathLength"></data>
+				<data name="_NameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Name" inType="win:AnsiString" outType="xs:string" length="_NameLength"></data>
+				<data name="_ValueLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Value" inType="win:AnsiString" outType="xs:string" length="_ValueLength"></data>
+			</template>
+			<template tid="tid_70">
+				<data name="_DomainLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Domain" inType="win:AnsiString" outType="xs:string" length="_DomainLength"></data>
+				<data name="_PathLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Path" inType="win:AnsiString" outType="xs:string" length="_PathLength"></data>
+				<data name="_NameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Name" inType="win:AnsiString" outType="xs:string" length="_NameLength"></data>
+				<data name="_ValueLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Value" inType="win:AnsiString" outType="xs:string" length="_ValueLength"></data>
+			</template>
+			<template tid="tid_71">
+				<data name="_DomainLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Domain" inType="win:AnsiString" outType="xs:string" length="_DomainLength"></data>
+				<data name="_PathLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Path" inType="win:AnsiString" outType="xs:string" length="_PathLength"></data>
+				<data name="_NameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Name" inType="win:AnsiString" outType="xs:string" length="_NameLength"></data>
+				<data name="_ValueLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Value" inType="win:AnsiString" outType="xs:string" length="_ValueLength"></data>
+			</template>
+			<template tid="tid_72">
+				<data name="_DomainLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Domain" inType="win:AnsiString" outType="xs:string" length="_DomainLength"></data>
+				<data name="_PathLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Path" inType="win:AnsiString" outType="xs:string" length="_PathLength"></data>
+				<data name="_NameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Name" inType="win:AnsiString" outType="xs:string" length="_NameLength"></data>
+				<data name="_ValueLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Value" inType="win:AnsiString" outType="xs:string" length="_ValueLength"></data>
+			</template>
+			<template tid="tid_73">
+				<data name="URLLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="URL" inType="win:AnsiString" outType="xs:string" length="URLLength"></data>
+			</template>
+			<template tid="tid_74">
+				<data name="Handle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_75">
+				<data name="_HostNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string" length="_HostNameLength"></data>
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_AddressListLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="AddressList" inType="win:AnsiString" outType="xs:string" length="_AddressListLength"></data>
+			</template>
+			<template tid="tid_76">
+				<data name="_HostNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string" length="_HostNameLength"></data>
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_77">
+				<data name="_HostNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string" length="_HostNameLength"></data>
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_AddressListLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="AddressList" inType="win:AnsiString" outType="xs:string" length="_AddressListLength"></data>
+			</template>
+			<template tid="tid_78">
+				<data name="_HostNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="HostName" inType="win:AnsiString" outType="xs:string" length="_HostNameLength"></data>
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_79">
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_80">
+				<data name="_ServerNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ServerName" inType="win:AnsiString" outType="xs:string" length="_ServerNameLength"></data>
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_81">
+				<data name="_ServerNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ServerName" inType="win:AnsiString" outType="xs:string" length="_ServerNameLength"></data>
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="LocalPort" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_82">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Length" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Headers" inType="win:AnsiString" outType="xs:string" length="Length"></data>
+			</template>
+			<template tid="tid_83">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Length" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Headers" inType="win:AnsiString" outType="xs:string" length="Length"></data>
+			</template>
+			<template tid="tid_84">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_85">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_86">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_87">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_88">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_ReasonLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Reason" inType="win:AnsiString" outType="xs:string" length="_ReasonLength"></data>
+			</template>
+			<template tid="tid_89">
+				<data name="Handle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_90">
+				<data name="ResponseCode" inType="win:Int32" outType="xs:int"></data>
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_VerbLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Verb" inType="win:AnsiString" outType="xs:string" length="_VerbLength"></data>
+				<data name="_ContentLengthStrLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ContentLength" inType="win:AnsiString" outType="xs:string" length="_ContentLengthStrLength"></data>
+			</template>
+			<template tid="tid_91">
+				<data name="Handle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_92">
+				<data name="RequestHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="SocketHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_VerbLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Verb" inType="win:AnsiString" outType="xs:string" length="_VerbLength"></data>
+				<data name="Cookie" inType="win:Boolean" outType="xs:boolean"></data>
+			</template>
+			<template tid="tid_93">
+				<data name="HINTERNET" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_94">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_ServerNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ServerName" inType="win:AnsiString" outType="xs:string" length="_ServerNameLength"></data>
+				<data name="ServerPort" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="_ServiceLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Service" inType="win:AnsiString" outType="xs:string" length="_ServiceLength"></data>
+			</template>
+			<template tid="tid_95">
+				<data name="HINTERNET" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_96">
+				<data name="HINTERNET" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="Error" inType="win:UInt32" outType="xs:unsignedInt"></data>
+			</template>
+			<template tid="tid_97">
+				<data name="HINTERNET" inType="win:Pointer" outType="win:HexInt64"></data>
+			</template>
+			<template tid="tid_98">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ParentHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_VerbLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Verb" inType="win:AnsiString" outType="xs:string" length="_VerbLength"></data>
+				<data name="_ObjectNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ObjectName" inType="win:AnsiString" outType="xs:string" length="_ObjectNameLength"></data>
+				<data name="_VersionLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Version" inType="win:AnsiString" outType="xs:string" length="_VersionLength"></data>
+				<data name="_ReferrerLength" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="Referrer" inType="win:AnsiString" outType="xs:string" length="_ReferrerLength"></data>
+				<data name="_AcceptTypesLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="AcceptTypes" inType="win:AnsiString" outType="xs:string" length="_AcceptTypesLength"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_99">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ParentHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_ServerNameLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ServerName" inType="win:AnsiString" outType="xs:string" length="_ServerNameLength"></data>
+				<data name="ServerPort" inType="win:UInt32" outType="xs:unsignedInt"></data>
+				<data name="_ServiceLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Service" inType="win:AnsiString" outType="xs:string" length="_ServiceLength"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_100">
+				<data name="ConnectionHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="ParentHandle" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_URLLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="URL" inType="win:AnsiString" outType="xs:string" length="_URLLength"></data>
+				<data name="_HeadersLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="Headers" inType="win:AnsiString" outType="xs:string" length="_HeadersLength"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+			<template tid="tid_101">
+				<data name="HINTERNET" inType="win:Pointer" outType="win:HexInt64"></data>
+				<data name="_UserAgentLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="UserAgent" inType="win:AnsiString" outType="xs:string" length="_UserAgentLength"></data>
+				<data name="_AccessTypeLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="AccessType" inType="win:AnsiString" outType="xs:string" length="_AccessTypeLength"></data>
+				<data name="_ProxyListLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ProxyList" inType="win:AnsiString" outType="xs:string" length="_ProxyListLength"></data>
+				<data name="_ProxyBypassListLength" inType="win:UInt16" outType="xs:unsignedShort"></data>
+				<data name="ProxyBypassList" inType="win:AnsiString" outType="xs:string" length="_ProxyBypassListLength"></data>
+				<data name="Flags" inType="win:UInt32" outType="win:HexInt32"></data>
+			</template>
+		</templates>
+		<maps>
+			<valueMap name="mapWPADNetworkDecision">
+				<map message="$(string.string261)" value="0" />
+				<map message="$(string.string262)" value="1" />
+				<map message="$(string.string263)" value="2" />
+				<map message="$(string.string263)" value="3" />
+			</valueMap>
+		</maps>
+	</provider>
+    </events>
+  </instrumentation>
+<localization>
+	<resources culture="en-US">
+		<stringTable>
+			<string id="string0" value="Microsoft-IE" />
+			<string id="string1" value="primarynav" />
+			<string id="string2" value="subsystem" />
+			<string id="string3" value="extended" />
+			<string id="string4" value="verbose" />
+			<string id="string5" value="mshtml" />
+			<string id="string6" value="shell" />
+			<string id="string7" value="jscript" />
+			<string id="string8" value="ap" />
+			<string id="string9" value="rss" />
+			<string id="string10" value="controlpanel" />
+			<string id="string11" value="privacie" />
+			<string id="string12" value="pagemark" />
+			<string id="string13" value="Mshtml_Ole_OleLayout_Draw" />
+			<string id="string14" value="Mshtml_DOM_CustomSiteEvent" />
+			<string id="string15" value="Mshtml_PrivacIE_AddWebFilter" />
+			<string id="string16" value="Mshtml_PrivacIE_AddToUserList" />
+			<string id="string17" value="Mshtml_PrivacIE_AddUrlToDB" />
+			<string id="string18" value="Mshtml_PrivacIE_BlockUrl" />
+			<string id="string19" value="Mshtml_View_OnViewD" />
+			<string id="string20" value="Mshtml_View_OnViewQ" />
+			<string id="string21" value="Mshtml_View_RenderView" />
+			<string id="string22" value="Mshtml_DOM_Expando" />
+			<string id="string23" value="Mshtml_Collections_EnsureAry" />
+			<string id="string24" value="JScript_Call" />
+			<string id="string25" value="JScript_Parse" />
+			<string id="string26" value="JScript_GC" />
+			<string id="string27" value="Mshtml_FormatCalculation_ComputeFormats" />
+			<string id="string28" value="Mshtml_CSS_Parser" />
+			<string id="string29" value="Mshtml_DOM_Marshalling_Native" />
+			<string id="string30" value="Mshtml_DOM_Marshalling_InvokeEx" />
+			<string id="string31" value="Mshtml_DOM_Marshalling_GetDispID" />
+			<string id="string32" value="Mshtml_CStorageListHelper_Save" />
+			<string id="string33" value="Mshtml_CStorageListHelper_Load" />
+			<string id="string34" value="Mshtml_CStorageHelper_MergeFromDisk" />
+			<string id="string35" value="Mshtml_CStorageHelper_CommitToDisk" />
+			<string id="string36" value="Mshtml_CStorage_RemoveItem" />
+			<string id="string37" value="Mshtml_CStorage_SetItem" />
+			<string id="string38" value="Mshtml_CStorage_GetItem" />
+			<string id="string39" value="Mshtml_CElement_HandleMouseHoverForStyle" />
+			<string id="string40" value="Mshtml_CDoc_PaintRect" />
+			<string id="string41" value="Mshtml_OffscreenBufferCreated" />
+			<string id="string42" value="Mshtml_OnQuiescence" />
+			<string id="string43" value="Mshtml_CImgTask_Init" />
+			<string id="string44" value="Mshtml_HtmPost_Exec" />
+			<string id="string45" value="Mshtml_HtmPost_PostManExecute" />
+			<string id="string46" value="Mshtml_CWindow_CommitCodeLight" />
+			<string id="string47" value="Mshtml_CWindow_Script" />
+			<string id="string48" value="Mshtml_CDwnTaskExec_ThreadExecRun" />
+			<string id="string49" value="Mshtml_CDwnTaskExec_ThreadExecBail" />
+			<string id="string50" value="Mshtml_CImgTask_ReadYield" />
+			<string id="string51" value="Mshtml_CImgTaskExec" />
+			<string id="string52" value="Mshtml_HtmPre_Run" />
+			<string id="string53" value="Mshtml_CImgHelper_RequestLayout" />
+			<string id="string54" value="Mshtml_CWindow_SuperNavigate2" />
+			<string id="string55" value="Mshtml_CHTMLoad_Write" />
+			<string id="string56" value="Mshtml_CDoc_Invalidate" />
+			<string id="string57" value="Mshtml_CView_InvalidateRgn" />
+			<string id="string58" value="Mshtml_CView_InvalidateRect" />
+			<string id="string59" value="Mshtml_CDoc_Running2InplaceInvalDoc" />
+			<string id="string60" value="Mshtml_InitImageSizeCache" />
+			<string id="string61" value="Mshtml_CMarkup_UnloadContents" />
+			<string id="string62" value="Mshtml_CMarkup_SwitchMarkup" />
+			<string id="string63" value="Mshtml_NotifyGoesInteractive" />
+			<string id="string64" value="Mshtml_CMarkup_InvalDoc" />
+			<string id="string65" value="Mshtml_CHtmRootParseCtx_ElementsAdded" />
+			<string id="string66" value="Mshtml_CScriptElement_CommitCode" />
+			<string id="string67" value="Mshtml_HtmPost_OnPostDone" />
+			<string id="string68" value="Mshtml_HtmPost_YieldToPreparser" />
+			<string id="string69" value="Mshtml_HtmPost_AbandonTimeslice" />
+			<string id="string70" value="Mshtml_HtmPost_ClearFlag" />
+			<string id="string71" value="Mshtml_HtmPost_SetFlag" />
+			<string id="string72" value="Mshtml_HtmPost_PostManOnTimer" />
+			<string id="string73" value="Mshtml_HtmPost_PostManSetTimer" />
+			<string id="string74" value="Mshtml_HtmPost_PostManKillTimer" />
+			<string id="string75" value="Mshtml_CHtmPre_ScriptStart" />
+			<string id="string76" value="Mshtml_CHtmPre_SpeculativeRejected" />
+			<string id="string77" value="Mshtml_CHtmPre_Suspend" />
+			<string id="string78" value="Mshtml_CDwnBindData_Bind" />
+			<string id="string79" value="Mshtml_CDwnBindData_OnProgress" />
+			<string id="string80" value="AntiPhishing_ProcessingComplete" />
+			<string id="string81" value="AntiPhishing_Evaluate" />
+			<string id="string82" value="Mshtml_CDoc_ExecuteScriptURL" />
+			<string id="string83" value="Mshtml_CFormElement_DoSubmit" />
+			<string id="string84" value="Mshtml_CMarkup_OnLoadStatusDone" />
+			<string id="string85" value="Mshtml_CMarkup_BackgroundLayout" />
+			<string id="string86" value="Mshtml_CMarkup_Layout" />
+			<string id="string87" value="Mshtml_CDoc_OnPaint" />
+			<string id="string88" value="Microsoft-Windows-WinINet" />
+			<string id="string89" value="Flagged on all WinINet events dealing with creation or destruction of INTERNET handles" />
+			<string id="string90" value="Flagged on all WinINet events dealing with processing of HTTP requests and responses" />
+			<string id="string91" value="Flagged on all WinINet events dealing with network operations (TCP, DNS)" />
+			<string id="string92" value="Flagged on all WinINet events dealing with authentication" />
+			<string id="string93" value="Flagged on all WinINet events dealing with HTTPS" />
+			<string id="string94" value="Flagged on all WinINet events dealing with AUTOPROXY" />
+			<string id="string95" value="Flagged on all WinINet events dealing with Cookies" />
+			<string id="string96" value="Flagged on all WinINet IE events" />
+			<string id="string97" value="Flagged on all WinINet events dealing with potential personally identifiable information" />
+			<string id="string98" value="Wininet_Select" />
+			<string id="string99" value="Wininet_DHCP_I252WPAD" />
+			<string id="string100" value="Wininet_Getaddrinfo" />
+			<string id="string101" value="Wininet_Redirect" />
+			<string id="string102" value="Wininet_LookupConnection" />
+			<string id="string103" value="Wininet_Connect" />
+			<string id="string104" value="Wininet_DrainResponsePostReceiveBuf" />
+			<string id="string105" value="Wininet_SendRequest_PostReceiveBuf" />
+			<string id="string106" value="Wininet_ReadDataPostReceiveBuf" />
+			<string id="string107" value="Wininet_ReadData" />
+			<string id="string108" value="Wininet_SendRequest_CRLF" />
+			<string id="string109" value="Wininet_SendRequest_Extra" />
+			<string id="string110" value="Wininet_SendRequest_Main" />
+			<string id="string111" value="Wininet_ResolveHost" />
+			<string id="string112" value="Wininet_AutodialIfNotLocalHost" />
+			<string id="string113" value="Wininet_PostNet_CacheMiss" />
+			<string id="string114" value="Wininet_PostNet_CacheHit" />
+			<string id="string115" value="Wininet_PostNet_CacheLookup" />
+			<string id="string116" value="Wininet_PreNet_CacheMiss" />
+			<string id="string117" value="Wininet_PreNet_CacheHit" />
+			<string id="string118" value="Wininet_PreNet_CacheLookup" />
+			<string id="string119" value="Wininet_OfflineCacheMiss" />
+			<string id="string120" value="Wininet_OfflineCacheHit" />
+			<string id="string121" value="Wininet_OfflineCacheLookup" />
+			<string id="string122" value="Wininet_SendRequest" />
+			<string id="string123" value="WININET_TEST_EVENT" />
+			<string id="string124" value="WININET_AUTOPROXY_PERFTRACK_ALL" />
+			<string id="string125" value="Autoproxy full scenario stopped" />
+			<string id="string126" value="Autoproxy full scenario started" />
+			<string id="string127" value="WININET_AUTOPROXY_PERFTRACK_SCRIPT_DOWNLOAD" />
+			<string id="string128" value="Autoproxy Script Download Stopped" />
+			<string id="string129" value="Autoproxy Script Download Started" />
+			<string id="string130" value="WININET_AUTOPROXY_PERFTRACK_UNKNOWN_DETECTION" />
+			<string id="string131" value="Autoproxy Detection with SWPAD UNKNOWN stopped" />
+			<string id="string132" value="Autoproxy Detection with SWPAD UNKNOWN started" />
+			<string id="string133" value="WININET_AUTOPROXY_PERFTRACK_KNOWN_DETECTION" />
+			<string id="string134" value="Autoproxy Detection with SWPAD ON stopped" />
+			<string id="string135" value="Autoproxy Detection with SWPAD ON started" />
+			<string id="string136" value="WININET_AUTOPROXY_PERFTRACK_SWPAD_LOOKUP" />
+			<string id="string137" value="Autoproxy SWPAD lookup stopped" />
+			<string id="string138" value="Autoproxy SWPAD lookup started" />
+			<string id="string139" value="WININET_AUTOPROXY_PERFTRACK_HOST_IP_LOOKUP" />
+			<string id="string140" value="Autoproxy host IP lookup stopped" />
+			<string id="string141" value="Autoproxy host IP lookup started" />
+			<string id="string142" value="WININET_AUTOPROXY_SWPAD" />
+			<string id="string143" value="AutoProxy SWPAD Decision (%1) NumConnections (%2)" />
+			<string id="string144" value="WININET_TRANSFER" />
+			<string id="string145" value="WinInet Activity Transfer Event" />
+			<string id="string146" value="WININET_BLOCKING_AUTOPROXY_DETERMINATION" />
+			<string id="string147" value="Blocking autoproxy determination stopped" />
+			<string id="string148" value="Blocking autoproxy determination started" />
+			<string id="string149" value="Fail" />
+			<string id="string150" value="WININET_AUTOPROXY_FIND_INFO_FOR_URL" />
+			<string id="string151" value="Error locating proxy information for the URL: URL=%2, Error=%3" />
+			<string id="string152" value="Client has successfully retrieved proxy data for accessing a specified resource: URL=%2, ProxyString=%4" />
+			<string id="string153" value="Searching for Proxy Information for the URL: URL=%2" />
+			<string id="string154" value="WININET_AUTOPROXY_DOWNLOAD" />
+			<string id="string155" value="The downloaded configuration file could not be used: ConfigurationURL=%2, MIMEType=%4, Error=%5" />
+			<string id="string156" value="Downloading the configuration file from the configuration URL failed: ConfigurationURL=%2, Error=%3" />
+			<string id="string157" value="Client successfully downloaded the configuration file from the configuration URL: ConfigurationURL=%2" />
+			<string id="string158" value="Begin downloading the configuration file from the configuration URL: ConfigurationURL=%2" />
+			<string id="string159" value="WININET_AUTOPROXY_SEARCH" />
+			<string id="string160" value="Search for WPAD configruation file failed: Error=%1" />
+			<string id="string161" value="WININET_AUTOPROXY_DNS" />
+			<string id="string162" value="Search for WPAD configuration file using DNS failed: DetectFlags=%1, Error=%2" />
+			<string id="string163" value="WPAD configuration file found using DNS: ConfigurationURL=%2, DetectFlags=%3" />
+			<string id="string164" value="Begin search for configuration file using DNS: DetectFlags=%1" />
+			<string id="string165" value="WININET_AUTOPROXY_DHCP" />
+			<string id="string166" value="Search for WPAD configuration file using DHCP failed: Interface=%2, ConfigurationURL=%4, Error=%5" />
+			<string id="string167" value="WPAD configuration file found using DHCP: Interface=%2, ConfigurationURL=%4" />
+			<string id="string168" value="Begin search for configuration file using DHCP: Interface=%2" />
+			<string id="string169" value="Client begins attempts to locate the WPAD configuration file: ConnectionName=%2, DetectFlags=%3" />
+			<string id="string170" value="WININET_HTTPS_RENEGOTIATION" />
+			<string id="string171" value="SSL renegotiation failed: RequestHandle=%1, Error=%2" />
+			<string id="string172" value="SSL renegotiation between client and server has completed successfully: RequestHandle=%1" />
+			<string id="string173" value="Client begins SSL renegotiation: RequestHandle=%1" />
+			<string id="string174" value="WININET_HTTPS_CLIENT_CERT_SELECTED" />
+			<string id="string175" value="The selected client certificate will be used for the SSL transaction: RequestHandle=%1, CertHash=%3" />
+			<string id="string176" value="WININET_HTTPS_CLIENT_CERT_UNAVAILABLE" />
+			<string id="string177" value="There is no client certificate available: RequestHandle=%1" />
+			<string id="string178" value="WININET_HTTPS_CLIENT_CERT_REQUIRED" />
+			<string id="string179" value="Server requires a client certificate for client authorization: RequestHandle=%1" />
+			<string id="string180" value="WININET_HTTPS_SERVER_CERT_VALIDATED" />
+			<string id="string181" value="Server certificate validated: RequestHandle=%1, CertHash=%3, WarningFlags=%4" />
+			<string id="string182" value="WININET_HTTPS_SERVER_CERT_ERROR" />
+			<string id="string183" value="Error validating server certificate (SCHANNEL error): RequestHandle=%1, Error=%2" />
+			<string id="string184" value="WININET_HTTPS_NEGOTIATION" />
+			<string id="string185" value="SSL negotiation failed: RequestHandle=%1, Error=%2" />
+			<string id="string186" value="SSL negotiation between client and server has completed successfully: RequestHandle=%1" />
+			<string id="string187" value="Client begins SSL negotiation: RequestHandle=%1" />
+			<string id="string188" value="WININET_AUTH_CLIENT_ADD_HEADERS" />
+			<string id="string189" value="Client adds authorization headers to an HTTP request: RequestHandle=%1, Scheme=%3, IsProxy=%4" />
+			<string id="string190" value="WININET_AUTH_USING_DEFAULT_CREDS" />
+			<string id="string191" value="Using default credentials: RequestHandle=%1, IsProxy=%2" />
+			<string id="string192" value="WININET_AUTH_USING_CACHED_CREDS" />
+			<string id="string193" value="Using cached credentials: RequestHandle=%1, IsProxy=%2" />
+			<string id="string194" value="WININET_AUTH_CLIENT_SETS_PASSWORD" />
+			<string id="string195" value="Client sets password: RequestHandle=%1, IsProxy=%2" />
+			<string id="string196" value="WININET_AUTH_CLIENT_SETS_USERNAME" />
+			<string id="string197" value="Client sets username: RequestHandle=%1, IsProxy=%2" />
+			<string id="string198" value="WININET_AUTH_RESPONSE_RECEIVED" />
+			<string id="string199" value="Auth response received: RequestHandle=%1, Scheme=%3, IsProxy=%4" />
+			<string id="string200" value="WININET_COOKIE_ADDED_TO_HEADER" />
+			<string id="string201" value="Cookie added to the request header: Domain=%2, Path=%4, Name=%6, Value=%8" />
+			<string id="string202" value="WININET_COOKIE_REQUEST_HEADER_CREATED" />
+			<string id="string203" value="A cookie header was created for the request: URL=%2" />
+			<string id="string204" value="WININET_COOKIE_P3P_REJECTED" />
+			<string id="string205" value="Server cookie was rejected by the client's P3P policy: Domain=%2, Path=%4, Name=%6, Value=%8" />
+			<string id="string206" value="WININET_COOKIE_BLOCKED" />
+			<string id="string207" value="Client has rejected a cookie sent by the server: Domain=%2, Path=%4, Name=%6, Value=%8" />
+			<string id="string208" value="WININET_COOKIE_DELETED" />
+			<string id="string209" value="Client has deleted a cookie in the cookie jar: Domain=%2, Path=%4, Name=%6, Value=%8" />
+			<string id="string210" value="WININET_COOKIE_STORED" />
+			<string id="string211" value="Client has stored a cookie in the cookie jar: Domain=%2, Path=%4, Name=%6, Value=%8" />
+			<string id="string212" value="WININET_COOKIE_HEADER_RECEIVED" />
+			<string id="string213" value="Received response including a cookie header: URL=%2" />
+			<string id="string214" value="WININET_NETWORK_CHANGE_DETECTED" />
+			<string id="string215" value="A network change was detected: Handle=%1" />
+			<string id="string216" value="WININET_DNS_QUERY" />
+			<string id="string217" value="Re-used DNS cache, query for %2 hostname is complete: Handle=%3, Addresses=%5" />
+			<string id="string218" value="DNS query for %2 hostname failed: Handle=%3 Error=%4" />
+			<string id="string219" value="DNS query for %2 hostname is complete: Handle=%3, Addresses=%5" />
+			<string id="string220" value="DNS query for %2 hostname is sent: Handle=%3" />
+			<string id="string221" value="WININET_TCP_CONNECTION" />
+			<string id="string222" value="TCP connection closed successfully: SocketHandle=%1" />
+			<string id="string223" value="TCP connection to %2 for connection handle %3 failed: Error=%4" />
+			<string id="string224" value="TCP connection to server %2 established: ConnectionHandle=%3, SocketHandle=%4, LocalPort=%5" />
+			<string id="string225" value="WININET_RESPONSE_HEADER" />
+			<string id="string226" value="HTTP Response Headers RequestHandle=%1 %3" />
+			<string id="string227" value="WININET_REQUEST_HEADER" />
+			<string id="string228" value="HTTP Request Headers RequestHandle=%1 %3" />
+			<string id="string229" value="WININET_HTTP_RESPONSE_BODY_RECEIVED" />
+			<string id="string230" value="HTTP response entity body received: RequestHandle=%1" />
+			<string id="string231" value="WININET_KEEP_ALIVE_CONNECTION_CLOSED" />
+			<string id="string232" value="Keep-alive connection is closed: ConnectionHandle=%1, SocketHandle=%2" />
+			<string id="string233" value="WININET_KEEP_ALIVE_CONNECTION_POOLED" />
+			<string id="string234" value="Connection is returned to keep-alive pool: RequestHandle=%1, SocketHandle=%2" />
+			<string id="string235" value="WININET_KEEP_ALIVE_CONNECTION_REUSED" />
+			<string id="string236" value="Keep-alive connection is re-used: ConnectionHandle=%1, SocketHandle=%2" />
+			<string id="string237" value="WININET_HTTP_CONNECTION_CLOSED" />
+			<string id="string238" value="HTTP connection (Handle=%1, SocketHandle=%2) closed due to the following reason: %4" />
+			<string id="string239" value="WININET_HTTP_RESPONSE" />
+			<string id="string240" value="HTTP response failed: Handle=%1, Error=%2" />
+			<string id="string241" value="HTTP response (%1) received: RequestHandle=%2, SocketHandle=%3, %5, ContentLength=%7" />
+			<string id="string242" value="WININET_HTTP_REQUEST" />
+			<string id="string243" value="HTTP request send failed: Handle=%1, Error=%2" />
+			<string id="string244" value="HTTP request was sent successfully: RequestHandle=%1, SocketHandle=%2, %4, CookieSent= %5" />
+			<string id="string245" value="HTTP request was received from API: RequestHandle=%1" />
+			<string id="string246" value="WININET_HTTP_REQUEST_HANDLE_CREATED" />
+			<string id="string247" value="Request handle %1 Server Details: Server=%3 Port=%4 Service=%6" />
+			<string id="string248" value="WININET_HANDLE_CLOSE_FAILED" />
+			<string id="string249" value="Handle %1 failed to close: Error=%2" />
+			<string id="string250" value="WININET_HANDLE_CREATE_FAILED" />
+			<string id="string251" value="Failed to create handle: ParentHandle=%1, Error=%2" />
+			<string id="string252" value="WININET_HANDLE_CLOSED" />
+			<string id="string253" value="Handle %1 closed successfully" />
+			<string id="string254" value="Request handle %1 created by HttpOpenRequest: ConnectionHandle=%2, %4, Target=%6, Ver=%8, Referrer=%10, Media types=%12, Flags=%13" />
+			<string id="string255" value="WININET_CONNECT_HANDLE_CREATED" />
+			<string id="string256" value="Handle %1 created by InternetConnect: SessionHandle=%2, Server=%4:%5, %7, Flags=%8" />
+			<string id="string257" value="WININET_OPEN_URL_HANDLE_CREATED" />
+			<string id="string258" value="Handle %1 created by InternetOpenURL: SessionHandle=%2,URL=%4, Headers=%6, Flags=%7" />
+			<string id="string259" value="WININET_ROOT_HANDLE_CREATED" />
+			<string id="string260" value="Session handle %1 created: UserAgent=%3, AccessType=%5, ProxyList=%7, ProxyBypassList=%9, Flags=%10" />
+			<string id="string261" value="WPAD_NETWORK_DECISION_OFF" />
+			<string id="string262" value="WPAD_NETWORK_DECISION_ON" />
+			<string id="string263" value="WPAD_NETWORK_DECISION_UNKNOWN" />
+		</stringTable>
+	</resources>
+</localization>
+</instrumentationManifest>
