@@ -6,6 +6,22 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
 {
+    public enum EventTask : uint    {
+        Task.Setup.DriverLoad = 101,
+        Task.VolumeStateChange = 102,
+        Task.IO = 103,
+        Task.File.CreateFile = 104,
+        Task.IO.Tunneled = 105,
+        Task.Setup.Channel = 106,
+        Task.IO.SingleClientNotify = 107,
+        Task.IO.ByteRangeLock = 108,
+        Task.IO.OplockUpgrade = 109,
+        Task.IO.Oplock = 110,
+        Task.File.CleanupFile = 111,
+        Task.File.CloseFile = 112,
+        Task.StateRundown = 113,
+    }
+
     [Format("Openning file %6.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x00100, 0,

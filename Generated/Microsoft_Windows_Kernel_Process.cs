@@ -6,8 +6,22 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Process
 {
+    public enum EventTask : uint    {
+        ProcessStart = 1,
+        ProcessStop = 2,
+        ThreadStart = 3,
+        ThreadStop = 4,
+        ImageLoad = 5,
+        ImageUnload = 6,
+        CpuBasePriorityChange = 7,
+        CpuPriorityChange = 8,
+        PagePriorityChange = 9,
+        IoPriorityChange = 10,
+        ProcessFreeze = 11,
+    }
+
     public enum ProcessFlags : uint    {
-        PackageId=0x1,
+        PackageId = 0x1,
     }
 
     [Format("Process %1 started at time %2 by parent %3 running in session %4 with name %5.")]

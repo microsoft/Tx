@@ -6,14 +6,27 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
 {
-    public enum MapActiveCoolingDevicePowerState : uint    {
-        on=1,
-        off=0,
+    public enum EventTask : uint    {
+        ResourceTranslation = 100,
+        GpeEventHandling = 101,
+        TemperatureNotification = 102,
+        TripPointNotification = 103,
+        ActiveCoolingDevicePower = 104,
+        AmlMethodTrace = 105,
+        DeviceActiveCooling = 106,
+        DevicePassiveCooling = 107,
+        DeviceCoolingRundown = 108,
+        TemperatureChange = 109,
     }
 
-    public enum MapAmlMethodInvocationState : uint    {
-        started=1,
-        finished=0,
+    public enum MapActiveCoolingDevicePowerState : int    {
+        on = 1,
+        off = 0,
+    }
+
+    public enum MapAmlMethodInvocationState : int    {
+        started = 1,
+        finished = 0,
     }
 
     [Format("A memory range descriptor has been marked as reserved.")]

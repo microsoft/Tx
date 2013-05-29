@@ -6,21 +6,35 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_HttpService
 {
-    public enum HTTP_TEMPLATE_LOGGING_LogType_ValueMap : uint    {
-        ResponseLogging=0,
-        ErrorLogging=1,
+    public enum EventTask : uint    {
+        task0 = 12,
+        task1 = 4,
+        task2 = 6,
+        task3 = 8,
+        task4 = 1,
+        task5 = 11,
+        task6 = 7,
+        task7 = 10,
+        task8 = 9,
+        task9 = 5,
+        task10 = 3,
     }
 
-    public enum HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap : uint    {
-        Site=0,
-        Centralized=1,
+    public enum HTTP_TEMPLATE_LOGGING_LogType_ValueMap : int    {
+        ResponseLogging = 0,
+        ErrorLogging = 1,
     }
 
-    public enum HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap : uint    {
-        W3C=0,
-        IIS=1,
-        NCSA=2,
-        Binary=3,
+    public enum HTTP_TEMPLATE_LOGGING_LogGroup_ValueMap : int    {
+        Site = 0,
+        Centralized = 1,
+    }
+
+    public enum HTTP_TEMPLATE_LOGGING_LogFormat_ValueMap : int    {
+        W3C = 0,
+        IIS = 1,
+        NCSA = 2,
+        Binary = 3,
     }
 
     [Format("Thread gone. Pool type: %1, active pools: %2, thread count: %3")]

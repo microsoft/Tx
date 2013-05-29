@@ -6,6 +6,11 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_Network
 {
+    public enum EventTask : uint    {
+        KERNEL_NETWORK_TASK_TCPIP = 10,
+        KERNEL_NETWORK_TASK_UDPIP = 11,
+    }
+
     [Format("TCPv4: %2 bytes transmitted from %4:%6 to %3:%5.")]
 
     [ManifestEvent("{7dd42a49-5329-4832-8dfd-43d979153a88}", 10, 0,

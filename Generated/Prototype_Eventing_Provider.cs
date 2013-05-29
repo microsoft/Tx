@@ -6,6 +6,10 @@ using System;
 
 namespace Tx.Windows.Prototype_Eventing_Provider
 {
+    public enum EventTask : uint    {
+        MyTask = 1,
+    }
+
     [Format("This is a small event.")]
 
     [ManifestEvent("{3838EF9A-CB6F-4A1C-9033-84C0E8EBF5A7}", 1, 0,

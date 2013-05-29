@@ -103,6 +103,7 @@ namespace Tx.Windows
             XElement channels = provider.Element(ElementNames.Channels);
             XElement keywords = provider.Element(ElementNames.Keywords);
             XElement maps = provider.Element(ElementNames.Maps);
+            XElement tasks = provider.Element(ElementNames.Tasks);
 
             var sb = new StringBuilder(
                 @"// 
@@ -116,6 +117,11 @@ using System;");
             sb.Append(providerName);
             sb.AppendLine();
             sb.AppendLine("{");
+
+            if (tasks != null)
+            {
+                this.EmitTaskValue(tasks, sb);
+            }
 
             if (maps!=null)
             {
@@ -674,6 +680,24 @@ using System;");
                 default:
                     throw new InvalidOperationException("unknown type " + typeName);
             }
+        }
+
+        private void EmitTaskValue(XElement tasks, StringBuilder sb)
+        {
+            sb.AppendFormat("    public enum EventTask : uint");
+            sb.AppendLine("    {");
+            var mapCollection = new Dictionary<string, string>();
+            foreach (var taskValue in tasks.Elements())
+            {
+                var taskEnumIdentifier = taskValue.Attribute(AttributeNames.Name).Value;
+                var taskEnumValue = taskValue.Attribute(AttributeNames.Value).Value;
+
+                sb.AppendFormat("        {0} = {1},", taskEnumIdentifier, taskEnumValue);
+                sb.AppendLine();
+            }
+
+            sb.AppendLine("    }");
+            sb.AppendLine();
         }
 
         private void EmitMapValue(XElement maps, StringBuilder sb)

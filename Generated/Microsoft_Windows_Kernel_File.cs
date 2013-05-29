@@ -6,6 +6,30 @@ using System;
 
 namespace Tx.Windows.Microsoft_Windows_Kernel_File
 {
+    public enum EventTask : uint    {
+        NameCreate = 10,
+        NameDelete = 11,
+        Create = 12,
+        Cleanup = 13,
+        Close = 14,
+        Read = 15,
+        Write = 16,
+        SetInformation = 17,
+        SetDelete = 18,
+        Rename = 19,
+        DirEnum = 20,
+        Flush = 21,
+        QueryInformation = 22,
+        FSCTL = 23,
+        OperationEnd = 24,
+        DirNotify = 25,
+        DeletePath = 26,
+        RenamePath = 27,
+        SetLinkPath = 28,
+        SetLink = 29,
+        CreateNewFile = 30,
+    }
+
     [Format("Irp=%1, ThreadId=%2, FileObject=%3, CreateOptions=%4, CreateAttributes=%5, ShareAccess=%6, FileName=%7")]
 
     [ManifestEvent("{edd08927-9cc4-4e65-b970-c2560fb5c289}", 12, 0,
