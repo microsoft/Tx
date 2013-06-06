@@ -518,7 +518,7 @@ using System;");
             if (String.IsNullOrEmpty(message))
                 return name;
 
-            return LookupResourceString(message);
+            return NameUtils.CreateIdentifier(LookupResourceString(message));
         }
 
         private string LookupChannelName(XElement evt, XElement channels)
