@@ -60,6 +60,10 @@
     <Compile Include="EtwNative\EtwTypeMap.cs" />
     <Compile Include="EtwNative\EtwManifestTypeMap.cs" />
     <Compile Include="Evtx\EvtxEnumerable.cs" />
+    <Compile Include="IIS\W3CEnumerable.cs" />
+    <Compile Include="IIS\W3CEvent.cs" />
+    <Compile Include="IIS\W3CExtensions.cs" />
+    <Compile Include="IIS\W3CTypeMap.cs" />
     <Compile Include="ManifestEventPartitionKey.cs" />
     <Compile Include="EtwNative\EtwNativeEvent.cs" />
     <Compile Include="EtwNative\EtwFileReader.cs" />

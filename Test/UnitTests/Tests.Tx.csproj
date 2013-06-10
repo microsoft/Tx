@@ -75,6 +75,7 @@
     <Compile Include="PullMergeSortTest.cs" />
     <Compile Include="TimeSourceTest.cs" />
     <Compile Include="TypeStatisticsTest.cs" />
+    <Compile Include="W3CTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\key.snk" />
@@ -98,6 +99,10 @@
       <Link>Process.etl</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="..\..\Traces\u_ex130609.log">
+      <Link>u_ex130609.log</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
