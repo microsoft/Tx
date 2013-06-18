@@ -1,11 +1,10 @@
 <Query Kind="Statements">
   <Connection>
-    <ID>56b28019-287b-4d3a-85c8-5ccaccf4fb1e</ID>
-    <Persist>true</Persist>
+    <ID>68b1608c-1854-48ff-ae3b-f0238e61f537</ID>
     <Driver Assembly="Tx.LinqPad" PublicKeyToken="3d3a4b0768c9178e">Tx.LinqPad.TxDataContextDriver</Driver>
     <DriverData>
-      <ContextName>docdbserver1</ContextName>
-      <Files>C:\Repro\DocDB\Test (full run)\docdbserver1.etl;</Files>
+      <ContextName>http_noManifest</ContextName>
+      <Files>($SampleTraces)HTTP_Server.etl;</Files>
       <MetadataFiles></MetadataFiles>
       <IsRealTime>false</IsRealTime>
       <IsUsingDirectoryLookup>false</IsUsingDirectoryLookup>
