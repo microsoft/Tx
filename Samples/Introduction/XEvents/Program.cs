@@ -13,8 +13,8 @@ namespace XEvents
     {
         static void Main()
         {
-            Option1_TimeSource();
-            //Option2_Playback();
+            //Option1_TimeSource();
+            Option2_Playback();
         }
 
         static void Option1_TimeSource()
