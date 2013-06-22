@@ -6,6 +6,7 @@ namespace Tx.SqlServer
 {
     public static class XelExtensions
     {
+        [FileParser("XEvent", ".xel")]
         public static void AddXelFiles(this IPlaybackConfiguration playback, params string[] xeFiles)
         {
             playback.AddInput(

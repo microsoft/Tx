@@ -47,10 +47,10 @@ namespace Tx.SqlServer
             var bindings = new List<MemberBinding>();
 
             int index = 0;
-            foreach (FieldInfo field in outpuType.GetFields())
+            foreach (PropertyInfo property in outpuType.GetProperties())
             {
                 Expression readExpression;
-                if (field.GetAttribute<NonPublishedAttribute>() != null)
+                if (property.GetAttribute<NonPublishedAttribute>() != null)
                     continue;
 
                 MemberExpression propertyValue = Expression.Property(
@@ -60,20 +60,20 @@ namespace Tx.SqlServer
                         Expression.Constant(index++)),
                     "Value");
 
-                if (field.FieldType.IsSubclassOf(typeof (Enum)))
+                if (property.PropertyType.IsSubclassOf(typeof (Enum)))
                 {
                     readExpression = Expression.Convert(
                         Expression.Property(
                             Expression.Convert(propertyValue, typeof (MapValue)),
                             typeof (MapValue).GetProperty("Key")),
-                        field.FieldType);
+                        property.PropertyType);
                 }
                 else
                 {
-                    readExpression = Expression.Convert(propertyValue, field.FieldType);
+                    readExpression = Expression.Convert(propertyValue, property.PropertyType);
                 }
 
-                bindings.Add(Expression.Bind(field, readExpression));
+                bindings.Add(Expression.Bind(property, readExpression));
             }
 
             NewExpression n = Expression.New(constrtorInfo);

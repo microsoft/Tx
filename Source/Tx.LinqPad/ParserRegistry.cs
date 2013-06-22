@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using Microsoft.SqlServer.XEvent;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ namespace Tx.LinqPad
         {
             string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            IEnumerable<Type> types = from file in Directory.GetFiles(dir, "*.dll")
+            IEnumerable<Type> types = from file in Directory.GetFiles(dir, "Tx*.dll")
                                       from t in Assembly.LoadFrom(file).GetTypes()
                                       where t.IsPublic
                                       select t;
@@ -73,12 +74,23 @@ namespace Tx.LinqPad
 
         public IEnumerable<Assembly> GetAssemblies()
         {
-            return (from m in _addFiles select m.DeclaringType.Assembly).Distinct();
+            var assemblies = new List<Assembly>((from m in _addFiles select m.DeclaringType.Assembly).Distinct());
+
+            // HACK: putting this in ParserRegistry is ok for now
+            // But we need clear story of adding parsers withou changing the LINQPad driver core
+            assemblies.Add(typeof(CallStack).Assembly);
+            assemblies.Add(typeof(XEventAttribute).Assembly);
+            assemblies.Add(typeof(IXETarget).Assembly);
+
+            return assemblies;
         }
 
         public IEnumerable<string> GetNamespaces()
         {
-            return (from m in _addFiles select m.DeclaringType.Namespace).Distinct();
+            var namespaces = new List<string>((from m in _addFiles select m.DeclaringType.Namespace).Distinct());
+            namespaces.Add("Microsoft.SqlServer.XEvent");
+
+            return namespaces;
         }
 
         public Dictionary<Type, long> GetTypeStatistics(Type[] types, string[] files)

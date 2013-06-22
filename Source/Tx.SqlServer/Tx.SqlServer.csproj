@@ -76,6 +76,7 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="XeTypeGenerator.cs" />
     <Compile Include="XeTypeMap.cs" />
     <Compile Include="XeExtensions.cs" />
     <Compile Include="XeObservable.cs" />
@@ -83,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\References\XEvent\xe.dll">
-      <Link>Properties\xe.dll</Link>
+      <Link>xe.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

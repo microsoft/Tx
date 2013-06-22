@@ -26,6 +26,18 @@
     <Reference Include="LINQPad">
       <HintPath>..\..\References\LinqPad\LINQPad.exe</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.XE.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent.Targets, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -110,6 +122,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tx.SqlServer\Tx.SqlServer.csproj">
+      <Project>{8892848f-45a1-46ac-a686-6a25eec1475b}</Project>
+      <Name>Tx.SqlServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj">
       <Project>{A4517ABD-D558-42F3-8FE4-2A6BA3074014}</Project>
       <Name>Tx.Windows.TypeGeneration</Name>

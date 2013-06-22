@@ -13,6 +13,7 @@ if not exist "%TYPE_DIR%" md "%TYPE_DIR%"
 call :copy_dll Tx.Core
 call :copy_dll Tx.Windows
 call :copy_dll Tx.Windows.TypeGeneration
+call :copy_dll Tx.SqlServer
 call :copy_dll Tx.LinqPad
 
 echo Reactive Binaries
@@ -21,6 +22,9 @@ copy ..\References\DESKTOPCLR40\System.Reactive.Core.dll "%DRIVER_DIR%"\
 copy ..\References\DESKTOPCLR40\System.Reactive.Linq.dll "%DRIVER_DIR%"\
 copy ..\References\DESKTOPCLR40\System.Reactive.PlatformServices.dll "%DRIVER_DIR%"\
 copy ..\References\DESKTOPCLR40\System.Reactive.Windows.Forms.dll "%DRIVER_DIR%"\
+
+echo XEvent Binaries
+copy ..\References\XEvent\* "%DRIVER_DIR%"\
 
 echo header.xml
 copy Tx.LinqPad\header.xml "%DRIVER_DIR%"\

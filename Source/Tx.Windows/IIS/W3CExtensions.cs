@@ -8,7 +8,7 @@ namespace Tx.Windows
 {
     public static class W3CExtensions
     {
-        [FileParser("IIS W3C logs", ".log")]
+        //[FileParser("IIS W3C logs", ".log")]
         public static void AddW3CLogFiles(this IPlaybackConfiguration playback, params string[] files)
         {
             playback.AddInput(

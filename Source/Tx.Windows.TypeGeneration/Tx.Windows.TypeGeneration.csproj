@@ -12,6 +12,9 @@
     <AssemblyName>Tx.Windows.TypeGeneration</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <Import Project="..\..\Common.targets" />
   <PropertyGroup>
     <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>

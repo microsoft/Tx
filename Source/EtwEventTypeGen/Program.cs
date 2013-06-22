@@ -32,7 +32,7 @@ namespace Microsoft.Etw
             else
             {
                 string target = Path.Combine(outputDirectory, assembly);
-                AssemblyBuilder.OutputAssembly(generated, target);
+                AssemblyBuilder.OutputAssembly(generated, new string[]{}, target);
             }
         }
 

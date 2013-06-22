@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using Microsoft.SqlServer.XEvent.Linq;
+using System.IO;
 
 namespace Tx.SqlServer
 {
@@ -15,10 +16,10 @@ namespace Tx.SqlServer
             if (xelFiles == null)
                 throw new ArgumentNullException("xelFiles");
 
-            // the reader did not work with relative paths? could not pass in "Playback.xel"?
-            string[] fullPaths = (from f in xelFiles select Environment.CurrentDirectory + "\\" + f).ToArray();
+            // Looks like XEvent has bug handling relative paths
+            string[] fullPaths = (from f in xelFiles select Path.GetFullPath(f)).ToArray();
 
-            var enumerable = new QueryableXEventData(fullPaths);
+            var enumerable = new QueryableXEventData(xelFiles);
 
             return enumerable.ToObservable(ThreadPoolScheduler.Instance);
         }

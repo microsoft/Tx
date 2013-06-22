@@ -13,8 +13,8 @@ namespace XEvents
     {
         static void Main()
         {
-            //Option1_TimeSource();
-            Option2_Playback();
+            Option1_TimeSource();
+            // Option2_Playback();
         }
 
         static void Option1_TimeSource()
@@ -24,7 +24,7 @@ namespace XEvents
 
             timeSource
                 .Take(TimeSpan.FromMinutes(1), timeSource.Scheduler)
-                .Where(e=>(double)e.Fields["LoginDurationMs"].Value > 100)
+                .Where(e => (double)e.Fields["LoginDurationMs"].Value > 100)
                 .Subscribe(e =>
                 {
                     Console.WriteLine("--- {0} {1}.{2} ---", e.Name, e.Timestamp, e.Timestamp.Millisecond);
@@ -34,9 +34,10 @@ namespace XEvents
                     }
                 });
 
-            timeSource.Connect();
-
-            Console.ReadLine();
+            using (timeSource.Connect())
+            {
+                Console.ReadLine();
+            }
         }
 
         static void Option2_Playback()

@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using Microsoft.SqlServer.XEvent;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Tx.SqlServer;
 using Tx.Windows;
 
 namespace Tx.LinqPad
@@ -25,6 +27,8 @@ namespace Tx.LinqPad
 
         public void BuildCache(string targetDir, string[] traces, string[] metadaFiles)
         {
+            List<string> extraAssembies = new List<string>();
+
             foreach (string f in metadaFiles.Concat(traces))
             {
                 string output = Path.Combine(GetCacheDir(targetDir),
@@ -94,11 +98,27 @@ namespace Tx.LinqPad
                     case ".evtx":
                         break;
 
+                    case ".xel":
+                        {
+                            extraAssembies.Add(typeof(XEventAttribute).Assembly.Location);
+                            extraAssembies.Add(typeof(CallStack).Assembly.Location);
+
+                            Dictionary<string, string> s = XeTypeGenerator.Parse(f);
+                            foreach (string type in s.Keys)
+                            {
+                                if (!sources.ContainsKey(type))
+                                {
+                                    sources.Add(type, s[type]);
+                                }
+                            }
+                        }
+                        break;
+
                     default:
                         throw new Exception("Unknown metadata format " + f);
                 }
 
-                AssemblyBuilder.OutputAssembly(sources, output);
+                AssemblyBuilder.OutputAssembly(sources, extraAssembies, output);
                 File.SetLastWriteTimeUtc(output, metadataTimestamp);
             }
         }
@@ -113,10 +133,12 @@ namespace Tx.LinqPad
             Assembly[] assemblies = (from file in GetAssemblies(targetDir, traces, metadaFiles)
                                      select Assembly.LoadFrom(file)).ToArray();
 
-            return (from a in assemblies
-                    from t in a.GetTypes()
-                    where t.IsPublic
-                    select t).ToArray();
+            var types = (from a in assemblies
+                         from t in a.GetTypes()
+                         where t.IsPublic
+                         select t).ToArray();
+
+            return types;
         }
 
         private string GetCacheDir(string targetDir)
