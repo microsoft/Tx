@@ -7,12 +7,14 @@ namespace Tx.Windows
     public class PerformanceSample
     {
         private readonly PerfCounterInfo _counterInfo;
+        private readonly string _instanceName;
         private readonly DateTime _timestamp;
         private readonly double _value;
 
-        internal PerformanceSample(PerfCounterInfo counterInfo, DateTime timestamp, double value)
+        internal PerformanceSample(PerfCounterInfo counterInfo, string instanceName, DateTime timestamp, double value)
         {
             _counterInfo = counterInfo;
+            _instanceName = instanceName;
             _timestamp = timestamp;
             _value = value;
         }
@@ -20,6 +22,7 @@ namespace Tx.Windows
         public PerformanceSample(PerformanceSample other)
         {
             _counterInfo = other._counterInfo;
+            _instanceName = other._instanceName;
             _timestamp = other._timestamp;
             _value = other._value;
         }
@@ -36,7 +39,7 @@ namespace Tx.Windows
 
         public string Instance
         {
-            get { return _counterInfo.Instance; }
+            get { return _instanceName; }
         }
 
         public string Machine

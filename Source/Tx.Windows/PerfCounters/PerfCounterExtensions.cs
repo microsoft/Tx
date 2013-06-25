@@ -16,6 +16,14 @@ namespace Tx.Windows
                 typeof (PerfCounterTypeMap));
         }
 
+        public static void AddPerfCounterProbe(this IPlaybackConfiguration playback, TimeSpan samplingRate, params string[] counterPaths)
+        {
+            playback.AddInput(
+                () => PerfCounterObservable.FromRealTime(samplingRate, counterPaths),
+                typeof(PerfCounterPartitionTypeMap),
+                typeof(PerfCounterTypeMap));
+        }
+
         public static IObservable<PerformanceSample> GetPerformanceCounter(this IPlaybackConfiguration playback,
                                                                            string counterPath)
         {

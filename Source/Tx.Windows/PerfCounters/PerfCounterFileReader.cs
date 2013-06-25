@@ -1,22 +1,18 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Tx.Windows
 {
-    public sealed class PerfCounterFileReader : IDisposable
+    public sealed class PerfCounterFileReader : PerfCounterReader
     {
         private readonly bool _binaryLog;
-        private readonly List<PerfCounterInfo> _counters = new List<PerfCounterInfo>();
-        private readonly IObserver<PerformanceSample> _observer;
-        private readonly PdhQueryHandle _query;
         private bool _firstMove = true;
 
         public PerfCounterFileReader(IObserver<PerformanceSample> observer, string file)
+            : base(observer)
         {
-            _observer = observer;
             string extension = Path.GetExtension(file);
             if (extension != null) _binaryLog = extension.ToLowerInvariant() == ".blg";
 
@@ -31,16 +27,6 @@ namespace Tx.Windows
             }
 
             Read();
-        }
-
-        public void Dispose()
-        {
-            foreach (PerfCounterInfo counterInfo in _counters)
-            {
-                counterInfo.Dispose();
-            }
-
-            _query.Dispose();
         }
 
         public void Read()
@@ -83,67 +69,6 @@ namespace Tx.Windows
             {
                 _observer.OnError(ex);
             }
-        }
-
-        private void ProduceCounterSamples(PerfCounterInfo counterInfo, DateTime timestamp)
-        {
-            uint bufferSize = 0;
-            uint bufferCount;
-
-            PdhStatus status = PdhNativeMethods.PdhGetFormattedCounterArray(
-                counterInfo.Handle,
-                PdhFormat.PDH_FMT_DOUBLE,
-                ref bufferSize,
-                out bufferCount,
-                IntPtr.Zero);
-            PdhUtils.CheckStatus(status, PdhStatus.PDH_MORE_DATA);
-
-            var buffer = new byte[bufferSize];
-            unsafe
-            {
-                fixed (byte* pb = buffer)
-                {
-                    status = PdhNativeMethods.PdhGetFormattedCounterArray(
-                        counterInfo.Handle,
-                        PdhFormat.PDH_FMT_DOUBLE,
-                        ref bufferSize,
-                        out bufferCount,
-                        (IntPtr) pb);
-                    if (status == PdhStatus.PDH_INVALID_DATA
-                        || status == PdhStatus.PDH_CALC_NEGATIVE_VALUE
-                        || status == PdhStatus.PDH_CALC_NEGATIVE_DENOMINATOR
-                        || status == PdhStatus.PDH_CALC_NEGATIVE_TIMEBASE)
-                    {
-                        var sample = new PerformanceSample(counterInfo, timestamp, double.NaN);
-                        _observer.OnNext(sample);
-                        return;
-                    }
-
-                    PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
-
-                    var items = (PDH_FMT_COUNTERVALUE_ITEM*) pb;
-                    for (int i = 0; i < bufferCount; i++)
-                    {
-                        PDH_FMT_COUNTERVALUE_ITEM* item = items + i;
-                        var sample = new PerformanceSample(counterInfo, timestamp, item->FmtValue.doubleValue);
-
-                        _observer.OnNext(sample);
-                    }
-                }
-            }
-        }
-
-        private void AddCounter(string counterPath)
-        {
-            PdhCounterHandle counter;
-            PdhStatus status = PdhNativeMethods.PdhAddCounter(_query, counterPath, IntPtr.Zero, out counter);
-            if (status == PdhStatus.PDH_ENTRY_NOT_IN_LOG_FILE)
-                return;
-
-            PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
-
-            var counterInfo = new PerfCounterInfo(counterPath, counter);
-            _counters.Add(counterInfo);
         }
 
         ~PerfCounterFileReader()

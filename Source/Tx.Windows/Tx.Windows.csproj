@@ -75,6 +75,8 @@
     <Compile Include="EtwNative\EtwNativeMethods.cs" />
     <Compile Include="EtwNative\EtwObservable.cs" />
     <Compile Include="InternalsVisibleTo.cs" />
+    <Compile Include="PerfCounters\PerfCounteReader.cs" />
+    <Compile Include="PerfCounters\PerfCounterRealTimeProbe.cs" />
     <Compile Include="PerfCounters\PerfCounterInfo.cs" />
     <Compile Include="PerfCounters\PdhNativeMethods.cs" />
     <Compile Include="PerfCounters\PerfCounterExtensions.cs" />

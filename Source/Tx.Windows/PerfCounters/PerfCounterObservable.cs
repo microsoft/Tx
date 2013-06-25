@@ -11,5 +11,10 @@ namespace Tx.Windows
         {
             return Observable.Create<PerformanceSample>(o => new PerfCounterFileReader(o, perfTrace));
         }
+
+        public static IObservable<PerformanceSample> FromRealTime(TimeSpan samplingRate, params string[] counterPaths)
+        {
+            return Observable.Create<PerformanceSample>(o => new PerfCounterRealTimeProbe(o, samplingRate, counterPaths));
+        }
     }
 }
