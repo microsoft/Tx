@@ -31,12 +31,14 @@ namespace System.Reactive
         private PullMergeSort<Timestamped<object>> _mergesort;
         private OutputPump<Timestamped<object>> _pump;
         private ManualResetEvent _pumpStart;
+        private DateTime _startTime = DateTime.MinValue;
 
         /// <summary>
         ///     Constructor
         /// </summary>
         protected PlaybackBase()
         {
+            EndTime = DateTime.MaxValue;
             _inputs = new List<IInputStream>();
             _demux = new Demultiplexor();
             _timeSource = new TimeSource<Timestamped<object>>(_subject, e => e.Timestamp);
@@ -51,12 +53,21 @@ namespace System.Reactive
         /// <summary>
         ///     Gets or sets the start time for the playback
         ///     The setter must be called before any operators that take Scheduler are used
+        ///     
+        ///     Playback will only deliver event after the given start time
         /// </summary>
-        public DateTimeOffset StartTime
+        public DateTime StartTime
         {
-            get { return _timeSource.StartTime; }
-            set { _timeSource.StartTime = value; }
+            get { return _startTime; }
+            set
+            {
+                _startTime = value;
+                _timeSource.StartTime = new DateTimeOffset(value); 
+            }
         }
+
+        // set this to ignore events past given time
+        public DateTime EndTime { get; set; }
 
         /// <summary>
         ///     The event types that are known
@@ -108,7 +119,7 @@ namespace System.Reactive
             Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps)
         {
-            var input = new InputStream<TInput>(createInput, typeMaps);
+            var input = new InputStream<TInput>(createInput, StartTime, EndTime, typeMaps);
             _inputs.Add(input);
         }
 
@@ -139,14 +150,17 @@ namespace System.Reactive
         /// </summary>
         public void Start()
         {
-            if (KnownTypes != null)
+            foreach (IInputStream i in _inputs)
             {
+                i.StartTime = StartTime;
+                i.EndTime = EndTime;
+
+                if (KnownTypes == null)
+                    continue;
+
                 foreach (Type t in KnownTypes)
                 {
-                    foreach (IInputStream i in _inputs)
-                    {
-                        i.AddKnownType(t);
-                    }
+                    i.AddKnownType(t);
                 }
             }
 
@@ -214,6 +228,9 @@ namespace System.Reactive
             void AddKnownType(Type t);
             void Start();
             void Start(IObserver<Timestamped<object>> observer);
+
+            DateTime StartTime { get; set; }
+            DateTime EndTime { get; set; }
         }
 
         protected class InputStream<TInput> : IInputStream, IDisposable
@@ -225,12 +242,27 @@ namespace System.Reactive
 
             public InputStream(
                 Expression<Func<IObservable<TInput>>> createInput,
+                DateTime startTime,
+                DateTime endTime,
                 params Type[] typeMaps)
             {
                 _source = createInput.Compile()();
                 _output = new BufferQueue<Timestamped<object>>();
                 _deserializer = new CompositeDeserializer<TInput>(_output, typeMaps);
             }
+
+            public DateTime StartTime
+            {
+                get { return _deserializer.StartTime; }
+                set { _deserializer.StartTime = value; }
+            }
+
+            public DateTime EndTime
+            {
+                get { return _deserializer.EndTime; }
+                set { _deserializer.EndTime = value; }
+            }
+
 
             public void Dispose()
             {

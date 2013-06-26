@@ -689,7 +689,7 @@ using System;");
             var mapCollection = new Dictionary<string, string>();
             foreach (var taskValue in tasks.Elements())
             {
-                var taskEnumIdentifier = taskValue.Attribute(AttributeNames.Name).Value;
+                var taskEnumIdentifier = NameUtils.CreateIdentifier(taskValue.Attribute(AttributeNames.Name).Value);
                 var taskEnumValue = taskValue.Attribute(AttributeNames.Value).Value;
 
                 sb.AppendFormat("        {0} = {1},", taskEnumIdentifier, taskEnumValue);

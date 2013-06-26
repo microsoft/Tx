@@ -10,11 +10,15 @@ namespace System.Reactive
         private readonly List<IDeserializer<TInput>> _deserializers;
         private IObserver<Timestamped<object>> _observer;
 
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
         public CompositeDeserializer(
             IObserver<Timestamped<object>> observer,
             params Type[] typeMaps)
         {
             _observer = observer;
+
             _deserializers = new List<IDeserializer<TInput>>();
             foreach (Type mapType in typeMaps)
             {
@@ -88,6 +92,15 @@ namespace System.Reactive
                 Timestamped<object> ts;
                 if (d.TryDeserialize(value, out ts))
                 {
+                    // TODO: this achieves the right semantics, 
+                    // but the performance will be sub optimal
+
+                    if (ts.Timestamp.DateTime < StartTime)
+                        return;
+
+                    if (ts.Timestamp.DateTime > EndTime)
+                        return;
+
                     _observer.OnNext(ts);
                     return;
                 }
