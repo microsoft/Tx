@@ -81,7 +81,7 @@ namespace Tx.LinqPad
 
         public override string Name
         {
-            get { return "Tx (LINQ to Traces)"; }
+            get { return "Tx (LINQ to Logs and Traces)"; }
         }
 
         public override IEnumerable<string> GetAssembliesToAdd(IConnectionInfo cxn)
@@ -371,6 +371,7 @@ namespace Tx.LinqPad
             List<string> files = new List<string>(Directory.GetFiles(sourceDir,"*.etl"));
             files.AddRange(Directory.GetFiles(sourceDir,"*.man"));
             files.AddRange(Directory.GetFiles(sourceDir,"*.blg"));
+            files.AddRange(Directory.GetFiles(sourceDir,"*.xel"));
 
             foreach (string file in files)
             {

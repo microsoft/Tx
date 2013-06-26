@@ -36,6 +36,7 @@ copy ..\Traces\HTTP_Server.etl "%DRIVER_DIR%"\
 copy ..\Traces\BasicPerfCounters.blg "%DRIVER_DIR%"\
 copy ..\Traces\CrossMachineHTTP.etl "%DRIVER_DIR%"\
 copy ..\Traces\CrossMachineIE.etl "%DRIVER_DIR%"\
+copy ..\Traces\sqltrace.xel "%DRIVER_DIR%"\
 
 goto end
 

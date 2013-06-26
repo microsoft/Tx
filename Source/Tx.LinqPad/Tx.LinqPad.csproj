@@ -108,6 +108,10 @@
       <Link>IE_Client.man</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\Traces\sqltrace.xel">
+      <Link>sqltrace.xel</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="..\devsetup.cmd">
       <Link>devsetup.cmd</Link>
     </None>
