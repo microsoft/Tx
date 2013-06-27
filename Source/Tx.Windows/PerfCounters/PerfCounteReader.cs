@@ -66,7 +66,7 @@ namespace Tx.Windows
             }
         }
 
-        protected void AddCounter(string counterPath)
+        protected void AddCounter(string counterPath, int index)
         {
             PdhCounterHandle counter;
             PdhStatus status = PdhNativeMethods.PdhAddCounter(_query, counterPath, IntPtr.Zero, out counter);
@@ -75,7 +75,7 @@ namespace Tx.Windows
 
             PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
-            var counterInfo = new PerfCounterInfo(counterPath, counter);
+            var counterInfo = new PerfCounterInfo(counterPath, counter, index);
             _counters.Add(counterInfo);
         }
 

@@ -16,9 +16,9 @@ namespace Tx.Windows
             PdhStatus status = PdhNativeMethods.PdhOpenQuery(null, IntPtr.Zero, out _query);
             PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
 
-            foreach (string counter in counterPaths)
+            for (int i=0; i<counterPaths.Length; i++)
             {
-                AddCounter(counter);
+                AddCounter(counterPaths[i], i);
             }
 
             _timer = new Timer(OnTimer, null, TimeSpan.Zero, samplingRate);

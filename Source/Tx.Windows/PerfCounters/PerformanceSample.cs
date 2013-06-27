@@ -56,5 +56,10 @@ namespace Tx.Windows
         {
             get { return _value; }
         }
+
+        public int Index
+        {
+            get { return _counterInfo.Index; }
+        }
     }
 }
