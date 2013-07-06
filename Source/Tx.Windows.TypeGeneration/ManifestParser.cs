@@ -45,9 +45,12 @@ namespace Tx.Windows
                         _stringTable = resources.Element(ElementNames.StringTable);
                 }
             }
-            _events = _instrumentation.Element(ElementNames.Events);
-            _providers = _events.Elements(ElementNames.Provider);
 
+            _events = _instrumentation.Element(ElementNames.Events);
+            if (_events == null)
+                throw new Exception("The element <events> in namespace http://schemas.microsoft.com/win/2004/08/events was not found");
+
+            _providers = _events.Elements(ElementNames.Provider);
             _code = new Dictionary<string, string>();
 
 

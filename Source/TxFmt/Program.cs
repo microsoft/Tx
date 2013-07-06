@@ -54,7 +54,7 @@ Supported files are
                             Dictionary<string, string> generated = ManifestParser.Parse(manifest);
 
                             string assemblyPath = Path.Combine(asmDir, Path.ChangeExtension(Path.GetFileName(a), ".dll"));
-                            AssemblyBuilder.OutputAssembly(generated, assemblyPath);
+                            AssemblyBuilder.OutputAssembly(generated, new string[]{}, assemblyPath);
                             break;
 
                         default:
@@ -73,7 +73,13 @@ Supported files are
                 pb.KnownTypes = knownTypes.ToArray();
 
                 IObservable<SystemEvent> all = pb.GetObservable<SystemEvent>();
-                all.Subscribe(Console.WriteLine);
+                all.Subscribe(e=>
+                    {
+                        if (!e.ToString().StartsWith(" DocumentServiceId"))
+                        {
+                            Console.WriteLine("{0} {1}", e.Header.EventId, e.ToString());
+                        };
+                    });
                 pb.Run();
             }
             catch (Exception ex)

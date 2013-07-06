@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.LinqPad", "Tx.LinqPad\Tx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetVersion", "SetVersion\SetVersion.csproj", "{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TxFmt", "TxFmt\TxFmt.csproj", "{D7CA2959-ACF0-4C31-B22A-292253BC813E}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Tx.vsmdi
@@ -92,6 +94,14 @@ Global
 		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release40|Any CPU.Build.0 = Release40|Any CPU
 		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release45|Any CPU.ActiveCfg = Release45|Any CPU
 		{8E9F5FFD-5533-4384-9841-9D07CDCEBB76}.Release45|Any CPU.Build.0 = Release45|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Debug40|Any CPU.ActiveCfg = Debug40|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Debug40|Any CPU.Build.0 = Debug40|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Debug45|Any CPU.ActiveCfg = Debug45|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Debug45|Any CPU.Build.0 = Debug45|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Release40|Any CPU.ActiveCfg = Release40|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Release40|Any CPU.Build.0 = Release40|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Release45|Any CPU.ActiveCfg = Release45|Any CPU
+		{D7CA2959-ACF0-4C31-B22A-292253BC813E}.Release45|Any CPU.Build.0 = Release45|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
