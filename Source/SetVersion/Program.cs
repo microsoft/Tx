@@ -38,7 +38,7 @@ namespace SetVersion
 
                 int startIndex = Prefix.Length + 1;
                 int endIndex = line.LastIndexOf('.');
-                return line.Substring(startIndex, endIndex - startIndex) + "-beta";
+                return line.Substring(startIndex, endIndex - startIndex);
             }
 
             throw new Exception("could not find AssemblyVersion attribute");
