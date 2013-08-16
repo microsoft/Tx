@@ -83,6 +83,10 @@
     <Compile Include="XeSubject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\References\XEvent\msvcr100.dll">
+      <Link>msvcr100.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\..\References\XEvent\xe.dll">
       <Link>xe.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
