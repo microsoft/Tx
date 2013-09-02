@@ -7,7 +7,7 @@ Internally:
 * Event occurence records are transformed from their raw  format (e.g. native structures) to C# objects
 * Multiple inputs (files or real-time feeds) are merged on timestamp
 
-This set of samples illustrates what Playback does as component, without using much LINQ.
+This [set of samples](Program.cs) illustrates what Playback does as component, without using much LINQ.
 
 ## Structured Mode
 In this mode, 
