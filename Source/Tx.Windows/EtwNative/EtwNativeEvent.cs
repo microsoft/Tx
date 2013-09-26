@@ -344,8 +344,10 @@ namespace Tx.Windows
         {
             var str = new string((char*) _data);
 
-            // special case for missing 0 before the end of the buffer
             int maxLength = (int) (_end - _data) >> 1;
+            if (maxLength <= 0)
+                return string.Empty;
+
             if (str.Length > maxLength)
                 str = str.Substring(0, maxLength);
 
