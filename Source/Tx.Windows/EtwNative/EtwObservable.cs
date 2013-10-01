@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
@@ -26,7 +27,7 @@ namespace Tx.Windows
             if (etlFiles.Length == 0 || etlFiles.Length > 63)
                 throw new ArgumentException("the supported count of files is from 1 to 63");
 
-            return Observable.Create<EtwNativeEvent>(o => new EtwFileReader(o, etlFiles));
+            return new NonDetachObservable<EtwNativeEvent>(o => new EtwFileReader(o, etlFiles));
         }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace Tx.Windows
             if (sessionName == null)
                 throw new ArgumentNullException("sessionName");
 
-            return Observable.Create<EtwNativeEvent>(o => new EtwListener(o, sessionName));
+            return new NonDetachObservable<EtwNativeEvent>(o => new EtwListener(o, sessionName));
         }
 
         /// <summary>
