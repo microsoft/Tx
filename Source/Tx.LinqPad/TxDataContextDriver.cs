@@ -288,34 +288,15 @@ namespace Tx.LinqPad
             return item;
         }
 
-        public override void PreprocessObjectToWrite(ref object objectToWrite, ObjectGraphInfo info)
+        public override void OnQueryFinishing(IConnectionInfo cxInfo, object context, QueryExecutionManager executionManager)
         {
-            if (null == objectToWrite)
-                return;
+            var playback = (Playback)context
+                .GetType()
+                .GetProperty("playback")
+                .GetValue(context, new object[] {});
 
-            Type type = objectToWrite.GetType();
-            if (type.IsGenericType && type.GetInterface(typeof (IObservable<>).Name) != null)
-            {
-                Type[] genericArguments = type.GetGenericArguments();
-                Type eventType = genericArguments[genericArguments.Length - 1];
-
-                MethodInfo process = GetType().GetMethod("RunSingleOutput", BindingFlags.Static | BindingFlags.Public);
-                process = process.MakeGenericMethod(eventType);
-                objectToWrite = process.Invoke(null, new[] {objectToWrite});
-                return;
-            }
-        }
-
-        //// this implements auto-start in "C# Expression" mode
-        //// In ohter modes Run or Start must be called from the queries
-        public static IEnumerable<T> RunSingleOutput<T>(IObservable<T> output)
-        {
-            var playback = (Playback) Thread.GetData(_threadStorageSlot);
-            IEnumerable<T> list = playback.BufferOutput(output);
-
-            playback.Run();
-
-            return list;
+            if (playback != null)
+                playback.Run();
         }
 
         private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
