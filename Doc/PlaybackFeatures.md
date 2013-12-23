@@ -9,7 +9,7 @@ This is a simple view, in which all events are of the same type **T**. This allo
 
 In most real logs/traces however, there are many types of events multiplexed in order of occurence:
 
-![Multiplexed Sequence](MultiplexedSequence.jpg)
+![Multiplexed Sequence](http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=tx&changeSetId=3a59ca7f577d0b184ba68ef6b885584448f21f13&itemId=Doc%2fMultiplexedSequence.JPG)
 Here circles, triangles, and squares represent types of events
 
 * On the left we see the original (multiplexed) sequence - **all events** in order of occurence
