@@ -5,7 +5,7 @@
     <title>Tx.Core</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
-    <description>Components that are necessary to do LINQ to Traces(=Logs) regardless of the original event format.</description>
+    <description>Tx (LINQ to Logs and Traces) core components, not specific to the event format</description>
     <authors>Microsoft Open Technologies, Inc.</authors>
     <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
     

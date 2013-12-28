@@ -5,7 +5,7 @@
     <title>Tx.SqlServer</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
-    <description>IObservable sources for traces from SQL Server components. So far, this incldes SQL Server Extended Events (XEvent)</description>
+    <description>Tx (LINQ to Logs and Traces) components for SQL Server. So far, this incldes Extended Events (XEvent)</description>
     <authors>Microsoft Open Technologies, Inc.</authors>
     <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
 

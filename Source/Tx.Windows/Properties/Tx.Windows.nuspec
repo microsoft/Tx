@@ -5,7 +5,7 @@
     <title>Tx.Windows</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
-    <description>IObservable-s for Event Tracing for Windows (ETW), Perormance Counter files (.blg, .csv, .tsv) and Event Log</description>
+    <description>Tx (LINQ to Logs and Traces) components for Windows: ETW, Logs (.evtx), Perormance Counters (.blg, .csv, .tsv), IIS Logs in W3C format</description>
     <authors>Microsoft Open Technologies, Inc.</authors>
     <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
 

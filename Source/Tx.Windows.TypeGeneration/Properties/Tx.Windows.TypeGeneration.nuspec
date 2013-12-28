@@ -5,7 +5,7 @@
     <title>Tx.Windows.TypeGeneration</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
-    <description>Generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</description>
+    <description>Tx (LINQ to Logs and Traces) components for generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</description>
     <authors>Microsoft Open Technologies, Inc.</authors>
     <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
 
