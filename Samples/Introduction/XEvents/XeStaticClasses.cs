@@ -5,9 +5,6 @@ using Tx.SqlServer;
 
 namespace Microsoft.SqlServer.XEvent.Static
 {
-    // the intention with the code belo is to reuse the classes C# developers define
-    // to produce XEvents - e.g. Mugunthan's GpmAccessEvent
-
     [XEvent("sql_statement_starting", "{40bfa6df-b111-41cd-a1e6-12209e618b8d}", Channel.Debug, "SQL RDBMS statement starting")]
     public class sql_statement_starting : BaseXEvent<sql_statement_starting>
     {
