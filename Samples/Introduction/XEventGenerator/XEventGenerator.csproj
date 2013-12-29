@@ -11,6 +11,9 @@
     <RootNamespace>XEventGenerator</RootNamespace>
     <AssemblyName>XEventGenerator</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug40|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
     <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
