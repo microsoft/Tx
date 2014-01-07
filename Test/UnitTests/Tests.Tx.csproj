@@ -50,16 +50,12 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Generated\AspNetTrace.cs">
-      <Link>AspNetTrace.cs</Link>
-    </Compile>
     <Compile Include="..\..\Generated\Microsoft_Windows_HttpService.cs">
       <Link>Microsoft_Windows_HttpService.cs</Link>
     </Compile>
     <Compile Include="..\..\Generated\Microsoft_Windows_Kernel_Process.cs">
       <Link>Microsoft_Windows_Kernel_Process.cs</Link>
     </Compile>
-    <Compile Include="AspRequestInstance.cs" />
     <Compile Include="DemultiplexorTest.cs" />
     <Compile Include="EtwDeserializerTest.cs" />
     <Compile Include="EtwGeneration.cs" />
@@ -71,7 +67,6 @@
     <Compile Include="PerfCounterTest.cs" />
     <Compile Include="PlaybackTest.cs" />
     <Compile Include="ProcessTest.cs" />
-    <Compile Include="BingCoreUx.cs" />
     <Compile Include="PullMergeSortTest.cs" />
     <Compile Include="TimeSourceTest.cs" />
     <Compile Include="TypeStatisticsTest.cs" />
@@ -79,10 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\key.snk" />
-    <None Include="..\..\Traces\AspTrace.etl">
-      <Link>AspTrace.etl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Content Include="..\..\Traces\BasicPerfCounters.blg">
       <Link>BasicPerfCounters.blg</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
