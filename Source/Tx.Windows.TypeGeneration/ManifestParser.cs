@@ -519,7 +519,7 @@ using System;");
                               select o.Attribute(AttributeNames.Message).Value).FirstOrDefault();
 
             if (String.IsNullOrEmpty(message))
-                return name;
+                return NameUtils.CreateIdentifier(name);
 
             return NameUtils.CreateIdentifier(LookupResourceString(message));
         }
