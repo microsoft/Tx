@@ -149,7 +149,7 @@ namespace System.Reactive
 
             public IDisposable Schedule<TState>(TState state, Func<IScheduler, TState, IDisposable> action)
             {
-                throw new NotImplementedException();
+                return Schedule(state, TimeSpan.Zero, action);
             }
 
             public void Init(DateTimeOffset startTime)
