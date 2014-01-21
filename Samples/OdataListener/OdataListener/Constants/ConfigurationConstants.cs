@@ -11,7 +11,7 @@ namespace OdataListener.Constants
             get { return "http://" + Environment.MachineName + ":1313/"; }
         }
 
-        public const string HttpServerTrace = @"HTTP_Server.etl";
+        public const string HttpServerTrace = @"Traces/HTTP_Server.etl";
 
         public const string HttpServerResourcePath = "HttpServer";
 
