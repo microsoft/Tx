@@ -1,4 +1,4 @@
-﻿namespace PerfomanceCounterUI
+﻿namespace TcpSyntheticCounters
 {
     partial class PerfomanceCounterUI
     {
@@ -34,11 +34,13 @@
             this.ClientSize = new System.Drawing.Size(657, 453);
             this.Name = "PerfomanceCounterUI";
             this.Text = "PerfomanceCounterUI";
-            this.Load += new System.EventHandler(this.PerfomanceCounterUI_Load);
+            this.Load += new System.EventHandler(this.TcpSyntheticCounters_Load);
             this.ResumeLayout(false);
+
         }
 
         #endregion
+
     }
 }
 

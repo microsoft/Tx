@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-namespace PerfomanceCounterUI
+namespace TcpSyntheticCounters
 {
     using System;
-    using System.Drawing;
-    using System.Reactive;
-    using System.Windows.Forms;
-    using System.Linq.Charting;
-    using Tx.Windows;
     using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq.Charting;
+    using System.Reactive;
     using System.Reactive.Linq;
+    using System.Windows.Forms;
+    using Tx.Windows;
 
     public partial class PerfomanceCounterUI : Form
     {
@@ -46,7 +46,7 @@ namespace PerfomanceCounterUI
             };
         }
 
-        private void PerfomanceCounterUI_Load(object sender, EventArgs e)
+        private void TcpSyntheticCounters_Load(object sender, EventArgs e)
         {
             _playback = new Playback();
             _playback.AddRealTimeSession(PerfCounterSessionName);
