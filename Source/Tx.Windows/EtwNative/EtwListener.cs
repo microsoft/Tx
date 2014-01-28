@@ -53,7 +53,6 @@ namespace Tx.Windows
             {
                 _disposed = true;
                 EtwNativeMethods.CloseTrace(_handle);
-                _thread.Join();
             }
         }
 
