@@ -26,35 +26,47 @@ namespace Tx.Windows
         {
             using (var reader = File.OpenText(file))
             {
-                Expression<Func<string[], W3CEvent>> transformExpression;
-                Func<string[], W3CEvent> transform = null;
-
+                IEnumerable<W3CEvent> enumerable = FromStream(reader);
                 for (;;)
                 {
-                    string line = reader.ReadLine();
-                    if (line == null)
-                        yield break;
+                    foreach (var e in enumerable)
+                        yield return e;
 
-                    if (line.StartsWith("#Fields:"))
-                    {
-                        transformExpression = GetTransformExpression(line);
-                        transform = transformExpression.Compile();
-                        continue;
-                    }
-
-                    if (line.StartsWith("#"))
-                        continue;
-
-                    string[] tokens = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int i = 0; i < tokens.Length; i++)
-                        if (tokens[i] == "-")
-                            tokens[i] = null;
-
-                    W3CEvent e = transform(tokens);
-
-                    yield return e;
+                    break;
                 }
+            }
+        }
+
+        public static IEnumerable<W3CEvent> FromStream(StreamReader reader)
+        {
+            Expression<Func<string[], W3CEvent>> transformExpression;
+            Func<string[], W3CEvent> transform = null;
+
+            for (;;)
+            {
+                string line = reader.ReadLine();
+                if (line == null)
+                    yield break;
+
+                if (line.StartsWith("#Fields:"))
+                {
+                    transformExpression = GetTransformExpression(line);
+                    transform = transformExpression.Compile();
+                    continue;
+                }
+
+                if (line.StartsWith("#"))
+                    continue;
+
+                string[] tokens = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (int i = 0; i < tokens.Length; i++)
+                    if (tokens[i] == "-")
+                        tokens[i] = null;
+
+                W3CEvent e = transform(tokens);
+
+                yield return e;
             }
         }
 
