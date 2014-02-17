@@ -42,10 +42,10 @@ namespace OdataListener
                 {
                     // According to OData specification(http://www.odata.org/documentation/odata-v2-documentation/uri-conventions/)
                     // URI should look like: "service root URI + resource path + query options"
-                    // Now it supports only URLs that look like: "http://localhost:1313/HttpServer/? query params..." 
+                    // Now it supports only URLs that look like: "http://{MachineName}:1313/HttpServer/? query params..." 
                     // and works with data from HTTP_Server.etl file
                     // In future it should return different traces according to resource path specified in request URL
-                    // For example “http://localhost:1313/LocalTrace/? query params” will return data from local trace
+                    // For example “http://{MachineName}:1313/LocalTrace/? query params” will return data from local trace
                     var resourcePath = _request.Url.AbsolutePath.Trim('/');
                     if (resourcePath.Equals(ConfigurationConstants.HttpServerResourcePath, StringComparison.OrdinalIgnoreCase))
                     {
