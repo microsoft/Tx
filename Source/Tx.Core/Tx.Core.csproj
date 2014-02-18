@@ -54,6 +54,7 @@
     <Compile Include="ITypeMap.cs" />
     <Compile Include="CsvExtensions.cs" />
     <Compile Include="NonDetachObservable.cs" />
+    <Compile Include="PlaybackConfigurationExtensions.cs" />
     <Compile Include="PullMergeSort.cs" />
     <Compile Include="Pump.cs" />
     <Compile Include="ITypeStatistics.cs" />
