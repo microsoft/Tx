@@ -23,7 +23,7 @@ namespace Tx.Windows
         public ManifestParser(string manifest)
         {
             XElement localization;
-            XElement resources;
+            XElement resources = null;
 
             _root = XElement.Parse(manifest);
             _instrumentation = _root.Element(ElementNames.Instrumentation);
@@ -31,7 +31,10 @@ namespace Tx.Windows
             {
                 _instrumentation = _root.Element(ElementNames.Instrumentation1);
                 localization = _root.Element(ElementNames.Localization1);
-                resources = localization.Element(ElementNames.Resources1);
+
+                if (localization != null)
+                    resources = localization.Element(ElementNames.Resources1);
+
                 if (resources != null)
                     _stringTable = resources.Element(ElementNames.StringTable1);
             }
@@ -281,8 +284,19 @@ using System;");
                 if (order > 0)
                     sb.AppendLine();
 
-                sb.AppendFormat("        [EventField(\"{0}\")]",
+                var length = f.Attribute(AttributeNames.Length);
+
+                if (null != length)
+                {
+                    sb.AppendFormat("        [EventField(\"{0}\", \"{1}\")]",
+                                    f.Attribute(AttributeNames.InType).Value, length.Value);
+                }
+                else
+                {
+                    sb.AppendFormat("        [EventField(\"{0}\")]",
                                 f.Attribute(AttributeNames.InType).Value);
+                }
+
                 sb.AppendLine();
 
                 if (f.Attribute(AttributeNames.Map) == null)
@@ -765,6 +779,7 @@ using System;");
             public const string Message = "message";
             public const string EventGuid = "eventGUID";
             public const string MofValue = "mofValue";
+            public const string Length = "length";
             public const string Level = "level";
             public const string Channel = "channel";
             public const string Chid = "chid";

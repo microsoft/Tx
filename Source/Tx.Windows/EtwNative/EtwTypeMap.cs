@@ -118,10 +118,13 @@ namespace Tx.Windows
                         break;
 
                     case "win:UnicodeString":
-                        int len = 0;
-                        if (int.TryParse(attribute.Length, out len))
+                        if (!String.IsNullOrEmpty(attribute.Length))
                         {
-                            readExpression = MakeExpression(r => r.ReadUnicodeString(len), reader);
+                            int len = 0;
+                            if (int.TryParse(attribute.Length, out len))
+                                readExpression = MakeExpression(r => r.ReadUnicodeString(len), reader);
+                            else
+                                readExpression = MakeExpression(r => r.ReadUnicodeStringPrefixLen(), reader);
                         }
                         else
                         {
@@ -130,7 +133,18 @@ namespace Tx.Windows
                         break;
 
                     case "win:AnsiString":
-                        readExpression = MakeExpression(r => r.ReadAnsiString(), reader);
+                        if (!String.IsNullOrEmpty(attribute.Length))
+                        {
+                            int len = 0;
+                            if (int.TryParse(attribute.Length, out len))
+                                readExpression = MakeExpression(r => r.ReadAnsiString(len), reader);
+                            else
+                                readExpression = MakeExpression(r => r.ReadAnsiStringPrefixLen(), reader);
+                        }
+                        else
+                        {
+                            readExpression = MakeExpression(r => r.ReadAnsiString(), reader);
+                        }
                         break;
 
                     case "win:FILETIME":

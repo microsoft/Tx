@@ -379,17 +379,17 @@ namespace Tx.Windows
 
         public string ReadAnsiStringPrefixLen()
         {
-            int length = ReadInt16();
-            string str = Marshal.PtrToStringAnsi((IntPtr) _data, length);
-            _data += length;
+            // reads a string, assuming the lenght was win:UInt32 right before it in the manifest
+            string str = Marshal.PtrToStringAnsi((IntPtr) _data, (int)_length);
+            _data += _length;
             return str;
         }
 
         public string ReadUnicodeStringPrefixLen()
         {
-            int length = ReadInt16()/2;
-            var chars = new char[length];
-            for (int i = 0; i < length; i++)
+            // reads a string, assuming the lenght was win:UInt32 right before it in the manifest
+            var chars = new char[_length];
+            for (int i = 0; i < _length; i++)
             {
                 chars[i] = (char) ReadInt16();
             }
