@@ -53,6 +53,10 @@ namespace Tx.Windows
             {
                 _disposed = true;
                 EtwNativeMethods.CloseTrace(_handle);
+
+                // the above causes EtwNativeMethods.OpenTrace to return sucessfuly
+                // and the thread which invokes the callbacks to finish
+                _thread.Join();
             }
         }
 
