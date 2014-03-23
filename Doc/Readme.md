@@ -5,9 +5,9 @@
 In the LINQPad experience of Tx is **as if all the events were in a Database**
 Except, no database is involved - the the query happens directly on raw logs/traces or real-time sessions 
 
-- [Getting started](https://tx.codeplex.com/wikipage?title=LINQPad%20Driver) with the Tx LINQPad Driver
-- [Queries on trace from HTTP.sys](https://tx.codeplex.com/wikipage?title=HTTP%20Samples)  - the kernel driver used by IIS (Internet Information Services)
-- [Average and Deviation](https://tx.codeplex.com/wikipage?title=Performance%20Counter%20Samples). This query is based on .blg file (the default output of PerfMon for counters)
+- [Getting started](../Source/Tx.Linqpad/Readme.md) with the Tx LINQPad Driver
+- [Queries on trace from HTTP.sys](../Samples/LinqPad/Queries/HTTP.sys/Readme.md)  - the kernel driver used by IIS (Internet Information Services)
+- [Average and Deviation](..\Samples\LinqPad\Queries\Performance Counters\Readme.md). This query is based on .blg file (the default output of PerfMon for counters)
 - [Cross /provider & cross machine queries](https://tx.codeplex.com/wikipage?title=IE_IIS). Response time of IE on client machine and IIS on server.
 
 ## Using Tx from C# code
