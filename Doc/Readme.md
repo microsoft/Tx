@@ -8,7 +8,7 @@ Except, no database is involved - the the query happens directly on raw logs/tra
 - [Getting started](../Source/Tx.LinqPad/Readme.md) with the Tx LINQPad Driver
 - [Queries on trace from HTTP.sys](../Samples/LinqPad/Queries/HTTP.sys/Readme.md)  - the kernel driver used by IIS (Internet Information Services)
 - [Average and Deviation](../Samples/LinqPad/Queries/Performance Counters/Readme.md). This query is based on .blg file (the default output of PerfMon for counters)
-- [Cross /provider & cross machine queries](https://tx.codeplex.com/wikipage?title=IE_IIS). Response time of IE on client machine and IIS on server.
+- [Cross /provider & cross machine queries](../Samples/LinqPad/Queries/IE_IIS/Readme.md). Response time of IE on client machine and IIS on server.
 
 ## Using Tx from C# code
 
