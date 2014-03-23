@@ -21,7 +21,7 @@ Except, no database is involved - the the query happens directly on raw logs/tra
 
 ## Conceptual overviews
 
-- [The visual intuition](http://tx.codeplex.com/wikipage?title=Playback%20conceptual%20model) behind the Playback API
+- [The visual intuition](PlaybackConcepts.md) behind the Playback API
 - [Internals](http://tx.codeplex.com/wikipage?title=Playback%20Internals) of the Playback
 - [Extending](http://tx.codeplex.com/wikipage?title=ULS%20Sample) Tx with semi-structured text logs  (SharePoint's ULS format).
 - [TimeSource](https://tx.codeplex.com/wikipage?title=TimeSource) creation of virtual time from timestamps on the event

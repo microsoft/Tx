@@ -39,7 +39,7 @@ Now, we can formulate next query ([2_ClientDurations.linq](2_ClientDurations.lin
 ## Server Durations
 Similarly we can do a query ([3_ServerTrace.linq](3_ServerTrace.linq)) that returns the raw server trace.
 
-Here Parse and FastSend are events we are familiar with, from the [HTTP samples ](..\HTTP.sys\Readme.md) and the correlation token is extracted the same way as above.
+Here Parse and FastSend are events we are familiar with, from the [HTTP samples ](../HTTP.sys/Readme.md) and the correlation token is extracted the same way as above.
 
 It appears that in some cases, the requests go in some different route and end with the SendComplete event instead. We can use the Rx operator Merge to treat FastSend and SendComplete the same way.
 
