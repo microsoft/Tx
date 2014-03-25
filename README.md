@@ -10,7 +10,8 @@ The Tx approach is different than Databases, Hadoop, Splunk, Dapper, etc. which 
 Instead, mixing Reactive Extensions (Rx) and LINQ-to-Objects allows the query to be embedded anywhere including:
 
 - In light-weight UI tools like [LINQPad](Source/Tx.LinqPad/Readme.md)  and [SvcPerf](http://svcperf.codeplex.com)
-- On original source machines, such as [Synthetic Counters](Samples/SyntheticCounters/readme.md)
+- On original source machines, such as [Synthetic Counters](Samples/SyntheticCounters/Readme.md)
+
 
 The following picture shows the dependencies among the main Tx components:
 
@@ -24,7 +25,7 @@ Here:
 - Darker gray are tool experiences that come with Tx
 - White are samples
 
-For more see the [documentation](Doc\Readme.md)
+For more see the [documentation](Doc/Readme.md)
 
 ## Contribute
 
