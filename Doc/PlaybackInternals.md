@@ -39,14 +39,12 @@ In this simple case:
 ## Dealing with heterogeneity
 Life would be easy if everyone was tracing like IIS does.
 
-Unfortunately:
+Unfortunately, there is difference between Manifest and Classic providers:
 
-- There is difference between Manifest and Classic providers. 
-> In Manifest providers events are identified with { ProviderId, EventId, Version }. 
+- In Manifest providers events are identified with { ProviderId, EventId, Version }. 
+- In Classic providers events are identified as { EventGuid, Opcode, Version }
 
-> In Classic providers events are identified as { EventGuid, Opcode, Version }
-
-- There are many other formats completely different from ETW
+There are many other formats completely different from ETW
 
 Thus the real implementation of Playback contains few more parts:
 

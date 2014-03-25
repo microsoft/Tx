@@ -79,7 +79,7 @@ The first choice here is which I*TypeMap interface to use:
 
 * Use ITypeMap if implementing plain transformation (all output events have the same type)
 * Use IRootTypeMap when implementing base class representing multiple possible partitioning mechanisms
-** Example is how the manifest vs. classic difference in ETW does not impact getting a timestamp from the header nor layout of the binary data (See [EtwTypeMap](../../../Source/Tx.Windows/EtwNative/EtwTypeMap.cs)
+** Example is how the manifest vs. classic difference in ETW does not impact getting a timestamp from the header nor layout of the binary data (See [EtwTypeMap](../../../Source/Tx.Windows/EtwNative/EtwTypeMap.cs))
 * Use IPartitionableTypeMap when:
 ** the input is multiplexed sequence of many types of event, that can be distinguished by some partition key
 ** the schema for any two occurrences of events with the same key is the same
