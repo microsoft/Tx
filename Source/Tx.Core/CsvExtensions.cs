@@ -53,7 +53,7 @@ namespace System.Reactive
                     if (isFirst)
                         isFirst = false;
                     else
-                        _writer.Write(_writer);
+                        _writer.Write(_separator);
 
                     var propValue = p.GetValue(value, new object[] {});
                     IDictionary dictionary = propValue as IDictionary;
