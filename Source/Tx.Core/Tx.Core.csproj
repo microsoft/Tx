@@ -48,6 +48,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Attributes.cs" />
+    <Compile Include="ByteArrayExtensions.cs" />
     <Compile Include="CustomAttributeProviderExtensions.cs" />
     <Compile Include="BufferQueue.cs" />
     <Compile Include="IPlaybackConfiguration.cs" />
