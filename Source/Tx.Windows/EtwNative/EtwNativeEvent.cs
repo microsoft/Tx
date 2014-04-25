@@ -318,6 +318,17 @@ namespace Tx.Windows
             return value;
         }
 
+        public byte[] ReadBytes(uint length)
+        {
+            var value = new byte[length];
+            fixed (byte* pb = value)
+            {
+                TypeServiceUtil.MemCopy(_data, pb, (int)length);
+            }
+            _data += length;
+            return value;
+        }
+
         public string ReadAnsiString(int length)
         {
             string str = Marshal.PtrToStringAnsi((IntPtr) _data, length);

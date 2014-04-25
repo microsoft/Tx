@@ -9,7 +9,7 @@ This is a simple view, in which all events are of the same type **T**. This allo
 
 In most real logs/traces however, there are many types of events multiplexed in order of occurence:
 
-![Multiplexed Sequence](http://download-codeplex.sec.s-msft.com/Download/SourceControlFileDownload.ashx?ProjectName=tx&changeSetId=2a7a90416cc328b61a1a16a51a15076bdf1275db&itemId=Doc%2fMultiplexedSequence.JPG)
+![Multiplexed Sequence](MultiplexedSequence.JPG)
 
 
 Here circles, triangles, and squares represent types of events
@@ -25,10 +25,10 @@ De-multipplexing (ignoring performance improvements) is semantically equivalent 
 
 Tx provides two implementations of De-Multiplexing
 
-* [Demultiplexor](http://tx.codeplex.com/SourceControl/latest#Source/Tx.Core/Demultiplexor.cs) is a component exposing IObservable&lt;**Object**&gt; in left and GetObservable**&lt;T&gt;** on right
-* Playback acts the same as Demultiplexor as far as types are concerned. It also adds the other features listed below, which adds certain [internal complexity](http://tx.codeplex.com/wikipage?title=Playback%20Internals).
+* [Demultiplexor](../Source/Tx.Core/Demultiplexor.cs) is a component exposing IObservable&lt;**Object**&gt; in left and GetObservable**&lt;T&gt;** on right
+* Playback acts the same as Demultiplexor as far as types are concerned. It also adds the other features listed below, which adds certain [internal complexity](PlaybackInternals.md).
 
-## Hiding the heterogenuity of the event sources
+## Hiding the heterogeneity of the event sources
 
 It would have been nice if there was one single format for logs & traces... But in reality:
 
@@ -39,9 +39,9 @@ For example, typical suport issue  can include XEvents from SQL Server as well a
 
 Playback separates the responsibility of parsing specific format from building queries. 
 
-Parsing is about implementing IEnumerable or IObservable. Sometimes this as easy as a wrapper of some old API that existed before LINQ. In other cases it understanding a whole ecosystem like the ETW versions of metadata (classic vs. Manifest). Either way, the parsers are reusable components (see the [extensibility sample](http://tx.codeplex.com/wikipage?title=ULS%20Sample))
+Parsing is about implementing IEnumerable or IObservable. Sometimes this as easy as a wrapper of some old API that existed before LINQ. In other cases it understanding a whole ecosystem like the ETW versions of metadata (classic vs. Manifest). Either way, the parsers are reusable components (see the [extensibility sample](../Samples/Introduction/UlsLogs/Readme.md))
 
-Once parsers exists, the users of Playback can build queries without need to understand file-format details. For them Playback just represents the stream of ALL events as C# instances. (Here is the [conceptual model](http://tx.codeplex.com/wikipage?title=Playback%20conceptual%20model))
+Once parsers exists, the users of Playback can build queries without need to understand file-format details. For them Playback just represents the stream of ALL events as C# instances. (Here is the [conceptual model](PlaybackConcepts.md))
 
 
 ## Same API for real-time and past history
@@ -57,7 +57,7 @@ This allows for very simple procedure to build real-time queries:
 * Capture events in a file, and build a query using virtual time
 * Instead of files, use real-time feeds
 
-Exmaple of query that was build like this is creating [synthetic counters](http://tx.codeplex.com/wikipage?title=synthetic%20Counters&referringTitle=Documentation) from ETW events.
+Exmaple of query that was build like this is creating [synthetic counters](SyntheticCounters.md) from ETW events.
 
 Because Playback is simply merging the incomming Observable-s, it is also possible to mix past and real-time sources. In this case all the past events are delivered in a burst followed by the real-time events when they occur.
 
@@ -86,14 +86,14 @@ To cancel the processing you can call:
 
 Relevant samples are:
 
-* Get2Observables in the [Playback samples](http://tx.codeplex.com/SourceControl/latest#Samples/Playback/Program.cs) 
-* Single Pass in the [HTTP trace samples](https://tx.codeplex.com/wikipage?title=HTTP%20Samples)
+* Get2Observables in the [Playback samples](../Samples/Playback/Program.cs) 
+* Single Pass in the [HTTP trace samples](../Samples/LinqPad/Queries/HTTP.sys/Readme.md)
 
 ## Occurence Time Scheduler
 
 Imagine for example counting events in 5 sec window of time. 
 
-The subtlety in this statement is that it makes sense only in "occurence time" - i.e. some timestamps comming with the events. 
+The subtlety in this statement is that it makes sense only in "occurrence time" - i.e. some time-stamps of the events. 
 
 The default Time in Rx is system time. This is great for events like mouse-move, that occur at the same machine and are pushed to the callbacks with negligible latency. Here using .Window(5 sec) to count mouse-move events will work flawlesly.
  
@@ -105,6 +105,6 @@ This can be passed as argument to primitives like Window, to produce determinist
 
 For more details see:
 
-* [TimeSource](https://tx.codeplex.com/wikipage?title=TimeSource&referringTitle=Documentation), which is the mechanism of presenting "occurence time" as virtual time
-* [Playback Internals](https://tx.codeplex.com/wikipage?title=Playback%20Internals)
+* [TimeSource](TimeSource.md), which is the mechanism of presenting "occurence time" as virtual time
+* [Playback Internals](PlaybackInternals.md)
 
