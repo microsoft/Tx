@@ -13,11 +13,9 @@
   <Namespace>Tx.Windows.Microsoft_Windows_HttpService</Namespace>
 </Query>
 
-// Here we find the first event for each request, and show the Url
-
-from p in playback.GetObservable<Parse>()
+from s in playback.GetObservable<FastSend>()
 select new
 {
-	p.Header.ActivityId,
-	p.Url
+	s.Header.ActivityId,
+	s.HttpStatus
 }

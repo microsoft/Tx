@@ -13,8 +13,6 @@
   <Namespace>Tx.Windows.Microsoft_Windows_HttpService</Namespace>
 </Query>
 
-// Correlating first and last events, to produce one event per request
-
 var begin = playback.GetObservable<Parse>();
 var end = playback.GetObservable<FastSend>();
 
@@ -27,5 +25,28 @@ var requests = from b in begin
 					e.HttpStatus,
 					Duration = e.Header.Timestamp - b.Header.Timestamp
 				};
+			
+var statistics = from r in requests
+				group r by new
+				{
+					Milliseconds = Math.Ceiling(r.Duration.TotalMilliseconds * 10) / 10,
+					Url = r.Url
+				} into groups
+				from c in groups.Count()
+				select new
+				{
+					groups.Key.Url,
+					groups.Key.Milliseconds,
+					Count = c
+				};
 
-requests.Dump();
+// up to here it was all Rx query, now knowing the result is small we can buffer it
+// as IEnumerable collection and use LINQ to Objects to sort it 
+				
+var ordered = from s in playback.BufferOutput(statistics)
+			  orderby s.Milliseconds, s.Url
+			  select s;
+
+playback.Run(); // Run is explicit way to start the processing
+
+ordered.Dump();

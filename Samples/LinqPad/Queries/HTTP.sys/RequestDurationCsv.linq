@@ -13,7 +13,7 @@
   <Namespace>Tx.Windows.Microsoft_Windows_HttpService</Namespace>
 </Query>
 
-// Aggregate statistics for the response times
+// Correlating first and last events, to produce one event per request
 
 var begin = playback.GetObservable<Parse>();
 var end = playback.GetObservable<FastSend>();
@@ -25,27 +25,12 @@ var requests = from b in begin
 					b.Header.ActivityId,
 					b.Url,
 					e.HttpStatus,
-					Duration = e.Header.Timestamp - b.Header.Timestamp
+					Duration = (e.Header.Timestamp - b.Header.Timestamp).TotalMilliseconds
 				};
-			
-var statistics = from r in requests
-				group r by new
-				{
-					Milliseconds = Math.Ceiling(r.Duration.TotalMilliseconds * 10) / 10,
-					Url = r.Url
-				} into groups
-				from c in groups.Count()
-				select new
-				{
-					groups.Key.Url,
-					groups.Key.Milliseconds,
-					Count = c
-				};
-				
-var ordered = from s in playback.BufferOutput(statistics)
-			  orderby s.Milliseconds, s.Url
-			  select s;
 
-playback.Run(); // this does the sequence-compute, and fills up the above collection
+string fileName = @"C:\temp\RequestDurations.csv";
+requests.ToCsvFile(fileName);
 
-ordered.Dump();
+playback.Run();
+
+Process.Start(fileName);
