@@ -31,6 +31,68 @@ namespace System.Reactive
                     typeof(PartitionableTypeMap));
         }
 
+        [FileParser("Default CSV parser", ".csv")]
+        public static void AddCsvFiles(
+            this IPlaybackConfiguration playback,
+            params string[] files)
+        {
+            if (playback == null)
+            {
+                throw new ArgumentNullException("playback");
+            }
+
+            if (files == null)
+            {
+                throw new ArgumentNullException("files");
+            }
+
+            playback.AddInput(
+                () => new CsvObservable(',', 1).FromFiles(files),
+                typeof(CsvRecordTypeMap));
+        }
+
+        [FileParser("Custom CSV parser", ".csv", ".tsv", ".txt")]
+        public static void AddCsvFiles<T>(
+            this IPlaybackConfiguration playback,
+            char delimiter,
+            int numberRecordsToSkip,
+            params string[] files) where T : SingleTypeMap<string[]>
+        {
+            if (playback == null)
+            {
+                throw new ArgumentNullException("playback");
+            }
+
+            if (files == null)
+            {
+                throw new ArgumentNullException("files");
+            }
+
+            playback.AddCsvFiles<T>(
+                new CsvObservable(delimiter, numberRecordsToSkip),
+                files);
+        }
+
+        internal static void AddCsvFiles<T>(
+            this IPlaybackConfiguration playback,
+            CsvObservable observable,
+            params string[] files) where T : SingleTypeMap<string[]>
+        {
+            if (playback == null)
+            {
+                throw new ArgumentNullException("playback");
+            }
+
+            if (files == null)
+            {
+                throw new ArgumentNullException("files");
+            }
+
+            playback.AddInput(
+                () => observable.FromFiles(files),
+                typeof(T));
+        }
+
         private sealed class PartitionableTypeMap : IPartitionableTypeMap<Timestamped<object>, string>
         {
             public Func<Timestamped<object>, object> GetTransform(Type outputType)
