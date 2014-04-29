@@ -15,5 +15,5 @@
 var raw = EtwObservable.FromFiles(@"c:\git\tx\Traces\HTTP_Server.etl");
 
 var hex = raw.Take(10)
-			.Select(e=> new { e.Id, Content = e.ReadBytes(e.UserDataLength).ToDump() });
+			.Select(e=> new { e.Id, Content = e.ReadBytes(e.UserDataLength).ToHexDump() });
 hex.Dump();

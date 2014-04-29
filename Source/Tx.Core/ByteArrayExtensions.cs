@@ -6,7 +6,12 @@ namespace System.Reactive
 {
     public static class ByteArrayExtensions
     {
-        public static string ToDump(this byte[] bytes)
+        /// <summary>
+        /// Displays the byte array as hex-dump, like within a debugger
+        /// </summary>
+        /// <param name="bytes">array to display as hex</param>
+        /// <returns></returns>
+        public static string ToHexDump(this byte[] bytes)
         {
             StringBuilder sb = new StringBuilder();
             int lineOffset = 0;

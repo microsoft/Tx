@@ -59,20 +59,20 @@ Although we can't format events as text, we can at least see some of the data th
 
 ## Hex dump of the user data
 
-To look at raw event data, Tx.Core has an extension method string `ToDump(this byte[])`, which can be used on the UserData or any binary payload of structured events.
+To look at raw event data, Tx.Core has an extension method string `ToHexDump(this byte[])`, which can be used on the UserData or any binary payload of structured events.
 
-Unfortunately, the events at the level of playback no longer contain the byte arrays - they are just C# objects on the heap. To get access to the raw data we can use [EtwObservable.cs](../../../Source/Tx.Windows/EtwNative/EtwObservable.cs), which belongs to lower layer of Tx.
+Unfortunately, the events at the level of playback no longer contain the byte arrays - they are just C# objects on the heap. To get access to the raw data we can use [EtwObservable.cs](../../../../Source/Tx.Windows/EtwNative/EtwObservable.cs), which belongs to lower layer of Tx.
 
 Here is example [query](5_UserDataHexDump.linq)
 
 ![5_UserDataHexDump.JPG](5_UserDataHexDump.JPG)
 
-Here the layout is distorted a bit by the default font used in LinqPad. To read the data in Notepad, instead of .Dump() you can do:
 
-        hex.ToCsvFile(@"c:\Repro\hex.csv");
-        playback.Run();
-        
-This will produce no output in LinqPad, and will export the data to the .csv file. Note that:
+To display hex-dumps it is best to change the font:
 
-- when using LinqPad, it is best to do .Take and .Skip to keep the output under say 1000 lines
-- The .ToCsvFile extension can be used to export the data in streaming fashion regardless of the file size
+- click Edit, Preferences
+- choose the Results tab
+- set the style sheet to custom and launch the editor
+- overwrite the font to Courier New
+
+![FontPreferences.JPG](FontPreferences.JPG)
