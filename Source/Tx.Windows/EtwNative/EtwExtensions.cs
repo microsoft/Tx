@@ -25,5 +25,15 @@ namespace Tx.Windows
                 typeof (EtwClassicTypeMap),
                 typeof (EtwTypeMap));
         }
+
+        [FileParser("Sequential Event Trace Logs", ".etl")]
+        public static void AddEtlFileSequence(this IPlaybackConfiguration playback, params string[] files)
+        {
+            playback.AddInput(
+                () => EtwObservable.FromSequentialFiles(files),
+                typeof(EtwManifestTypeMap),
+                typeof(EtwClassicTypeMap),
+                typeof(EtwTypeMap));
+        }
     }
 }

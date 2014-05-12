@@ -31,6 +31,58 @@ namespace Tx.Windows
         }
 
         /// <summary>
+        ///     Creates a reader for one or more .etl (Event Trace Log) files
+        /// </summary>
+        /// <param name="startTime">start time of sequence of events</param>
+        /// <param name="endTime">end time of sequence of events</param>
+        /// <param name="etlFiles">up to 63 files to read</param>
+        /// <returns>sequence of events ordered by timestamp</returns>
+        public static IObservable<EtwNativeEvent> FromFiles(DateTime startTime, DateTime endTime, params string[] etlFiles)
+        {
+            if (etlFiles == null)
+                throw new ArgumentNullException("etlFiles");
+
+            if (etlFiles.Length == 0 || etlFiles.Length > 63)
+                throw new ArgumentException("the supported count of files is from 1 to 63");
+
+            return new NonDetachObservable<EtwNativeEvent>(o => new EtwFileReader(o, false, startTime, endTime, etlFiles));
+        }
+
+        /// <summary>
+        ///     Creates a reader for one or more .etl (Event Trace Log) files
+        /// </summary>
+        /// <param name="etlFiles">Unlimited number of ETL files containing events ordered by timestamp</param>
+        /// <returns>sequence of events ordered by timestamp</returns>
+        public static IObservable<EtwNativeEvent> FromSequentialFiles(params string[] etlFiles)
+        {
+            if (etlFiles == null)
+                throw new ArgumentNullException("etlFiles");
+
+            if (etlFiles.Length == 0)
+                throw new ArgumentException("the supported count of files is atleast one file");
+
+            return new NonDetachObservable<EtwNativeEvent>(o => new EtwFileReader(o, true, etlFiles));
+        }
+
+        /// <summary>
+        ///     Creates a reader for one or more .etl (Event Trace Log) files
+        /// </summary>
+        /// <param name="startTime">start time of sequence of events</param>
+        /// <param name="endTime">end time of sequence of events</param>
+        /// <param name="etlFiles">Unlimited number of ETL files containing events ordered by timestamp</param>
+        /// <returns>sequence of events ordered by timestamp</returns>
+        public static IObservable<EtwNativeEvent> FromSequentialFiles(DateTime startTime, DateTime endTime, params string[] etlFiles)
+        {
+            if (etlFiles == null)
+                throw new ArgumentNullException("etlFiles");
+
+            if (etlFiles.Length == 0)
+                throw new ArgumentException("the supported count of files is atleast one file");
+
+            return new NonDetachObservable<EtwNativeEvent>(o => new EtwFileReader(o, true, startTime, endTime, etlFiles));
+        }
+
+        /// <summary>
         ///     Creates a listener to ETW real-time session
         /// </summary>
         /// <param name="sessionName">session name</param>
