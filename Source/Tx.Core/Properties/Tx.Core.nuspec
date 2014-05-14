@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
     <id>Tx.Core</id>
@@ -20,7 +20,7 @@
       <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Rx-Main" version="2.2.2" />
+      <dependency id="Rx-Main" version="(,2.2.4]" />
     </dependencies>
   </metadata>
 </package>
