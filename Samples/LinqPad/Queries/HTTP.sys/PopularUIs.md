@@ -52,11 +52,11 @@ In [Tableau](http://www.tableausoftware.com/):
 
 * For X axis, create a calculated field as INDEX()
 
-![RequestDurationCsvTableauCalc.JPG](RequestDurationCsvTableauCalc.JPG)
+![RequestDurationCsvTableauCalc.jpg](RequestDurationCsvTableauCalc.jpg)
 
 * In the Analysis menu disable the "Aggregate Measures" option 
 * Drag Duration to Rows
 * Drag the index to Columns
 
-![RequestDurationCsvTableau.JPG](RequestDurationCsvTableau.JPG)
+![RequestDurationCsvTableau.jpg](RequestDurationCsvTableau.jpg)
 
