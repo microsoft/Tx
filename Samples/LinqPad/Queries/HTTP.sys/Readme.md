@@ -66,15 +66,7 @@ Note the difference between what is happening here and exporting from LINQPad's 
 - Here all events are are streamed into .csv file. Since they are not kept in-memory, this will work regardless of the size of .etl file. The disadvantage of this method is that there is nothing to see in LINQPad.
 
 
-Exporting to .csv is how Tx can be used in conjunction with tools like Excel, Tableau and R. 
-
-In Excel for example:
-
-- select the Duration column
-- choose the INSERT on the ribbon, and then Recommended Charts
-- choose Scatter
-
-![RequestDurationCsvExcel.JPG](RequestDurationCsvExcel.JPG)
+Exporting to .csv is how Tx can be used in conjunction with [popular tools](PopularUIs.md) like Excel, Tableau and R. 
 
 ## Request Duration Summary
 
