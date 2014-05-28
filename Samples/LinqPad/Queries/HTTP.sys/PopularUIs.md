@@ -19,7 +19,9 @@ To visualize the same events in R, we start from this  useful [introduction](htt
 
     > durations = read.csv("C:\\temp\\RequestDurations.csv", header = TRUE)
 
-This reads the file into the variable dat. R provides out-of-box means to inspect data:
+This reads the file into the variable durations. 
+
+R provides out-of-box means to inspect data:
  
     > summary(durations)
                                     ActivityId                                  Url        HttpStatus     Duration     
