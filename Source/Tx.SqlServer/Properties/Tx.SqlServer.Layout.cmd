@@ -4,6 +4,7 @@ md Tx.SqlServer\lib\Net40
 
 call :copy Tx.SqlServer.dll
 call :copy Tx.SqlServer.xml
+call :copy Tx.SqlServer.pdb
 call :copy Microsoft.SqlServer.XEvent.dll
 call :copy Microsoft.SqlServer.XE.Core.dll
 call :copy Microsoft.SqlServer.XEvent.Configuration.dll
