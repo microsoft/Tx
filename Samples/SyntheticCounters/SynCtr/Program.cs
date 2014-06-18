@@ -23,9 +23,11 @@ namespace SynCtr
 @"Usage: SynCtr [option]
 
 Options are:
-    Playback   - use playback and Rx query
-    Raw        - Rx query on EtwNativeEvent-s (co copy to typed objects)
-    Imperative - use imperative code, over EtwNativeEvent-s");
+    Playback   - use Playback to copy ETW events into heap-allocated C# objects, and then Rx query
+    Raw        - Rx query on EtwNativeEvent-s, which is lower level in Tx (no copying to typed objects)
+    Imperative - use imperative code, over EtwNativeEvent-s
+    Unsafe     - use wrapper that accesses data in the ETW buffer by pointer, like TraceEvent
+                 note ETW can overwrite these buffers at unpredictable moment");
                return;
            }
 

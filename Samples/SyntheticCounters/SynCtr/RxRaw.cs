@@ -71,6 +71,12 @@ namespace SynCtr
         {
             Console.WriteLine("----- Listening with Unsafe wrapper class and Rx query -----");
 
+            // this is the approach used by TraceEvent
+            // http://blogs.msdn.com/b/dotnet/archive/2013/08/15/announcing-traceevent-monitoring-and-diagnostics-for-the-cloud.aspx
+            // - It works in this case and provides better performance
+            // - In general means the user must think which data to copy as the first step in the query
+            //   For example in query that joins begin and end event, we can't stop ETW from overwriting the buffer before matching end arrives
+
             var instance = new RecvV4();
 
             _raw = EtwObservable.FromSession(Baseline.SessionName);
