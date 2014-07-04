@@ -28,12 +28,21 @@ namespace System.Reactive
             playbackConfiguration
                 .AddInput(
                     () => source.ToObservable(Scheduler.Default),
-                    typeof(PartitionableTypeMap));
+                    typeof(PartitionableTypeMap<object>));
         }
 
+        /// <summary>
+        ///     Method for adding input sequence from CSV files.
+        /// </summary>
+        /// <param name="playback">The playback instance.</param>
+        /// <param name="transformation">Transformation function converting Record to T</param>
+        /// <param name="timestampSelector">Timestamp selector function.</param>
+        /// <param name="files">CSV files containing events ordered by timestamp.</param>
         [FileParser("Default CSV parser", ".csv")]
-        public static void AddCsvFiles(
+        public static void AddCsvInput<T>(
             this IPlaybackConfiguration playback,
+            Func<Record, T> transformation,
+            Func<Record, DateTimeOffset> timestampSelector,
             params string[] files)
         {
             if (playback == null)
@@ -41,46 +50,55 @@ namespace System.Reactive
                 throw new ArgumentNullException("playback");
             }
 
+            if (transformation == null)
+            {
+                throw new ArgumentNullException("transformation");
+            }
+
+            if (timestampSelector == null)
+            {
+                throw new ArgumentNullException("timestampSelector");
+            }
+
             if (files == null)
             {
                 throw new ArgumentNullException("files");
             }
 
-            playback.AddInput(
-                () => new CsvObservable(',', 1).FromFiles(files),
-                typeof(CsvRecordTypeMap));
+            AddCsvInput(playback, ',', 0, transformation, timestampSelector, files);
         }
 
+        /// <summary>
+        ///     Method for adding input sequence from custom CSV files.
+        /// </summary>
+        /// <param name="playback">The playback instance.</param>
+        /// <param name="delimiter"></param>
+        /// <param name="numberRecordsToSkip"></param>
+        /// <param name="transformation">Transformation function converting Record to T</param>
+        /// <param name="timestampSelector">Timestamp selector function.</param>
+        /// <param name="files">CSV files containing events ordered by timestamp.</param>
         [FileParser("Custom CSV parser", ".csv", ".tsv", ".txt")]
-        public static void AddCsvFiles<T>(
+        public static void AddCsvInput<T>(
             this IPlaybackConfiguration playback,
             char delimiter,
             int numberRecordsToSkip,
-            params string[] files) where T : SingleTypeMap<string[]>
+            Func<Record, T> transformation,
+            Func<Record, DateTimeOffset> timestampSelector,
+            params string[] files)
         {
             if (playback == null)
             {
                 throw new ArgumentNullException("playback");
             }
 
-            if (files == null)
+            if (transformation == null)
             {
-                throw new ArgumentNullException("files");
+                throw new ArgumentNullException("transformation");
             }
 
-            playback.AddCsvFiles<T>(
-                new CsvObservable(delimiter, numberRecordsToSkip),
-                files);
-        }
-
-        internal static void AddCsvFiles<T>(
-            this IPlaybackConfiguration playback,
-            CsvObservable observable,
-            params string[] files) where T : SingleTypeMap<string[]>
-        {
-            if (playback == null)
+            if (timestampSelector == null)
             {
-                throw new ArgumentNullException("playback");
+                throw new ArgumentNullException("timestampSelector");
             }
 
             if (files == null)
@@ -89,18 +107,20 @@ namespace System.Reactive
             }
 
             playback.AddInput(
-                () => observable.FromFiles(files),
-                typeof(T));
+                () => new CsvObservable(delimiter, numberRecordsToSkip)
+                    .FromFiles(files)
+                    .Select(item => new Timestamped<T>(transformation(item), timestampSelector(item))),
+                typeof(PartitionableTypeMap<T>));
         }
 
-        private sealed class PartitionableTypeMap : IPartitionableTypeMap<Timestamped<object>, string>
+        private sealed class PartitionableTypeMap<T> : IPartitionableTypeMap<Timestamped<T>, string>
         {
-            public Func<Timestamped<object>, object> GetTransform(Type outputType)
+            public Func<Timestamped<T>, object> GetTransform(Type outputType)
             {
                 return item => item.Value;
             }
 
-            public Func<Timestamped<object>, DateTimeOffset> TimeFunction
+            public Func<Timestamped<T>, DateTimeOffset> TimeFunction
             {
                 get
                 {
@@ -113,7 +133,7 @@ namespace System.Reactive
                 return outputType.FullName;
             }
 
-            public string GetInputKey(Timestamped<object> evt)
+            public string GetInputKey(Timestamped<T> evt)
             {
                 return evt.Value.GetType().FullName;
             }
