@@ -104,8 +104,7 @@ namespace Tx.Windows
         {
             IObservable<EtwNativeEvent> all = FromFiles(etlFile);
 
-            var manifests = new SortedSet<string>();
-            var sb = new StringBuilder();
+            var manifests = new Dictionary<Guid, ManifestReassembly>();
             var evt = new ManualResetEvent(false);
 
             IDisposable d = all.Subscribe(e =>
@@ -129,25 +128,44 @@ namespace Tx.Windows
                     ushort chunkNumber = e.ReadUInt16();
 
                     string chunk = e.ReadAnsiString();
-                    sb.Append(chunk);
-
-                    if (chunkNumber == totalChunks - 1)
+                    ManifestReassembly ra = null;
+                    if (!manifests.TryGetValue(e.ProviderId, out ra))
                     {
-                        string manifest = sb.ToString();
-                        sb = new StringBuilder();
-
-                        if (!manifests.Contains(manifest))
+                        ra = new ManifestReassembly
                         {
-                            manifests.Add(manifest);
-                        }
+                            Totalchunks = totalChunks,
+                            LastChunkNumber = chunkNumber,
+                            Manifest = new StringBuilder()
+                        };
+
+                        manifests.Add(e.ProviderId, ra);
                     }
+
+                    if ((ra.LastChunkNumber > 0) && (chunkNumber <= ra.LastChunkNumber))
+                        return; 
+                    else
+                        ra.LastChunkNumber = chunkNumber;
+
+                    ra.Manifest.Append(chunk);
                 },
-                                          () => evt.Set());
+                () => evt.Set());
 
             evt.WaitOne();
             d.Dispose();
 
-            return new List<string>(manifests).ToArray();
+            var result = new List<string>();
+
+            foreach (ManifestReassembly ra in manifests.Values)
+                result.Add(ra.Manifest.ToString());
+            var r = result.ToArray();
+            return r;
         }
-    }
+
+        class ManifestReassembly
+        {
+            public int Totalchunks { get; set; }
+            public int LastChunkNumber { get; set; }
+            public StringBuilder Manifest { get; set; }
+        }
+     }
 }
