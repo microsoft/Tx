@@ -22,7 +22,7 @@ In this paper we illustrate how to use LINQ to Logs and Traces to troubleshoot W
 
 ### Creating ETL trace for WCF
 
-Refer the article [How do I collect an ETL trace for WF/WCF?](http://codebox/svcperf/Wiki/View.aspx?title=How%20do%20I%20collect%20a%20WCF%20ETL%20Trace&referringTitle=FAQ) written by Sajay Antony for the commands.
+Refer the article [How do I collect an ETL trace for WF/WCF?](http://svcperf.codeplex.com/wikipage?title=How%20do%20I%20collect%20an%20ETL%20trace%20for%20WF%2fWCF%3f&referringTitle=FAQs) for the commands.
 
 ### Sample WCF application
 
@@ -39,8 +39,8 @@ Let us see in the following sections how to troubleshoot the problems caused by 
 
 Make sure to change the drive in the following batch files according to the drive in your system:
 
-1. WcfSampleTraceScript.bat
-2. InvokeWcf.bat
+1. [WcfSampleTraceScript.bat](../../../WcfTroubleshooting/Scripts/WcfSampleTraceScript.bat)
+2. [InvokeWcf.bat](../../../WcfTroubleshooting/Scripts/InvokeWcf.bat)
 
 Run WcfSampleTraceScript.bat  
 
@@ -48,9 +48,7 @@ Run WcfSampleTraceScript.bat
 
 Once the ETL trace is created, the next step is to view the details in LINQPad using Tx driver.
 
-New to LINQPad? Refer this [wiki on getting started](http://codebox/bondetw/Wiki/View.aspx?title=Getting%20started%20with%20LINQPad&referringTitle=Home).
-
-New to Tx driver? Refer this [wiki on LINQPad driver for Tx](https://github.com/MSOpenTech/Tx/blob/master/Source/Tx.LinqPad/Readme.md).
+New to LINQPad and Tx driver? Refer this [wiki on LINQPad driver for Tx](https://github.com/MSOpenTech/Tx/blob/master/Source/Tx.LinqPad/Readme.md).
 
 After setting up the LINQPad and Tx driver,
 

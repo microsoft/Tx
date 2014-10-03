@@ -112,6 +112,14 @@
       <Link>sqltrace.xel</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\Manifests\Microsoft.Windows.ApplicationServer.Applications.man">
+      <Link>Microsoft.Windows.ApplicationServer.Applications.man</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Traces\SampleWcfTrace.etl">
+      <Link>SampleWcfTrace.etl</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="..\devsetup.cmd">
       <Link>devsetup.cmd</Link>
     </None>
