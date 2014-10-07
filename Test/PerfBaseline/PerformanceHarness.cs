@@ -23,7 +23,7 @@ namespace PerformanceBaseline
             Parse(args);
 
             _writer = File.CreateText("PerformanceBaseline.csv");
-            _writer.WriteLine("QT  , Input     , Suite                , Test                   , Duration");
+            _writer.WriteLine("QT  , Suite                , Test                   , Duration");
 
             var allTests = from t in types
                            where t.GetCustomAttributes(typeof(PerformanceTestSuiteAttribute), false).Length > 0

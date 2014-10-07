@@ -7,19 +7,19 @@ using System;
 namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
 {
     public enum EventTask : uint    {
-        Task.Setup.DriverLoad = 101,
-        Task.VolumeStateChange = 102,
-        Task.IO = 103,
-        Task.File.CreateFile = 104,
-        Task.IO.Tunneled = 105,
-        Task.Setup.Channel = 106,
-        Task.IO.SingleClientNotify = 107,
-        Task.IO.ByteRangeLock = 108,
-        Task.IO.OplockUpgrade = 109,
-        Task.IO.Oplock = 110,
-        Task.File.CleanupFile = 111,
-        Task.File.CloseFile = 112,
-        Task.StateRundown = 113,
+        Task_Setup_DriverLoad = 101,
+        Task_VolumeStateChange = 102,
+        Task_IO = 103,
+        Task_File_CreateFile = 104,
+        Task_IO_Tunneled = 105,
+        Task_Setup_Channel = 106,
+        Task_IO_SingleClientNotify = 107,
+        Task_IO_ByteRangeLock = 108,
+        Task_IO_OplockUpgrade = 109,
+        Task_IO_Oplock = 110,
+        Task_File_CleanupFile = 111,
+        Task_File_CloseFile = 112,
+        Task_StateRundown = 113,
     }
 
     [Format("Openning file %6.")]
@@ -385,7 +385,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Volume %2 transitioning from %3 to SetDownlevel. Local %4; Flags %5; CountersName %6; Volume target path %7; File System target path %8.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02200, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "VolumeState")]
+    "win_Start", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "VolumeState")]
 
     public class StateChangeSetDownlevelStart : SystemEvent
     {
@@ -417,7 +417,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Volume %2 transitioning from %3 to %4.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02300, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "VolumeState")]
+    "win_Start", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "VolumeState")]
 
     public class VolumeStateChangeStart : SystemEvent
     {
@@ -437,7 +437,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Volume %2 moved to state %3. Reson %4; Status %5.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02400, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "VolumeState")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "VolumeState")]
 
     public class VolumeStateChanged : SystemEvent
     {
@@ -460,7 +460,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Start IO %1 on %3 (%7). Major Code %10. Minor Code %11.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02500, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
+    "win_Start", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
 
     public class IoStart : SystemEvent
     {
@@ -519,7 +519,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Completed IO %1. Status %3. Information %4.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02600, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
 
     public class IoCompleted : SystemEvent
     {
@@ -539,7 +539,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Posted IO %1.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02700, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
+    "win_Info", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
 
     public class IoPosted : SystemEvent
     {
@@ -553,7 +553,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Continue IO %1.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02800, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
+    "win_Info", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
 
     public class IoContinue : SystemEvent
     {
@@ -567,7 +567,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Pause IO %1. Status %3. Information %4.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x02900, 0,
-    "win:Suspend", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
+    "win_Suspend", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
 
     public class IoPause : SystemEvent
     {
@@ -590,7 +590,7 @@ namespace Tx.Windows.Microsoft_Windows_CsvFs_Diagnostic
     [Format("Resume IO %1.")]
 
     [ManifestEvent("{6a86ae90-4e9b-4186-b1d1-9ce0e02bcbc1}", 0x03000, 0,
-    "win:Resume", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
+    "win_Resume", "win:Informational", "Microsoft-Windows-CsvFs/Diagnostic", "IO")]
 
     public class IoResume : SystemEvent
     {
