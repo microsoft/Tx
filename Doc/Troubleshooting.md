@@ -1,14 +1,6 @@
 # Troubleshooting Tx
 
-There are two ways of getting the Tx source code:
-
-* Click on the SOURCE CODE tab, and then on the Download button
-* Using [Git](http://git-scm.com/book/en/Getting-Started-Git-Basics) as source control:
-	* Install [Github for Windows](http://windows.github.com/)
-	* launch the Github Shell, and type: **git clone https://git01.codeplex.com/tx**
-
-The first method is a quick way to take first look at Tx, or debug a problem. 
-The second allows you to pull subsequent changes, see the history, etc.
+First step is to [get the Tx  code and docs](GetTxCode.md) on your local machine
 
 ## LINQPad Driver
 
@@ -28,4 +20,19 @@ In Visual Studio:
 * in this project properties, Debug, Command line arguments, point to your manifest
 
 Example:  /m:myManifest.man 
+
+## Run-time reading + formatting (e.g. issues with SvnPerf)
+
+Many people don't use Tx directly, but use [SvcPerf](http://svcperf.codeplex.com). The default view of SvcPerf reads all events and uses the "Timeline Mode" described in [Playback Features](PlaybackFeatures.md).
+
+To troubleshoot Tx in a simpler way
+
+* Set the console application [TxFmt](../Source/TxFmt/Program.cs) as default project
+* In the Properties\Debugging add some manifest and etl files as command line arguments
+* Enable first-chance exceptions and run
+
+This allows to debug all non-UI parts of Tx (type-generation, reading, formatting)
+
+
+
 
