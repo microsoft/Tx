@@ -35,9 +35,9 @@ Click on the Samples tab, "Download more samples":
 ![TxSamplesInstall.JPG](TxSamplesInstall.JPG)
 
 ## See also:
-* [Playback conceptual model]
-* [Queries on trace from HTTP.sys | HTTP Samples]  - the kernel driver used by IIS (Internet Information Services) 
-* [Average and Deviation| Performance Counter Samples ]. This query is based on .blg file (the default output of PerfMon for counters)
-* [Cross /provider & cross machine queries || IE_IIS]. Response time of IE on client machine and IIS on server.
+* [Playback conceptual model](../../Doc/PlaybackConcepts.md)
+* [Queries on trace from HTTP.sys](../../Samples/LinqPad/Queries/HTTP.sys/Readme.md): the kernel driver used by IIS (Internet Information Services)
+* [Average and Deviation](../../Samples/LinqPad/Queries/Performance%20Counters/Readme.md). This query is based on "Binary Log" (.blg) file which is the default output of PerfMon for counters
+* [Cross/provider & cross machine queries](../../Samples/LinqPad/Queries/IE_IIS/Readme.md). Response time of IE on client machine and IIS on server.
 
 
