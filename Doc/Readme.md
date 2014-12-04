@@ -20,6 +20,7 @@ Except, no database is involved - the the query happens directly on raw logs/tra
 - [Playback samples](../Samples/Playback/Readme.md) : API to replay events from one or more file(s)/session(s) in order of occurrence
 - [Features of Playback](PlaybackFeatures.md) : Multiplexed sequences, Heterogeneity, Same API for past & real-time, etc.
 - [Synthetic Performance Counters](../Samples/SyntheticCounters/Readme.md) : Defining "counters" as queries on events from ETW real-time session (nothing hits disk)
+- [Causality Navigation](../Samples/TimeAndOrder/CausalityNavigation/Readme.md) :  Infinitely salable troubleshooting from traces on original event sources
 
 ## Conceptual overviews
 

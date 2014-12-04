@@ -46,7 +46,7 @@ To run the sample locally:
 
 To run on multiple machines:
 
-* Edit the file [Endpoints.txt](../BounceMessages/EndPoints.txt) with your machines
+* Edit the file [Endpoints.txt](../BounceMessages/Endpoints.txt) with your machines
 * Copy the binaries on each machine
 * Run the script [RunCausalityNavigation.cmd](RunCausalityNavigation.cmd) on each machine
 
