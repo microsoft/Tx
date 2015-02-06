@@ -114,10 +114,42 @@ namespace System.Reactive
         /// </summary>
         /// <typeparam name="TInput">Universal type that can can contain events of different actual (static) types</typeparam>
         /// <param name="createInput">How to create the input observalbe</param>
-        /// <param name="typeMaps">The available type maps</param>
+        /// <param name="typeMaps">The available type map types</param>
         void IPlaybackConfiguration.AddInput<TInput>(
             Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps)
+        {
+            var mapInstances = new ITypeMap<TInput>[typeMaps.Length];
+            for (int i = 0; i < typeMaps.Length; i++)
+            {
+                object o = Activator.CreateInstance(typeMaps[i]);
+                if (o == null)
+                    throw new Exception("Activator.CreateInstance failed for type " + typeMaps[i].Name);
+
+                ITypeMap<TInput> mapInstance = o as ITypeMap<TInput>;
+                if (mapInstance == null)
+                    throw new Exception("The type " + typeMaps[i].FullName + " must implement one of these interfaces :"
+                                        + typeof(ITypeMap<>).Name + ", "
+                                        + typeof(IRootTypeMap<,>).Name + ", "
+                                        + typeof(IPartitionableTypeMap<,>).Name);
+
+                mapInstances[i] = mapInstance;
+            }
+
+            var input = new InputStream<TInput>(createInput, StartTime, EndTime, mapInstances);
+            _inputs.Add(input);
+        }
+
+        /// <summary>
+        ///     Low level method for adding input sequence to the playback
+        ///     Usually, this will be called only from extension methods of Playback
+        /// </summary>
+        /// <typeparam name="TInput">Universal type that can can contain events of different actual (static) types</typeparam>
+        /// <param name="createInput">How to create the input observalbe</param>
+        /// <param name="typeMaps">The available type maps (local instances)</param>
+        void IPlaybackConfiguration.AddInput<TInput>(
+            Expression<Func<IObservable<TInput>>> createInput,
+            params ITypeMap<TInput>[] typeMaps)
         {
             var input = new InputStream<TInput>(createInput, StartTime, EndTime, typeMaps);
             _inputs.Add(input);
@@ -244,7 +276,7 @@ namespace System.Reactive
                 Expression<Func<IObservable<TInput>>> createInput,
                 DateTime startTime,
                 DateTime endTime,
-                params Type[] typeMaps)
+                params ITypeMap<TInput>[] typeMaps)
             {
                 _source = createInput.Compile()();
                 _output = new BufferQueue<Timestamped<object>>();

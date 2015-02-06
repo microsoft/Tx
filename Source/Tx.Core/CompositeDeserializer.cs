@@ -15,16 +15,15 @@ namespace System.Reactive
 
         public CompositeDeserializer(
             IObserver<Timestamped<object>> observer,
-            params Type[] typeMaps)
+            params ITypeMap<TInput>[] typeMaps)
         {
             _observer = observer;
 
             _deserializers = new List<IDeserializer<TInput>>();
-            foreach (Type mapType in typeMaps)
+            foreach (ITypeMap<TInput> mapInstance in typeMaps)
             {
-                object mapInstance = Activator.CreateInstance(mapType);
-
-                Type mapInterface = mapType.GetInterfaces().FirstOrDefault(i => i.Name == typeof (IPartitionableTypeMap<,>).Name);
+                Type mapInterface = mapInstance.GetType().GetInterfaces()
+                    .FirstOrDefault(i => i.Name == typeof(IPartitionableTypeMap<,>).Name);
 
                 if (mapInterface != null)
                 {
@@ -35,7 +34,7 @@ namespace System.Reactive
                     continue;
                 }
 
-                mapInterface = mapType.GetInterface(typeof (IRootTypeMap<,>).Name);
+                mapInterface = mapInstance.GetType().GetInterface(typeof(IRootTypeMap<,>).Name);
                 if (mapInterface != null)
                 {
                     Type deserializerType =
@@ -45,7 +44,7 @@ namespace System.Reactive
                     continue;
                 }
 
-                mapInterface = mapType.GetInterface(typeof (ITypeMap<>).Name);
+                mapInterface = mapInstance.GetType().GetInterface(typeof(ITypeMap<>).Name);
                 if (mapInterface != null)
                 {
                     Type deserializerType =
@@ -55,7 +54,7 @@ namespace System.Reactive
                     continue;
                 }
 
-                throw new Exception("The type " + mapType.FullName + " must implement one of these interfaces :"
+                throw new Exception("The type " + mapInstance.GetType().FullName + " must implement one of these interfaces :"
                                     + typeof (ITypeMap<>).Name + ", "
                                     + typeof (IRootTypeMap<,>).Name + ", "
                                     + typeof (IPartitionableTypeMap<,>).Name);

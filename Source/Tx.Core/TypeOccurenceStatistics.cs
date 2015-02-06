@@ -31,12 +31,34 @@ namespace System.Reactive
             Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps)
         {
+            var mapInstances = new ITypeMap<TInput>[typeMaps.Length];
+            for (int i = 0; i < typeMaps.Length; i++)
+            {
+                object o = Activator.CreateInstance(typeMaps[i]);
+                if (o == null)
+                    throw new Exception("Activator.CreateInstance failed for type " + typeMaps[i].Name);
+
+                ITypeMap<TInput> mapInstance = o as ITypeMap<TInput>;
+                if (mapInstance == null)
+                    throw new Exception("The type " + typeMaps[i].FullName + " must implement one of these interfaces :"
+                                        + typeof(ITypeMap<>).Name + ", "
+                                        + typeof(IRootTypeMap<,>).Name + ", "
+                                        + typeof(IPartitionableTypeMap<,>).Name);
+
+                mapInstances[i] = mapInstance;
+            }
+
+            AddInput(createInput, mapInstances);
+        }
+        public void AddInput<TInput>(
+            Expression<Func<IObservable<TInput>>> createInput,
+            params ITypeMap<TInput>[] typeMaps)
+        {
             var subject = new Subject<TInput>();
 
-            foreach (Type mapType in typeMaps)
+            foreach (var mapInstance in typeMaps)
             {
-                object mapInstance = Activator.CreateInstance(mapType);
-                Type mapInterface = mapType.GetInterface(typeof (IPartitionableTypeMap<,>).Name);
+                Type mapInterface = mapInstance.GetType().GetInterface(typeof(IPartitionableTypeMap<,>).Name);
                 if (mapInterface == null)
                     continue;
                 Type aggregatorType =

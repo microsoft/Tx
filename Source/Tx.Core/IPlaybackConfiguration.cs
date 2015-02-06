@@ -9,5 +9,9 @@ namespace System.Reactive
         void AddInput<TInput>(
             Expression<Func<IObservable<TInput>>> createInput,
             params Type[] typeMaps);
+
+        void AddInput<TInput>(
+            Expression<Func<IObservable<TInput>>> createInput,
+            params ITypeMap<TInput>[] typeMaps);
     }
 }
