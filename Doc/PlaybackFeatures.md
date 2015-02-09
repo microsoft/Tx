@@ -50,7 +50,7 @@ Historically, the concept of "query" evolved for stored data. With Rx however, q
 
 For example, WPF UI applications don't store mouse-move events. But, if events are stored (say, for testing purposes) the same Rx query can be used without changes, simply by getting events in push mode again (e.g. using IEnumerable.ToObservable())
 
-Playback preserves this API symmetry
+Playback preserves this API symmetry, by converting [all observables to Hot](HotObservables.md)
 
 This allows for very simple procedure to build real-time queries:
 
