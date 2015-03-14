@@ -36,7 +36,7 @@ Playback supports two modes of query:
 * **Structured mode**, which is analogous to Database (Rx on the typed sequences)
 * **Time-line** mode, in which events of multiple types show up in order of occurrence on the same IObservable&lt;BaseClass&gt;. This is similar to classic event-viewing tools such as EventVwr
 
-For more details see [Playback Samples](./Samples/Playback/Readme.md)
+For more details see [Playback Samples](../Samples/Playback/Readme.md)
 
 ## Hiding the heterogeneity of the event sources
 
