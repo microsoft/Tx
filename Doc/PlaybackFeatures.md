@@ -26,7 +26,17 @@ De-multipplexing (ignoring performance improvements) is semantically equivalent 
 Tx provides two implementations of De-Multiplexing
 
 * [Demultiplexor](../Source/Tx.Core/Demultiplexor.cs) is a component exposing IObservable&lt;**Object**&gt; in left and GetObservable**&lt;T&gt;** on right
-* Playback acts the same as Demultiplexor as far as types are concerned. It also adds the other features listed below, which adds certain [internal complexity](PlaybackInternals.md).
+* Playback acts the same as Demultiplexor as far as types are concerned
+
+For visual intuition, see the [Playback Conceptual model](PlaybackConcepts.md)
+
+## Structured and Time-line mode
+Playback supports two modes of query:
+
+* **Structured mode**, which is analogous to Database (Rx on the typed sequences)
+* **Time-line** mode, in which events of multiple types show up in order of occurrence on the same IObservable&lt;BaseClass&gt;. This is similar to classic event-viewing tools such as EventVwr
+
+For more details see [Playback Samples](./Samples/Playback/Readme.md)
 
 ## Hiding the heterogeneity of the event sources
 
@@ -39,10 +49,16 @@ For example, typical suport issue  can include XEvents from SQL Server as well a
 
 Playback separates the responsibility of parsing specific format from building queries. 
 
-Parsing is about implementing IEnumerable or IObservable. Sometimes this as easy as a wrapper of some old API that existed before LINQ. In other cases it understanding a whole ecosystem like the ETW versions of metadata (classic vs. Manifest). Either way, the parsers are reusable components (see the [extensibility sample](../Samples/Introduction/UlsLogs/Readme.md))
+* Users of Playback can build queries without need to understand file-format details. For them Playback just represents the stream of [ALL events as C# instances](PlaybackConcepts.md)
+* Parsing is about implementing IEnumerable or IObservable. 
+	* Sometimes this as easy as a wrapper of some old API that existed before LINQ. 
+	* In other cases it requires learning a whole ecosystem like the ETW versions of metadata (classic vs. Manifest). 
 
-Once parsers exists, the users of Playback can build queries without need to understand file-format details. For them Playback just represents the stream of ALL events as C# instances. (Here is the [conceptual model](PlaybackConcepts.md))
 
+See also:
+
+* [Playback Internals](PlaybackInternals.md)
+* [Extensibility sample](../Samples/Introduction/UlsLogs/Readme.md) about adding semi-structured text format traces (SharePoint Unified Logging Service (ULS) format)
 
 ## Same API for real-time and past history
 
@@ -107,4 +123,5 @@ For more details see:
 
 * [TimeSource](TimeSource.md), which is the mechanism of presenting "occurence time" as virtual time
 * [Playback Internals](PlaybackInternals.md)
+
 

@@ -164,7 +164,7 @@ namespace System.Reactive
             get { return _timeSource.Scheduler; }
         }
 
-        public IObservable<Timestamped<object>> GetAll(Type[] types)
+        public IObservable<Timestamped<object>> GetAll(params Type[] types)
         {
             foreach (IInputStream i in _inputs)
             {
