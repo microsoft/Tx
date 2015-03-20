@@ -8,6 +8,9 @@ using Tx.Windows.Microsoft_Windows_HttpService;
 
 namespace Tests.Tx
 {
+    using System.Collections.Generic;
+    using System.Reactive.Linq;
+
     [TestClass]
     public class PlaybackTest
     {
@@ -102,6 +105,38 @@ namespace Tests.Tx
 
             Assert.AreEqual(2041, count);
             Assert.AreEqual(291, parseCount);
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams()
+        {
+            var result = new List<string>();
+
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
+            using (var playback = new Playback())
+            {
+                playback.AddInput(new[] 
+		        {
+			        new Timestamped<object>(1, start),
+			        new Timestamped<object>(2, start.AddSeconds(2)),
+			        new Timestamped<object>("3", start.AddSeconds(3)),
+		        });
+
+                using (playback
+                    .GetObservable<int>()
+                    .Select(i => i.ToString())
+                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
+                    .Subscribe(Observer.Create<string>(result.Add)))
+                {
+                    playback.Run();
+                }
+            }
+
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual("1", result[0]);
+            Assert.AreEqual("2", result[1]);
+            Assert.AreEqual("3", result[2]);
         }
     }
 }
