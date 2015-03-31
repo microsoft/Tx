@@ -212,9 +212,21 @@ namespace System.Reactive
 
                 public void Reschedule(HistoricalScheduler historical)
                 {
-                    _disposable = _dueTime.HasValue ? 
-                        historical.Schedule(_state, _dueTime.Value, _action) :
-                        historical.Schedule(_state, _relativeTime, _action);
+                    if (_dueTime.HasValue)
+                    {
+                        _disposable = historical.Schedule(_state, _dueTime.Value, _action);
+                    }
+                    else
+                    {
+                        if (this._relativeTime > TimeSpan.Zero)
+                        {
+                            this._disposable = historical.Schedule(this._state, this._relativeTime, this._action);
+                        }
+                        else
+                        {
+                            this._disposable = this._action(historical, this._state);
+                        }
+                    }
                 }
             }
         }
