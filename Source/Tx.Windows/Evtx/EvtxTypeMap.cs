@@ -69,17 +69,23 @@ namespace Tx.Windows
                 var attribute = p.GetAttribute<EventFieldAttribute>();
                 if (attribute == null) continue;
 
-                MemberAssignment b = Expression.Bind(p,
-                                                     Expression.Convert(
-                                                         Expression.Property(
-                                                             Expression.Call(
-                                                                 Expression.Property(record,
-                                                                                     typeof (EventRecord).GetProperty(
-                                                                                         "Properties")),
-                                                                 typeof (IList<EventProperty>).GetMethod("get_Item"),
-                                                                 Expression.Constant(index++)),
-                                                             typeof (EventProperty).GetProperty("Value")),
-                                                         GetSimpleType(attribute.OriginalType)));
+                // the following is to handle value maps, that were emitted as enumerations
+                Type t; 
+                if (p.PropertyType.IsEnum)
+                    t=p.PropertyType;
+                else
+                    t = GetSimpleType(attribute.OriginalType);
+
+                MemberAssignment b = Expression.Bind(p, Expression.Convert(
+                                                            Expression.Property(
+                                                                Expression.Call(
+                                                                    Expression.Property(record,
+                                                                                        typeof(EventRecord).GetProperty(
+                                                                                            "Properties")),
+                                                                    typeof(IList<EventProperty>).GetMethod("get_Item"),
+                                                                    Expression.Constant(index++)),
+                                                                typeof(EventProperty).GetProperty("Value")),
+                                                            t));
 
                 bindings.Add(b);
             }
