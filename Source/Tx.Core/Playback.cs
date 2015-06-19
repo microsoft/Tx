@@ -328,7 +328,7 @@ namespace System.Reactive
         }
     }
 
-    public class Playback : PlaybackBase
+    public class Playback : PlaybackBase, IPlayback
     {
         /// <summary>
         ///     Call this to get just the events of given type
