@@ -7,7 +7,7 @@ namespace System.Reactive
         void AddKnownType(Type type);
     }
 
-    public interface IDeserializer<TInput> : IDeserializer
+    public interface IDeserializer<in TInput> : IDeserializer
     {
         bool TryDeserialize(TInput value, out Timestamped<object> ts);
     }
