@@ -73,7 +73,7 @@
     <Compile Include="TimeSource.cs" />
     <Compile Include="TransformDeserializer.cs" />
     <Compile Include="TypeMap\LambdaTypeMap.cs" />
-    <Compile Include="TypeMap\PartitionableTimestampedTypeMap.cs" />
+    <Compile Include="TypeMap\PartitionableContravariantTypeMap.cs" />
     <Compile Include="TypeMap\SystemClockTypeMap.cs" />
     <Compile Include="TypeMap\TimestampedTypeMap.cs" />
     <Compile Include="TypeOccurenceAggregator.cs" />

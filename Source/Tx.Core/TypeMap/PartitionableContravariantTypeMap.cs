@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-namespace System.Reactive.TypeMap
+namespace System.Reactive
 {
     using System;
     using System.Collections.Generic;
-    using System.Reactive;
 
     public sealed class PartitionableContravariantTypeMap : IPartitionableTypeMap<Timestamped<object>, Type>
     {
