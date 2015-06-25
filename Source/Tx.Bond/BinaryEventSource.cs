@@ -9,7 +9,7 @@ namespace Tx.Binary
     /// <summary>
     /// Custom EventSource Implementation that writes BinaryEnvelope information to ETW stream
     /// </summary>
-    [EventSource(Name = "MSOpenTech-Tx-BinaryEventSource")]
+    [EventSource(Name = "MSOpenTech-Tx-BinaryEventSource", Guid = "4f8f06bf-8261-4099-ae5f-07c54bbcfab3")]
     public sealed class BinaryEventSource : EventSource
     {
         private uint currentPackageId;
