@@ -53,8 +53,7 @@ namespace Tx.Bond
             this.manifestMap = manifestMap;
             this.interval = interval;
 
-            // V2. must be used explicitly.
-            this.writer = new CompactBinaryWriter<OutputBuffer>(this.outputBuffer, 2);
+            this.writer = new CompactBinaryWriter<OutputBuffer>(this.outputBuffer);
 
             this.Initialize();
         }
