@@ -134,15 +134,16 @@ namespace Tx.Bond
             var manifestId = type.GetBondManifestIdentifier();
 
             var deserializer = new Deserializer<CompactBinaryReader<InputBuffer>>(type);
+            var defaultInstance = Activator.CreateInstance(type);
 
             this.PayloadConverterCache.Add(
                 type,
                 new KeyValuePair<string, Func<BinaryEnvelope, object>>(
                     manifestId,
-                    e => GetBondObject(e, deserializer)));
+                    e => GetBondObject(e, deserializer, defaultInstance)));
         }
         
-        private static object GetBondObject(BinaryEnvelope envelope, Deserializer<CompactBinaryReader<InputBuffer>> deserializer)
+        private static object GetBondObject(BinaryEnvelope envelope, Deserializer<CompactBinaryReader<InputBuffer>> deserializer, object defaultInstance)
         {
             var inputStream = new InputBuffer(envelope.EventPayload);
 
@@ -160,7 +161,7 @@ namespace Tx.Bond
             }
             catch (Exception exception)
             {
-                outputObject = null;
+                outputObject = defaultInstance;
                 BinaryEventSource.Log.Error("Error trying to deserialize payload for " + envelope.PayloadId + ", error: " + exception);
             }
 
