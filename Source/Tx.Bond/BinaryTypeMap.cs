@@ -4,6 +4,7 @@ namespace Tx.Binary
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reactive;
 
     /// <summary>
@@ -11,7 +12,7 @@ namespace Tx.Binary
     /// </summary>
     /// <typeparam name="T">The type that needs to be mapped to various output types</typeparam>
     /// <typeparam name="TKey">The type that is the Equality Comparer</typeparam>
-    public abstract class BinaryTypeMap<T, TKey> : IPartitionableTypeMap<T, TKey>, IManifestLookup<TKey>
+    public abstract class BinaryTypeMap<T, TKey> : IPartitionableTypeMap<T, TKey>, ITypeProvider
     {
         private readonly IEqualityComparer<TKey> comparer;
 
@@ -69,56 +70,13 @@ namespace Tx.Binary
             return default(TKey);
         }
 
-        #region IManifestLookup
-        public TKey LookupManifestId(Type type)
+        public IEnumerable<Type> GetSupportedTypes()
         {
-            KeyValuePair<TKey, Func<T, object>> value;
+            var result = this.PayloadConverterCache
+                .Select(i => i.Key)
+                .ToArray();
 
-            if (type != null && this.PayloadConverterCache.TryGetValue(type, out value))
-            {
-                return value.Key;
-            }
-
-            return default(TKey);
+            return result;
         }
-
-        public Type TypeNameToType(string typeName)
-        {
-            foreach (var keyValuePair in this.PayloadConverterCache)
-            {
-                if (keyValuePair.Key.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return keyValuePair.Key;
-                }
-            }
-
-            return null;
-        }
-
-        public Type ManifestToType(string manifestId)
-        {
-            foreach (var keyValuePair in this.PayloadConverterCache)
-            {
-                if (keyValuePair.Value.Key.Equals(manifestId))
-                {
-                    return keyValuePair.Key;
-                }
-            }
-
-            return null;
-        }
-
-        public IEnumerable<KeyValuePair<TKey, Type>> GetAllSupportedTypes()
-        {
-            var retVal = new List<KeyValuePair<TKey, Type>>(this.PayloadConverterCache.Count);
-
-            foreach (var item in this.PayloadConverterCache)
-            {
-                retVal.Add(new KeyValuePair<TKey, Type>(item.Value.Key, item.Key));
-            }
-
-            return retVal;
-        }
-        #endregion
     }
 }

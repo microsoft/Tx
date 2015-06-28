@@ -68,7 +68,7 @@
     <Compile Include="ByteArrayHelper.cs" />
     <Compile Include="EtwExtensions.cs" />
     <Compile Include="EventManifest.cs" />
-    <Compile Include="IManifestLookup.cs" />
+    <Compile Include="ITypeProvider.cs" />
     <Compile Include="InvalidBondTypeException.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="TypeExtensions.cs" />
