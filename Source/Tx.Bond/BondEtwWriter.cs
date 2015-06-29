@@ -45,7 +45,7 @@ namespace Tx.Bond
                 receiveTimeUtc,
                 BondProtocol.CompactBinaryV1, 
                 source, 
-                outputBuffer.Data.ToArray(),
+                outputBuffer.Data.ToByteArray(),
                 this.manifestId);
         }
     }

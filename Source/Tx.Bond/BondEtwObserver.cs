@@ -128,7 +128,7 @@ namespace Tx.Bond
             manifestData.Serializer.Serialize(value, this.writer);
 
             var now = DateTime.UtcNow;
-            BinaryEventSource.Log.Write(now, now, BondProtocol.CompactBinaryV1, "Tx.Bond", this.outputBuffer.Data.ToArray(), manifestData.ManifestId);
+            BinaryEventSource.Log.Write(now, now, BondProtocol.CompactBinaryV1, "Tx.Bond", this.outputBuffer.Data.ToByteArray(), manifestData.ManifestId);
         }
 
         public void OnCompleted()
@@ -167,7 +167,7 @@ namespace Tx.Bond
             {
                 if (this.logManifestTimer != null)
                 {
-                    this.logManifestTimer.Change(this.interval, Timeout.InfiniteTimeSpan);
+                    this.logManifestTimer.Change(this.interval.Ticks, Timeout.Infinite);
                 }
             }
         }

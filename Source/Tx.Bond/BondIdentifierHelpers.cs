@@ -3,6 +3,7 @@
 namespace Tx.Bond
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Security.Cryptography;
@@ -61,7 +62,8 @@ namespace Tx.Bond
                 return null;
             }
 
-            var bondMapAttribute = type.GetCustomAttribute<GuidAttribute>();
+            var bondMapAttribute = ((GuidAttribute[])type.GetCustomAttributes(typeof(GuidAttribute), false))
+                .FirstOrDefault();
 
             if (bondMapAttribute != null &&
                 !string.IsNullOrEmpty(bondMapAttribute.Value))

@@ -10,9 +10,18 @@ namespace Tx.Bond
     {
         public static bool IsBondType(this Type type)
         {
-            var attribute = type.GetCustomAttribute<global::Bond.SchemaAttribute>();
+            var result = (global::Bond.SchemaAttribute[])type.GetCustomAttributes(typeof(global::Bond.SchemaAttribute), false);
 
-            return attribute != null && !type.IsGenericTypeDefinition;
+            return result.Length > 0 && !type.IsGenericTypeDefinition;
+        }
+
+        public static byte[] ToByteArray(this ArraySegment<byte> segment)
+        {
+            var array = new byte[segment.Count - segment.Offset];
+
+            Buffer.BlockCopy(segment.Array, segment.Offset, array, 0, array.Length);
+
+            return array;
         }
 
         public static string TryGetManifestData(this Type type)
