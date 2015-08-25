@@ -1,0 +1,7 @@
+﻿namespace BondEtwSample
+
+struct Evt
+{
+	1: required datetime Time;
+	2: required string Message;
+};

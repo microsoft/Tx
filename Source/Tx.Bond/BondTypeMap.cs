@@ -13,136 +13,55 @@ namespace Tx.Bond
     using global::Bond.Protocols;
 
     using Tx.Binary;
+    using System.Reactive;
+    using System.Globalization;
 
     /// <summary>
     /// The load bond type.
     /// </summary>
-    public class BondTypeMap : BinaryTypeMap<BinaryEnvelope, string>
+    public class BondTypeMap : IPartitionableTypeMap<BinaryEnvelope, string>
     {
-        public BondTypeMap()
-            : this(GetExecutingAssemblyLocation())
+        StringComparer _comparer = StringComparer.Create(CultureInfo.InvariantCulture, false);
+        Dictionary<Type, Func<BinaryEnvelope, object>> _transforms = new Dictionary<Type, Func<BinaryEnvelope, object>>();
+        public IEqualityComparer<string> Comparer
         {
+            get { return _comparer; }
         }
 
-        public BondTypeMap(
-            string lookupFolder)
-            : base(StringComparer.OrdinalIgnoreCase)
+        public string GetTypeKey(Type outputType)
         {
-            if (lookupFolder == null)
-            {
-                throw new ArgumentNullException("lookupFolder");
-            }
-
-            if (!Directory.Exists(lookupFolder))
-            {
-                throw new ArgumentException("Specified folder does not exist.", "lookupFolder");
-            }
-
-            this.Initialize(lookupFolder);
+            return outputType.GetBondManifestIdentifier();
         }
 
-        /// <summary>
-        /// Gets the time function.
-        /// </summary>
-        public override Func<BinaryEnvelope, DateTimeOffset> TimeFunction
+        public Func<BinaryEnvelope, object> GetTransform(Type outputType)
+        {
+            Func<BinaryEnvelope, object> transform = null;
+            _transforms.TryGetValue(outputType, out transform);
+
+            if (transform != null)
+                return transform;
+
+            var deserializer = new Deserializer<CompactBinaryReader<InputBuffer>>(outputType);
+            var defaultInstance = Activator.CreateInstance(outputType);
+            transform = e => GetBondObject(e, deserializer, defaultInstance);
+            _transforms.Add(outputType, transform);
+
+            return transform;
+        }
+        public Func<BinaryEnvelope, DateTimeOffset> TimeFunction
         {
             get
             {
-                return GetTime;                 
+                return e =>
+                    DateTime.FromFileTimeUtc(e.ReceiveFileTimeUtc);
             }
         }
 
-        public override string GetInputKey(BinaryEnvelope envelope)
+        public string GetInputKey(BinaryEnvelope envelope)
         {
             return envelope.PayloadId;
         }
 
-        private static DateTimeOffset GetTime(BinaryEnvelope envelope)
-        {
-            var time = DateTime.FromFileTimeUtc(envelope.ReceiveFileTimeUtc);
-
-            return time;
-        }
-
-        private void Initialize(string lookupFolder)
-        {
-            var bondTypes = EnumerateBondTypes(lookupFolder);
-
-            foreach (var currentType in bondTypes)
-            {
-                try
-                {
-                    this.RegisterBondType(currentType);
-                }
-                catch (ReflectionTypeLoadException exception)
-                {
-                    BinaryEventSource.Log.Error("Error trying to load type, " + currentType.AssemblyQualifiedName + ", error: " + exception);
-
-                    if (exception.LoaderExceptions != null)
-                    {
-                        foreach (var loaderException in exception.LoaderExceptions)
-                        {
-                            if (loaderException != null)
-                            {
-                                BinaryEventSource.Log.Error(loaderException.ToString());
-                            }
-                        }
-                    }
-
-                    throw;
-                }
-                catch (FileLoadException exception)
-                {
-                    BinaryEventSource.Log.Error("Error trying to load type, " + currentType.AssemblyQualifiedName + ", error: " + exception);
-                    throw;
-                }
-            }
-        }
-
-        private static string GetExecutingAssemblyLocation()
-        {
-            string currentFolder;
-
-            try
-            {
-                var location = Assembly.GetExecutingAssembly().Location;
-                currentFolder = Path.GetDirectoryName(location);
-            }
-            catch (Exception exception)
-            {
-                BinaryEventSource.Log.Error("Error trying to get executing assembly location, error: " + exception);
-                currentFolder = ".";
-            }
-
-            return currentFolder;
-        }
-
-        private static IEnumerable<Type> EnumerateBondTypes(params string[] folders)
-        {
-            var types = folders
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .SelectMany(GetAllAssembliesInFolder)
-                .SelectMany(a => a.GetTypes())
-                .Where(TypeExtensions.IsBondType)
-                .ToArray();
-
-            return types;
-        }
-
-        private void RegisterBondType(Type type)
-        {
-            var manifestId = type.GetBondManifestIdentifier();
-
-            var deserializer = new Deserializer<CompactBinaryReader<InputBuffer>>(type);
-            var defaultInstance = Activator.CreateInstance(type);
-
-            this.PayloadConverterCache.Add(
-                type,
-                new KeyValuePair<string, Func<BinaryEnvelope, object>>(
-                    manifestId,
-                    e => GetBondObject(e, deserializer, defaultInstance)));
-        }
-        
         private static object GetBondObject(BinaryEnvelope envelope, Deserializer<CompactBinaryReader<InputBuffer>> deserializer, object defaultInstance)
         {
             var inputStream = new InputBuffer(envelope.EventPayload);
@@ -166,32 +85,6 @@ namespace Tx.Bond
             }
 
             return outputObject;
-        }
-
-        private static List<Assembly> GetAllAssembliesInFolder(string folder)
-        {
-            var assemblyFiles = Directory.EnumerateFiles(
-                folder, 
-                "*.*", 
-                SearchOption.TopDirectoryOnly)
-                .Where(f => f.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) || 
-                     f.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
-
-            var assemblies = new List<Assembly>();
-
-            foreach (var dll in assemblyFiles)
-            {
-                try
-                {
-                    assemblies.Add(Assembly.LoadFrom(dll));
-                }
-                catch (BadImageFormatException)
-                {
-                    // e.g. x64 assemblies.
-                }
-            }
-
-            return assemblies;
         }
     }
 }
