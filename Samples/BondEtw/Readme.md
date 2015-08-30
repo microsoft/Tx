@@ -2,61 +2,17 @@
 
 All other Tx samples show how to use LINQ on existing log/trace formats, by only implementing reading, parsing and queries.
 
-This sample illustrates something else - using  ETW as efficient mechanism to write and read events of various serialization formats in the same file.
+This set of samples illustrates something else - using  ETW as efficient mechanism to write and read events of various serialization formats in the same file:
 
-## Writing and reading Bond via the API
-In the simplest case, all events are instances of [Bond](https://github.com/Microsoft/bond) classes defined in manifests like [Evt.bond](API/Evt.bond), which are then used to generate C# types like [Evt_types.cs](API/Evt_types.cs):
+![Multiplexed.JPG](Multiplexed.JPG)
 
-	struct Evt
-	{
-		1: required datetime Time;
-		2: required string Message;
-	};
+This file is written by using [EventSource](http://blogs.msdn.com/b/vancem/archive/2012/07/09/logging-your-own-etw-events-in-c-system-diagnostics-tracing-eventsource.aspx), so the first event in the file will be XML manifest as per the ETW standards, which defines two event types:
 
-To write such events:
+* Manifest, used to encapsulate manifests of higher-level protocol, such as [Bond](https://github.com/Microsoft/bond) 
+* Event Occurrence record, which is instance of [BinaryEnvelope](../../Source/Tx.Bond/BinaryEnvelope.cs) and contains serialized event payload.
 
-* Add reference to the Tx.Bond NuGet package
-* Add "using Tx.Bond"
-* Include both the manifest and the generated code in the project
-* Mark the manifest as Embedded Resource:
+To look at the raw content of file like this, use the [Tx driver for LINQPad](../../Source/Tx.LinqPad/Readme.md) to create connection to tx\Traces\BondEtwSample.etl
 
-       ![ManifestResources.JPG](ManifestResources.JPG)
+## Samples
 
-* start ETW session and use instance of BondObserver:
-
-		var observer = new BondEtwObserver(
-			Type2ManifestMap(), 
-			TimeSpan.FromMinutes(1));
-		
-		for (int i = 0; i < 10; i++)
-		    observer.OnNext(new Evt { 
-				Time = DateTime.UtcNow.ToShortDateString(),
-				Message = "iteration " + i });
-		
-		observer.OnCompleted();
-
-The result of this is self-contained bond-in-etw file:
-
-* Manifest(s) are written once at start, and repeated every minute
-* The rest are event occurrences (Bond instances)
-
-Reading:
-
-    playback.GetObservable<Evt>()
-        .Subscribe(e=> Console.WriteLine("{0}: {1}", e.Time, e.Message);
- 
-
-See complete example at [API/Program.cs](API/Program.cs)
-
-## Framing protocol
-
-To support multiple serialization formats, the implementation uses "Framing" - a classic technique of wrapping higher-level protocol frames (e.g. Bond or JSON) into lower-level:
-
-![Envelope.JPG](Envelope.JPG)
-
-Here:
-
-* Serialization formats like Bond, JSON, etc. can be used for the event payload (higher-level frame)
-* This is wrapped in instance of [BinaryEnvelope](../../Source/Tx.Bond/BinaryEnvelope.cs) 
-* The lowest-level is representing the above as User Data in ETW event
-
+* Bond only [write and read API](API/Readme.md)
