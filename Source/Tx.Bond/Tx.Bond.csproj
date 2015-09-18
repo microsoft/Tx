@@ -50,6 +50,8 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
@@ -68,6 +70,7 @@
     <Compile Include="ByteArrayHelper.cs" />
     <Compile Include="EtwExtensions.cs" />
     <Compile Include="EventManifest.cs" />
+    <Compile Include="GeneralPartitionableTypeMap.cs" />
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="InvalidBondTypeException.cs" />
     <Compile Include="StringHelper.cs" />

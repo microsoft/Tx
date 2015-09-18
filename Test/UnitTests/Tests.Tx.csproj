@@ -25,6 +25,16 @@
     <AssemblyOriginatorKeyFile>..\..\Source\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bond">
+      <HintPath>$(CPReferencePath)\Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Attributes">
+      <HintPath>$(CPReferencePath)\Bond.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(CPReferencePath)\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Reactive.Testing">
       <HintPath>$(CPReferencePath)\Microsoft.Reactive.Testing.dll</HintPath>
     </Reference>
@@ -56,6 +66,8 @@
     <Compile Include="..\..\Generated\Microsoft_Windows_Kernel_Process.cs">
       <Link>Microsoft_Windows_Kernel_Process.cs</Link>
     </Compile>
+    <Compile Include="BinaryEtw\BondEtwObserverTests.cs" />
+    <Compile Include="BinaryEtw\GeneralPartitionableTypeMapTests.cs" />
     <Compile Include="DemultiplexorTest.cs" />
     <Compile Include="EtwDeserializerTest.cs" />
     <Compile Include="EtwGeneration.cs" />
@@ -99,6 +111,10 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Source\Tx.Bond\Tx.Bond.csproj">
+      <Project>{6dce4a40-4946-41b0-abe5-ce1700b598e9}</Project>
+      <Name>Tx.Bond</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Source\Tx.Core\Tx.Core.csproj">
       <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
       <Name>Tx.Core</Name>

@@ -4,7 +4,6 @@ namespace Tx.Bond
 {
     using System;
     using System.Linq;
-    using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Security.Cryptography;
     using System.Text;
@@ -31,19 +30,14 @@ namespace Tx.Bond
             (byte) 251
         };
 
-        public static string GetBondManifestIdentifier(this object bondSerializable)
+        public static string GetBondManifestIdentifier(this object instance)
         {
-            if (bondSerializable == null)
+            if (instance == null)
             {
-                throw new ArgumentNullException("bondSerializable");
+                throw new ArgumentNullException("instance");
             }
 
-            var type = bondSerializable.GetType();
-
-            if (!type.IsBondType())
-            {
-                throw new NotSupportedException();
-            }
+            var type = instance.GetType();
 
             var manifestId = type.GetBondManifestIdentifier();
 
@@ -55,11 +49,6 @@ namespace Tx.Bond
             if (type == null)
             {
                 throw new ArgumentNullException("type");
-            }
-
-            if (!type.IsBondType())
-            {
-                return null;
             }
 
             var bondMapAttribute = ((GuidAttribute[])type.GetCustomAttributes(typeof(GuidAttribute), false))
