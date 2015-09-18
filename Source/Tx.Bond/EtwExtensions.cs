@@ -21,7 +21,7 @@ namespace Tx.Bond
                 throw new ArgumentNullException("files");
             }
 
-            playback.AddInput(() => BinaryEtwObservable.FromFiles(files), typeof(BondTypeMap));
+            playback.AddInput(() => BinaryEtwObservable.FromFiles(files), typeof(GeneralPartitionableTypeMap));
         }
 
         [FileParser("Sequential Bond Event Trace Log", ".etl")]
@@ -37,7 +37,7 @@ namespace Tx.Bond
                 throw new ArgumentNullException("files");
             }
 
-            playback.AddInput(() => BinaryEtwObservable.FromSequentialFiles(files), typeof(BondTypeMap));
+            playback.AddInput(() => BinaryEtwObservable.FromSequentialFiles(files), typeof(GeneralPartitionableTypeMap));
         }
     }
 }
