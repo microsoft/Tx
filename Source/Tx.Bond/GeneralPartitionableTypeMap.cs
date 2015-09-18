@@ -67,8 +67,8 @@ namespace Tx.Bond
             {
                 var deserializer = new Deserializer<CompactBinaryReader<InputBuffer>>(outputType);
 
-                deserializerMap.Add("BOND_V1", e => DeserializeCompactBinary(1, e.EventPayload, deserializer));
-                deserializerMap.Add("BOND", e => DeserializeCompactBinary(2, e.EventPayload, deserializer));
+                deserializerMap.Add(BondProtocol.CompactBinaryV1, e => DeserializeCompactBinary(1, e.EventPayload, deserializer));
+                deserializerMap.Add(BondProtocol.CompactBinaryV2, e => DeserializeCompactBinary(2, e.EventPayload, deserializer));
             }
 
             transform = e => Transform(e, deserializerMap);
