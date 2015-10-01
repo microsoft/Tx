@@ -143,6 +143,30 @@ namespace Tests.Tx
         }
 
         [TestMethod]
+        public void BlgFirst()
+        {
+            PerformanceSample result = null;
+
+            var observable = PerfCounterObservable.FromFile(BlgFileName);
+
+            observable
+                .Take(1)
+                .ForEach(
+                x =>
+                {
+                    result = x;
+                });
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(@"Avg. Disk Bytes/Read", result.CounterName, false, CultureInfo.InvariantCulture);
+            Assert.AreEqual("PhysicalDisk", result.CounterSet, false, CultureInfo.InvariantCulture);
+            Assert.AreEqual("0 C:", result.Instance, false, CultureInfo.InvariantCulture);
+            Assert.AreEqual(DateTimeKind.Local, result.Timestamp.Kind);
+            Assert.AreEqual(new DateTimeOffset(634969254188440000, TimeSpan.Zero), result.Timestamp.ToUniversalTime());
+        }
+
+        [TestMethod]
         public void PerformanceCounterProbeFirst()
         {
             PerformanceSample[] result;
@@ -170,6 +194,7 @@ namespace Tests.Tx
             Assert.AreEqual("% User Time", result[0].CounterName, false, CultureInfo.InvariantCulture);
             Assert.AreEqual("Processor", result[0].CounterSet, false, CultureInfo.InvariantCulture);
             Assert.AreEqual("_Total", result[0].Instance, false, CultureInfo.InvariantCulture);
+            Assert.AreEqual(DateTimeKind.Local, result[0].Timestamp.Kind);
             var dto = new DateTimeOffset(result[0].Timestamp);
             Assert.IsTrue(dto >= startTime);
             Assert.IsTrue(dto <= endTime);
