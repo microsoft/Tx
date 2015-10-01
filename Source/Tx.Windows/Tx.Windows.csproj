@@ -87,6 +87,7 @@
     <Compile Include="PerfCounters\PerformanceSample.cs" />
     <Compile Include="PerfMetadata.cs" />
     <Compile Include="SystemEvent.cs" />
+    <Compile Include="TimeUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">

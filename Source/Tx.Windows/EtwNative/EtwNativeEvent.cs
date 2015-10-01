@@ -64,7 +64,7 @@ namespace Tx.Windows
 
         public DateTimeOffset TimeStamp
         {
-            get { return DateTime.FromFileTimeUtc(record->EventHeader.TimeStamp); }
+            get { return TimeUtil.DateTimeOffsetFromFileTime(record->EventHeader.TimeStamp); }
         }
 
         public Int64 TimeStampRaw

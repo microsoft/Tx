@@ -10,6 +10,8 @@ using Tx.Windows;
 
 namespace Tests.Tx
 {
+    using System.Globalization;
+
     [TestClass]
     public class PerfCounterTest
     {
@@ -138,6 +140,39 @@ namespace Tests.Tx
 
             Assert.AreEqual(3000, processor.Count()); // there are 5 instances: _Total, 0, 1, 2, 3
             Assert.AreEqual(600, disk.Count());
+        }
+
+        [TestMethod]
+        public void PerformanceCounterProbeFirst()
+        {
+            PerformanceSample[] result;
+            var startTime = DateTimeOffset.UtcNow;
+
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => PerfCounterObservable.FromRealTime(TimeSpan.FromSeconds(1), @"\Processor(_Total)\% User Time").Take(1),
+                    typeof(PerfCounterPartitionTypeMap),
+                    typeof(PerfCounterTypeMap));
+
+                var query = playback.GetObservable<PerformanceSample>();
+
+                var enumerable = playback.BufferOutput(query);
+
+                playback.Run();
+
+                result = enumerable.ToArray();
+            }
+            var endTime = DateTimeOffset.UtcNow;
+
+            Assert.AreEqual(1, result.Length);
+
+            Assert.AreEqual("% User Time", result[0].CounterName, false, CultureInfo.InvariantCulture);
+            Assert.AreEqual("Processor", result[0].CounterSet, false, CultureInfo.InvariantCulture);
+            Assert.AreEqual("_Total", result[0].Instance, false, CultureInfo.InvariantCulture);
+            var dto = new DateTimeOffset(result[0].Timestamp);
+            Assert.IsTrue(dto >= startTime);
+            Assert.IsTrue(dto <= endTime);
         }
 
         IEnumerable<InstanceCounterSnapshot> PivotToInstanceSnapshots(Playback playback, string counterSet)

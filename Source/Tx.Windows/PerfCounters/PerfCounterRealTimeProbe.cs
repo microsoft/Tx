@@ -40,7 +40,7 @@ namespace Tx.Windows
                 long time;
                 PdhStatus status = PdhNativeMethods.PdhCollectQueryDataWithTime(_query, out time);
                 PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
-                DateTime timestamp = DateTime.FromFileTimeUtc(time);
+                DateTime timestamp = TimeUtil.FromFileTime(time);
 
                 foreach (PerfCounterInfo counterInfo in _counters)
                 {
