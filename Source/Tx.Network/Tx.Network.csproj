@@ -8,8 +8,8 @@
     <ProjectGuid>{B5284D80-7497-4BF3-AFD5-9A3CF8F213FA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System.Reactive</RootNamespace>
-    <AssemblyName>Tx.Core</AssemblyName>
+    <RootNamespace>Tx.Network</RootNamespace>
+    <AssemblyName>Tx.Network</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
