@@ -46,6 +46,7 @@ exit /b 0
 call :pack Tx.Core
 call :pack Tx.Windows
 call :pack Tx.Bond
+call :pack Tx.Network
 call :pack Tx.Windows.TypeGeneration
 call :pack Tx.SqlServer
 call :pack Tx.All

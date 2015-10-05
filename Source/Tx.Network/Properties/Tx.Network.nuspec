@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Tx.Network</id>
+    <title>Tx.Network</title>
+    <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
+    <version>1.0.5-beta</version>
+    <description>Parsing of Network related file and wire formats, such as .pcap and .pcapng</description>
+    <authors>Microsoft Open Technologies, Inc.</authors>
+    <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
+    
+    <projectUrl>http://tx.codeplex.com</projectUrl>
+    <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
+
+<!--
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=186234</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkId=215482</iconUrl>
+-->
+    <language>en-us</language>
+      <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+      <dependency id="Rx-Main" version="2.2.4" />
+    </dependencies>
+  </metadata>
+</package>
