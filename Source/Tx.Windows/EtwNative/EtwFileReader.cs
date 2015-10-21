@@ -94,17 +94,16 @@ namespace Tx.Windows
 
         private static bool TryConvertToFILETIME(DateTime dateTime, ref System.Runtime.InteropServices.ComTypes.FILETIME fileTime)
         {
-            try
-            {
-                long lfileTime = dateTime.ToFileTime();
-
-                fileTime.dwHighDateTime = (int)(lfileTime >> 32);
-                fileTime.dwLowDateTime = (int)(lfileTime & 0xFFFFFFFF); 
-            }
-            catch (ArgumentOutOfRangeException)
-            {
+            if (dateTime == DateTime.MinValue)
                 return false;
-            }
+
+            if (dateTime == DateTime.MaxValue)
+                return false;
+
+            long lfileTime = dateTime.ToFileTime();
+
+            fileTime.dwHighDateTime = (int)(lfileTime >> 32);
+            fileTime.dwLowDateTime = (int)(lfileTime & 0xFFFFFFFF); 
 
             return true;
         }

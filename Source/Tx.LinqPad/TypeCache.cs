@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
+using System.Xml;
 using Tx.SqlServer;
 using Tx.Windows;
 
@@ -67,7 +69,20 @@ namespace Tx.LinqPad
 
                             foreach (string manifest in manifests)
                             {
-                                Dictionary<string, string> s = ManifestParser.Parse(manifest);
+                                Dictionary<string, string> s;                                
+                                try
+                                {
+                                    s = ManifestParser.Parse(manifest);
+                                }
+                                catch (XmlException ex)
+                                {
+                                    // if one manifest is bad, we should still see the other events
+                                    string err = String.Format(
+                                        "Malformed manifest found in the file {0}\nThe corresponding events will not be shown in the tree-control. \nHere are the first 1000 characters: \n\n{1}", f, manifest.Substring(0,1000));
+                                    MessageBox.Show(err, "Tx LINQPad Driver");
+                                    continue; 
+                                }
+ 
 
                                 foreach (string type in s.Keys)
                                 {
