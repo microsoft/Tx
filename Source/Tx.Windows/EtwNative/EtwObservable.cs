@@ -134,18 +134,23 @@ namespace Tx.Windows
                         {
                             Totalchunks = totalChunks,
                             LastChunkNumber = chunkNumber,
-                            Manifest = new StringBuilder()
+                            Manifest = new StringBuilder(chunk)
                         };
 
                         manifests.Add(e.ProviderId, ra);
+                        return;
                     }
 
-                    if ((ra.LastChunkNumber > 0) && (chunkNumber <= ra.LastChunkNumber))
-                        return; 
-                    else
+                    if (chunkNumber <= ra.LastChunkNumber)
+                        return;
+                    else if (chunkNumber == ra.LastChunkNumber + 1)
+                    {
                         ra.LastChunkNumber = chunkNumber;
+                        ra.Manifest.Append(chunk);
+                    }
+                    else 
+                        throw new Exception("Missing chunks when trying to concatenate the manifest for provider " + e.ProviderId);
 
-                    ra.Manifest.Append(chunk);
                 },
                 () => evt.Set());
 

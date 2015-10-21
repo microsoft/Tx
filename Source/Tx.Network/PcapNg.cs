@@ -11,41 +11,45 @@ namespace Tx.Network
 {
     public class PcapNg
     {
-        public static IEnumerable<Block> ReadFileForward(string filename)
+        public static IEnumerable<Block> ReadForward(string filename)
         {
-            using (var stream = File.OpenRead(filename))
+            var stream = File.OpenRead(filename);
+            return ReadForward(stream);
+        }
+
+        public static IEnumerable<Block> ReadForward(Stream stream)
+        {
+            using (var reader = new BinaryReader(stream))
             {
-                using (var reader = new BinaryReader(stream))
+                while (true)
                 {
-                    while (true)
+                    if (stream.Position == stream.Length)
+                        yield break;
+
+                    BlockType type = (BlockType)reader.ReadUInt32();
+                    UInt32 length = reader.ReadUInt32();
+
+                    switch (type)
                     {
-                        if (stream.Position == stream.Length)
-                            yield break;
+                        case BlockType.SectionHeaderBlock:
+                            yield return new SectionHeaderBlock(type, length, reader);
+                            break;
 
-                        BlockType type = (BlockType)reader.ReadUInt32();
-                        UInt32 length = reader.ReadUInt32();
+                        case BlockType.InterfaceDescriptionBlock:
+                            yield return new InterfaceDescriptionBlock(type, length, reader);
+                            break;
 
-                        switch (type)
-                        {
-                            case BlockType.SectionHeaderBlock:
-                                yield return new SectionHeaderBlock(type, length, reader);
-                                break;
+                        case BlockType.EnhancedPacketBlock:
+                            yield return new EnhancedPacketBlock(type, length, reader);
+                            break;
 
-                            case BlockType.InterfaceDescriptionBlock:
-                                yield return new InterfaceDescriptionBlock(type, length, reader);
-                                break;
-
-                            case BlockType.EnhancedPacketBlock:
-                                yield return new EnhancedPacketBlock(type, length, reader);
-                                break;
-
-                            default:
-                                yield return new GenericBlock(type, length, reader);
-                                break;
-                        }
+                        default:
+                            yield return new GenericBlock(type, length, reader);
+                            break;
                     }
                 }
             }
+
         }
     }
     public enum BlockType
