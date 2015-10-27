@@ -1,0 +1,36 @@
+﻿<Window x:Class="BondInEtwDriver.ConnectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="739"
+        ResizeMode="CanResizeWithGrip"
+        SizeToContent="Height" Height="276.333"
+        WindowStartupLocation="CenterScreen"
+        Title ="Bond-In-ETW driver Connection" Background="Gainsboro">
+    <StackPanel Orientation="Vertical" Margin="0,0,2,0" Height="245" VerticalAlignment="Top">
+        <GroupBox Header ="Connection" Margin="5,5,5,5" Name="ConnectionGroupBox">
+            <DockPanel>
+                <Label Margin="5,3" DockPanel.Dock="Left">Name:</Label>
+                <TextBox Margin="5,3" Text ="{Binding ContextName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox Header="Files" Margin="5,5,5,5" Name="FilesGroupBox">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Margin="0,0,0,51">
+                    <Button Name="AddFiles" Margin ="5,3" Click="AddFiles_OnClick" Content="Add"></Button>
+                    <Button Name= "RemoveFiles" Margin="5,3" Click="RemoveFiles_OnClick" Content="Remove"></Button>
+                </StackPanel>
+                <ListView Name ="FileList" Grid.Row="2" Height ="100" Margin="5,5" SelectionMode="Extended"></ListView>
+            </DockPanel>
+        </GroupBox>
+        <Grid Height="27">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Button Name="ButtonOk" Grid.Column="1" Margin="0,0,10,6" IsDefault="True" Click="ButtonOk_OnClick">OK</Button>
+            <Button Name="ButtonCancel" Grid.Column="2" Margin="0,0,10,6" IsCancel="True">Cancel</Button>
+        </Grid>
+    </StackPanel>
+</Window>

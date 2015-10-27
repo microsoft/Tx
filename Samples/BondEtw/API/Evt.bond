@@ -2,6 +2,6 @@
 
 struct Evt
 {
-	1: required datetime Time;
+	1: required string Time;
 	2: required string Message;
 };
