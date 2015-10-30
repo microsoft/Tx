@@ -83,7 +83,7 @@
                 if (manifest != null)
                 {
                     var line = manifest.Manifest
-                        .Split('\n').FirstOrDefault(l => l.Trim().StartsWith("struct", StringComparison.OrdinalIgnoreCase));
+                        .Split('\n').LastOrDefault(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase));
 
                     var className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
 

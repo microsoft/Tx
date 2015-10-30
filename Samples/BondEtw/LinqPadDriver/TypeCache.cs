@@ -15,23 +15,47 @@ using Tx.Binary;
 
 namespace BondInEtwLinqpadDriver
 {
+    using System.Globalization;
+
     public class TypeCache
     {
+        private readonly string _gbcPath;
+
+        private readonly string[] _assemblyNames = 
+        {    
+            // Todo: how to remove the  hack below?
+            @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.dll",
+            //typeof (Attribute).Assembly.Location, // ?
+            typeof (ObservableCollection<>).Assembly.Location, // System
+            typeof (Expression).Assembly.Location, // System.Core
+            typeof (BondDataType).Assembly.Location, // Bond
+            typeof (RequiredAttribute).Assembly.Location // Bond.Attributes
+        };
+
+        private const string _partialClassTemplate = @"namespace {0}
+{{
+    using System.Runtime.InteropServices;
+
+    [Guid(""{1}"")]
+    public partial class {2}
+    {{
+    }}
+}}
+";
+
         public string CacheDirectory { get; private set; }
         public EventManifest[] Manifests { get; private set; }
 
-        private readonly string gbcPath;
-
         public TypeCache()
         {
-            gbcPath = Path.Combine(
+            this._gbcPath = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 @"gbc.exe");
         }
 
         public static string Resolve(string targetDir)
         {
-            return Path.Combine(ResolveCacheDirectory(targetDir), "BondTypes.dll");
+            return Path.Combine(ResolveCacheDirectory(targetDir), @"BondTypes.dll");
         }
 
         public static string ResolveCacheDirectory(string targetDir)
@@ -69,8 +93,41 @@ namespace BondInEtwLinqpadDriver
                 sources.Add(source);
             }
 
-            string asm = Path.Combine(CacheDirectory, "BondTypes.dll");
+            foreach (var m in Manifests)
+            {
+                var source = GenerateManifestOverrideCSharpClass(
+                    m.Manifest,
+                    m.ManifestId);
+
+                sources.Add(source);
+            }
+
+            string asm = Path.Combine(CacheDirectory, @"BondTypes.dll");
             OutputAssembly(sources.ToArray(), asm);
+        }
+
+        private string GenerateManifestOverrideCSharpClass(string manifest, string manifestId)
+        {
+            var lines = manifest.Split('\n');
+
+            var line = lines
+                .FirstOrDefault(l => l.Trim().StartsWith(@"namespace ", StringComparison.OrdinalIgnoreCase));
+
+            var @namespace = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
+
+            line = lines
+                .LastOrDefault(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase));
+
+            var className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
+
+            var source = string.Format(
+                CultureInfo.InvariantCulture, 
+                _partialClassTemplate,
+                @namespace, 
+                manifestId,
+                className);
+
+            return source;
         }
 
         private string GenerateCSharpCode(string bondFileName)
@@ -82,7 +139,7 @@ namespace BondInEtwLinqpadDriver
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
-                FileName = gbcPath,
+                FileName = this._gbcPath,
                 Arguments = command,
                 WorkingDirectory = CacheDirectory,
                 RedirectStandardOutput = true
@@ -149,25 +206,14 @@ namespace BondInEtwLinqpadDriver
             return types;            
         }
 
-        private static void OutputAssembly(string[] sources, string assemblyPath)
+        private void OutputAssembly(string[] sources, string assemblyPath)
         {
             var providerOptions = new Dictionary<string, string> {{"CompilerVersion", "v4.0"}};
-
-            string[] assemblyNames = 
-                {    
-                    // Todo: how to remove the  hack below?
-                    @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.dll",
-                    //typeof (Attribute).Assembly.Location, // ?
-                    typeof (ObservableCollection<>).Assembly.Location, // System
-                    typeof (Expression).Assembly.Location, // System.Core
-                    typeof (BondDataType).Assembly.Location, // Bond
-                    typeof (RequiredAttribute).Assembly.Location // Bond.Attributes
-                };
 
             using (var codeProvider = new CSharpCodeProvider(providerOptions))
             {
                 var compilerParameters = new CompilerParameters(
-                    assemblyNames,
+                    this._assemblyNames,
                     assemblyPath, 
                     false);
 
