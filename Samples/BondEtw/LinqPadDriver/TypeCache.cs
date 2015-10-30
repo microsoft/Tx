@@ -19,79 +19,137 @@ namespace BondInEtwLinqpadDriver
     {
         public string CacheDirectory { get; private set; }
         public EventManifest[] Manifests { get; private set; }
+
+        private readonly string gbcPath;
+
+        public TypeCache()
+        {
+            gbcPath = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                @"gbc.exe");
+        }
+
+        public static string Resolve(string targetDir)
+        {
+            return Path.Combine(ResolveCacheDirectory(targetDir), "BondTypes.dll");
+        }
+
+        public static string ResolveCacheDirectory(string targetDir)
+        {
+            var path = Path.Combine(Path.GetTempPath(), "BondEtwV2Cache", targetDir);
+
+            return path;
+        }
+
         public void Init(string targetDir, string[] files)
         {
-            CacheDirectory = Path.Combine(Path.GetTempPath(), "BondEtwV2Cache", targetDir);
+            CacheDirectory = ResolveCacheDirectory(targetDir);
 
             if (!Directory.Exists(CacheDirectory)) // Todo: do all below once, if we have to create the directory
                 Directory.CreateDirectory(CacheDirectory);
 
-                Manifests = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
-                        .ToEnumerable()
-                        .GroupBy(manifest => manifest.ManifestId, StringComparer.OrdinalIgnoreCase)
-                        .Select(grp => grp.First())
-                        .ToArray();
-                if (Manifests.Length == 0)
-                    throw new Exception("No Bond manifests found");
+            Manifests = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
+                .ToEnumerable()
+                .GroupBy(manifest => manifest.ManifestId, StringComparer.OrdinalIgnoreCase)
+                .Select(grp => grp.First())
+                .ToArray();
+            if (Manifests.Length == 0)
+                throw new Exception("No Bond manifests found");
 
-                StringBuilder sb = new StringBuilder();
-                foreach (var m in Manifests)
-                {
-                    sb.AppendLine(m.Manifest);
-                    sb.AppendLine();
-                }
-            
-                string gbcPath = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                    "gbc.exe");
+            var sources = new List<string>(Manifests.Length);
 
-                string bondFileName = Path.Combine(CacheDirectory, "BondTypes.bond");
-                File.WriteAllText(bondFileName, sb.ToString());
+            foreach (var m in Manifests)
+            {
+                string bondFileName = Path.Combine(CacheDirectory, "BondTypes" + sources.Count + ".bond");
 
-                var command = "c# " + "\"" + bondFileName + "\"" + " -o=" + "\"" + CacheDirectory;
+                File.WriteAllText(bondFileName, m.Manifest);
 
-                var processStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = gbcPath,
-                    Arguments = command,
-                    WorkingDirectory = CacheDirectory
-                };
+                var source = GenerateCSharpCode(bondFileName);
 
-                Process gbc = Process.Start(processStartInfo);
-                gbc.WaitForExit();
+                sources.Add(source);
+            }
 
-                string csFileName = Path.Combine(CacheDirectory, "BondTypes_types.cs");
-                string source = File.ReadAllText(csFileName);
-
-                string asm = Path.Combine(CacheDirectory, "BondTypes.dll");
-                OutputAssembly(new string[] { source }, asm);
+            string asm = Path.Combine(CacheDirectory, "BondTypes.dll");
+            OutputAssembly(sources.ToArray(), asm);
         }
 
-        public string[] GetAssemblies(string targetDir)
+        private string GenerateCSharpCode(string bondFileName)
         {
-            return Directory.GetFiles(CacheDirectory, "*.dll");
+            var command = "c# " + "\"" + bondFileName + "\"" + " -o=" + "\"" + CacheDirectory;
+
+            var processStartInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                FileName = gbcPath,
+                Arguments = command,
+                WorkingDirectory = CacheDirectory,
+                RedirectStandardOutput = true
+            };
+
+            using (var gbc = Process.Start(processStartInfo))
+            {
+                var reader = gbc.StandardOutput;
+                gbc.WaitForExit();
+                var output = reader.ReadToEnd();
+                var output2 = output;
+            }
+
+            var flename = Path.GetFileNameWithoutExtension(bondFileName) + "_types.cs";
+            string fullFileName = Path.Combine(CacheDirectory, flename);
+            string source = File.ReadAllText(fullFileName);
+
+            return source;
+        }
+
+        private string[] GetAssemblies(string targetDir)
+        {
+            return Directory.GetFiles(CacheDirectory, @"*.dll");
         }
 
         public Type[] Types
         {
             get
             {
-                Assembly[] assemblies = (from file in GetAssemblies(CacheDirectory)
-                                         select Assembly.LoadFrom(file)).ToArray();
+                Type[] types = new Type[0];
 
-                var types = (from a in assemblies
-                             from t in a.GetTypes()
-                             where t.IsPublic
-                             select t).ToArray();
+                try
+                {
+                    types = GetAssemblies(CacheDirectory)
+                        .Select(Assembly.LoadFrom)
+                        .SelectMany(assembly => assembly.GetTypes().Where(type => type.IsPublic))
+                        .ToArray();
+                }
+                catch (Exception)
+                {
+                    // Ignore
+                }
 
                 return types;
             }
         }
 
-        public static void OutputAssembly(string[] sources, string assemblyPath)
+        public static Type[] GetTypes(string targetDir)
+        {
+            Type[] types = new Type[0];
+
+            try
+            {
+                types = Assembly.LoadFrom(Resolve(targetDir))
+                    .GetTypes()
+                    .Where(type => type.IsPublic)
+                    .ToArray();
+            }
+            catch (Exception)
+            {
+                // Ignore
+            }
+
+            return types;            
+        }
+
+        private static void OutputAssembly(string[] sources, string assemblyPath)
         {
             var providerOptions = new Dictionary<string, string> {{"CompilerVersion", "v4.0"}};
 

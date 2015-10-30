@@ -18,8 +18,6 @@ copy Tx.Bond.* "%DRIVER_DIR%"\
 copy Tx.Core.* "%DRIVER_DIR%"\
 copy Tx.Windows.* "%DRIVER_DIR%"\
 
-del "%DRIVER_DIR%"\LINQPad.exe
-
 del BondEtwDriver.lpx 
 zip.exe BondEtwDriver.lpx header.xml gbc.exe Bond.Attributes.* Bond.* BondEtwDriver.* Microsoft.Diagnostics.Tracing.EventSource.* System.Reactive.* Tx.Bond.* Tx.Core.* Tx.Windows.*
 

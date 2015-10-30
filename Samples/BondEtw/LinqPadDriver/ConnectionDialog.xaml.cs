@@ -1,23 +1,11 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="ConnectionDialog.xaml.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
-
-namespace BondInEtwDriver
+﻿namespace BondInEtwDriver
 {
     using Microsoft.Win32;
-    using System;
-    using System.CodeDom.Compiler;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
     using System.Windows;
 
     using BondInEtwLinqpadDriver;
-
-    using Tx.Bond.Extensions;
 
     /// <summary>
     /// Interaction logic for ConnectionDialog.xaml

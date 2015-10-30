@@ -1,10 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="BondInEtwDriver.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
-
-namespace BondInEtwLinqpadDriver
+﻿namespace BondInEtwLinqpadDriver
 {
     using System;
     using System.CodeDom.Compiler;
@@ -39,9 +33,29 @@ namespace BondInEtwLinqpadDriver
     /// </summary>
     public sealed class BondDynamicDriver : DynamicDataContextDriver
     {
-        /// <summary>
-        /// Data context template.
-        /// </summary>
+        private readonly List<Assembly> assemblies = new List<Assembly>
+        {
+            typeof (ObservableCollection<>).Assembly, // System
+            typeof (Expression).Assembly, // System.Core
+            typeof (ISubject<>).Assembly, // System.Reactive.Interfaces
+            typeof (Observer).Assembly, // System.Reactive.Core
+            typeof (Subject<>).Assembly, // System.Reactive.Linq
+            typeof (ThreadPoolScheduler).Assembly, // System.Reactive.PlatformServices
+            typeof (Playback).Assembly, // Tx.Core
+            typeof (Attribute).Assembly, // mscorlib
+            typeof (BondDataType).Assembly, // Bond
+            typeof (RequiredAttribute).Assembly // Bond.Attributes
+        };
+
+        private readonly List<string> namespaces = new List<string>
+        {
+            @"System",
+            @"System.Linq",
+            @"System.Linq.Expressions",
+            @"System.Reactive",
+            @"System.Reactive.Linq"
+        };
+
         private const string DataContextTemplate = @"namespace System.Reactive.Tx
               {
                     using System;
@@ -86,7 +100,7 @@ namespace BondInEtwLinqpadDriver
             LocalDataStoreSlot = Thread.AllocateDataSlot();
         }
 
-        public BondDynamicDriver() : base()
+        public BondDynamicDriver()
         {
             _typeCache = new TypeCache();
         }
@@ -106,7 +120,7 @@ namespace BondInEtwLinqpadDriver
         {
             get
             {
-                return "Sergey Baranchenkov; Swetha Machanavajhala";
+                return @"Sergey Baranchenkov; Swetha Machanavajhala";
             }
         }
 
@@ -149,76 +163,28 @@ namespace BondInEtwLinqpadDriver
         /// <returns> List of additional assemblies. </returns>
         public override IEnumerable<string> GetAssembliesToAdd(IConnectionInfo cxInfo)
         {
-            var assemblies = new List<Assembly>
-                {
-                    typeof (ObservableCollection<>).Assembly, // System
-                    typeof (Expression).Assembly, // System.Core
-                    typeof (ISubject<>).Assembly, // System.Reactive.Interfaces
-                    typeof (Observer).Assembly, // System.Reactive.Core
-                    typeof (Subject<>).Assembly, // System.Reactive.Linq
-                    typeof (ThreadPoolScheduler).Assembly, // System.Reactive.PlatformServices
-                    typeof (Playback).Assembly, // Tx.Core
-                    typeof (Attribute).Assembly, // ?
-                    typeof (BondDataType).Assembly, // Bond
-                    typeof (RequiredAttribute).Assembly // Bond.Attributes
-                };
-
             var bondInEtwProperties = new BondInEtwProperties(cxInfo);
+            IEnumerable<string> result = null;
 
-            var driverDirectory = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
-            var knownAssemblyTypes = GetAssemblyTypes(driverDirectory);
-            var knownAssemblies = new List<Assembly>((from t in knownAssemblyTypes select t.Assembly).Distinct());
-            assemblies.AddRange(knownAssemblies);
-
-            var assemblyFullNames = new List<string>(from assembly in assemblies select assembly.Location);
-            //_typeCache.Init(bondInEtwProperties.ContextName);
-            //assemblyFullNames.AddRange(_typeCache.GetAssemblies(bondInEtwProperties.ContextName));
-
-            return assemblyFullNames;
-        }       
-
-        private static Type[] GetAssemblyTypes(string targetPath)
-        {
-            var assemblies = new[] {"*.dll" }.
-                SelectMany(i => Directory.GetFiles(targetPath, i)).ToArray();
-
-            var types = new List<Type>();
-            foreach (var assemblyName in assemblies)
+            try
             {
-                try
-                {
-                    var assembly = Assembly.LoadFrom(assemblyName);
-                    types.AddRange(assembly.GetTypes());
-                }
-                catch (ReflectionTypeLoadException exception)
-                {
-                    var stringBuilder = new StringBuilder();
+                var driverDirectory = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
 
-                    stringBuilder.AppendLine(exception.ToString());
-
-                    foreach (var loaderException in exception.LoaderExceptions)
-                    {
-                        stringBuilder.AppendLine(loaderException.ToString());
-                    }
-
-                    MessageBox.Show(stringBuilder.ToString());
-                    throw;
-                }
-                catch (BadImageFormatException e)
-                {
-                    // e.g. x64 assemblies.
-                    MessageBox.Show(e.ToString());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.ToString());
-                    throw;
-                }
+                result = GetAssemblyTypes(driverDirectory)
+                    .Concat(TypeCache.GetTypes(bondInEtwProperties.ContextName))
+                    .Select(type => type.Assembly)
+                    .Concat(assemblies)
+                    .Distinct()
+                    .Select(assembly => assembly.Location)
+                    .ToList();      
+            }
+            catch (Exception error)
+            {
+                // Ignore
             }
 
-            var assemblyTypes = types.ToArray();
-            return assemblyTypes;
-        }
+            return result;
+        }       
 
         /// <summary>
         /// Returns a list of additional namespaces that should be imported automatically into all 
@@ -228,28 +194,27 @@ namespace BondInEtwLinqpadDriver
         /// <returns> List of additional namespaces. </returns>
         public override IEnumerable<string> GetNamespacesToAdd(IConnectionInfo cxInfo)
         {
-            var namespaces = new List<string>
-                {
-                    "System",
-                    "System.Linq",
-                    "System.Linq.Expressions",
-                    "System.Reactive",
-                    "System.Reactive.Linq"
-                };
-
             var bondInEtwProperties = new BondInEtwProperties(cxInfo);
 
-            //var tempBondCache = BondEtwCache.CreateTempBondCache(bondInEtwProperties.ContextName);
-            //var assemblyTypes = GetAssemblyTypes(tempBondCache);
-            //var addedNamespaces = new List<string>((from n in assemblyTypes where n.Namespace != null select n.Namespace).Distinct());
-            //namespaces.AddRange(addedNamespaces);
+            IEnumerable<string> result = null;
 
-            var driverDirectory = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
-            var knownAssemblyTypes = GetAssemblyTypes(driverDirectory);
-            var knownNamespaces = new List<string>((from n in knownAssemblyTypes where n.Namespace != null select n.Namespace).Distinct());
-            namespaces.AddRange(knownNamespaces);
+            try
+            {
+                var driverDirectory = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
 
-            return namespaces;
+                result = GetAssemblyTypes(driverDirectory)
+                    .Concat(TypeCache.GetTypes(bondInEtwProperties.ContextName))
+                    .Select(type => type.Namespace)
+                    .Where(@namespace => @namespace != null)
+                    .Concat(namespaces)
+                    .Distinct();
+            }
+            catch (Exception error)
+            {
+                // Ignore
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -274,77 +239,36 @@ namespace BondInEtwLinqpadDriver
 
             var bondInEtwProperties = new BondInEtwProperties(cxInfo);
 
-            var workingDirectory = _typeCache.CacheDirectory;
-
-            var bondTypemap = new BondTypeMap();
-
-            var typeMaps = TypeFinder
-                .LoadTypeMaps(workingDirectory)
-                .Where(i => i != typeof(BondTypeMap))
-                .Select(Activator.CreateInstance)
-                .Concat(new[] { bondTypemap })
-                .OfType<ITypeMap<BinaryEnvelope>>()
-                .ToArray();
-
-            foreach (var file in bondInEtwProperties.Files)
+            try
             {
-                var file1 = file;
+                var bondTypemap = new GeneralPartitionableTypeMap();
 
-                ((IPlaybackConfiguration)playback).AddInput(
-                    () => BinaryEtwObservable.FromFiles(file1),
-                    typeMaps);
-            }
+                var typeMaps = TypeFinder
+                    .LoadTypeMaps(TypeCache.ResolveCacheDirectory(bondInEtwProperties.ContextName))
+                    .Where(i => i != typeof(GeneralPartitionableTypeMap))
+                    .Select(Activator.CreateInstance)
+                    .OfType<ITypeMap<BinaryEnvelope>>()
+                    .Concat(new[] { bondTypemap })
+                    .ToArray();
 
-            Thread.SetData(LocalDataStoreSlot, playback);
-            return new object[] { playback };
-        }
-
-        /// <summary>
-        /// Needed to reference other assemblies that are not part of the .NET framework.
-        /// </summary>
-        /// <param name="sender"> sender </param>
-        /// <param name="resolveEventArgs"> args </param>
-        /// <returns> Resolved references. </returns>
-        public static Assembly ResolveAssembly(object sender, ResolveEventArgs resolveEventArgs)
-        {
-            var assemblyname = resolveEventArgs.Name.Substring(0, resolveEventArgs.Name.IndexOf(',')) + ".dll";
-
-            // System.Reactive.Debugger.dll is something that wont find hence return null
-            if (string.Compare(assemblyname, "system.reactive.debugger.dll", StringComparison.InvariantCultureIgnoreCase) == 0)
-            {
-                return null;
-            }
-
-            var driverDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            if (driverDirectory != null)
-            {
-                var assemblies = Directory.EnumerateFiles(driverDirectory, assemblyname);
-
-                foreach (var path in assemblies)
+                foreach (var file in bondInEtwProperties.Files)
                 {
-                    return Assembly.LoadFrom(path);
+                    var file1 = file;
+
+                    ((IPlaybackConfiguration)playback).AddInput(
+                        () => BinaryEtwObservable.FromFiles(file1),
+                        typeMaps);
                 }
 
-                var root = Path.Combine(Path.GetTempPath(), @"LINQPad\");
-
-                assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
-
-                foreach (var path in assemblies)
-                {
-                    return Assembly.LoadFrom(path);
-                }
-
-                var dataContextFolder = AppDomain.CurrentDomain.BaseDirectory;
-
-                assemblies = Directory.EnumerateFiles(dataContextFolder, assemblyname, SearchOption.AllDirectories);
-
-                return assemblies
-                    .Select(Assembly.LoadFrom)
-                    .FirstOrDefault();
+                Thread.SetData(LocalDataStoreSlot, playback);
+                return new object[] { playback };
             }
-            
-            return null;
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error compiling generated code.");
+            }
+
+            return new object[0];
         }
 
         /// <summary>
@@ -360,15 +284,15 @@ namespace BondInEtwLinqpadDriver
         public override List<ExplorerItem> GetSchemaAndBuildAssembly(
             IConnectionInfo cxInfo, AssemblyName assemblyToBuild, ref string nameSpace, ref string typeName)
         {
-            nameSpace = "System.Reactive.Tx";
+            nameSpace = @"System.Reactive.Tx";
             typeName = "PlaybackClass";
 
             var sourceCode = new List<string>();
             var sbContextUsings = new StringBuilder();
             var sbContextProperties = new StringBuilder();
 
-            var dataContext = DataContextTemplate.Replace("[usings]", sbContextUsings.ToString())
-                                                 .Replace("[properties]", sbContextProperties.ToString());
+            var dataContext = DataContextTemplate.Replace(@"[usings]", sbContextUsings.ToString())
+                                                 .Replace(@"[properties]", sbContextProperties.ToString());
 
             var bondInEtwProperties = new BondInEtwProperties(cxInfo);
             _typeCache.Init(bondInEtwProperties.ContextName, bondInEtwProperties.Files);
@@ -412,6 +336,25 @@ namespace BondInEtwLinqpadDriver
         }
 
         /// <summary>
+        /// This method is called after the query's main thread has finished running the user's code,
+        /// but before the query has stopped. If you've spun up threads that are still writing results, you can 
+        /// use this method to wait out those threads.
+        /// </summary>
+        /// <param name="cxInfo"> Connection information, as entered by the user. </param>
+        /// <param name="context"> Context </param>
+        /// <param name="executionManager"> execution manager </param>
+        public override void OnQueryFinishing(
+            IConnectionInfo cxInfo, object context, QueryExecutionManager executionManager)
+        {
+            var playback = (Playback)context.GetType().GetProperty("playback").GetValue(context, new object[] { });
+
+            if (playback != null)
+            {
+                playback.Run();
+            }
+        }
+
+        /// <summary>
         /// Create schema tree that appears on the left pane below the driver connection name.
         /// </summary>
         /// <param name="stat"> Available event types and statistics. </param>
@@ -436,9 +379,9 @@ namespace BondInEtwLinqpadDriver
                 if (scope == null)
                 {
                     scope = new ExplorerItem(eventType.Key.Name, ExplorerItemKind.Schema, ExplorerIcon.Schema)
-                        {
-                            Children = new List<ExplorerItem>()
-                        };
+                    {
+                        Children = new List<ExplorerItem>()
+                    };
 
                     result.Add(scope);
                     currentName = eventType.Key.Name;
@@ -449,9 +392,9 @@ namespace BondInEtwLinqpadDriver
             // Defining the features for each event type.
             foreach (var pair in eventTypes)
             {
-                ExplorerItem eventType; 
+                ExplorerItem eventType;
 
-                if(pair.Value.EventsPerSecond == 0 && pair.Value.AverageByteSize == 0)
+                if (pair.Value.EventsPerSecond == 0 && pair.Value.AverageByteSize == 0)
                 {
                     eventType = new ExplorerItem(pair.Key.Name, ExplorerItemKind.QueryableObject, ExplorerIcon.Table)
                     {
@@ -470,19 +413,19 @@ namespace BondInEtwLinqpadDriver
                         ToolTipText =
                             "Statistics " + "\n" + "Occurences: " + pair.Value.EventCount + "\n" + "Events per second: " + pair.Value.EventsPerSecond + "\n" +
                                 "ByteSize: " + pair.Value.ByteSize + "\n" + "Average Byte Size: " + pair.Value.AverageByteSize + "\n",
-                        
-                               
+
+
                         DragText = "playback.GetObservable<" + pair.Key.Name + ">()",
                         Children = new List<ExplorerItem>(),
                         IsEnumerable = true
                     };
-                }                
+                }
 
                 scope.Children.Add(eventType);
 
                 // Get the nested properties (columns) for each event type.
 
-                foreach(var property in pair.Key.GetProperties())
+                foreach (var property in pair.Key.GetProperties())
                 {
                     var propertyType = new ExplorerItem(property.Name, ExplorerItemKind.Property, ExplorerIcon.Column)
                     {
@@ -493,32 +436,75 @@ namespace BondInEtwLinqpadDriver
                     };
 
                     eventType.Children.Add(propertyType);
-                    
+
                     if (!(property.PropertyType.IsPrimitive || property.PropertyType.Namespace.Contains("System")))
                     {
-                        this.AddNestedPropertyToTree(property.PropertyType.GetProperties(), propertyType);                        
-                    }  
-                }                         
+                        this.AddNestedPropertyToTree(property.PropertyType.GetProperties(), propertyType);
+                    }
+                }
             }
 
             return result;
         }
 
+        private static Type[] GetAssemblyTypes(string targetPath)
+        {
+            var assemblies = new[] { @"*.dll" }.
+                SelectMany(i => Directory.GetFiles(targetPath, i)).ToArray();
+
+            var types = new List<Type>();
+            foreach (var assemblyName in assemblies)
+            {
+                try
+                {
+                    var assembly = Assembly.LoadFrom(assemblyName);
+                    types.AddRange(assembly.GetTypes());
+                }
+                catch (ReflectionTypeLoadException exception)
+                {
+                    var stringBuilder = new StringBuilder();
+
+                    stringBuilder.AppendLine(exception.ToString());
+
+                    foreach (var loaderException in exception.LoaderExceptions)
+                    {
+                        stringBuilder.AppendLine(loaderException.ToString());
+                    }
+
+                    MessageBox.Show(stringBuilder.ToString());
+                    throw;
+                }
+                catch (BadImageFormatException e)
+                {
+                    // e.g. x64 assemblies.
+                    MessageBox.Show(e.ToString());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    throw;
+                }
+            }
+
+            var assemblyTypes = types.ToArray();
+            return assemblyTypes;
+        }
+
         private void AddNestedPropertyToTree(PropertyInfo[] property, ExplorerItem propertyType)
         {
-            if(property == null)
+            if (property == null)
             {
                 throw new ArgumentNullException("property");
             }
 
-            if(propertyType == null)
+            if (propertyType == null)
             {
                 throw new ArgumentNullException("propertyType");
             }
 
             var oldPropertyType = propertyType;
 
-            foreach(var prop in property)
+            foreach (var prop in property)
             {
                 propertyType = new ExplorerItem(prop.Name, ExplorerItemKind.Property, ExplorerIcon.Column)
                 {
@@ -530,30 +516,60 @@ namespace BondInEtwLinqpadDriver
 
                 oldPropertyType.Children.Add(propertyType);
 
-                if(!(prop.PropertyType.IsPrimitive || prop.PropertyType.Namespace.Contains("System")))
+                if (!(prop.PropertyType.IsPrimitive || prop.PropertyType.Namespace.Contains("System")))
                 {
                     this.AddNestedPropertyToTree(prop.PropertyType.GetProperties(), propertyType);
                 }
-            }            
-        }        
-
-        /// <summary>
-        /// This method is called after the query's main thread has finished running the user's code,
-        /// but before the query has stopped. If you've spun up threads that are still writing results, you can 
-        /// use this method to wait out those threads.
-        /// </summary>
-        /// <param name="cxInfo"> Connection information, as entered by the user. </param>
-        /// <param name="context"> Context </param>
-        /// <param name="executionManager"> execution manager </param>
-        public override void OnQueryFinishing(
-            IConnectionInfo cxInfo, object context, QueryExecutionManager executionManager)
-        {
-            var playback = (Playback)context.GetType().GetProperty("playback").GetValue(context, new object[] { });
-
-            if (playback != null)
-            {
-                playback.Run();
             }
         }
+
+        /// <summary>
+        /// Needed to reference other assemblies that are not part of the .NET framework.
+        /// </summary>
+        /// <param name="sender"> sender </param>
+        /// <param name="resolveEventArgs"> args </param>
+        /// <returns> Resolved references. </returns>
+        private static Assembly ResolveAssembly(object sender, ResolveEventArgs resolveEventArgs)
+        {
+            var assemblyname = resolveEventArgs.Name.Substring(0, resolveEventArgs.Name.IndexOf(',')) + @".dll";
+
+            // System.Reactive.Debugger.dll is something that wont find hence return null
+            if (string.Compare(assemblyname, @"system.reactive.debugger.dll", StringComparison.InvariantCultureIgnoreCase) == 0)
+            {
+                return null;
+            }
+
+            var driverDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            if (driverDirectory != null)
+            {
+                var assemblies = Directory.EnumerateFiles(driverDirectory, assemblyname);
+
+                foreach (var path in assemblies)
+                {
+                    return Assembly.LoadFrom(path);
+                }
+
+                var root = Path.Combine(Path.GetTempPath(), @"LINQPad\");
+
+                assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
+
+                foreach (var path in assemblies)
+                {
+                    return Assembly.LoadFrom(path);
+                }
+
+                var dataContextFolder = AppDomain.CurrentDomain.BaseDirectory;
+
+                assemblies = Directory.EnumerateFiles(dataContextFolder, assemblyname, SearchOption.AllDirectories);
+
+                return assemblies
+                    .Select(Assembly.LoadFrom)
+                    .FirstOrDefault();
+            }
+
+            return null;
+        }
+
     }
 }

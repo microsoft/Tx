@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Core", "..\..\Source\Tx.Core\Tx.Core.csproj", "{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}"
 EndProject
@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Bond", "..\..\Source\Tx.Bond\Tx.Bond.csproj", "{6DCE4A40-4946-41B0-ABE5-CE1700B598E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqPadDriver", "LinqPadDriver\LinqPadDriver.csproj", "{C08B80DD-5E1B-4F9E-986D-F1668F5E8DF4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8} = {C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,8 +195,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8} = {A7752FEA-02EC-4437-984A-B2033EB4EE03}
 		{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F} = {A7752FEA-02EC-4437-984A-B2033EB4EE03}
+		{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8} = {A7752FEA-02EC-4437-984A-B2033EB4EE03}
 		{6DCE4A40-4946-41B0-ABE5-CE1700B598E9} = {A7752FEA-02EC-4437-984A-B2033EB4EE03}
 	EndGlobalSection
 EndGlobal

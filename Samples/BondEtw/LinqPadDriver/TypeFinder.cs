@@ -12,7 +12,7 @@
 
     public static class TypeFinder
     {
-        public static ICollection<Assembly> GetAssemblies(string folder)
+        private static ICollection<Assembly> GetAssemblies(string folder)
         {
             var assembliesFiles = new[] { "*.exe", "*.dll" }
                 .SelectMany(i => Directory.GetFiles(folder, i))
@@ -36,7 +36,7 @@
             return assembliesFiles;
         }
 
-        public static ICollection<Type> GetTypes(this Assembly assembly, Func<Type, bool> predicate)
+        private static ICollection<Type> GetTypes(this Assembly assembly, Func<Type, bool> predicate)
         {
             var result = assembly
                 .GetTypes()
@@ -46,7 +46,7 @@
             return result;
         }
 
-        public static bool IsTypeMapType(this Type type)
+        private static bool IsTypeMapType(this Type type)
         {
             if (type.IsPublic &&
                 type.IsClass &&
@@ -61,18 +61,30 @@
             return false;
         }
 
-        public static bool IsBondType(this Type type)
-        {
-            var attribute = type.GetAttribute<global::Bond.SchemaAttribute>();
+        //public static bool IsBondType(this Type type)
+        //{
+        //    var attribute = type.GetAttribute<global::Bond.SchemaAttribute>();
 
-            return attribute != null && !type.IsGenericTypeDefinition;
-        }
+        //    return attribute != null && !type.IsGenericTypeDefinition;
+        //}
 
         public static Type[] LoadTypeMaps(string folder)
         {
-            var typeMapsTypes = GetAssemblies(folder)
-                .SelectMany(assembly => assembly.GetTypes(type => type.IsTypeMapType() && typeof(ITypeMap<BinaryEnvelope>).IsAssignableFrom(type)))
-                .ToArray();
+            Type[] typeMapsTypes = null;
+
+            try
+            {
+                typeMapsTypes = GetAssemblies(folder)
+                    .SelectMany(
+                        assembly =>
+                        assembly.GetTypes(
+                            type => type.IsTypeMapType() && typeof(ITypeMap<BinaryEnvelope>).IsAssignableFrom(type)))
+                    .ToArray();
+            }
+            catch (Exception error)
+            {
+                // Ignored.
+            }
 
             return typeMapsTypes;
         }
