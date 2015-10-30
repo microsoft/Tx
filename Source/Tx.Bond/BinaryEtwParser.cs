@@ -77,10 +77,30 @@ namespace Tx.Binary
             long occurenceFileTimeUtc = etwNativeEvent.ReadInt64();
             long receiveFileTimeUtc = etwNativeEvent.ReadInt64();
             string protocol = etwNativeEvent.ReadUnicodeString();
-            string source = etwNativeEvent.ReadUnicodeString();
-            string manifestId = etwNativeEvent.ReadUnicodeString();
-            uint eventPayloadLength = etwNativeEvent.ReadUInt32(); // There is a side-effect being used here with the binary length.
-            byte[] eventPayload = etwNativeEvent.ReadBytes();
+
+            bool isValid = !(protocol ?? string.Empty).StartsWith(@"rceException: ", StringComparison.OrdinalIgnoreCase);
+
+            string source;
+            string manifestId;
+            uint eventPayloadLength;
+            byte[] eventPayload;
+
+            if (isValid)
+            {
+                source = etwNativeEvent.ReadUnicodeString();
+                manifestId = etwNativeEvent.ReadUnicodeString();
+                eventPayloadLength = etwNativeEvent.ReadUInt32(); // There is a side-effect being used here with the binary length.                
+                // Payload overflow events also could be saved with event Id 0
+                eventPayload = (eventPayloadLength < 65000) ? etwNativeEvent.ReadBytes() : new byte[0];
+            }
+            else
+            {
+                protocol = string.Empty;
+                source = string.Empty;
+                manifestId = string.Empty;
+                eventPayloadLength = 0;
+                eventPayload = new byte[0];
+            }
 
             return new BinaryEnvelope
             {
