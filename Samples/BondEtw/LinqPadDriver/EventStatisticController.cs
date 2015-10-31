@@ -78,7 +78,7 @@
             foreach (var c in counts)
             {
                 var manifest = typeCache.Manifests
-                    .FirstOrDefault(m => m.ManifestId == c.ManifestId);
+                    .FirstOrDefault(m => string.Equals(m.ManifestId, c.ManifestId, StringComparison.OrdinalIgnoreCase));
 
                 if (manifest != null)
                 {
