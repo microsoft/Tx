@@ -35,18 +35,19 @@ namespace System.Reactive
         public bool TryDeserialize(TInput value, out Timestamped<object> ts)
         {
             TKey key = _typeMap.GetInputKey(value);
+            ts = default(Timestamped<object>);
 
             Func<TInput, object> transform;
             if (!_transforms.TryGetValue(key, out transform))
-            {
-                ts = default(Timestamped<object>);
                 return false;
-            }
 
             if (transform == null)
             {
                 Type type = _knownTypes[key];
                 transform = _typeMap.GetTransform(type);
+                if (transform == null)
+                    return false;
+
                 _transforms[key] = transform;
             }
 
