@@ -2,7 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.IO;
+using System.Text;
 
 // The Pcap Next Generation format is: https://www.winpcap.org/ntar/draft/PCAP-DumpFileFormat.html
 // The C# implementation below reads files in .pcapng format
@@ -19,6 +21,8 @@ namespace Tx.Network
 
         public static IEnumerable<Block> ReadForward(Stream stream)
         {
+            var interfaces = new List<InterfaceDescriptionBlock>();
+
             using (var reader = new BinaryReader(stream))
             {
                 while (true)
@@ -36,11 +40,12 @@ namespace Tx.Network
                             break;
 
                         case BlockType.InterfaceDescriptionBlock:
-                            yield return new InterfaceDescriptionBlock(type, length, reader);
+                            var interfacceDesc =  new InterfaceDescriptionBlock(type, length, reader);
+                            interfaces.Add(interfacceDesc);
                             break;
 
                         case BlockType.EnhancedPacketBlock:
-                            yield return new EnhancedPacketBlock(type, length, reader);
+                            yield return new EnhancedPacketBlock(type, length, reader, interfaces);
                             break;
 
                         default:
@@ -49,7 +54,6 @@ namespace Tx.Network
                     }
                 }
             }
-
         }
     }
     public enum BlockType
@@ -87,6 +91,21 @@ namespace Tx.Network
             if (length2 != Length)
                 throw new Exception("The Toatal Block Length at the end of bock " + Enum.GetName(typeof(BlockType), this.Type) +" does not match the length");
         }
+
+        protected string ReadAsciiOption(BinaryReader reader, int len)
+        {
+            int readLen = len + (4 - len % 4);
+            byte[] bytes = reader.ReadBytes(readLen);
+            string s = Encoding.ASCII.GetString(bytes, 0, len);
+            return s;
+        }
+
+        protected byte[] ReadBytesOption(BinaryReader reader, int len)
+        {
+            int readLen = len + (4 - len % 4);
+            byte[] bytes = reader.ReadBytes(readLen);
+            return bytes;
+        }
     }
 
     /// <summary>
@@ -107,16 +126,22 @@ namespace Tx.Network
     }
     public class EnhancedPacketBlock : Block
     {
-        public UInt32 InterfaceID { get; private set; }
+        public InterfaceDescriptionBlock InterfaceDescription { get; private set; }
         public UInt32 CapturedLen { get; private set; }
         public UInt32 PacketLen { get; private set; }
         public byte[] PacketData { get; private set; }
-        internal EnhancedPacketBlock(BlockType type, UInt32 length, BinaryReader reader)
+
+        public DateTime TimestampUtc { get; private set; }
+        internal EnhancedPacketBlock(BlockType type, UInt32 length, BinaryReader reader, List<InterfaceDescriptionBlock> interfaces)
             : base(type, length)
         {
-            InterfaceID = reader.ReadUInt32();
-            UInt32 timestampHigh = reader.ReadUInt32();
-            UInt32 timestampLow = reader.ReadUInt32();
+            int interfaceID = reader.ReadInt32();
+            InterfaceDescription = interfaces[interfaceID];
+            long timestampHigh = reader.ReadUInt32();
+            long timestampLow = reader.ReadUInt32();
+            long offset = (new DateTime(1970, 1, 1) - new DateTime(1601, 1, 1)).Ticks;
+            long ticks = offset + ((timestampHigh << 32) | timestampLow) * InterfaceDescription.TimeMultiplier; 
+            TimestampUtc = DateTime.FromFileTime(ticks);
             CapturedLen = reader.ReadUInt32();
             PacketLen = reader.ReadUInt32();
             PacketData = reader.ReadBytes((int)CapturedLen);
@@ -363,7 +388,19 @@ namespace Tx.Network
     {
         public LinkType LinkType { get; private set; }
         public UInt32 SnapLen { get; private set; }
+        /// <summary>
+        /// String containing the name of the device used to capture data.
+        /// </summary>
+        public string Name { get; private set; }
+        /// <summary>
+        /// string containing the description of the device used to capture data.
+        /// </summary>
+        public string Description { get; private set; }
 
+        /// <summary>
+        /// Number to multiply 64 bit timestamps to obtain Ticks for DateTime
+        /// </summary>
+        public long TimeMultiplier { get; private set; }
         internal InterfaceDescriptionBlock(BlockType type, UInt32 length, BinaryReader reader)
             : base(type, length)
         {
@@ -371,9 +408,44 @@ namespace Tx.Network
             var reserved = reader.ReadUInt16();
             SnapLen = reader.ReadUInt32();
             uint optionsLen = Length - 5 * 4;
-            byte[] options = reader.ReadBytes((int)optionsLen);
+            //byte[] options = reader.ReadBytes((int)optionsLen);
 
-            ReadEndOfPacket(reader);
+            TimeMultiplier = 10; // default value of 10^-6 if the option if_tsresol is not present
+            int optionCode;
+
+            while(true) // Options can occur in any order, so we have too loop
+            {
+                optionCode = reader.ReadInt16();
+                int optionLength = reader.ReadInt16();
+                if (optionCode == 0)
+                    break;
+
+                switch (optionCode)
+                {
+                    case 2:
+                        Name = ReadAsciiOption(reader, optionLength);
+                        continue;
+
+                    case 3:
+                        Description = ReadAsciiOption(reader, optionLength);
+                        continue;
+
+                    case 9:
+                        byte[] buffer = ReadBytesOption(reader, 1);
+                        byte b = buffer[0];
+                        if ((b & 0x80) == 0)
+                            TimeMultiplier = (long)(10E6 / Math.Pow(10, b));
+                        else
+                            TimeMultiplier = (long)(10E6 / Math.Pow(2, b));
+                        continue;
+
+                    default: // This is some unsupported option, but we still havo to read to skip it
+                        ReadBytesOption(reader, optionLength);
+                        continue;
+                }
+            } 
+
+           ReadEndOfPacket(reader);
         }
     }
 }
