@@ -28,14 +28,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Reactive.Linq, Version=2.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\DESKTOPCLR40\System.Reactive.Linq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="BinaryParsers.cs" />
+    <Compile Include="IP.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
+    <Compile Include="UDP.cs" />
+    <Compile Include="UDPReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\key.snk">

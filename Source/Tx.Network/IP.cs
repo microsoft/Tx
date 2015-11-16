@@ -1,4 +1,4 @@
-﻿namespace Ecs.Input.Packets
+﻿namespace Tx.Network
 {
     using System;
     using System.Net;
@@ -88,13 +88,20 @@
         /// <exception cref="ArgumentOutOfRangeException">Thrown on empty or null input byte[].</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
-        public IpPacket(byte[] ReceivedDataBuffer)
+        public IpPacket(byte[] ReceivedDataBuffer) : this(new MemoryStream(ReceivedDataBuffer)) { }
+       
+        /// <summary>
+        /// Produces a IpPacket based on input
+        /// </summary>
+        /// <param name="ReceivedDataBuffer">Incoming packet in a MemoryStream without alterations or prior processing </param>
+        /// <returns> A new IpPacket. </returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown on empty or null input byte[].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
+        public IpPacket(MemoryStream ReceivedDataBuffer)
         {
             Initialize();
-
-            DataBuffer = new byte[ReceivedDataBuffer.Length];
-            Array.Copy(ReceivedDataBuffer, DataBuffer, ReceivedDataBuffer.Length);
-
+            
             if (DataBuffer.Length == 0 || DataBuffer == null || Array.TrueForAll(DataBuffer, j => j == 0))
             {
                 throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Input byte[] is empty or null");
@@ -107,17 +114,44 @@
             {
                 throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Input byte[] is larger than the maximum IP packet size of 65,535-bytes");
             }
-            BuildPacketMemStream(DataBuffer);
+            BuildPacket(DataBuffer);
         }
 
         /// <summary>
         /// Produces a IpPacket based on input
         /// </summary>
         /// <param name="ReceivedPacket">IpPacket to copy to a new instance</param>
-        public IpPacket(IpPacket ReceivedPacket) : this(ReceivedPacket.DataBuffer) { }
+        /// <remarks> This method copies all data from the ReceivedPacket into a new packet, including byte arrays.</remarks>
+        public IpPacket(IpPacket ReceivedPacket)
+        {
+            Initialize();
+
+            IpVersion = ReceivedPacket.IpVersion;
+            InternetHeaderLength = ReceivedPacket.InternetHeaderLength;
+            DscpValue = ReceivedPacket.DscpValue;
+            ExplicitCongestionNotice = ReceivedPacket.ExplicitCongestionNotice;
+            IpPacketLength = ReceivedPacket.IpPacketLength;
+            FragmentGroupId = ReceivedPacket.FragmentGroupId;
+            IpHeaderFlags = ReceivedPacket.IpHeaderFlags;
+            FragmentOffset = ReceivedPacket.FragmentOffset;
+            TimeToLive = ReceivedPacket.TimeToLive;
+            ProtocolNumber = ReceivedPacket.ProtocolNumber;
+            Protocol = ReceivedPacket.Protocol;
+            PacketHeaderChecksum = ReceivedPacket.PacketHeaderChecksum;
+            SourceIpAddress = new IPAddress(ReceivedPacket.SourceIpAddress.GetAddressBytes());
+            DestinationIpAddress = new IPAddress(ReceivedPacket.DestinationIpAddress.GetAddressBytes());
+            IpOptions = new byte[ReceivedPacket.IpOptions.Length];
+            PacketData = new byte[ReceivedPacket.PacketData.Length];
+            DataBuffer = new byte[ReceivedPacket.DataBuffer.Length];
+            Array.Copy(ReceivedPacket.IpOptions, IpOptions, ReceivedPacket.IpOptions.Length);
+            Array.Copy(ReceivedPacket.PacketData, PacketData, ReceivedPacket.PacketData.Length);
+            Array.Copy(ReceivedPacket.DataBuffer, DataBuffer, ReceivedPacket.DataBuffer.Length);
+
+        }
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Creates a string representation of the IpPacket object.
         /// </summary>
@@ -184,57 +218,14 @@
             PacketData = null;
             DataBuffer = null;
         }
-
         private void BuildPacket(byte[] DataBuffer)
         {
-            var ipVers = DataBuffer[0].ReadBits(0, 4);                   //bits 0 to 3
-
-            //ensure this is v4
-            if (ipVers != 4)
-            {
-                throw new Exception("IPv4 only currently supported");
-            }
-
-            InternetHeaderLength = DataBuffer[0].ReadBits(4, 4);         //bits 4 to 7
-            DscpValue = DataBuffer[1].ReadBits(0, 6);                    //8 to 13
-            ExplicitCongestionNotice = DataBuffer[1].ReadBits(6, 2);     //14 to 15
-            IpPacketLength = DataBuffer.ReadNetOrderUShort(2);                   //16 to 31
-            FragmentGroupId = DataBuffer.ReadNetOrderUShort(4);                  //32 to 47
-            IpHeaderFlags = DataBuffer[6].ReadBits(0, 3);                //48 to 50
-            FragmentOffset = DataBuffer.ReadNetOrderUShort(6, 3, 13);            //51 to 63
-            TimeToLive = DataBuffer[8];                                                       //64 to 71
-            ProtocolNumber = DataBuffer[9];                                                   //72 to 79
-            Protocol = (ProtocolType)ProtocolNumber;                                          //Enum
-            PacketHeaderChecksum = BitConverter.ToUInt16(DataBuffer, 10);                     //80 to 95
-            SourceIpAddress = DataBuffer.ReadIpAddress(12);              //96 to 127
-            DestinationIpAddress = DataBuffer.ReadIpAddress(16);         //128 to 160
-
-            if (InternetHeaderLength > 5) //161 and up
-            {
-                IpOptions = new byte[(InternetHeaderLength - 5) * 4];
-                Array.Copy(DataBuffer, 20, IpOptions, 0, (InternetHeaderLength - 5) * 4);
-            }
-            else
-            {
-                IpOptions = null;
-            }
-            //IpHeader in bytes is 4*IHL bytes long
-            if (IpPacketLength > 4 * InternetHeaderLength)
-            {
-                PacketData = new byte[IpPacketLength - (InternetHeaderLength * 4)];
-                Array.Copy(DataBuffer, InternetHeaderLength * 4, PacketData, 0, IpPacketLength - InternetHeaderLength * 4);
-            }
-            else
-            {
-                PacketData = null; //sometimes the datagram is empty
-            }
+            BuildPacket(new MemoryStream(DataBuffer));
         }
-        #endregion
-
-        private void BuildPacketMemStream(byte[] DataBuffer)
+        private void BuildPacket(MemoryStream Stream)
         {
-
-            var packetBytes = new BinaryReader(new MemoryStream(DataBuffer));
+           
+            var packetBytes = new BinaryReader(Stream);
 
             var ipVers = packetBytes.ReadBits(0, 4);                            //bits 0 to 3
             if (ipVers != 4) throw new Exception("IPv4 only currently supported"); //ensure this is v4
@@ -272,5 +263,6 @@
                 PacketData = null; //sometimes the datagram is empty
             }
         }
+        #endregion
     }
 }

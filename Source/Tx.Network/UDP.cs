@@ -1,5 +1,5 @@
 ﻿
-namespace Ecs.Input.Packets
+namespace Tx.Network
 {
     using System;
     using System.Net.Sockets;
@@ -38,24 +38,6 @@ namespace Ecs.Input.Packets
 
             UdpData = new byte[PacketData.Length - 8];
             Array.Copy(PacketData, 8, UdpData, 0, PacketData.Length - 8);
-
-            if (IsUdp && PacketData.Length > 8)
-            {
-                SourcePort = PacketData.ReadNetOrderUShort(0);
-                DestinationPort = PacketData.ReadNetOrderUShort(2);
-                UdpLength = PacketData.ReadNetOrderUShort(4);
-                UdpCheckSum = PacketData.ReadNetOrderUShort(6);
-            }
-        }
-        public UdpDatagram(IpPacket ReceivedPacket, bool HeaderOnly = false) : this()
-        {
-            if (Protocol == ProtocolType.Udp) IsUdp = true;
-
-            if (!HeaderOnly)
-            {
-                UdpData = new byte[PacketData.Length - 8];
-                Array.Copy(PacketData, 8, UdpData, 0, PacketData.Length - 8);
-            }
 
             if (IsUdp && PacketData.Length > 8)
             {

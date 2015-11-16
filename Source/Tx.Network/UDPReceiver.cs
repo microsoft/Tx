@@ -1,4 +1,4 @@
-﻿namespace Ecs.Input.Packets
+﻿namespace Tx.Network
 {
     using System;
     using System.Collections.Concurrent;
@@ -6,7 +6,7 @@
     using System.Net.Sockets;
     using System.Reactive.Subjects;
 
-    public class Receiver : IObservable<IpPacket>, IDisposable
+    public class UdpReceiver : IObservable<IpPacket>, IDisposable
     {
         #region Public Fields
         public IPEndPoint ListenEndPoint { get; private set; }
@@ -16,10 +16,9 @@
         #endregion
 
         #region Private Fields
-        private Subject<IpPacket> _packetSubject { get; set; }
-        private ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
-
-        bool subscribed;
+        Subject<IpPacket> _packetSubject { get; set; }
+        ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
+        bool _subscribed { get; set; }
         #endregion
 
         #region Constructors
@@ -32,7 +31,7 @@
         /// <remarks>Concurrent receivers allow for scaling of allocated buffers.
         /// each receiver holds up to 64k bytes and multiple receivers allow for concurrent packet
         /// reception from the underlying socket object.</remarks>
-        public Receiver(IPAddress ListenAddress, int ListenPort = 514, uint ConcurrentReceivers = 10)
+        public UdpReceiver(IPAddress ListenAddress, int ListenPort = 514, uint ConcurrentReceivers = 10)
             : this(new IPEndPoint(ListenAddress, ListenPort), ConcurrentReceivers)
         { }
 
@@ -45,7 +44,7 @@
         /// <remarks>Concurrent receivers allow for scaling of allocated buffers.
         /// each receiver holds up to 64k bytes and multiple receivers allow for concurrent packet
         /// reception from the underlying socket object.</remarks>
-        public Receiver(string ListenAddress, int ListenPort = 514, uint ConcurrentReceivers = 10)
+        public UdpReceiver(string ListenAddress, int ListenPort = 514, uint ConcurrentReceivers = 10)
             : this(new IPEndPoint(IPAddress.Parse(ListenAddress), ListenPort), ConcurrentReceivers)
         { }
 
@@ -57,7 +56,7 @@
         /// <remarks>Concurrent receivers allow for scaling of allocated buffers.
         /// each receiver holds up to 64k bytes and multiple receivers allow for concurrent packet
         /// reception from the underlying socket object.</remarks>
-        public Receiver(IPEndPoint ListenEndPoint, uint ConcurrentReceivers = 10)
+        public UdpReceiver(IPEndPoint ListenEndPoint, uint ConcurrentReceivers = 10)
         {
             ListenProtocol = ProtocolType.Udp;
             this.ConcurrentReceivers = ConcurrentReceivers;
@@ -75,9 +74,9 @@
         public IDisposable Subscribe(IObserver<IpPacket> observer)
         {
             var o = _packetSubject.Subscribe(observer);
-            if (!subscribed)
+            if (!_subscribed)
             {
-                subscribed = true;
+                _subscribed = true;
                 Start();
             }
             return o;
@@ -85,9 +84,6 @@
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// Starts the receiver.
-        /// </summary>
         private void Start()
         {
             _receivedDataProcessorsPool = new ConcurrentQueue<SocketAsyncEventArgs>();
@@ -105,12 +101,13 @@
             Socket.Bind(ListenEndPoint);
             GetDataProcessorAndReceive();
         }
+
         private void ReceiveCompletedHandler(object caller, SocketAsyncEventArgs socketArgs)
         {
             if (!disposeCalled)
             {
                 GetDataProcessorAndReceive(); //call a new processor
-                                               //var packet = new IP(socketArgs.Buffer);
+                                              //var packet = new IP(socketArgs.Buffer);
                 var packet = new IpPacket();
                 var packetCheck = IsDestinationListenEndpoint(socketArgs.Buffer, out packet);
 
