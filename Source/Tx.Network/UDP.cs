@@ -17,17 +17,12 @@ namespace Tx.Network
         #region Constructors
         public UdpDatagram()
         {
-            SourcePort = 0;
-            DestinationPort = 0;
-            UdpLength = 0;
-            UdpCheckSum = 0;
             IsUdp = false;
-            UdpData = null;
         }
         /// <summary>
         /// Decodes a UdpDatagram Datagram
         /// </summary>
-        public UdpDatagram(byte[] ReceivedBuffer) : this(new IpPacket(ReceivedBuffer)) { }
+        public UdpDatagram(byte[] Buffer) : this(new IpPacket(Buffer)) { }
 
         /// <summary>
         /// Decodes a UdpDatagram Datagram

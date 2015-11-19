@@ -78,7 +78,11 @@
 
         #region Constructors
 
-        public IpPacket() { Initialize(); }
+        public IpPacket()
+        {
+            IpVersion = NetworkInterfaceComponent.IPv4;
+            Protocol = ProtocolType.Udp;
+        }
 
         /// <summary>
         /// Produces a IpPacket based on input
@@ -89,19 +93,17 @@
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
         public IpPacket(byte[] ReceivedDataBuffer) : this(new MemoryStream(ReceivedDataBuffer)) { }
-       
+
         /// <summary>
         /// Produces a IpPacket based on input
         /// </summary>
-        /// <param name="ReceivedDataBuffer">Incoming packet in a MemoryStream without alterations or prior processing </param>
+        /// <param name="Buffer">Incoming packet in a MemoryStream without alterations or prior processing </param>
         /// <returns> A new IpPacket. </returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on empty or null input byte[].</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
-        public IpPacket(MemoryStream ReceivedDataBuffer)
+        public IpPacket(Stream Buffer): this()
         {
-            Initialize();
-            
             if (DataBuffer.Length == 0 || DataBuffer == null || Array.TrueForAll(DataBuffer, j => j == 0))
             {
                 throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Input byte[] is empty or null");
@@ -122,10 +124,8 @@
         /// </summary>
         /// <param name="ReceivedPacket">IpPacket to copy to a new instance</param>
         /// <remarks> This method copies all data from the ReceivedPacket into a new packet, including byte arrays.</remarks>
-        public IpPacket(IpPacket ReceivedPacket)
+        public IpPacket(IpPacket ReceivedPacket): this()
         {
-            Initialize();
-
             IpVersion = ReceivedPacket.IpVersion;
             InternetHeaderLength = ReceivedPacket.InternetHeaderLength;
             DscpValue = ReceivedPacket.DscpValue;
@@ -222,9 +222,9 @@
         {
             BuildPacket(new MemoryStream(DataBuffer));
         }
-        private void BuildPacket(MemoryStream Stream)
+        private void BuildPacket(Stream Stream)
         {
-           
+
             var packetBytes = new BinaryReader(Stream);
 
             var ipVers = packetBytes.ReadBits(0, 4);                            //bits 0 to 3
