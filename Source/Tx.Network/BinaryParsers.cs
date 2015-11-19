@@ -23,7 +23,7 @@
             var bitShift = 8 - BitPosition - BitLength;
             if (bitShift < 0)
             {
-                throw new Exception("BitPostion + BitLength greater than 8 for byte output type.");
+                throw new ArgumentOutOfRangeException("BitPostion + BitLength greater than 8 for byte output type.");
             }
             return (byte)(((0xff >> (BitPosition)) & bytes) >> bitShift);
         }
@@ -32,7 +32,7 @@
             var bitShift = 16 - BitPosition - BitLength;
             if (bitShift < 0)
             {
-                throw new Exception("BitPostion + BitLength greater than 16 for ushort output type.");
+                throw new ArgumentOutOfRangeException("BitPostion + BitLength greater than 16 for ushort output type.");
             }
             return (ushort)IPAddress.NetworkToHostOrder(((0xffff >> BitPosition) & BitConverter.ToUInt16(bytes, BufferOffset) >> bitShift));
         }
@@ -40,7 +40,7 @@
         {
             if (bytes.Length - BufferOffset < 2)
             {
-                throw new Exception("Buffer offset overflows size of byte array.");
+                throw new ArgumentOutOfRangeException("Buffer offset overflows size of byte array.");
             }
             return (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(bytes, BufferOffset));
         }
@@ -83,7 +83,7 @@
             var bitShift = 16 - BitPosition - BitLength;
             if (bitShift < 0)
             {
-                throw new Exception("BitPostion + BitLength greater than 16 for ushort output type.");
+                throw new  ArgumentOutOfRangeException("BitPostion + BitLength greater than 16 for ushort output type.");
             }
             return (ushort)IPAddress.NetworkToHostOrder(((0xffff >> BitPosition)) & bytes.ReadUInt16() >> bitShift);
         }

@@ -199,28 +199,9 @@
         #endregion
 
         #region Private Methods
-        private void Initialize()
+        private void BuildPacket(byte[] Buffer)
         {
-            IpVersion = NetworkInterfaceComponent.IPv4;
-            InternetHeaderLength = 0;
-            DscpValue = 0;
-            ExplicitCongestionNotice = 0;
-            IpPacketLength = 0;
-            FragmentGroupId = 0;
-            IpHeaderFlags = 0;
-            FragmentOffset = 0;
-            TimeToLive = 0;
-            ProtocolNumber = 0;
-            Protocol = ProtocolType.Udp;
-            PacketHeaderChecksum = 0;
-
-            IpOptions = null;
-            PacketData = null;
-            DataBuffer = null;
-        }
-        private void BuildPacket(byte[] DataBuffer)
-        {
-            BuildPacket(new MemoryStream(DataBuffer));
+            using(var stream = new MemoryStream(Buffer)) BuildPacket(stream);
         }
         private void BuildPacket(Stream Stream)
         {
@@ -228,7 +209,7 @@
             var packetBytes = new BinaryReader(Stream);
 
             var ipVers = packetBytes.ReadBits(0, 4);                            //bits 0 to 3
-            if (ipVers != 4) throw new Exception("IPv4 only currently supported"); //ensure this is v4
+            if (ipVers != 4) throw new NotSupportedException("IPv4 only currently supported"); //ensure this is v4
             InternetHeaderLength = packetBytes.ReadBits(4, 4, true);            //bits 4 to 7
             DscpValue = packetBytes.ReadBits(0, 6);                             //8 to 13
             ExplicitCongestionNotice = packetBytes.ReadBits(6, 2, true);        //14 to 15

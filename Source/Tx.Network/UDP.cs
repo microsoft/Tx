@@ -50,7 +50,7 @@ namespace Tx.Network
         /// Provides a string representation of the UdpDatagram IpPacket.
         /// </summary>
         /// <returns>string</returns>
-        public new string ToString()
+        public override string ToString()
         {
             return string.Join(Environment.NewLine, base.ToString(),
                 string.Format("Source Port: {0} Destination Port: {1} UDP Length: {2} UDP Checksum: {3}", SourcePort, DestinationPort, UdpLength, UdpCheckSum),
