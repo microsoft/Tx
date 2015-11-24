@@ -45,8 +45,6 @@
     <Compile Include="LogFactory.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
-    <Compile Include="SNMPDatagram.cs" />
-    <Compile Include="Syslog.cs" />
     <Compile Include="UDP.cs" />
     <Compile Include="UDPReceiver.cs" />
   </ItemGroup>
