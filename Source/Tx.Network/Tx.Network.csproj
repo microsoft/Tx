@@ -42,7 +42,6 @@
     </Compile>
     <Compile Include="BinaryParsers.cs" />
     <Compile Include="IP.cs" />
-    <Compile Include="LogFactory.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
     <Compile Include="UDP.cs" />
