@@ -48,10 +48,13 @@
       <Link>Properties\AssemblyInfo.cs</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="BasicEncoding.cs" />
     <Compile Include="BinaryParsers.cs" />
     <Compile Include="IP.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
+    <Compile Include="SNMP.cs" />
+    <Compile Include="SNMPCapture.cs" />
     <Compile Include="UDP.cs" />
     <Compile Include="UDPReceiver.cs" />
   </ItemGroup>
@@ -67,7 +70,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

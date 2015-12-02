@@ -97,26 +97,26 @@
         /// <summary>
         /// Produces a IpPacket based on input
         /// </summary>
-        /// <param name="Buffer">Incoming packet in a MemoryStream without alterations or prior processing </param>
+        /// <param name="stream">Incoming packet in a MemoryStream without alterations or prior processing </param>
         /// <returns> A new IpPacket. </returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on empty or null input byte[].</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
-        public IpPacket(Stream Buffer): this()
+        public IpPacket(Stream stream): this()
         {
-            if (DataBuffer.Length == 0 || DataBuffer == null || Array.TrueForAll(DataBuffer, j => j == 0))
+            if (stream == null || stream.Length == 0)
             {
                 throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Input byte[] is empty or null");
             }
-            else if (DataBuffer.Length < 20)
+            else if (stream.Length < 20)
             {
                 throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Input byte[] is smaller than minimum IP packet length of header size of 20-bytes");
             }
-            else if (DataBuffer.Length > ushort.MaxValue)
+            else if (stream.Length > ushort.MaxValue)
             {
                 throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Input byte[] is larger than the maximum IP packet size of 65,535-bytes");
             }
-            BuildPacket(DataBuffer);
+            BuildPacket(stream);
         }
 
         /// <summary>

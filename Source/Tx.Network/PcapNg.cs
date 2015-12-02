@@ -13,12 +13,22 @@ namespace Tx.Network
 {
     public class PcapNg
     {
+        /// <summary>
+        /// Reads network capture file and returns the raw blocks in the order they were written
+        /// </summary>
+        /// <param name="filename">Path to the file in pcap-next-generation (.pcapng) format</param>
+        /// <returns></returns>
         public static IEnumerable<Block> ReadForward(string filename)
         {
             var stream = File.OpenRead(filename);
             return ReadForward(stream);
         }
 
+        /// <summary>
+        /// Reads a stream and returns the raw blocks in the order they were written
+        /// </summary>
+        /// <param name="stream">Stream in pcap-next-generation format</param>
+        /// <returns></returns>
         public static IEnumerable<Block> ReadForward(Stream stream)
         {
             var interfaces = new List<InterfaceDescriptionBlock>();
@@ -42,6 +52,7 @@ namespace Tx.Network
                         case BlockType.InterfaceDescriptionBlock:
                             var interfacceDesc =  new InterfaceDescriptionBlock(type, length, reader);
                             interfaces.Add(interfacceDesc);
+                            yield return interfacceDesc;
                             break;
 
                         case BlockType.EnhancedPacketBlock:
@@ -70,7 +81,7 @@ namespace Tx.Network
 
     }    
 
-    public class Block
+    public abstract class Block
     {
         public BlockType Type { get; private set; }
         public UInt32 Length { get; private set;}

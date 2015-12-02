@@ -2,7 +2,8 @@
 namespace Tx.Network
 {
     using System;
-    using System.Net.Sockets;
+using System.IO;
+using System.Net.Sockets;
     public class UdpDatagram : IpPacket
     {
         #region Public Members
@@ -22,12 +23,12 @@ namespace Tx.Network
         /// <summary>
         /// Decodes a UdpDatagram Datagram
         /// </summary>
-        public UdpDatagram(byte[] Buffer) : this(new IpPacket(Buffer)) { }
+        public UdpDatagram(byte[] Buffer) : this(new MemoryStream(Buffer)) { }
 
         /// <summary>
         /// Decodes a UdpDatagram Datagram
         /// </summary>
-        public UdpDatagram(IpPacket ReceivedPacket) : base(ReceivedPacket)
+        public UdpDatagram(Stream stream) : base(stream)
         {
             if (Protocol == ProtocolType.Udp) IsUdp = true;
 
