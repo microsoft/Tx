@@ -1,69 +1,96 @@
-# Reading and writing Bond-In-ETW
+# Reading network captures
 
-In this sample, we assume a world in which all events are instances of  [Bond](https://github.com/Microsoft/bond) classes. The schema is defined in manifests like [Evt.bond](Evt.bond):
+In these samples we illustrate how to read network captures, from files file formats supported by [Wireshark](http://www.wireshark.org/).
 
-	struct Evt
-	{
-		1: required datetime Time;
-		2: required string Message;
-	};
+The samples are based on packets exported from the Wireshark [sample for SNMP](https://wiki.wireshark.org/SampleCaptures#SNMP) in [.pcapng](https://www.winpcap.org/ntar/draft/PCAP-DumpFileFormat.html) format. See the complete code in [Program.cs](Program.cs).
 
-Using the bond compiler (bondc.exe) manifests are used to generate C# types like [Evt_types.cs](Evt_types.cs).
+## Pcap next generation reading
+The pcapng files contain "blocks" of many types, such as header section, interface description, as well as captured packets. 
 
-## Writing
+Here is how to read the first 5 blocks at that level:
 
-Writing produces self-contained file, that has all the manifests followed by the event occurrence records. This allows tools to use the correct manifest version as opposed to expecting the user to keep the manifest as separate file (idea inspired by [EventSource](http://blogs.msdn.com/b/vancem/archive/2012/07/09/logging-your-own-etw-events-in-c-system-diagnostics-tracing-eventsource.aspx).
+    foreach (var block in PcapNg.ReadForward(fileName).Take(5))
+        Console.WriteLine("{0} {1}", block.Length, block.Type);
 
-To write events:
+The file format supports reading forward and backward, and we only implemented forward reading so far.
 
-* Add reference to the Tx.Bond NuGet package
-* Add "using Tx.Bond"
-* Include both the manifest and the generated code in the project
-* Mark the manifest as Embedded Resource:
+Usually the most interesting data are the captured packets:
 
-       ![ManifestResources.JPG](ManifestResources.JPG)
+    var packets = PcapNg.ReadForward(fileName)
+        .Where(b => b.Type == BlockType.EnhancedPacketBlock)
+        .Cast<EnhancedPacketBlock>().Take(5);
 
-* start ETW session and use instance of BondObserver:
+    foreach (var packet in packets)
+        Console.WriteLine("{0} {1} {2}", packet.TimestampUtc, packet.PacketLen, packet.CapturedLen);
 
-		var observer = new BondEtwObserver(
-			Type2ManifestMap(), 
-			TimeSpan.FromMinutes(1));
-		
-		for (int i = 0; i < 10; i++)
-		    observer.OnNext(new Evt { 
-				Time = DateTime.UtcNow.ToShortDateString(),
-				Message = "iteration " + i });
-		
-		observer.OnCompleted();
+Here PacketLen is the original length, and CapturedLen is the subset that was captured.
 
-The result of this is self-contained bond-in-etw file:
+If you want to get better feel how the data looks like, you can use [LINQPad](http://linqpad.net):
+- Press F4, and add the NuGet package Tx.Network
+- Add the namespace Tx.Network that comes with it
+- Type this in the query window:
 
-* Manifest(s) are written once at start, and repeated every minute
-* The rest are event occurrences (Bond instances)
+	PcapNg.ReadForward(@"c:\git\tx\traces\snmp.pcapng").Take(5)
 
-See complete example: [Program.cs](Program.cs)
+- Run the query
 
-## Reading
-Reading applications can use two approaches:
+## Decoding up to UDP protocol level
+To decode the same packets as UDP datagrams we can do this:
 
-* Including to classes generated from the manifests at compile time
-* dynamic generation from the manifests in the file 
+    foreach (var packet in packets)
+    {
+        int ipLen = packet.PacketData.Length - 14; // 14 is the size of the Ethernet header
+        byte[] datagram = new byte[ipLen];
+        Array.Copy(packet.PacketData, 14, datagram, 0, ipLen);
 
-This sample illustrates the first option:
+        UdpDatagram udp = new UdpDatagram(datagram);
+        Console.WriteLine(udp.PacketData.ToHexDump());
+        Console.WriteLine();
+    }
 
-* Add reference to the Tx.Bond NuGet package
-* Add "using Tx.Bond"
-* Include the generated code in the project (no need for the manifest)
-* Specify files and do some query:
+Here the concept of [UdpDatagram](../../../Source/Tx.Network/UDP.cs) comes from Tx.Network and [ToHexDump()](../../../Source/Tx.Core/ByteArrayExtensions.cs) comes from Tx.Core. As you can see we have not tried to interpret the payload so far.
 
+## Decoding as SNMP
 
-	    Playback playback = new Playback();
-	    playback.AddBondEtlFiles(sessionName + ".etl");
-	
-	    playback.GetObservable<Evt>()
-	        .Subscribe(e=> Console.WriteLine("{0}: {1}", e.Time, e.Message);
-	
-	    playback.Run(); 
+SNMP (Simple Network Management Protocol) datagrams can be interpreted using two layers:
+- The data is encoded in Abstract Syntax Notation 1 (ASN1), using "Basic Encoding Rules"
+- Assuming this as basis, SNMP defines "Protocol Data Units" (PDU) such as Get, Get-Response and Trap
 
-See complete example: [Program.cs](Program.cs)
+### Single-pass read using Basic Encoding Rules
 
+To read the data from the ASN1 format, without further interpretation:
+
+    foreach (var packet in packets)
+    {
+        int snmpLen = packet.PacketData.Length - 42; // 42 is the size of Ethernet + IP + UDP headers
+        byte[] datagram = new byte[snmpLen];
+        Array.Copy(packet.PacketData, 42, datagram, 0, snmpLen);
+        Console.WriteLine(BasicEncodingReader.ReadAllText(datagram));
+    }
+ 
+The ReadAllText() method formats the content in a tree similar to WireShark. 
+
+To use the data conveniently without learning ASN1 or parsing this test, one should use the reader methods to read types, length and values of the fields instead.
+
+### Decoding Protocol Data Units (PDU-s)
+
+In this level we read the entire datagram into in-memory structure:
+
+    var snmp = SnmpCapture.ReadPcapNg(fileName)
+        .Take(5);
+
+    foreach (var pdu in snmp)
+        Console.WriteLine(pdu.ToString());
+
+Here SnmpCapture is convenience reader class that assumes the files contain only SNMP packets. 
+
+You can set a break point in the last line to see the structure. The most interesting data is usually in the VarBinds collection. 
+
+Alternatively, you can see the data in [LINQPad](http://linqpad.net):
+- Press F4, and add the NuGet package Tx.Network
+- Add the namespaces Tx.Network and Tx.Network.Snmp from the package
+- Type this in the query window:
+
+		PcapNg.ReadForward(@"c:\git\tx\traces\snmp.pcapng").Take(5)
+
+- Run the query
