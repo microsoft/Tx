@@ -2,8 +2,8 @@
 namespace Tx.Network
 {
     using System;
-using System.IO;
-using System.Net.Sockets;
+    using System.IO;
+    using System.Net.Sockets;
     public class UdpDatagram : IpPacket
     {
         #region Public Members
@@ -30,6 +30,23 @@ using System.Net.Sockets;
         /// </summary>
         public UdpDatagram(Stream stream) : base(stream)
         {
+            if (Protocol == ProtocolType.Udp) IsUdp = true;
+
+            UdpData = new byte[PacketData.Length - 8];
+            Array.Copy(PacketData, 8, UdpData, 0, PacketData.Length - 8);
+
+            if (IsUdp && PacketData.Length > 8)
+            {
+                SourcePort = PacketData.ReadNetOrderUShort(0);
+                DestinationPort = PacketData.ReadNetOrderUShort(2);
+                UdpLength = PacketData.ReadNetOrderUShort(4);
+                UdpCheckSum = PacketData.ReadNetOrderUShort(6);
+            }
+        }
+
+        public UdpDatagram(IpPacket ReceivedPacket) : base(ReceivedPacket)
+        {
+
             if (Protocol == ProtocolType.Udp) IsUdp = true;
 
             UdpData = new byte[PacketData.Length - 8];
