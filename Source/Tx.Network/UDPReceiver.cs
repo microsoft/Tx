@@ -6,6 +6,7 @@
     using System.Net.Sockets;
     using System.Reactive.Subjects;
 
+
     public class UdpReceiver : IObservable<IpPacket>, IDisposable
     {
         #region Public Fields
@@ -19,6 +20,11 @@
         Subject<IpPacket> _packetSubject { get; set; }
         ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
         bool _subscribed { get; set; }
+
+        public void Subscribe(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Constructors

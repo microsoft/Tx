@@ -28,8 +28,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Reactive.Core">
       <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
     </Reference>
@@ -51,10 +49,12 @@
     <Compile Include="BasicEncoding.cs" />
     <Compile Include="BinaryParsers.cs" />
     <Compile Include="IP.cs" />
+    <Compile Include="SyslogParser.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
     <Compile Include="SNMP.cs" />
     <Compile Include="SNMPCapture.cs" />
+    <Compile Include="Syslog.cs" />
     <Compile Include="UDP.cs" />
     <Compile Include="UDPReceiver.cs" />
   </ItemGroup>
