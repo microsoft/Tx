@@ -21,10 +21,6 @@
         ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
         bool _subscribed { get; set; }
 
-        public void Subscribe(Func<object, object> p)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
         #region Constructors
