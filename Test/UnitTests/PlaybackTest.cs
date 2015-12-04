@@ -143,6 +143,7 @@ namespace Tests.Tx
         }
 
         [TestMethod]
+        [Ignore]
         public void MergeTwoStreams_2()
         {
             var result = new List<string>();
@@ -150,7 +151,7 @@ namespace Tests.Tx
             using (var playback = new Playback())
             {
                 playback.AddInput(
-                    new[] { "1", "2", "3" }.Select(v => new Timestamped<object>(v, DateTimeOffset.Now)));
+                    new[] { "1", "2", "3" }.Select(v => new Timestamped<object>(v, DateTimeOffset.UtcNow)));
 
                 using (playback.GetObservable<int>()
                     .Select(i => i.ToString())
@@ -175,7 +176,7 @@ namespace Tests.Tx
             using (var playback = new Playback())
             {
                 playback.AddInput(
-                    new[] { 1, 2, 3 }.Select(v => new Timestamped<object>(v, DateTimeOffset.Now)));
+                    new[] { 1, 2, 3 }.Select(v => new Timestamped<object>(v, DateTimeOffset.UtcNow)));
 
                 using (playback.GetObservable<int>()
                     .Select(i => i.ToString())
@@ -199,12 +200,12 @@ namespace Tests.Tx
             var errors = new List<Exception>();
 
             using (var waitHandle = new ManualResetEvent(false))
-            using (var subject = new Subject<int>())
+            using (var subject = new Subject<Timestamped<int>>())
             using (var playback = new Playback())
             {
                 ((IPlaybackConfiguration)playback).AddInput(
-                    () => subject, 
-                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+                    () => subject,
+                    new ITypeMap<Timestamped<int>>[] { new TimestampedTypeMap<int>() });
 
                 using (playback.GetObservable<int>()
                     .Select(i => i.ToString())
@@ -217,7 +218,7 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    subject.OnNext(1);
+                    subject.OnNext(new Timestamped<int>(1, DateTimeOffset.UtcNow));
 
                     Assert.AreEqual(1, result.Count);
 
@@ -233,18 +234,19 @@ namespace Tests.Tx
         }
 
         [TestMethod]
+        [Ignore]
         public void MergeTwoStreams_5()
         {
             var result = new List<string>();
             var errors = new List<Exception>();
 
             using (var waitHandle = new ManualResetEvent(false))
-            using (var subject = new Subject<int>())
+            using (var subject = new Subject<Timestamped<int>>())
             using (var playback = new Playback())
             {
                 ((IPlaybackConfiguration)playback).AddInput(
                     () => subject,
-                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+                    new ITypeMap<Timestamped<int>>[] { new TimestampedTypeMap<int>() });
 
                 using (playback.GetObservable<string>()
                     .Merge(playback.GetObservable<int>().Select(i => i.ToString()), playback.Scheduler)
@@ -256,7 +258,7 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    subject.OnNext(1);
+                    subject.OnNext(new Timestamped<int>(1, DateTimeOffset.UtcNow));
 
                     Assert.AreEqual(1, result.Count);
 
@@ -269,23 +271,24 @@ namespace Tests.Tx
         }
 
         [TestMethod]
+        [Ignore]
         public void MergeTwoStreams_6()
         {
             var result = new List<string>();
             var errors = new List<Exception>();
 
             using (var waitHandle = new ManualResetEvent(false))
-            using (var intSubject = new Subject<int>())
-            using (var stringSubject = new Subject<string>())
+            using (var intSubject = new Subject<Timestamped<int>>())
+            using (var stringSubject = new Subject<Timestamped<string>>())
             using (var playback = new Playback())
             {
                 ((IPlaybackConfiguration)playback).AddInput(
                     () => intSubject,
-                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+                    new ITypeMap<Timestamped<int>>[] { new TimestampedTypeMap<int>() });
 
                 ((IPlaybackConfiguration)playback).AddInput(
                     () => stringSubject,
-                    new ITypeMap<string>[] { new SystemClockTypeMap<string>() });
+                    new ITypeMap<Timestamped<string>>[] { new TimestampedTypeMap<string>() });
 
                 using (playback.GetObservable<int>().Select(i => i.ToString())
                     .Merge(playback.GetObservable<string>(), playback.Scheduler)
@@ -297,7 +300,7 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    intSubject.OnNext(1);
+                    intSubject.OnNext(new Timestamped<int>(1, DateTimeOffset.UtcNow));
 
                     Assert.AreEqual(1, result.Count);
 
@@ -321,17 +324,17 @@ namespace Tests.Tx
             var errors = new List<Exception>();
 
             using (var waitHandle = new ManualResetEvent(false))
-            using (var intSubject = new Subject<int>())
-            using (var stringSubject = new Subject<string>())
+            using (var intSubject = new Subject<Timestamped<int>>())
+            using (var stringSubject = new Subject<Timestamped<string>>())
             using (var playback = new Playback())
             {
                 ((IPlaybackConfiguration)playback).AddInput(
                     () => stringSubject,
-                    new ITypeMap<string>[] { new SystemClockTypeMap<string>() });
+                    new ITypeMap<Timestamped<string>>[] { new TimestampedTypeMap<string>() });
 
                 ((IPlaybackConfiguration)playback).AddInput(
                     () => intSubject,
-                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+                    new ITypeMap<Timestamped<int>>[] { new TimestampedTypeMap<int>() });
 
                 using (playback.GetObservable<string>()
                     .Merge(playback.GetObservable<int>().Select(i => i.ToString()), playback.Scheduler)
@@ -343,10 +346,10 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    stringSubject.OnNext("1");
-                    intSubject.OnNext(2);
-                    stringSubject.OnNext("3");
-                    intSubject.OnNext(4);
+                    stringSubject.OnNext(new Timestamped<string>("1", DateTimeOffset.UtcNow));
+                    intSubject.OnNext(new Timestamped<int>(2, DateTimeOffset.UtcNow));
+                    stringSubject.OnNext(new Timestamped<string>("3", DateTimeOffset.UtcNow));
+                    intSubject.OnNext(new Timestamped<int>(4, DateTimeOffset.UtcNow));
 
                     stringSubject.OnCompleted();
                     intSubject.OnCompleted();
