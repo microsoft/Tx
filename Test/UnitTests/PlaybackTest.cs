@@ -9,7 +9,6 @@ using Tx.Windows.Microsoft_Windows_HttpService;
 namespace Tests.Tx
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reactive.Linq;
     using System.Reactive.Subjects;
     using System.Threading;
@@ -148,11 +147,17 @@ namespace Tests.Tx
         {
             var result = new List<string>();
 
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
             using (var playback = new Playback())
             {
-                playback.AddInput(
-                    new[] { "1", "2", "3" }.Select(v => new Timestamped<object>(v, DateTimeOffset.UtcNow)));
-
+                playback.AddInput(new[] 
+		        {
+			        new Timestamped<object>("1", start),
+			        new Timestamped<object>("2", start.AddSeconds(2)),
+			        new Timestamped<object>("3", start.AddSeconds(3)),
+		        });
+                
                 using (playback.GetObservable<int>()
                     .Select(i => i.ToString())
                     .Merge(playback.GetObservable<string>(), playback.Scheduler)
@@ -173,10 +178,16 @@ namespace Tests.Tx
         {
             var result = new List<string>();
 
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
             using (var playback = new Playback())
             {
-                playback.AddInput(
-                    new[] { 1, 2, 3 }.Select(v => new Timestamped<object>(v, DateTimeOffset.UtcNow)));
+                playback.AddInput(new[] 
+		        {
+			        new Timestamped<object>(1, start),
+			        new Timestamped<object>(2, start.AddSeconds(2)),
+			        new Timestamped<object>(3, start.AddSeconds(3)),
+		        });
 
                 using (playback.GetObservable<int>()
                     .Select(i => i.ToString())
@@ -199,6 +210,8 @@ namespace Tests.Tx
             var result = new List<string>();
             var errors = new List<Exception>();
 
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
             using (var waitHandle = new ManualResetEvent(false))
             using (var subject = new Subject<Timestamped<int>>())
             using (var playback = new Playback())
@@ -218,7 +231,7 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    subject.OnNext(new Timestamped<int>(1, DateTimeOffset.UtcNow));
+                    subject.OnNext(new Timestamped<int>(1, start));
 
                     Assert.AreEqual(1, result.Count);
 
@@ -240,6 +253,8 @@ namespace Tests.Tx
             var result = new List<string>();
             var errors = new List<Exception>();
 
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
             using (var waitHandle = new ManualResetEvent(false))
             using (var subject = new Subject<Timestamped<int>>())
             using (var playback = new Playback())
@@ -258,7 +273,7 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    subject.OnNext(new Timestamped<int>(1, DateTimeOffset.UtcNow));
+                    subject.OnNext(new Timestamped<int>(1, start));
 
                     Assert.AreEqual(1, result.Count);
 
@@ -323,6 +338,8 @@ namespace Tests.Tx
             var result = new List<string>();
             var errors = new List<Exception>();
 
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
             using (var waitHandle = new ManualResetEvent(false))
             using (var intSubject = new Subject<Timestamped<int>>())
             using (var stringSubject = new Subject<Timestamped<string>>())
@@ -346,10 +363,10 @@ namespace Tests.Tx
                 {
                     playback.Start();
 
-                    stringSubject.OnNext(new Timestamped<string>("1", DateTimeOffset.UtcNow));
-                    intSubject.OnNext(new Timestamped<int>(2, DateTimeOffset.UtcNow));
-                    stringSubject.OnNext(new Timestamped<string>("3", DateTimeOffset.UtcNow));
-                    intSubject.OnNext(new Timestamped<int>(4, DateTimeOffset.UtcNow));
+                    stringSubject.OnNext(new Timestamped<string>("1", start));
+                    intSubject.OnNext(new Timestamped<int>(2, start.AddTicks(1)));
+                    stringSubject.OnNext(new Timestamped<string>("3", start.AddTicks(2)));
+                    intSubject.OnNext(new Timestamped<int>(4, start.AddTicks(3)));
 
                     stringSubject.OnCompleted();
                     intSubject.OnCompleted();
