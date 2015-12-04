@@ -9,7 +9,10 @@ using Tx.Windows.Microsoft_Windows_HttpService;
 namespace Tests.Tx
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reactive.Linq;
+    using System.Reactive.Subjects;
+    using System.Threading;
 
     [TestClass]
     public class PlaybackTest
@@ -108,12 +111,12 @@ namespace Tests.Tx
         }
 
         [TestMethod]
-        public void MergeTwoStreams()
+        public void MergeTwoStreams_1()
         {
             var result = new List<string>();
 
             var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
-
+            
             using (var playback = new Playback())
             {
                 playback.AddInput(new[] 
@@ -137,6 +140,228 @@ namespace Tests.Tx
             Assert.AreEqual("1", result[0]);
             Assert.AreEqual("2", result[1]);
             Assert.AreEqual("3", result[2]);
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams_2()
+        {
+            var result = new List<string>();
+
+            using (var playback = new Playback())
+            {
+                playback.AddInput(
+                    new[] { "1", "2", "3" }.Select(v => new Timestamped<object>(v, DateTimeOffset.Now)));
+
+                using (playback.GetObservable<int>()
+                    .Select(i => i.ToString())
+                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
+                    .Subscribe(Observer.Create<string>(result.Add)))
+                {
+                    playback.Run();
+                }
+            }
+
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual("1", result[0]);
+            Assert.AreEqual("2", result[1]);
+            Assert.AreEqual("3", result[2]);
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams_3()
+        {
+            var result = new List<string>();
+
+            using (var playback = new Playback())
+            {
+                playback.AddInput(
+                    new[] { 1, 2, 3 }.Select(v => new Timestamped<object>(v, DateTimeOffset.Now)));
+
+                using (playback.GetObservable<int>()
+                    .Select(i => i.ToString())
+                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
+                    .Subscribe(Observer.Create<string>(result.Add)))
+                {
+                    playback.Run();
+                }
+            }
+
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual("1", result[0]);
+            Assert.AreEqual("2", result[1]);
+            Assert.AreEqual("3", result[2]);
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams_4()
+        {
+            var result = new List<string>();
+            var errors = new List<Exception>();
+
+            using (var waitHandle = new ManualResetEvent(false))
+            using (var subject = new Subject<int>())
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => subject, 
+                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+
+                using (playback.GetObservable<int>()
+                    .Select(i => i.ToString())
+                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
+                    .Subscribe(
+                        Observer.Create<string>(
+                            result.Add, 
+                            errors.Add,
+                            () => waitHandle.Set())))
+                {
+                    playback.Start();
+
+                    subject.OnNext(1);
+
+                    Assert.AreEqual(1, result.Count);
+
+                    subject.OnCompleted();
+
+                    var notTimeouted = waitHandle.WaitOne(TimeSpan.FromSeconds(1));
+                    Assert.IsTrue(notTimeouted);
+                }
+            }
+
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("1", result[0]);
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams_5()
+        {
+            var result = new List<string>();
+            var errors = new List<Exception>();
+
+            using (var waitHandle = new ManualResetEvent(false))
+            using (var subject = new Subject<int>())
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => subject,
+                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+
+                using (playback.GetObservable<string>()
+                    .Merge(playback.GetObservable<int>().Select(i => i.ToString()), playback.Scheduler)
+                    .Subscribe(
+                        Observer.Create<string>(
+                            result.Add,
+                            errors.Add,
+                            () => waitHandle.Set())))
+                {
+                    playback.Start();
+
+                    subject.OnNext(1);
+
+                    Assert.AreEqual(1, result.Count);
+
+                    subject.OnCompleted();
+
+                    var notTimeouted = waitHandle.WaitOne(TimeSpan.FromSeconds(1));
+                    Assert.IsTrue(notTimeouted);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams_6()
+        {
+            var result = new List<string>();
+            var errors = new List<Exception>();
+
+            using (var waitHandle = new ManualResetEvent(false))
+            using (var intSubject = new Subject<int>())
+            using (var stringSubject = new Subject<string>())
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => intSubject,
+                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => stringSubject,
+                    new ITypeMap<string>[] { new SystemClockTypeMap<string>() });
+
+                using (playback.GetObservable<int>().Select(i => i.ToString())
+                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
+                    .Subscribe(
+                        Observer.Create<string>(
+                            result.Add,
+                            errors.Add,
+                            () => waitHandle.Set())))
+                {
+                    playback.Start();
+
+                    intSubject.OnNext(1);
+
+                    Assert.AreEqual(1, result.Count);
+
+                    intSubject.OnCompleted();
+                    stringSubject.OnCompleted();
+
+                    var notTimeouted = waitHandle.WaitOne(TimeSpan.FromSeconds(1));
+                    Assert.IsTrue(notTimeouted);
+                }
+            }
+
+            Assert.AreEqual(0, errors.Count);
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("1", result[0]);
+        }
+
+        [TestMethod]
+        public void MergeTwoStreams_7()
+        {
+            var result = new List<string>();
+            var errors = new List<Exception>();
+
+            using (var waitHandle = new ManualResetEvent(false))
+            using (var intSubject = new Subject<int>())
+            using (var stringSubject = new Subject<string>())
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => stringSubject,
+                    new ITypeMap<string>[] { new SystemClockTypeMap<string>() });
+
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => intSubject,
+                    new ITypeMap<int>[] { new SystemClockTypeMap<int>() });
+
+                using (playback.GetObservable<string>()
+                    .Merge(playback.GetObservable<int>().Select(i => i.ToString()), playback.Scheduler)
+                    .Subscribe(
+                        Observer.Create<string>(
+                            result.Add,
+                            errors.Add,
+                            () => waitHandle.Set())))
+                {
+                    playback.Start();
+
+                    stringSubject.OnNext("1");
+                    intSubject.OnNext(2);
+                    stringSubject.OnNext("3");
+                    intSubject.OnNext(4);
+
+                    stringSubject.OnCompleted();
+                    intSubject.OnCompleted();
+
+                    var notTimeouted = waitHandle.WaitOne(TimeSpan.FromSeconds(1));
+                    Assert.IsTrue(notTimeouted);
+                }
+            }
+
+            Assert.AreEqual(0, errors.Count);
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual("1", result[0]);
+            Assert.AreEqual("2", result[1]);
+            Assert.AreEqual("3", result[2]);
+            Assert.AreEqual("4", result[3]);
         }
     }
 }
