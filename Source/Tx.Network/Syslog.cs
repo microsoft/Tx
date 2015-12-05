@@ -1,7 +1,6 @@
 ﻿
 namespace Tx.Network
 {
-    using System.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -76,20 +75,17 @@ namespace Tx.Network
         /// Facility of the Syslog provided from the PRIVAL field.
         /// </summary>
         public Facility LogFacility { get; private set; }
-
+        
         /// <summary>
         /// Collection of regular expression matches.
         /// </summary>
         public Dictionary<string, Group> NamedCollectedMatches { get; private set; }
-
+        
         /// <summary>
         /// Regular expression to use to parse the Syslog message.
         /// </summary>
         public Regex Parser { get; private set; }
         #endregion
-
-        private static readonly Regex pvalParser = new Regex(@"\<(?<PRIVAL>\d+?)\>\s*(?<MESSAGE>.+)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
 
         #region Constructors
         /// <summary>
@@ -99,8 +95,8 @@ namespace Tx.Network
         {
             LogSeverity = Severity.Debug;
             LogFacility = Facility.local7;
-            NamedCollectedMatches = new Dictionary<string, Group>(StringComparer.OrdinalIgnoreCase);
-
+            NamedCollectedMatches =  new Dictionary<string, Group>();   
+          
         }
         /// <summary>
         /// Creates an instance of a Log object.
@@ -123,30 +119,28 @@ namespace Tx.Network
         /// <param name="Parser">A regular expression that will be used to parse the internal message of the Log.</param>
         public Syslog(UdpDatagram ReceivedPacket, Regex Parser) : base(ReceivedPacket)
         {
-            NamedCollectedMatches = new Dictionary<string, Group>(StringComparer.OrdinalIgnoreCase);
+            NamedCollectedMatches = new Dictionary<string, Group>();
             if (Protocol != ProtocolType.Udp) return;
 
             SetRegex(Parser);
             string LogMessage = Encoding.ASCII.GetString(UdpData); //should add support for other encoding per IETF RFC.
             Match matchMe = Parser.Match(LogMessage);
             if (matchMe.Groups.Count < 1) throw new Exception("Only no parsable fields in the incoming Syslog");
-
+            
             //Special priority-value handler to decode into Severity and Facility.
-            var pval = pvalParser.Match(LogMessage);
-            var pvalString = pval.Groups["PRIVAL"].Value.Trim();
-            if (!String.IsNullOrWhiteSpace(pvalString))
+            var pval = Regex.Match(LogMessage, @"\<(?<PRIVAL>\d+?)\>\s*(?<MESSAGE>.+)");
+            if (!String.IsNullOrEmpty(pval.Groups["PRIVAL"].Value.Trim()))
             {
-                var prival = int.Parse(pvalString, CultureInfo.InvariantCulture);
-                LogSeverity = (Severity)(prival & 0x7);
-                LogFacility = (Facility)(prival >> 3);
+                var prival = int.Parse(pval.Groups["PRIVAL"].Value.Trim());
+                LogSeverity = (Severity)Enum.ToObject(typeof(Severity), prival & 0x7);
+                LogFacility = (Facility)Enum.ToObject(typeof(Facility), prival >> 3);
                 this.Message = pval.Groups["MESSAGE"].Value.Trim();
             }
-
+            
             foreach (var groupName in Parser.GetGroupNames())
             {
-                var tMatchGroups = matchMe.Groups[groupName];
-                if (string.IsNullOrWhiteSpace(tMatchGroups.Value)) continue;
-                NamedCollectedMatches.Add(groupName, tMatchGroups);
+                if (string.IsNullOrEmpty(matchMe.Groups[groupName].Value)) continue;
+                NamedCollectedMatches.Add(groupName, matchMe.Groups[groupName]);
             }
         }
 
@@ -174,7 +168,7 @@ namespace Tx.Network
         /// <param name="Parser">The regular expression that provides parsing of the Syslog message.</param>
         public void SetRegex(Regex Parser)
         {
-            if (Parser == default(Regex) || String.IsNullOrWhiteSpace(Parser.ToString())) return;
+            if (String.IsNullOrEmpty(Parser.ToString()) || Parser == default(Regex)) return;
             this.Parser = Parser;
         }
         #endregion
