@@ -35,7 +35,7 @@ namespace System.Reactive
             }
 
             var type = evt.Value.GetType();
-            while (type.BaseType != _objectType)
+            while (type.BaseType != _objectType && type.BaseType != typeof(ValueType))
             {
                 type = type.BaseType;
             }

@@ -78,6 +78,7 @@ namespace System.Reactive
         private void OnCompleted()
         {
             _subject.OnCompleted();
+            _scheduler.Stop();
             _completed.Set();
         }
 
@@ -114,6 +115,16 @@ namespace System.Reactive
             public TimeSegmentScheduler()
             {
                 _postponed = new List<IPostponedWorkItem>();
+            }
+
+            public void Stop()
+            {
+                foreach (IPostponedWorkItem item in _postponed)
+                {
+                    item.Reschedule(_historical);
+                }
+
+                _historical.AdvanceBy(TimeSpan.FromTicks(1));
             }
 
             public DateTimeOffset Now

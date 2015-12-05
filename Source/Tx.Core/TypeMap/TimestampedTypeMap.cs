@@ -2,29 +2,39 @@
 
 namespace System.Reactive
 {
-    public sealed class TimestampedTypeMap<T> : IRootTypeMap<Timestamped<T>, T>
+    using System.Collections.Generic;
+
+    public sealed class TimestampedTypeMap<T> : IPartitionableTypeMap<Timestamped<T>, Type>
     {
         public Func<Timestamped<T>, DateTimeOffset> TimeFunction
         {
             get
             {
-                return GetTimestamp;
+                return item => item.Timestamp;
+            }
+        }
+
+        public IEqualityComparer<Type> Comparer
+        {
+            get
+            {
+                return EqualityComparer<Type>.Default;
             }
         }
 
         public Func<Timestamped<T>, object> GetTransform(Type outputType)
         {
-            return Transform;
+            return item => (object)item.Value;
         }
 
-        private static DateTimeOffset GetTimestamp(Timestamped<T> item)
+        public Type GetTypeKey(Type outputType)
         {
-            return item.Timestamp;
+            return outputType;
         }
 
-        private static object Transform(Timestamped<T> item)
+        public Type GetInputKey(Timestamped<T> evt)
         {
-            return item.Value;
+            return typeof(T);
         }
     }
 }
