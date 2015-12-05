@@ -26,7 +26,18 @@ namespace Tx.Network.Snmp
                 byte[] datagram = new byte[snmpLen];
                 Array.Copy(p.PacketData, 42, datagram, 0, snmpLen);
 
-                yield return new PDU(datagram);
+                PDU pdu = null;
+                try
+                {
+                    pdu = new PDU(datagram);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("\nMalformed datagram: {0}\n", ex.Message);
+                    continue;
+                }
+
+                yield return pdu;
             }
         }
     }
