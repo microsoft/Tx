@@ -55,6 +55,10 @@
     public class IpPacket
     {
         #region Public Fields
+        
+        //Received DateTime TimeStamp
+        public DateTimeOffset ReceivedTime { get; set; }
+
         //make all the public members readonly to prevent tomfoolery
         public NetworkInterfaceComponent IpVersion { get; private set; }
         public byte InternetHeaderLength { get; private set; }
@@ -80,6 +84,7 @@
 
         public IpPacket()
         {
+            ReceivedTime = DateTime.UtcNow;
             IpVersion = NetworkInterfaceComponent.IPv4;
             Protocol = ProtocolType.Udp;
         }
@@ -134,6 +139,7 @@
         /// <remarks> This method copies all data from the ReceivedPacket into a new packet, including byte arrays.</remarks>
         public IpPacket(IpPacket ReceivedPacket): this()
         {
+            ReceivedTime = ReceivedPacket.ReceivedTime;
             IpVersion = ReceivedPacket.IpVersion;
             InternetHeaderLength = ReceivedPacket.InternetHeaderLength;
             DscpValue = ReceivedPacket.DscpValue;

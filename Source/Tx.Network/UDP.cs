@@ -2,8 +2,8 @@
 namespace Tx.Network
 {
     using System;
-using System.IO;
-using System.Net.Sockets;
+    using System.IO;
+    using System.Net.Sockets;
     public class UdpDatagram : IpPacket
     {
         #region Public Members
@@ -16,9 +16,9 @@ using System.Net.Sockets;
         #endregion
 
         #region Constructors
-        public UdpDatagram()
+        public UdpDatagram() : base()
         {
-            IsUdp = false;
+            UdpData = new byte[64];   
         }
         /// <summary>
         /// Decodes a UdpDatagram Datagram
@@ -28,31 +28,21 @@ using System.Net.Sockets;
         /// <summary>
         /// Decodes a UdpDatagram Datagram
         /// </summary>
-        public UdpDatagram(Stream stream) : base(stream)
+        public UdpDatagram(Stream stream) : this(new IpPacket(stream)) { }
+        
+        /// <summary>
+        /// Decodes a UdpDatagram Datagram
+        /// </summary>
+        public UdpDatagram(IpPacket ReceivedPacket) : base(ReceivedPacket)
         {
-            if (Protocol == ProtocolType.Udp) IsUdp = true;
 
+            if (Protocol != ProtocolType.Udp) throw new ArgumentException("Received Packet is not UDP");
+
+            IsUdp = true;
             UdpData = new byte[PacketData.Length - 8];
             Array.Copy(PacketData, 8, UdpData, 0, PacketData.Length - 8);
 
-            if (IsUdp && PacketData.Length > 8)
-            {
-                SourcePort = PacketData.ReadNetOrderUShort(0);
-                DestinationPort = PacketData.ReadNetOrderUShort(2);
-                UdpLength = PacketData.ReadNetOrderUShort(4);
-                UdpCheckSum = PacketData.ReadNetOrderUShort(6);
-            }
-        }
-
-	public UdpDatagram(IpPacket ReceivedPacket) : base(ReceivedPacket)
-        {
-
-            if (Protocol == ProtocolType.Udp) IsUdp = true;
-
-            UdpData = new byte[PacketData.Length - 8];
-            Array.Copy(PacketData, 8, UdpData, 0, PacketData.Length - 8);
-
-            if (IsUdp && PacketData.Length > 8)
+            if (PacketData.Length > 8)
             {
                 SourcePort = PacketData.ReadNetOrderUShort(0);
                 DestinationPort = PacketData.ReadNetOrderUShort(2);
