@@ -30,7 +30,7 @@ If you want to get better feel how the data looks like, you can use [LINQPad](ht
 - Add the namespace Tx.Network that comes with it
 - Type this in the query window:
 
-	PcapNg.ReadForward(@"c:\git\tx\traces\snmp.pcapng").Take(5)
+	  PcapNg.ReadForward(@"c:\git\tx\traces\snmp.pcapng").Take(5)
 
 - Run the query
 
@@ -86,11 +86,11 @@ Here SnmpCapture is convenience reader class that assumes the files contain only
 
 You can set a break point in the last line to see the structure. The most interesting data is usually in the VarBinds collection. 
 
-Alternatively, you can see the data in [LINQPad](http://linqpad.net):
+Alternatively, you can see the data formatted better by using [LINQPad](http://linqpad.net):
 - Press F4, and add the NuGet package Tx.Network
 - Add the namespaces Tx.Network and Tx.Network.Snmp from the package
 - Type this in the query window:
 
-		PcapNg.ReadForward(@"c:\git\tx\traces\snmp.pcapng").Take(5)
+		SnmpCapture.ReadPcapNg(@"c:\git\tx\traces\snmp.pcapng")
 
 - Run the query

@@ -34,10 +34,12 @@ namespace Tx.Network.Snmp
         public int ErrorIndex { get; private set; }
         public SortedDictionary<string, object> VarBinds { get; private set; }
         public string TrapId { get { return (string)GetVar("1.3.6.1.6.3.1.1.4.1.0", null); } }
+        public UdpDatagram UDP { get; private set; }
 
-        public PDU(byte[] datagram)
+        public PDU(UdpDatagram datagram)
         {
-            MemoryStream stream = new MemoryStream(datagram);
+            UDP = datagram;
+            MemoryStream stream = new MemoryStream(datagram.UdpData);
             BasicEncodingReader _reader = new BasicEncodingReader(stream);
 
             Asn1Type seqType = _reader.ReadType();
