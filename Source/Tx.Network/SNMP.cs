@@ -34,11 +34,25 @@ namespace Tx.Network.Snmp
         public int ErrorIndex { get; private set; }
         public SortedDictionary<string, object> VarBinds { get; private set; }
         public string TrapId { get { return (string)GetVar("1.3.6.1.6.3.1.1.4.1.0", null); } }
-        public UdpDatagram UDP { get; private set; }
+
+        private UdpDatagram _udp;
+        public T GetContext<T>() where T: class
+        {
+            // This is placeholder implementation. 
+            if (typeof(T) == typeof(UdpDatagram))
+                return _udp as T;
+            else if (typeof(T) == typeof(IpPacket))
+                return new IpPacket(_udp) as T;
+            else
+                throw new Exception("Unknown type " + typeof(T).Name);
+
+            // Instead, we can hold on to the receive/read context and try finding 
+            // the requested underlying information of type T, such as protocol frame
+        }
 
         public PDU(UdpDatagram datagram)
         {
-            UDP = datagram;
+            _udp = datagram;
             MemoryStream stream = new MemoryStream(datagram.UdpData);
             BasicEncodingReader _reader = new BasicEncodingReader(stream);
 
