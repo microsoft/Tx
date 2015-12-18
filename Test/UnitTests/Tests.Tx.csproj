@@ -108,6 +108,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Network\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +119,10 @@
     <ProjectReference Include="..\..\Source\Tx.Core\Tx.Core.csproj">
       <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
       <Name>Tx.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Tx.Network\Tx.Network.csproj">
+      <Project>{b5284d80-7497-4bf3-afd5-9a3cf8f213fa}</Project>
+      <Name>Tx.Network</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Source\Tx.Windows\Tx.Windows.csproj">
       <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
