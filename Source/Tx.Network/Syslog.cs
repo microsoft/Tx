@@ -192,7 +192,7 @@ namespace Tx.Network
         /// <param name="Parser">The regular expression that provides parsing of the Syslog message.</param>
         public bool SetRegex(Regex Parser)
         {
-            if (string.IsNullOrWhiteSpace(Parser.ToString()) || Parser == default(Regex))
+            if (Parser == default(Regex) || string.IsNullOrWhiteSpace(Parser.ToString()))
             {
                 this.Parser = DefaultParser;
                 return false;

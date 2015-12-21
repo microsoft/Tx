@@ -76,6 +76,10 @@
     <Compile Include="EvtxDeserializerTestcs.cs" />
     <Compile Include="EvtxTest.cs" />
     <Compile Include="HttpQueriesTest.cs" />
+    <Compile Include="Network\ReceiveTxSyslog.cs" />
+    <Compile Include="Network\SyslogSender.cs" />
+    <Compile Include="Network\TestHelpers.cs" />
+    <Compile Include="Network\UnitTestSyslog.cs" />
     <Compile Include="PerfCounterTest.cs" />
     <Compile Include="PlaybackTest.cs" />
     <Compile Include="ProcessTest.cs" />
@@ -108,7 +112,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Network\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
