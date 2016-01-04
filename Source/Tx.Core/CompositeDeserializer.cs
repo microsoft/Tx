@@ -101,7 +101,6 @@ namespace System.Reactive
                         return;
 
                     _observer.OnNext(ts);
-                    return;
                 }
             }
         }

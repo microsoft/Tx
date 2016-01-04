@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="BinaryEtw\BondEtwObserverTests.cs" />
     <Compile Include="BinaryEtw\GeneralPartitionableTypeMapTests.cs" />
+    <Compile Include="CompositeDeserializerTests.cs" />
     <Compile Include="DemultiplexorTest.cs" />
     <Compile Include="EtwDeserializerTest.cs" />
     <Compile Include="EtwGeneration.cs" />
