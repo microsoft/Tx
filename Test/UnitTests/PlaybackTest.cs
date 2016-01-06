@@ -105,7 +105,7 @@ namespace Tests.Tx
             p.GetObservable<Deliver>().Subscribe(e => { parseCount++; });
             p.Run();
 
-            Assert.AreEqual(2041, count);
+            Assert.AreEqual(2041+291, count);
             Assert.AreEqual(291, parseCount);
         }
 
@@ -383,5 +383,47 @@ namespace Tests.Tx
             Assert.AreEqual("3", result[2]);
             Assert.AreEqual("4", result[3]);
         }
+
+        [TestMethod]
+        public void ErrorHandlingTest()
+        {
+            var errors = new List<Exception>();
+            bool isCompleted = false;
+
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback).AddInput(
+                    () => new[] { new CompositeDeserializerTests.Envelope { Data = "data" } }.ToObservable(),
+                    new EnvelopeTestTypeMap2(),
+                    new SystemClockTypeMap<CompositeDeserializerTests.Envelope>());
+
+                using (playback
+                    .GetObservable<CompositeDeserializerTests.Envelope>()
+                    .Subscribe(item => { }, error => errors.Add(error), () => isCompleted = true))
+                {
+                    playback.Run();
+                }
+            }
+
+            Assert.IsFalse(isCompleted);
+            Assert.AreEqual(1, errors.Count);
+        }
+
+        internal sealed class EnvelopeTestTypeMap2 : ITypeMap<CompositeDeserializerTests.Envelope>
+        {
+            public Func<CompositeDeserializerTests.Envelope, DateTimeOffset> TimeFunction
+            {
+                get
+                {
+                    return e => new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+                }
+            }
+
+            public Func<CompositeDeserializerTests.Envelope, object> GetTransform(Type outputType)
+            {
+                return envelope => envelope.Data;
+            }
+        }
+
     }
 }

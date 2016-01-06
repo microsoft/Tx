@@ -86,11 +86,19 @@ namespace System.Reactive
 
         public void OnNext(TInput value)
         {
+            DateTimeOffset? timestamp = null;
             foreach (var d in _deserializers)
             {
                 Timestamped<object> ts;
                 if (d.TryDeserialize(value, out ts))
                 {
+                    if (timestamp.HasValue && timestamp.Value != ts.Timestamp)
+                    {
+                        _observer.OnError(new ApplicationException("Several type maps return different timestamps for the same source event."));
+                        return;
+                    }
+
+                    timestamp = ts.Timestamp;
                     // TODO: this achieves the right semantics, 
                     // but the performance will be sub optimal
 

@@ -85,6 +85,7 @@ namespace System.Reactive
         private void OnError(Exception error)
         {
             _subject.OnError(error);
+            _completed.Set();
         }
 
         private void OnNext(T value)
