@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-
-namespace Tx.Network.Snmp
+﻿namespace Tx.Network.Snmp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Sockets;
+
     public static class SnmpCapture
     {
         /// <summary>
@@ -15,11 +15,16 @@ namespace Tx.Network.Snmp
         /// </summary>
         /// <param name="file">The file in pcap-next-generation (.pacapng) format</param>
         /// <returns></returns>
-        public static IEnumerable<PDU> ReadPcapNg(string file)
+        public static IEnumerable<SnmpTrapV2C> ReadPcapNg(string file)
         {
             return PcapNg.ReadForward(file).ParseSnmp();
         }
 
+        /// <summary>
+        /// Parses the ip.
+        /// </summary>
+        /// <param name="capture">The capture.</param>
+        /// <returns>IEnumerable IpPacket</returns>
         public static IEnumerable<IpPacket> ParseIP(this IEnumerable<Block> capture)
         {
             return capture.Where(b => b.Type == BlockType.EnhancedPacketBlock)
@@ -35,6 +40,11 @@ namespace Tx.Network.Snmp
                         });
         }
 
+        /// <summary>
+        /// Parses the UDP.
+        /// </summary>
+        /// <param name="capture">The capture.</param>
+        /// <returns>IEnumerable UdpDatagram</returns>
         public static IEnumerable<UdpDatagram> ParseUdp(this IEnumerable<Block> capture)
         {
             return capture.ParseIP()
@@ -42,16 +52,21 @@ namespace Tx.Network.Snmp
                 .Select(p => new UdpDatagram(p));
         }
 
-        public static IEnumerable<PDU> ParseSnmp(this IEnumerable<Block> capture)
+        /// <summary>
+        /// Parses the SNMP.
+        /// </summary>
+        /// <param name="capture">The capture.</param>
+        /// <returns>IEnumerable TrapPDU</returns>
+        public static IEnumerable<SnmpTrapV2C> ParseSnmp(this IEnumerable<Block> capture)
         {
             int unreadablePackets = 0; // for debugging
 
             foreach (UdpDatagram p in capture.ParseUdp())
             {
-                PDU pdu = null;
+                SnmpTrapV2C pdu = null;
                 try
                 {
-                    pdu = new PDU(p);
+                    pdu = new SnmpTrapV2C(p.UdpData);
                 }
                 catch (Exception ex)
                 {

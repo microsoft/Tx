@@ -46,13 +46,59 @@
       <Link>Properties\AssemblyInfo.cs</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="BasicEncoding.cs" />
-    <Compile Include="BinaryParsers.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IP.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
-    <Compile Include="SNMP.cs" />
+    <Compile Include="Properties\TxNetworkAssemblyInfo.cs" />
     <Compile Include="SNMPCapture.cs" />
+    <Compile Include="Snmp\Asn1DecoderExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1EncoderExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1TagInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\Asn1Class.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\Asn1SnmpTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\Asn1Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\ConstructType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\PduType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\SnmpErrorStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\Asn1Types\SnmpVersion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\ObjectIdentifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\SnmpDatagram.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\SnmpEncodeDecoder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\SnmpHeader.cs" />
+    <Compile Include="Snmp\SnmpPDU.cs" />
+    <Compile Include="Snmp\SnmpTrapV2C.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Snmp\VarBind.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Syslog.cs" />
     <Compile Include="UDP.cs" />
     <Compile Include="UDPReceiver.cs" />
