@@ -17,10 +17,10 @@
         private readonly static ObjectIdentifier sysUpTimeOid = new ObjectIdentifier("1.3.6.1.2.1.1.3.0");
 
         /// <summary>
-        /// Gets the time stamp.
+        /// Gets the SysUpTime which represents in 100th of a second.
         /// </summary>
         /// <value>
-        /// The time stamp.
+        /// SysUpTime which represents in 100th of a second.
         /// </value>
         public uint SysUpTime { get; private set; }
 
@@ -37,7 +37,7 @@
         /// </summary>
         /// <param name="bytes">The snmp encoded bytes.</param>
         public SnmpTrapV2C(byte[] bytes)
-            : base(bytes.ToSnmpPacket())
+            : base(bytes.ToSnmpDatagram())
         {
             TrapOid = default(ObjectIdentifier);
             SysUpTime = 0;
@@ -49,7 +49,7 @@
 
             if (PDU.SearchFirstSubOidWith(trapOid, out varBind) && varBind.Asn1TypeInfo.Asn1TagType == Asn1Tag.ObjectIdentifier)
             {
-                TrapOid = varBind.Oid;
+                TrapOid = (ObjectIdentifier)varBind.Value;
             }
         }
     }
