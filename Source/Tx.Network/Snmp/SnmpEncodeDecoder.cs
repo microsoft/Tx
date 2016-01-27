@@ -84,7 +84,7 @@ namespace Tx.Network.Snmp
         }
 
         /// <summary>
-        /// Converts the Asn.1 byte array to SNMP packet.
+        /// Converts the Asn.1 encoded byte array to SNMP Datagram.
         /// </summary>
         /// <param name="bytes">The asn.1 encoded bytes.</param>
         /// <returns>
@@ -93,7 +93,7 @@ namespace Tx.Network.Snmp
         /// <exception cref="System.ArgumentNullException">bytes</exception>
         /// <exception cref="System.IO.InvalidDataException">Snmp Version V3 not supported</exception>
         /// <exception cref="System.NotImplementedException">SNMP v1 traps are not yet implemented</exception>
-        public static SnmpDatagram ToSnmpPacket(this byte[] bytes)
+        public static SnmpDatagram ToSnmpDatagram(this byte[] bytes)
         {
             if(bytes == null || bytes.Length == 0)
             {

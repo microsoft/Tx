@@ -93,7 +93,7 @@
                         throw new InvalidCastException("Input not an ObjectIdentifier string");
                     }
 
-                    val = (val * 10) + (uint)currentVal;
+                    val = (val * 10) + currentVal;
                 }
                 else
                 {

@@ -38,7 +38,7 @@
             {
                 foreach (var device in testDeviceResponseCollection)
                 {
-                   device.ToSnmpPacket();
+                   device.ToSnmpDatagram();
                 }
             }
             catch (Exception ex)
@@ -57,11 +57,11 @@
             {
                 foreach (var device in testDeviceResponseCollection)
                 {
-                    SnmpDatagram snmpPacket = device.ToSnmpPacket();
+                    SnmpDatagram snmpPacket = device.ToSnmpDatagram();
                     byte[] encodedData = snmpPacket.ToSnmpEncodedByteArray();
 
                     //Check if encoding is correct by decoding that back
-                    encodedData.ToSnmpPacket();
+                    encodedData.ToSnmpDatagram();
                 }
             }
             catch (Exception ex)
@@ -84,7 +84,7 @@
                 {
                     foreach (var device in testDeviceResponseCollection)
                     {
-                        device.ToSnmpPacket();
+                        device.ToSnmpDatagram();
                     }
                 }
             }
@@ -114,7 +114,7 @@
             IList<SnmpDatagram> packets = new List<SnmpDatagram>();
             foreach (var device in testDeviceResponseCollection)
             {
-                packets.Add(device.ToSnmpPacket());
+                packets.Add(device.ToSnmpDatagram());
             }
 
             long mSec = 0;

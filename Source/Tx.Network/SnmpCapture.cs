@@ -68,7 +68,7 @@
                 {
                     pdu = new SnmpTrapV2C(p.UdpData);
                 }
-                catch (Exception ex)
+                catch
                 {
                     unreadablePackets++;
                     continue;
