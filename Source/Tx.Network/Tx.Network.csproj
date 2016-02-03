@@ -47,7 +47,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="IP.cs" />
+    <Compile Include="IpPacket.cs" />
     <Compile Include="Pcap.cs" />
     <Compile Include="PcapNg.cs" />
     <Compile Include="Properties\TxNetworkAssemblyInfo.cs" />
@@ -100,7 +100,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Syslog.cs" />
-    <Compile Include="UDP.cs" />
+    <Compile Include="UdpDatagram.cs" />
     <Compile Include="UDPReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
