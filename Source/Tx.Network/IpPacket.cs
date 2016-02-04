@@ -5,8 +5,7 @@
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
     using System.Text;
-    using System.IO;
-    
+
     /// <summary>
     /// IP IpPacket Class Definition
     ///</summary>
@@ -55,11 +54,11 @@
     public class IpPacket
     {
         #region Public Fields
-        
+
         //Received DateTime TimeStamp
         public DateTimeOffset ReceivedTime { get; set; }
 
-        //make all the public members readonly to prevent tomfoolery
+        //make all the public members read-only to prevent tomfoolery
         public NetworkInterfaceComponent IpVersion { get; private set; }
         public byte InternetHeaderLength { get; private set; }
         public byte DscpValue { get; private set; }
@@ -97,39 +96,25 @@
         /// <exception cref="ArgumentOutOfRangeException">Thrown on empty or null input byte[].</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
-        public IpPacket(byte[] ReceivedDataBuffer) : this(new MemoryStream(ReceivedDataBuffer)) { }
-
-        /// <summary>
-        /// Produces a IpPacket based on input
-        /// </summary>
-        /// <param name="stream">Incoming packet in a MemoryStream without alterations or prior processing </param>
-        /// <returns> A new IpPacket. </returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown on empty or null input byte[].</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too small -- minimum 20-bytes.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown on input byte[] too large -- maximum 65,535-bytes.</exception>
-        public IpPacket(Stream stream): this()
+        public IpPacket(byte[] ReceivedDataBuffer)
         {
 
-            if (stream == null || stream.Length == 0)
-
+            if (ReceivedDataBuffer == null || ReceivedDataBuffer.Length == 0)
             {
-                throw new ArgumentOutOfRangeException("stream", "Input buffer is empty or null");
+                throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Received data buffer is empty or null");
             }
 
-            else if (stream.Length < 20)
-
+            else if (ReceivedDataBuffer.Length < 20)
             {
-                throw new ArgumentOutOfRangeException("stream", "Input buffer is smaller than minimum IP packet length of header size of 20-bytes");
+                throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Received data buffer is smaller than minimum IP packet length of header size of 20-bytes");
             }
 
-            else if (stream.Length > ushort.MaxValue)
-
+            else if (ReceivedDataBuffer.Length > ushort.MaxValue)
             {
-                throw new ArgumentOutOfRangeException("stream", "Input buffer is larger than the maximum IP packet size of 65,535-bytes");
+                throw new ArgumentOutOfRangeException("ReceivedDataBuffer", "Received data buffer is larger than the maximum IP packet size of 65,535-bytes");
             }
 
-            BuildPacket(stream);
-
+            BuildPacket(ReceivedDataBuffer);
         }
 
         /// <summary>
@@ -137,7 +122,8 @@
         /// </summary>
         /// <param name="ReceivedPacket">IpPacket to copy to a new instance</param>
         /// <remarks> This method copies all data from the ReceivedPacket into a new packet, including byte arrays.</remarks>
-        public IpPacket(IpPacket ReceivedPacket): this()
+        public IpPacket(IpPacket ReceivedPacket)
+            : this()
         {
             ReceivedTime = ReceivedPacket.ReceivedTime;
             IpVersion = ReceivedPacket.IpVersion;
@@ -154,12 +140,14 @@
             PacketHeaderChecksum = ReceivedPacket.PacketHeaderChecksum;
             SourceIpAddress = new IPAddress(ReceivedPacket.SourceIpAddress.GetAddressBytes());
             DestinationIpAddress = new IPAddress(ReceivedPacket.DestinationIpAddress.GetAddressBytes());
-            if (ReceivedPacket.IpOptions != null) {
+            if (ReceivedPacket.IpOptions != null)
+            {
                 IpOptions = new byte[ReceivedPacket.IpOptions.Length];
                 Array.Copy(ReceivedPacket.IpOptions, IpOptions, ReceivedPacket.IpOptions.Length);
             }
-            if (ReceivedPacket.PacketData != null) {
-                PacketData =new byte[ReceivedPacket.PacketData.Length];
+            if (ReceivedPacket.PacketData != null)
+            {
+                PacketData = new byte[ReceivedPacket.PacketData.Length];
                 Array.Copy(ReceivedPacket.PacketData, PacketData, ReceivedPacket.PacketData.Length);
             }
             if (ReceivedPacket.DataBuffer != null)
@@ -219,60 +207,51 @@
         #endregion
 
         #region Private Methods
-        private void BuildPacket(byte[] Buffer)
+        private void BuildPacket(byte[] packetBytes)
         {
-            using(var stream = new MemoryStream(Buffer)) BuildPacket(stream);
-        }
-        private void BuildPacket(Stream Stream)
-        {
-            using (var packetBytes = new BinaryReader(Stream))
+            int offset = 0;
+            var ipVers = packetBytes.ReadBits(offset, 0, 4);                    //bits 0 to 3
+            if (ipVers != 4) throw new NotSupportedException("IPv4 only currently supported"); //ensure this is v4
+            InternetHeaderLength = packetBytes.ReadBits(offset++, 4, 4);        //bits 4 to 7
+            DscpValue = packetBytes.ReadBits(offset, 0, 6);                     //8 to 13
+            ExplicitCongestionNotice = packetBytes.ReadBits(offset++, 6, 2);    //14 to 15
+            IpPacketLength = packetBytes.ReadNetOrderUShort(offset);            //16 to 31
+            offset += 2;
+            FragmentGroupId = packetBytes.ReadNetOrderUShort(offset);           //32 to 47
+            offset += 2;
+            IpHeaderFlags = packetBytes.ReadBits(offset, 0, 3);                 //48 to 50
+            FragmentOffset = packetBytes.ReadNetOrderUShort(offset, 3, 13);     //51 to 63
+            offset += 2;
+            TimeToLive = packetBytes[offset++];                                 //64 to 71
+            ProtocolNumber = packetBytes[offset++];                             //72 to 79
+            Protocol = (ProtocolType)ProtocolNumber;                            //Enum
+            PacketHeaderChecksum = packetBytes.ReadNetOrderUShort(offset);      //80 to 95
+            offset += 2;
+            SourceIpAddress = packetBytes.ReadIpAddress(offset);                //96 to 127
+            offset += 4;
+            DestinationIpAddress = packetBytes.ReadIpAddress(offset);           //128 to 160
+            offset += 4;
+
+            if (InternetHeaderLength > 5) //161 and up
             {
-                var ipVers = packetBytes.ReadBits(0, 4);                            //bits 0 to 3
-                if (ipVers != 4) throw new NotSupportedException("IPv4 only currently supported"); //ensure this is v4
-                InternetHeaderLength = packetBytes.ReadBits(4, 4, true);            //bits 4 to 7
-                DscpValue = packetBytes.ReadBits(0, 6);                             //8 to 13
-                ExplicitCongestionNotice = packetBytes.ReadBits(6, 2, true);        //14 to 15
-                IpPacketLength = packetBytes.ReadNetOrderUShort();                  //16 to 31
-                FragmentGroupId = packetBytes.ReadNetOrderUShort();                 //32 to 47
-                IpHeaderFlags = packetBytes.ReadBits(0, 3);                         //48 to 50
-                FragmentOffset = packetBytes.ReadNetOrderUShort(3, 13);             //51 to 63
-                TimeToLive = packetBytes.ReadByte();                                //64 to 71
-                ProtocolNumber = packetBytes.ReadByte();                            //72 to 79
-                Protocol = (ProtocolType)ProtocolNumber;                            //Enum
-                PacketHeaderChecksum = packetBytes.ReadNetOrderUShort();            //80 to 95
-                SourceIpAddress = packetBytes.ReadIpAddress();                      //96 to 127
-                DestinationIpAddress = packetBytes.ReadIpAddress();                 //128 to 160
-                
-                if (InternetHeaderLength > 5) //161 and up
-                {
-                    IpOptions = new byte[(InternetHeaderLength - 5) * 4];
-                    packetBytes.Read(IpOptions, 0, (InternetHeaderLength - 5) * 4);
-                }
-                else
-                {
-                    IpOptions = null;
-                }
-                //IpHeader in bytes is 4*IHL bytes long
-                if (IpPacketLength > 4 * InternetHeaderLength)
-                {
-                    PacketData = new byte[IpPacketLength - (InternetHeaderLength * 4)];
-                    packetBytes.Read(PacketData, 0, IpPacketLength - (InternetHeaderLength * 4));
-                }
-                else
-                {
-                    PacketData = null; //sometimes the datagram is empty
-
-                }
-                if (IpPacketLength > 0)
-                {
-                    DataBuffer = new byte[IpPacketLength];
-                    var pos = packetBytes.BaseStream.Position;
-                    packetBytes.BaseStream.Seek(0, SeekOrigin.Begin);
-                    DataBuffer = packetBytes.ReadBytes(IpPacketLength);
-
-                }
+                int length = (InternetHeaderLength - 5) * 4;
+                IpOptions = new byte[length];
+                Array.Copy(packetBytes, offset, IpOptions, 0, length);
+                offset += length;
             }
+
+            //IpHeader in bytes is 4*IHL bytes long
+            if (IpPacketLength > 4 * InternetHeaderLength)
+            {
+                int length = IpPacketLength - (InternetHeaderLength * 4);
+                PacketData = new byte[length];
+                Array.Copy(packetBytes, offset, PacketData, 0, length);
+                offset += length;
+            }
+
+            DataBuffer = packetBytes;
         }
+
         #endregion
     }
 }

@@ -57,49 +57,6 @@ namespace Tx.Network
     }
 
     /// <summary>
-    /// Extentions to BinaryReader to: 
-    ///     - read bits at specified offsets from either a Byte or a network order UShort
-    ///     - read a single Byte or network order UShort
-    ///     - read an IPv4 Address
-    ///     - look at the current byte without moving the the position in the stream
-    /// </summary>
-    public static class BinaryReaderExtentions
-    {
-        #region BinaryReader Extentions
-        public static byte PeekByte(this BinaryReader bytes)
-        {
-            var pos = bytes.BaseStream.Position;
-            var b = bytes.ReadByte();
-            bytes.BaseStream.Seek(pos, 0);
-            return b;
-        }
-        public static byte ReadBits(this BinaryReader bytes, int BitPosition, int BitLength, bool Advance = false)
-        {
-            if (Advance) return bytes.ReadByte().ReadBits(BitPosition, BitLength);
-            return bytes.PeekByte().ReadBits(BitPosition, BitLength);
-        }
-        public static ushort ReadNetOrderUShort(this BinaryReader bytes)
-        {
-            return (ushort)IPAddress.NetworkToHostOrder(bytes.ReadInt16());
-        }
-        public static ushort ReadNetOrderUShort(this BinaryReader bytes, int BitPosition, int BitLength)
-        {
-            var bitShift = 16 - BitPosition - BitLength;
-            if (bitShift < 0)
-            {
-                throw new  ArgumentOutOfRangeException("BitPostion + BitLength greater than 16 for ushort output type.");
-            }
-            return (ushort)IPAddress.NetworkToHostOrder(((0xffff >> BitPosition)) & bytes.ReadUInt16() >> bitShift);
-        }
-        public static IPAddress ReadIpAddress(this BinaryReader bytes)
-        {
-            return new IPAddress(bytes.ReadBytes(4));
-        }
-        #endregion
-    }
-
-
-    /// <summary>
     /// class to provide extension methhods to calculate Enterprises
     /// </summary>
     public static class Enterprises
