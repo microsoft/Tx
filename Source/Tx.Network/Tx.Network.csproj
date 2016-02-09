@@ -100,6 +100,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Syslog.cs" />
+    <Compile Include="NetworkTransformExtensions.cs" />
     <Compile Include="UdpDatagram.cs" />
     <Compile Include="UDPReceiver.cs" />
   </ItemGroup>

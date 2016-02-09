@@ -5,6 +5,7 @@
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
     using System.Text;
+    using System.IO;
 
     /// <summary>
     /// IP IpPacket Class Definition
@@ -86,6 +87,63 @@
             ReceivedTime = DateTime.UtcNow;
             IpVersion = NetworkInterfaceComponent.IPv4;
             Protocol = ProtocolType.Udp;
+        }
+
+        /// <summary>
+        /// Used to construct a primitive IpPacket object with the intention to encode it for transmission on the network.
+        /// </summary>
+        /// <param name="IpVersion">IP version</param>
+        /// <param name="InternetHeaderLength">IP header length</param>
+        /// <param name="DscpValue">DSCP value to encode</param>
+        /// <param name="ExplicitCongestionNotice">ECN value to encode</param>
+        /// <param name="IpPacketLength">Length of the complete packet</param>
+        /// <param name="FragmentGroupId">Fragement ID, may be 0</param>
+        /// <param name="IpHeaderFlags">Header flags</param>
+        /// <param name="FragmentOffset">Fragment offset, may be 0</param>
+        /// <param name="TimeToLive">Internet TTL</param>
+        /// <param name="Protocol">Protocol Type</param>
+        /// <param name="SourceIpAddress">Source IPAddress, not assumed to be on the local host.</param>
+        /// <param name="DestinationIpAddress">Destination IPAddress</param>
+        /// <param name="IpOptions">IPOptions in Byte[] form</param>
+        /// <param name="PacketData">The remainder of the packet.</param>
+        /// <remarks>Note that the IP Header checksum would be computed when the ToWireBytes() method is called.</remarks>
+       	public IpPacket(
+             NetworkInterfaceComponent IpVersion,
+             byte InternetHeaderLength,
+             byte DscpValue,
+             byte ExplicitCongestionNotice,
+             ushort IpPacketLength,
+             ushort FragmentGroupId,
+             byte IpHeaderFlags,
+             ushort FragmentOffset,
+             byte TimeToLive,
+             ProtocolType Protocol,
+             
+             IPAddress SourceIpAddress,
+             IPAddress DestinationIpAddress,
+             byte[] IpOptions,
+             byte[] PacketData
+            )
+        {
+            this.IpVersion = IpVersion;
+            this.InternetHeaderLength = InternetHeaderLength;
+            this.DscpValue = DscpValue;
+            this.ExplicitCongestionNotice = ExplicitCongestionNotice;
+            this.IpPacketLength = IpPacketLength;
+            this.FragmentGroupId = FragmentGroupId;
+            this.IpHeaderFlags = IpHeaderFlags;
+            this.FragmentOffset = FragmentOffset;
+            this.TimeToLive = TimeToLive;
+            this.Protocol = Protocol;
+            this.ProtocolNumber = (byte)Protocol;
+            this.PacketHeaderChecksum = 0; //set to zero for new packet
+            this.SourceIpAddress = SourceIpAddress;
+            this.DestinationIpAddress = DestinationIpAddress;
+            this.IpOptions = new byte[IpOptions.Length];
+            Array.Copy(IpOptions, this.IpOptions, IpOptions.Length);
+            this.PacketData = new byte[PacketData.Length];
+            Array.Copy(PacketData, this.PacketData, PacketData.Length);
+
         }
 
         /// <summary>

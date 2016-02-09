@@ -95,6 +95,35 @@
                 UdpCheckSum = PacketData.ReadNetOrderUShort(6);
             }
         }
+        /// <summary>
+        /// Used to create a primitive packet or datagram for encoding to the network.
+        /// </summary>
+        /// <param name="Packet">A source IpPacket Object that contains a UDP datagram</param>
+        /// <param name="SourcePort">Source port for the datagram.</param>
+        /// <param name="DestinationPort">Destination port for the datagram</param>
+        /// <param name="UdpLength">The length of the UDP datagram including the UDP header</param>
+        /// <param name="UdpData">The data following the UDP header. If this is null the Packet object's packet data is used.</param>
+        /// <remarks>The IP Header and UDP Checksum is set by calling the ToWirebytes method to encode the packet to the wire.</remarks>
+        public UdpDatagram(IpPacket Packet, ushort SourcePort, ushort DestinationPort, ushort UdpLength, byte[] UdpData)
+                : base(Packet)
+        {
+            if (Packet.Protocol != ProtocolType.Udp) throw new InvalidDataException("Input Packet must be of protocol type UDP");
+
+            this.SourcePort = SourcePort;
+            this.DestinationPort = DestinationPort;
+            this.UdpLength = UdpLength;
+            this.UdpCheckSum = 0;
+            this.UdpData = new byte[UdpLength - 8];
+            if (UdpData == null)
+            {
+                Array.Copy(Packet.PacketData, Packet.InternetHeaderLength * 4 + 8, this.UdpData, 0, UdpLength - 8);
+            }
+            else {
+                Array.Copy(UdpData, this.UdpData, UdpData.Length - 8);
+            }
+            IsUdp = true;
+
+        }
 
         #endregion
 

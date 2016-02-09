@@ -41,7 +41,9 @@
     <Reference Include="Microsoft.Reactive.Testing">
       <HintPath>$(CPReferencePath)\Microsoft.Reactive.Testing.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core">
@@ -86,6 +88,7 @@
     <Compile Include="Network\SnmpDatagramUnitTest.cs" />
     <Compile Include="Network\SyslogSender.cs" />
     <Compile Include="Network\TestHelpers.cs" />
+    <Compile Include="Network\UnitTestWireEncoding.cs" />
     <Compile Include="Network\UnitTestSyslog.cs" />
     <Compile Include="PerfCounterTest.cs" />
     <Compile Include="PlaybackTest.cs" />

@@ -47,6 +47,14 @@ namespace Tx.Network
             }
             return (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(bytes, BufferOffset));
         }
+        public static ushort ReadUShort(this byte[] bytes, int BufferOffset)
+        {
+            if (bytes.Length - BufferOffset < 2)
+            {
+                throw new ArgumentOutOfRangeException("Buffer offset overflows size of byte array.");
+            }
+            return (ushort)BitConverter.ToInt16(bytes, BufferOffset);
+        }
         public static IPAddress ReadIpAddress(this byte[] bytes, int BufferOffset)
         {
             var IpBytes = new byte[4];
