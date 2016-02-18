@@ -42,6 +42,21 @@
         /// <returns>boolean value true otherOid is suboid of this ObjectIdentifier</returns>
         public bool IsSubOid(ObjectIdentifier otherOid)
         {
+            if (Oids == null && otherOid.Oids == null)
+            {
+                return true;
+            }
+
+            if (Oids == null && otherOid.Oids != null)
+            {
+                return false;
+            }
+
+            if (Oids != null && otherOid.Oids == null)
+            {
+                return false;
+            }
+
             if (otherOid.Oids.Count > Oids.Count)
             {
                 return false;
@@ -167,11 +182,25 @@
             {
                 return false;
             }
+            ObjectIdentifier otherObj = (ObjectIdentifier)anotherObj;
+            if (Oids == null && otherObj.Oids == null)
+            {
+                return true;
+            }
 
-            ObjectIdentifier another = (ObjectIdentifier)anotherObj;
+            if (Oids == null && otherObj.Oids != null)
+            {
+                return false;
+            }
+
+            if (Oids != null && otherObj.Oids == null)
+            {
+                return false;
+            }
+
             for (int i = 0; i < Oids.Count; i++)
             {
-                int length = (int)(another.Oids[i] - Oids[i]);
+                int length = (int)(otherObj.Oids[i] - Oids[i]);
                 if (length != 0)
                 {
                     return false;

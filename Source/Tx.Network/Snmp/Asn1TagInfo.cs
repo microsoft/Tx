@@ -58,6 +58,12 @@ namespace Tx.Network.Snmp
         /// Initializes a new instance of the <see cref="Asn1TagInfo"/> struct.
         /// </summary>
         /// <param name="asn1SnmpTag">The asn1 SNMP tag.</param>
+        public Asn1TagInfo(Asn1Tag asn1Tag) : this(asn1Tag, ConstructType.Primitive) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Asn1TagInfo"/> struct.
+        /// </summary>
+        /// <param name="asn1SnmpTag">The asn1 SNMP tag.</param>
         /// <param name="constructType">Type of the construct.</param>
         public Asn1TagInfo(Asn1SnmpTag asn1SnmpTag, ConstructType constructType)
         {
@@ -65,6 +71,19 @@ namespace Tx.Network.Snmp
             Asn1ConstructType = constructType;
             Asn1SnmpTagType = asn1SnmpTag;
             Asn1TagType = Asn1Tag.NotAsn1Data;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Asn1TagInfo"/> struct.
+        /// </summary>
+        /// <param name="asn1Tag">The asn1 tag.</param>
+        /// <param name="constructType">Type of the construct.</param>
+        public Asn1TagInfo(Asn1Tag asn1Tag, ConstructType constructType)
+        {
+            Asn1ClassType = Asn1Class.Universal;
+            Asn1ConstructType = constructType;
+            Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
+            Asn1TagType = asn1Tag;
         }
 
         /// <summary>

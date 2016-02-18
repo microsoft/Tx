@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Net;
     using System.Text;
 
     /// <summary>
@@ -9,6 +10,12 @@
     /// </summary>
     internal static class Asn1EncoderExtensions
     {
+        private const uint uintMask = 0xFF800000u;
+        private const ulong ulongMask = 0xFF80000000000000;
+        private const int intShiftSize = 8 * (sizeof(int) - 1);
+        private const int uintShiftSize = 8 * (sizeof(uint) - 1);
+        private const int ulongShiftSize = 8 * (sizeof(ulong) - 1);
+
         /// <summary>
         /// Encodes the type of the class construct.
         /// </summary>
@@ -126,34 +133,6 @@
         }
 
         /// <summary>
-        /// Encodes the integer.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="offset">The offset.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>offset as int</returns>
-        public static int EncodeInteger(this byte[] data, int offset, int value)
-        {
-            offset = data.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Primitive, (byte)Asn1Tag.Integer);
-            offset = data.EncodeLength(offset, GetIntegerLength(value));
-
-            uint mask = 0xFF800000u;
-            int size = sizeof(int);
-            while (((value & mask) == 0 || (value & mask) == mask) && size > 1)
-            {
-                size--;
-                value <<= 8;
-            }
-            mask = 0xFF000000u;
-            while (size-- > 0)
-            {
-                data[offset++] = (byte)((value & mask) >> (8 * (sizeof(int) - 1)));
-                value <<= 8;
-            }
-            return offset;
-        }
-
-        /// <summary>
         /// Encodes the variable binds.
         /// </summary>
         /// <param name="data">The data.</param>
@@ -175,7 +154,7 @@
                     {
                         case Asn1Tag.Integer:
                             {
-                                tempOffset = data.EncodeInteger(tempOffset, (int)varBinds[i].Value);
+                                tempOffset = data.EncodeLongInteger(tempOffset, Convert.ToInt64(varBinds[i].Value));
                                 break;
                             }
                         case Asn1Tag.Null:
@@ -250,6 +229,54 @@
         }
 
         /// <summary>
+        /// Encodes the integer.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>offset as int</returns>
+        public static int EncodeInteger(this byte[] data, int offset, int value)
+        {
+            offset = data.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Primitive, (byte)Asn1Tag.Integer);
+
+            int size = sizeof(int);
+            while (((value & uintMask) == 0 || (value & uintMask) == uintMask) && size > 1)
+            {
+                size--;
+                value <<= 8;
+            }
+
+            offset = data.EncodeLength(offset, size);
+            while (size-- > 0)
+            {
+                data[offset++] = (byte)((value & uintMask) >> intShiftSize);
+                value <<= 8;
+            }
+            return offset;
+        }
+
+        /// <summary>
+        /// Encodes the long integer.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>int offset</returns>
+        public static int EncodeLongInteger(this byte[] data, int offset, long value)
+        {
+            byte[] buffer = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(value));
+            offset = data.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Primitive, (byte)Asn1Tag.Integer);
+            offset = data.EncodeLength(offset, buffer.Length);
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                data[offset++] = buffer[i];
+            }
+
+            return offset;
+
+        }
+
+        /// <summary>
         /// Encodes the unsigned integer.
         /// </summary>
         /// <param name="data">The data.</param>
@@ -259,15 +286,22 @@
         /// <returns>int offset</returns>
         private static int EncodeUnsignedInteger(this byte[] data, int offset, uint value, byte tag)
         {
-            byte[] val = BitConverter.GetBytes(value);
             offset = data.EncodeClassConstructType(offset, Asn1Class.Application, ConstructType.Primitive, tag);
-            offset = data.EncodeLength(offset, val.Length);
-
-            for (int i = 0; i < val.Length;i++)
+         
+            int size = sizeof(uint);
+            while (((value & uintMask) == 0 || (value & uintMask) == uintMask) && size > 1)
             {
-                data[offset++] = val[i];
+                size--;
+                value <<= 8;
             }
-          
+
+            offset = data.EncodeLength(offset, size);
+            while (size-- > 0)
+            {
+                data[offset++] = (byte)((value & uintMask) >> uintShiftSize);
+                value <<= 8;
+            }
+
             return offset;
         }
 
@@ -281,15 +315,21 @@
         /// <returns>int offset</returns>
         private static int EncodeUnsignedLong(this byte[] data, int offset, ulong value, byte tag)
         {
-            byte[] val = BitConverter.GetBytes(value);
             offset = data.EncodeClassConstructType(offset, Asn1Class.Application, ConstructType.Primitive, tag);
-            offset = data.EncodeLength(offset, val.Length);
 
-            for (int i = 0; i < val.Length; i++)
+            int size = sizeof(ulong);
+            while (((value & ulongMask) == 0 || (value & ulongMask) == ulongMask) && size > 1)
             {
-                data[offset++] = val[i];
+                size--;
+                value <<= 8;
             }
 
+            offset = data.EncodeLength(offset, size);
+            while (size-- > 0)
+            {
+                data[offset++] = (byte)((value & ulongMask) >> ulongShiftSize);
+                value <<= 8;
+            }
             return offset;
         }
 

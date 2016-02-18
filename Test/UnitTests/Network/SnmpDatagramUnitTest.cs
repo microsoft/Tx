@@ -145,5 +145,22 @@
               Assert.IsTrue(mSec < 400, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #endif
         }
+
+        [TestMethod]
+        public void Asn1ObjectIdentifierTest()
+        {
+            var ObjectIdentifier1 = new ObjectIdentifier("1.3.6.1.2.1.1.3.0");
+            var ObjectIdentifier2 = new ObjectIdentifier("1.3.6.1.2.1.1.1.1.1");
+            var ObjectIdentifier3 = new ObjectIdentifier("1.3.6.1.2.1.1.3.0");
+
+            Assert.IsTrue(ObjectIdentifier1.IsSubOid(ObjectIdentifier3));
+            Assert.IsTrue(ObjectIdentifier1.IsSubOid(new ObjectIdentifier("1.3.6.1.2.1.1")));
+            Assert.IsTrue(!ObjectIdentifier1.IsSubOid(ObjectIdentifier2));
+
+            Assert.IsFalse(default(ObjectIdentifier).IsSubOid(ObjectIdentifier1));
+            Assert.IsFalse(ObjectIdentifier1.IsSubOid(default(ObjectIdentifier)));
+
+            Assert.IsTrue(default(ObjectIdentifier).IsSubOid(default(ObjectIdentifier)));
+        }
     }
 }
