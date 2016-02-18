@@ -57,6 +57,25 @@
         }
 
         /// <summary>
+        /// Reads the long integer.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>long</returns>
+        public static long ReadLongInteger(this byte[] bytes, int offset, int length)
+        {
+            long value = 0;
+            int endOfContentIndex = offset + length;
+            for (int i = offset; i < endOfContentIndex; i++)
+            {
+                value = (value << 8) | bytes[i];
+            }
+
+            return value;
+        }
+
+        /// <summary>
         /// Reads the unsigned long integer.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
@@ -222,7 +241,7 @@
 
                     case Asn1Tag.Integer:
                         {
-                            value = ReadInteger(bytes, offset, length);
+                            value = ReadLongInteger(bytes, offset, length);
                             break;
                         }
 
