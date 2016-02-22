@@ -97,12 +97,17 @@ namespace Tx.Windows
                     timeIndex = i-1;
                     continue;
                 }
+                
+                PropertyInfo targetProperty = typeof(W3CRecord).GetProperty(property);
 
-                MemberBinding b = Expression.Bind(
-                    typeof(W3CEvent).GetProperty(property),
-                    Expression.ArrayIndex(args, Expression.Constant(i-1)));
+                if (targetProperty != null)
+                {
+                    MemberAssignment b = Expression.Bind(
+                        targetProperty,
+                        Expression.ArrayIndex(args, Expression.Constant(i - 1)));
 
-                bindings.Add(b);
+                    bindings.Add(b);
+                }
             }
 
             MemberBinding bdt = Expression.Bind(
