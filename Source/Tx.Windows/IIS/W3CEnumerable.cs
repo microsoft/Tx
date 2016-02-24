@@ -97,8 +97,8 @@ namespace Tx.Windows
                     timeIndex = i-1;
                     continue;
                 }
-                
-                PropertyInfo targetProperty = typeof(W3CRecord).GetProperty(property);
+
+                PropertyInfo targetProperty = typeof(W3CEvent).GetProperty(property);
 
                 if (targetProperty != null)
                 {
