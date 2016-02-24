@@ -354,7 +354,7 @@ namespace Tx.Network
         /// </summary>
         IEEE802_11_RADIO =127, 
         /// <summary>
-        /// Tazmen Sniffer Protocol - Reserved for the TZSP encapsulation, as per request from Chris Waters <chris.waters@networkchemistry.com> TZSP is a generic encapsulation for any other link type, which includes a means to include meta-information with the packet, e.g. signal strength and channel for 802.11 packets. 
+        /// Tazmen Sniffer Protocol - Reserved for the TZSP encapsulation, as per request from Chris Waters &lt;chris.waters@networkchemistry.com&gt; TZSP is a generic encapsulation for any other link type, which includes a means to include meta-information with the packet, e.g. signal strength and channel for 802.11 packets. 
         /// </summary>
         TZSP =128,
         /// <summary>
