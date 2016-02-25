@@ -57,7 +57,7 @@ namespace Tx.Network.Snmp
         /// <summary>
         /// Initializes a new instance of the <see cref="Asn1TagInfo"/> struct.
         /// </summary>
-        /// <param name="asn1SnmpTag">The asn1 SNMP tag.</param>
+        /// <param name="asn1Tag">The asn1 SNMP tag.</param>
         public Asn1TagInfo(Asn1Tag asn1Tag) : this(asn1Tag, ConstructType.Primitive) { }
 
         /// <summary>
