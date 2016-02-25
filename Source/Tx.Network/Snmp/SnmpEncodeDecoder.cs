@@ -9,10 +9,6 @@ namespace Tx.Network.Snmp
     /// </summary>
     public static class SnmpEncodeDecoder
     {
-        /// <summary>
-        /// The common pdu control field length
-        /// </summary>
-        private const int CommonPduControlFieldLength = 14;
 
         /// <summary>
         /// The header length offset
@@ -55,8 +51,16 @@ namespace Tx.Network.Snmp
             //Encode PDU Type
             offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.ContextSpecific, ConstructType.Constructed, (byte)snmpPacket.PDU.PduType);
 
+            int CommonPduControlFieldLength =
+                1 //pduType
+                + snmpPacket.PDU.RequestId.GetIntegerLength()
+                + ((int)snmpPacket.PDU.ErrorStatus).GetIntegerLength()
+                + snmpPacket.PDU.ErrorIndex.GetIntegerLength()
+                + length; //length of varbind values
+
+
             //Encode PDU length
-            offset = headerBytes.EncodeLength(offset, CommonPduControlFieldLength + length);
+            offset = headerBytes.EncodeLength(offset, CommonPduControlFieldLength);
 
             //Encode RequestId
             offset = headerBytes.EncodeInteger(offset, snmpPacket.PDU.RequestId);
