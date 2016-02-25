@@ -80,7 +80,7 @@
             Stopwatch sw = Stopwatch.StartNew();
             try
             {
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 1000; i++)
                 {
                     foreach (var device in testDeviceResponseCollection)
                     {
@@ -99,9 +99,9 @@
             }
 
             #if DEBUG
-              Assert.IsTrue(mSec < 1000, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 1050, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #else
-              Assert.IsTrue(mSec < 400, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 500, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #endif
         }
 
@@ -121,7 +121,7 @@
             Stopwatch sw = Stopwatch.StartNew();
             try
             {
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 500; i++)
                 {
                     foreach (var packet in packets)
                     {
@@ -142,7 +142,7 @@
             #if DEBUG
               Assert.IsTrue(mSec < 1000, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #else
-              Assert.IsTrue(mSec < 400, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 500, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #endif
         }
 

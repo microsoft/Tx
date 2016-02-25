@@ -32,5 +32,16 @@
             Value = value;
             Asn1TypeInfo = asn1TypeInfo;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VarBind"/> struct with value null and Asn1.Null type.
+        /// </summary>
+        /// <param name="oid">The oid.</param>
+        public VarBind(ObjectIdentifier oid)
+        {
+            Oid = oid;
+            Value = null;
+            Asn1TypeInfo = new Asn1TagInfo(Asn1Tag.Null);
+        }
     }
 }

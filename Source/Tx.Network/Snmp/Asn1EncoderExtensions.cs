@@ -32,6 +32,24 @@
         }
 
         /// <summary>
+        /// Gets the length of the integer for encoding.
+        /// </summary>
+        /// <param name="value">The integer value whose length need to be found.</param>
+        /// <returns>int</returns>
+        public static int GetIntegerLength(this int value)
+        {
+            uint mask = 0xFF800000u;
+            int size = sizeof(int);
+            while (((value & mask) == 0 || (value & mask) == mask) && size > 1)
+            {
+                size--;
+                value <<= 8;
+            }
+
+            return size;
+        }
+
+        /// <summary>
         /// Encodes the length.
         /// </summary>
         /// <param name="data">The data.</param>
@@ -82,24 +100,6 @@
         }
 
         /// <summary>
-        /// Gets the length of the integer.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        private static int GetIntegerLength(int value)
-        {
-            uint mask = 0xFF800000u;
-            int size = sizeof(int);
-            while (((value & mask) == 0 || (value & mask) == mask) && size > 1)
-            {
-                size--;
-                value <<= 8;
-            }
-
-            return size;
-        }
-
-        /// <summary>
         /// Gets the length of the string.
         /// </summary>
         /// <param name="octetString">The octet string.</param>
@@ -129,7 +129,7 @@
         public static int EncodeNull(this byte[] data, int offset)
         {
             offset = data.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Primitive, (byte)Asn1Tag.Null);
-            return data.EncodeLength(offset, GetIntegerLength(0)) + 1;
+            return data.EncodeLength(offset, 0);
         }
 
         /// <summary>

@@ -120,6 +120,48 @@
         }
 
         [TestMethod]
+        public void Asn1NegativeIntegerEncodingTest()
+        {
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
+            -506009979999L, new Asn1TagInfo(Asn1Tag.Integer));
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                50000,
+                SnmpErrorStatus.NoError,
+                0,
+                new[] { sysUpTime, });
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+            var snmpPack = encoded.ToSnmpDatagram();
+
+            Assert.AreEqual(-506009979999L, (long)snmpPack.PDU.VarBinds[0].Value);
+        }
+
+        [TestMethod]
+        public void Asn1SmallIntegerEncodingTest()
+        {
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
+            1, new Asn1TagInfo(Asn1Tag.Integer));
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                50000,
+                SnmpErrorStatus.NoError,
+                0,
+                new[] { sysUpTime, });
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+            var snmpPack = encoded.ToSnmpDatagram();
+
+            Assert.AreEqual(1, (long)snmpPack.PDU.VarBinds[0].Value);
+        }
+
+        [TestMethod]
         public void Asn1GaugeEncodingTest()
         {
             var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
@@ -164,8 +206,7 @@
         [TestMethod]
         public void Asn1NullEncodingTest()
         {
-            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
-            null, new Asn1TagInfo(Asn1Tag.Null));
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"));
 
             var packet = new SnmpDatagram(
                 PduType.SNMPv2Trap,
@@ -180,6 +221,61 @@
             var snmpPack = encoded.ToSnmpDatagram();
 
             Assert.IsNull(snmpPack.PDU.VarBinds[0].Value);
+        }
+
+        [TestMethod]
+        public void Asn1NullAndNotNullEncodingTest()
+        {
+            var oidWithNull = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"));
+            var oidWithoutNull = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"),
+           1, new Asn1TagInfo(Asn1Tag.Integer));
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                50000,
+                SnmpErrorStatus.NoError,
+                0,
+                new[] { oidWithNull, oidWithoutNull });
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+            var snmpPack = encoded.ToSnmpDatagram();
+
+            Assert.IsNull(snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(1, (long)snmpPack.PDU.VarBinds[1].Value);
+        }
+
+        [TestMethod]
+        public void Asn1BigVarBindEncodingTest()
+        {
+            var varBinds = new VarBind[] {
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0")),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 1, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 13, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 143, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 122, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 13456, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 1334, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 1444, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 13, new Asn1TagInfo(Asn1Tag.Integer)),
+               new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.1"), 10, new Asn1TagInfo(Asn1Tag.Integer)),
+            };
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                509000,
+                SnmpErrorStatus.TooBig,
+                10000,
+               varBinds);
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+            var snmpPack = encoded.ToSnmpDatagram();
+
+            Assert.IsNull(snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(1, (long)snmpPack.PDU.VarBinds[1].Value);
         }
 
         [TestMethod]
