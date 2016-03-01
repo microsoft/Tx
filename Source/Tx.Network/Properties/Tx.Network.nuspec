@@ -20,6 +20,7 @@
       <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
+      <dependency id="Tx.Core" version="1.0.5-beta" />
     </dependencies>
   </metadata>
 </package>
