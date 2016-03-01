@@ -178,7 +178,7 @@
                     .Select(assembly => assembly.Location)
                     .ToList();      
             }
-            catch (Exception error)
+            catch
             {
                 // Ignore
             }
@@ -209,7 +209,7 @@
                     .Concat(namespaces)
                     .Distinct();
             }
-            catch (Exception error)
+            catch
             {
                 // Ignore
             }

@@ -81,7 +81,7 @@
                             type => type.IsTypeMapType() && typeof(ITypeMap<BinaryEnvelope>).IsAssignableFrom(type)))
                     .ToArray();
             }
-            catch (Exception error)
+            catch
             {
                 // Ignored.
             }

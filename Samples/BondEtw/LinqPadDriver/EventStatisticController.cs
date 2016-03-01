@@ -13,9 +13,9 @@
 
         //private readonly Regex regex = new Regex("\".*?\"", RegexOptions.Compiled);
 
-        private long averageByteSize;
-        private double duration;
-        private double eventsPerSecond;
+        // private long averageByteSize;
+        // private double duration;
+        // private double eventsPerSecond;
 
         public EventStatisticController(string connectionPath)
         {
@@ -48,12 +48,12 @@
 
         public Dictionary<Type, EventStatistics> GetTypeStatistics(TypeCache typeCache, string inputFile)
         {
-            var statsPerType = new Dictionary<Type, EventStatistics>();
-
             if (string.IsNullOrWhiteSpace(inputFile))
             {
                 throw new ArgumentException("inputFile");
             }
+
+            var statsPerType = new Dictionary<Type, EventStatistics>();
 
             Console.WriteLine("Getting Statistics...");
 
@@ -85,24 +85,30 @@
                     var line = manifest.Manifest
                         .Split('\n').LastOrDefault(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase));
 
-                    var className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
-
-                    var type = typeCache.Types.FirstOrDefault(t => t.Name == className);
-
-                    var minDateTime = DateTime.FromFileTimeUtc(c.minTime);
-                    var maxDateTime = DateTime.FromFileTimeUtc(c.maxTime);
-                    var duration = (maxDateTime - minDateTime).TotalSeconds;
-                    if (Math.Abs(this.duration) < 0.01) this.duration = 1;
-
-                    var stats = new EventStatistics
+                    if (line != null)
                     {
-                        AverageByteSize = c.Bytes / c.EventCount,
-                        ByteSize = c.Bytes,
-                        EventCount = c.EventCount,
-                        EventsPerSecond = c.EventCount / duration
-                    };
+                        var className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
 
-                    statsPerType.Add(type, stats);
+                        var type = typeCache.Types.FirstOrDefault(t => t.Name == className);
+
+                        if (type != null)
+                        {
+                            var minDateTime = DateTime.FromFileTimeUtc(c.minTime);
+                            var maxDateTime = DateTime.FromFileTimeUtc(c.maxTime);
+                            var duration = (maxDateTime - minDateTime).TotalSeconds;
+                            if (Math.Abs(duration) < 0.01) duration = 1;
+
+                            var stats = new EventStatistics
+                            {
+                                AverageByteSize = c.Bytes / c.EventCount,
+                                ByteSize = c.Bytes,
+                                EventCount = c.EventCount,
+                                EventsPerSecond = c.EventCount / duration
+                            };
+
+                            statsPerType[type] = stats;
+                        }
+                    }
                 }
             }
 
@@ -186,11 +192,11 @@
         //    }
         //}
 
-        /// <summary>
-        /// Write stats to the summary file.
-        /// </summary>
-        /// <param name="streamWriter">An instance of streamWriter class</param>
-        /// <param name="statsDictionary">Dictionary of events and stats</param>
+        ///// <summary>
+        ///// Write stats to the summary file.
+        ///// </summary>
+        ///// <param name="streamWriter">An instance of streamWriter class</param>
+        ///// <param name="statsDictionary">Dictionary of events and stats</param>
         //private void WriteStats(StreamWriter streamWriter, Dictionary<string, Stats> statsDictionary)
         //{
         //    streamWriter.WriteLine("ManifestId" + "," + "TypeOfEvent " + "," + "EventCount " + "," + "Events/Second " + "," + "ByteSize " + "," + "Average Byte Size " + "," + "MinDateTime " + "," + "MaxDateTime");
