@@ -5,7 +5,6 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using Tx.Network.Snmp;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -43,7 +42,7 @@
             }
             catch (Exception ex)
             {
-                Assert.Fail("Failed to Decode data " + ex.ToString());
+                Assert.Fail("Failed to Decode data " + ex);
             }
         }
 
@@ -66,7 +65,7 @@
             }
             catch (Exception ex)
             {
-                Assert.Fail("Encoding/Decoding Failed " + ex.ToString());
+                Assert.Fail("Encoding/Decoding Failed " + ex);
             }
         }
 
@@ -74,6 +73,7 @@
         /// Decoders the performance test.
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void SnmpDecoderPerformanceTest()
         {
             long mSec = 0;
@@ -90,7 +90,7 @@
             }
             catch (Exception ex)
             {
-                Assert.Fail("Failed to Decode data " + ex.ToString());
+                Assert.Fail("Failed to Decode data " + ex);
             }
             finally
             {
@@ -109,6 +109,7 @@
         /// Encoders the performance test.
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void SnmpEncoderPerformanceTest()
         {
             IList<SnmpDatagram> packets = new List<SnmpDatagram>();
@@ -131,7 +132,7 @@
             }
             catch (Exception ex)
             {
-                Assert.Fail("Failed to Encode data " + ex.ToString());
+                Assert.Fail("Failed to Encode data " + ex);
             }
             finally
             {
