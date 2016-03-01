@@ -57,6 +57,12 @@
         /// The UDP data.
         /// </value>
         public byte[] UdpData { get; private set; }
+
+        /// <summary>
+        /// Object parsed from the <seealso cref="UdpData"/>.
+        /// </summary>
+        /// <example><see cref="Tx.Network.Snmp.SnmpDatagram"/></example>
+        public object TransportObject { get; internal set; }
         #endregion
 
         #region Constructors
@@ -119,7 +125,7 @@
                 Array.Copy(Packet.PacketData, Packet.InternetHeaderLength * 4 + 8, this.UdpData, 0, UdpLength - 8);
             }
             else {
-                Array.Copy(UdpData, this.UdpData, UdpData.Length - 8);
+                Array.Copy(UdpData, this.UdpData, UdpLength - 8);
             }
             IsUdp = true;
 
