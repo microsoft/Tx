@@ -27,7 +27,9 @@
     using Expression = System.Linq.Expressions.Expression;
     using System.Windows;
     using Bond;
-    
+
+    using Tx.Bond.LinqPad;
+
     /// <summary>
     /// Dynamic driver class.
     /// </summary>

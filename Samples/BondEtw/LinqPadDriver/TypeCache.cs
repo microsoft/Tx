@@ -13,7 +13,7 @@ using System.Text;
 using System.Windows;
 using Tx.Binary;
 
-namespace BondInEtwLinqpadDriver
+namespace Tx.Bond.LinqPad
 {
     using System.Globalization;
 
@@ -82,44 +82,83 @@ namespace BondInEtwLinqpadDriver
 
             var sources = new List<string>(Manifests.Length);
 
-            foreach (var m in Manifests)
+            foreach (var manifestTypes in Manifests
+                .GroupBy(i => i.Manifest, StringComparer.Ordinal))
             {
                 string bondFileName = Path.Combine(CacheDirectory, "BondTypes" + sources.Count + ".bond");
 
-                File.WriteAllText(bondFileName, m.Manifest);
+                File.WriteAllText(bondFileName, manifestTypes.Key);
 
                 var source = GenerateCSharpCode(bondFileName);
 
                 sources.Add(source);
-            }
 
-            foreach (var m in Manifests)
-            {
-                var source = GenerateManifestOverrideCSharpClass(
-                    m.Manifest,
-                    m.ManifestId);
+                var manifestInfo = ParseClassNames(manifestTypes.Key);
 
-                sources.Add(source);
+                sources.AddRange(GenerateAdditionalSourceCodeItems(manifestInfo, manifestTypes.Select(i => i.ManifestId).ToArray()));
             }
 
             string asm = Path.Combine(CacheDirectory, @"BondTypes.dll");
             OutputAssembly(sources.ToArray(), asm);
         }
 
-        private string GenerateManifestOverrideCSharpClass(string manifest, string manifestId)
+        public IEnumerable<string> GenerateAdditionalSourceCodeItems(
+            Tuple<string, string[]> bondManifest,
+            string[] manifestIds)
+        {
+            if (bondManifest.Item1 == null)
+            {
+                return new string[0];
+            }
+
+            if (manifestIds.Length == 0)
+            {
+                var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var className in bondManifest.Item2)
+                {
+                    var name = bondManifest.Item2 + "." + className;
+
+                    var id = BondIdentifierHelpers.GenerateGuidFromName(name);
+
+                    map[name] = id.ToString();
+                }
+
+                if (!string.Equals(
+                    manifestIds[0],
+                    map[bondManifest.Item1 + "." + bondManifest.Item2.Last()],
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    return new string[]
+                    {
+                        GenerateManifestOverrideCSharpClass(bondManifest.Item1, bondManifest.Item2.Last(), manifestIds[0]),
+                    };
+                }
+            }
+
+            return new string[0];
+        }
+
+        public Tuple<string, string[]> ParseClassNames(string manifest)
         {
             var lines = manifest.Split('\n');
 
             var line = lines
                 .FirstOrDefault(l => l.Trim().StartsWith(@"namespace ", StringComparison.OrdinalIgnoreCase));
 
-            var @namespace = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
+            var @namespace = (line ?? string.Empty).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
 
-            line = lines
-                .LastOrDefault(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase));
+            var classNames = lines
+                .Where(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase))
+                .Select(l => l.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim());
 
-            var className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
+            return new Tuple<string, string[]>(
+                @namespace,
+                classNames.ToArray());
+        }
 
+        private string GenerateManifestOverrideCSharpClass(string @namespace, string className, string manifestId)
+        {
             var source = string.Format(
                 CultureInfo.InvariantCulture, 
                 _partialClassTemplate,

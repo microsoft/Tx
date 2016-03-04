@@ -1,11 +1,11 @@
-﻿namespace Tx.Bond.Extensions
+﻿namespace Tx.Bond.LinqPad
 {
-    using BondInEtwLinqpadDriver;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reactive.Linq;
     using Tx.Binary;
+    using Tx.Bond.Extensions;
 
     public class EventStatisticController
     {

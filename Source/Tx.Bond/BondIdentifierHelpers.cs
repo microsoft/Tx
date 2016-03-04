@@ -68,7 +68,7 @@ namespace Tx.Bond
             return typeof(T).GetBondManifestIdentifier();
         }
 
-        private static Guid GenerateGuidFromName(string name)
+        public static Guid GenerateGuidFromName(string name)
         {
             byte[] array;
             using (var shA1 = SHA1.Create())
