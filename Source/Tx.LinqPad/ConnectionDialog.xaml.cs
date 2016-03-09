@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -150,7 +150,7 @@ namespace Tx.LinqPad
                 {
                     Title = "Add metadata files",
                     Multiselect = true,
-                    Filter = "All Files|*.man|Manifests|*.man;"
+                    Filter = "Etl Files (*.etl)|*.etl|Manifests|*.man|All Files|*.*"
                 };
             if (fileDialog.ShowDialog().GetValueOrDefault())
             {
