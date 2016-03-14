@@ -111,13 +111,13 @@ namespace Tx.Bond.LinqPad
                 return new string[0];
             }
 
-            if (manifestIds.Length == 0)
+            if (manifestIds.Length == 1)
             {
                 var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 foreach (var className in bondManifest.Item2)
                 {
-                    var name = bondManifest.Item2 + "." + className;
+                    var name = bondManifest.Item1 + "." + className;
 
                     var id = BondIdentifierHelpers.GenerateGuidFromName(name);
 
