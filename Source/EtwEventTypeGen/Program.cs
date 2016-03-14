@@ -32,7 +32,7 @@ namespace Microsoft.Etw
             else
             {
                 string target = Path.Combine(outputDirectory, assembly);
-                AssemblyBuilder.OutputAssembly(generated, new string[]{}, target);
+                AssemblyBuilder.OutputAssembly(generated, new string[] { }, target);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Microsoft.Etw
             {
                 Console.WriteLine(
                     @"Usage: 
-    EtwEventTypeGen [/o:dir] [/a:name] [/m:file] [/t:file] [/w:path]
+    EtwEventTypeGen [/o:dir] [/a:name] [/m:file] [/e:file] [/t:file] [/w:path]
 
 Switches:
     /o:dir       Directory for the output. 
@@ -52,6 +52,7 @@ Switches:
                  If missing the output is C# files.
 
     /m:manifest	 Input from manifest(s)
+    /e:etl       Input from eventsource etl(s) that contain manifests
     /t:tmf       Input from TMF file(s)
     /p:file.blg  Input from performance counter trace
 
@@ -117,6 +118,51 @@ Examples:
                             foreach (string provider in code.Keys)
                             {
                                 generated.Add(provider, code[provider]);
+                            }
+                        }
+                        break;
+
+                    case "/e:":
+                        string[] etlFiles;
+                        string etlDir = Path.GetDirectoryName(value);
+                        if (String.IsNullOrEmpty(etlDir))
+                        {
+                            etlFiles = Directory.GetFiles(".", value);
+                        }
+                        else
+                        {
+                            etlFiles = Directory.GetFiles(
+                                etlDir,
+                                Path.GetFileName(value));
+                        }
+
+                        foreach (string etlFile in etlFiles)
+                        {
+                            string[] etlManifests = ManifestParser.ExtractFromTrace(etlFile);
+
+                            if (etlManifests != null && etlManifests.Length > 0)
+                            {
+                                int i = 0;
+                                foreach (string content in etlManifests)
+                                {
+                                    Dictionary<string, string> code = ManifestParser.Parse(content);
+
+                                    foreach (string provider in code.Keys)
+                                    {
+                                        generated.Add(provider, code[provider]);
+                                    }
+
+                                    // Write the manifest text file
+                                    using (TextWriter wr =
+                                        new StreamWriter(Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(etlFile) + "_" + i.ToString() + ".man")))
+                                    {
+                                        wr.Write(content);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("No manifest found in file:{0}", etlFile);
                             }
                         }
                         break;

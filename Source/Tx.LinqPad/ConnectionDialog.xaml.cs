@@ -150,7 +150,7 @@ namespace Tx.LinqPad
                 {
                     Title = "Add metadata files",
                     Multiselect = true,
-                    Filter = "All Files|*.man|Manifests|*.man;"
+                    Filter = "Etl Files (*.etl)|*.etl|Manifests|*.man|All Files|*.*" 
                 };
             if (fileDialog.ShowDialog().GetValueOrDefault())
             {
