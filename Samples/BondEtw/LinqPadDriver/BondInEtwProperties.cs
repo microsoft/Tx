@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BondInEtwLinqpadDriver
+namespace BondInEtwLinqpadDriver 
 {
     using System;
     using System.Collections.Generic;
