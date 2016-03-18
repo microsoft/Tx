@@ -142,31 +142,65 @@ namespace Tests.Tx
         }
 
         [TestMethod]
-        [Ignore]
-        public void MergeTwoStreams_2()
+        public void MergeEmptyWindowAndEmptyStream()
         {
-            var result = new List<string>();
-
-            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+            var result = new List<object>();
+            var now = DateTimeOffset.UtcNow;
 
             using (var playback = new Playback())
             {
-                playback.AddInput(new[] 
-		        {
-			        new Timestamped<object>("1", start),
-			        new Timestamped<object>("2", start.AddSeconds(2)),
-			        new Timestamped<object>("3", start.AddSeconds(3)),
-		        });
-                
-                using (playback.GetObservable<int>()
-                    .Select(i => i.ToString())
-                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
-                    .Subscribe(Observer.Create<string>(result.Add)))
+                playback.AddInput(new[] { new Timestamped<object>(4L, now), });
+                using (playback.GetObservable<string>()
+                        .Window(TimeSpan.FromSeconds(40), playback.Scheduler)
+                        .Merge(Observable.Empty<object>(), playback.Scheduler)
+                        .Subscribe(Observer.Create<object>(result.Add)))
                 {
                     playback.Run();
                 }
             }
 
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        //[Ignore]
+        public void MergeTwoStreams_2()
+        {
+            var result = new List<string>();
+            bool isCompleted = false;
+            var start = new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero);
+
+            using (var playback = new Playback())
+            {
+                playback.StartTime = start.UtcDateTime;
+
+                playback.AddInput(new[] 
+		        {
+			        new Timestamped<object>("0", start),
+                    //new Timestamped<object>("1", start.AddSeconds(1)),
+                    //new Timestamped<object>("2", start.AddSeconds(2)),
+                    //new Timestamped<object>("3", start.AddSeconds(3)),
+		        });
+
+                playback.AddInput(new[] 
+		        {
+//			        new Timestamped<object>(new {}, start),
+			        new Timestamped<object>("1", start.AddSeconds(1)),
+			        new Timestamped<object>("2", start.AddSeconds(2)),
+			        new Timestamped<object>("3", start.AddSeconds(3)),
+		        });
+
+
+                using (playback.GetObservable<int>()
+                    .Select(i => i.ToString())
+                    .Merge(playback.GetObservable<string>(), playback.Scheduler)
+                    .Subscribe(Observer.Create<string>(result.Add, () => isCompleted = true)))
+                {
+                    playback.Run();
+                }
+            }
+
+            Assert.IsTrue(isCompleted);
             Assert.AreEqual(3, result.Count);
             Assert.AreEqual("1", result[0]);
             Assert.AreEqual("2", result[1]);

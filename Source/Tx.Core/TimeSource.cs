@@ -120,11 +120,6 @@ namespace System.Reactive
 
             public void Stop()
             {
-                foreach (IPostponedWorkItem item in _postponed)
-                {
-                    item.Reschedule(_historical);
-                }
-
                 _historical.AdvanceBy(TimeSpan.FromTicks(1));
             }
 
@@ -133,7 +128,9 @@ namespace System.Reactive
                 get
                 {
                     if (!_running)
+                    {
                         throw new NotImplementedException();
+                    }
 
                     return _historical.Clock;
                 }
