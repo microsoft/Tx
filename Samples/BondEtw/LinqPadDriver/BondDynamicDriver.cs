@@ -328,11 +328,8 @@
                 }
             }
 
-//            var bondInEtwRegistry = new BondInEtwRegistry(tempFolder);
-//            var stat = bondInEtwRegistry.GetTypeStatistics(bondInEtwProperties.Files);
-
             var controller = new EventStatisticController(_typeCache.CacheDirectory);
-            var stat = controller.GetTypeStatistics(_typeCache, bondInEtwProperties.Files[0]);
+            var stat = controller.GetTypeStatistics(_typeCache, bondInEtwProperties.Files);
 
             return this.CreateEventTree(stat);
         }

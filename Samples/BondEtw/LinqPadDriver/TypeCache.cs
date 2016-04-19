@@ -67,6 +67,7 @@ namespace Tx.Bond.LinqPad
 
         public void Init(string targetDir, string[] files)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             CacheDirectory = ResolveCacheDirectory(targetDir);
 
             if (!Directory.Exists(CacheDirectory)) // Todo: do all below once, if we have to create the directory
@@ -100,6 +101,10 @@ namespace Tx.Bond.LinqPad
 
             string asm = Path.Combine(CacheDirectory, @"BondTypes.dll");
             OutputAssembly(sources.ToArray(), asm);
+
+            sw.Stop();
+
+            Console.WriteLine("TypeCache Init took {0} milliseconds.", sw.ElapsedMilliseconds);
         }
 
         public IEnumerable<string> GenerateAdditionalSourceCodeItems(

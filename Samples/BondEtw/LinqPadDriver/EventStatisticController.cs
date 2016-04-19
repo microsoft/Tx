@@ -2,20 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reactive.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
     using Tx.Binary;
     using Tx.Bond.Extensions;
 
     public class EventStatisticController
     {
-        //private readonly Dictionary<string, string> typeNames;
+        private readonly string CsvHeaders = "ManifestId,TypeOfEvent,EventCount,Events/Second,ByteSize,Average Byte Size";
 
-        //private readonly Regex regex = new Regex("\".*?\"", RegexOptions.Compiled);
-
-        // private long averageByteSize;
-        // private double duration;
-        // private double eventsPerSecond;
+        private const char CsvSeparator = ',';
 
         public EventStatisticController(string connectionPath)
         {
@@ -44,36 +44,92 @@
             //{
             //    this.TypeNames[pair.Key.Replace("\"", "")] = pair.Value;
             //}
+
+
         }
 
-        public Dictionary<Type, EventStatistics> GetTypeStatistics(TypeCache typeCache, string inputFile)
+        public Dictionary<Type, EventStatistics> GetTypeStatistics(TypeCache typeCache, params string[] inputFiles)
         {
-            if (string.IsNullOrWhiteSpace(inputFile))
+            if (inputFiles == null || inputFiles.Length <= 0 || inputFiles.Any(f => string.IsNullOrWhiteSpace(f)))
             {
-                throw new ArgumentException("inputFile");
+                throw new ArgumentException("inputFiles");
             }
 
-            var statsPerType = new Dictionary<Type, EventStatistics>();
+            var overallStatsPerType = new Dictionary<Type, EventStatistics>();
 
             Console.WriteLine("Getting Statistics...");
 
+            foreach (var file in inputFiles)
+            {
+                Dictionary<Type, EventStatistics> statsOfThisFile = null;
+
+                var dir = System.IO.Path.GetDirectoryName(file);
+                var fileName = System.IO.Path.GetFileNameWithoutExtension(file) + ".csv";
+                var expectedCsv = System.IO.Path.Combine(dir, fileName);
+
+                if (!this.IsStatsCsvAvailable(expectedCsv) || 
+                    !this.TryParseStatsFromCsv(expectedCsv, typeCache, out statsOfThisFile))
+                {
+                    var csvRelatedStatsOfThisFile = this.CalculateTypeStatistics(typeCache, file);
+
+                    if (csvRelatedStatsOfThisFile != null)
+                    {
+                        statsOfThisFile = csvRelatedStatsOfThisFile.Select(a =>
+                            new { Type = a.Key, Stats = a.Value.Statistics })
+                            .ToDictionary(key => key.Type, value => value.Stats);
+
+                        this.CreateCsvStatsFile(expectedCsv, csvRelatedStatsOfThisFile);
+                    }
+                }
+
+                if (statsOfThisFile != null)
+                {
+                    foreach (var item in statsOfThisFile)
+                    {
+                        EventStatistics existingStatsForThisType;
+                        if (overallStatsPerType.TryGetValue(item.Key, out existingStatsForThisType))
+                        {
+                            overallStatsPerType[item.Key] = existingStatsForThisType + item.Value;
+                        }
+                        else
+                        {
+                            overallStatsPerType[item.Key] = item.Value;
+                        }
+                    }
+                }
+            }
+
+            return overallStatsPerType;
+        }
+
+        private Dictionary<Type, CsvRelatedStats> CalculateTypeStatistics(TypeCache typeCache, string inputFile)
+        {
+            Console.WriteLine("Getting statistics from file {0}.", inputFile);
+
+            var statsPerType = new Dictionary<Type, CsvRelatedStats>();
+
+            Stopwatch sw = Stopwatch.StartNew();
+
             var rawCount = from events in BinaryEtwObservable.FromSequentialFiles(inputFile)
-                group events by events.PayloadId
-                    into eventTypes
-                    from all in
-                        eventTypes.Aggregate(
-                            new { EventCount = (long)0, Bytes = (long)0, minTime = long.MaxValue, maxTime = 0L },
-                            (ac, events) =>
-                            new
-                            {
-                                EventCount = ac.EventCount + 1,
-                                Bytes = ac.Bytes + events.EventPayloadLength,
-                                minTime = Math.Min(ac.minTime, events.ReceiveFileTimeUtc),
-                                maxTime = Math.Max(ac.maxTime, events.ReceiveFileTimeUtc)
-                            })
-                    select new { ManifestId = eventTypes.Key, all.EventCount, all.Bytes, all.minTime, all.maxTime };
+                           group events by events.PayloadId
+                               into eventTypes
+                               from all in
+                                   eventTypes.Aggregate(
+                                       new { EventCount = (long)0, Bytes = (long)0, minTime = long.MaxValue, maxTime = 0L },
+                                       (ac, events) =>
+                                       new
+                                       {
+                                           EventCount = ac.EventCount + 1,
+                                           Bytes = ac.Bytes + events.EventPayloadLength,
+                                           minTime = Math.Min(ac.minTime, events.ReceiveFileTimeUtc),
+                                           maxTime = Math.Max(ac.maxTime, events.ReceiveFileTimeUtc)
+                                       })
+                               select new { ManifestId = eventTypes.Key, all.EventCount, all.Bytes, all.minTime, all.maxTime };
 
             var counts = rawCount.ToEnumerable().ToArray();
+
+            sw.Stop();
+            Console.WriteLine("Query took {0} milliseconds.", sw.ElapsedMilliseconds);
 
             foreach (var c in counts)
             {
@@ -106,7 +162,11 @@
                                 EventsPerSecond = c.EventCount / duration
                             };
 
-                            statsPerType[type] = stats;
+                            statsPerType[type] = new CsvRelatedStats
+                                {
+                                    ManifestId = c.ManifestId,
+                                    Statistics = stats,
+                                };
                         }
                     }
                 }
@@ -115,194 +175,227 @@
             return statsPerType;
         }
 
-        //private Dictionary<string, string> GetCreatedTypeNames(string connectionPath)
-        //{
-        //    var createdTypeNames = new Dictionary<string, string>();
+        private bool IsStatsCsvAvailable(string csvFile)
+        {
+            if (File.Exists(csvFile) && new FileInfo(csvFile).Length > 0)
+            {
+                Console.WriteLine("Csv file was found.");
+                return true;
+            }
 
-        //    var bondFiles = Directory.GetFiles(connectionPath, "*.bond");
+            return false;
+        }
 
-        //    var typeNames = bondFiles.Select(Path.GetFileNameWithoutExtension);
+        private bool TryParseStatsFromCsv(string inputFile, TypeCache typeCache, out Dictionary<Type, EventStatistics> eventStatsCollection)
+        {
+            bool isParsingSuccessful = true;
+            
+            bool headersFound = false;
+            using (var streamReader = File.OpenText(inputFile))
+            {
+                eventStatsCollection = new Dictionary<Type, EventStatistics>();
 
-        //    foreach (var type in typeNames)
-        //    {
-        //        var csFile = Path.Combine(connectionPath, type + ".cs");
+                // At any point parsing is not successful, means current csv is not good enough. Rewrite of csv is required.
+                while (!streamReader.EndOfStream && isParsingSuccessful)
+                {
+                    Console.WriteLine("Starting to parse csv...");
 
-        //        if (File.Exists(csFile))
-        //        {
-        //            var lines = File.ReadAllLines(csFile);
+                    string line = string.Empty;
 
-        //            foreach (var line in lines)
-        //            {
-        //                if (line.Contains("[Guid("))
-        //                {
-        //                    foreach (Match match in this.regex.Matches(line))
-        //                    {
-        //                        var manifestId = match.ToString();
+                    // First few lines are not important for stats.
+                    while (!headersFound)
+                    {
+                        line = streamReader.ReadLine();
+                        headersFound = !string.IsNullOrWhiteSpace(line) ? line.Contains(this.CsvHeaders) : false;
+                    }
 
-        //                        if (!createdTypeNames.ContainsKey(manifestId))
-        //                        {
-        //                            createdTypeNames.Add(manifestId, type);
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
+                    // headers found
+                    if (headersFound)
+                    {
+                        line = streamReader.ReadLine();
 
-        //    return createdTypeNames;
-        //}
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            // Every line should pass this test else rewrite of csv is required.
+                            isParsingSuccessful = this.IsCsvLineParsable(line, typeCache, eventStatsCollection);
+                        }
+                    }
+                }
+            }
 
-        ///// <summary>
-        ///// Writes to a summary (csv) file.
-        ///// </summary>
-        ///// <param name="file">ETL file</param>
-        ///// <param name="fileName">Summary file name</param>
-        ///// <param name="fileDirectory">Directory to write the summary file</param>
-        ///// <param name="statsDictionary">Dictionary of events and stats</param>
-        //private void WriteToSummaryFile(string file, string fileName, string fileDirectory, Dictionary<string, Stats> statsDictionary)
-        //{
-        //    if (string.IsNullOrWhiteSpace(file))
-        //    {
-        //        throw new ArgumentException("sourceFile");
-        //    }
+            return isParsingSuccessful;
+        }
 
-        //    if (string.IsNullOrWhiteSpace(fileName))
-        //    {
-        //        throw new ArgumentException("statsFileName");
-        //    }
+        private string GetTypeNameFromManifest(EventManifest manifest)
+        {
+            var line = manifest.Manifest.Split('\n').LastOrDefault(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase));
 
-        //    if (string.IsNullOrWhiteSpace(fileDirectory))
-        //    {
-        //        throw new ArgumentException("statsFileDirectory");
-        //    }
+            string className = string.Empty;
+            if (line != null)
+            {
+                className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
+            }
 
-        //    if (statsDictionary == null)
-        //    {
-        //        throw new ArgumentNullException("statsDictionary");
-        //    }
+            return className;
+        }
 
-        //    Console.WriteLine("Writing to summary file... \n");
-        //    string statsFilePath = Path.Combine(fileDirectory, fileName + ".csv");
+        private bool IsCsvLineParsable(string line, TypeCache typeCache, Dictionary<Type, EventStatistics> eventStatsCollection)
+        {
+            bool isParsable = false;
 
-        //    using (var streamWriter = new StreamWriter(statsFilePath))
-        //    {
-        //        WriteFileDetails(streamWriter, file);
+            var tokens = line.Split(CsvSeparator);
 
-        //        this.WriteStats(streamWriter, statsDictionary);
-        //    }
-        //}
+            string eventManifestFromCsv = string.Empty;
+            string typeNameFromCsv = string.Empty;
 
-        ///// <summary>
-        ///// Write stats to the summary file.
-        ///// </summary>
-        ///// <param name="streamWriter">An instance of streamWriter class</param>
-        ///// <param name="statsDictionary">Dictionary of events and stats</param>
-        //private void WriteStats(StreamWriter streamWriter, Dictionary<string, Stats> statsDictionary)
-        //{
-        //    streamWriter.WriteLine("ManifestId" + "," + "TypeOfEvent " + "," + "EventCount " + "," + "Events/Second " + "," + "ByteSize " + "," + "Average Byte Size " + "," + "MinDateTime " + "," + "MaxDateTime");
+            if (tokens != null && tokens.Length == 6)
+            {
+                eventManifestFromCsv = tokens[0];
+                typeNameFromCsv = tokens[1];
 
-        //    var e =
-        //        (from pair in statsDictionary orderby pair.Key select pair).ToArray();
+                var manifest = typeCache.Manifests.FirstOrDefault(m => string.Equals(m.ManifestId, eventManifestFromCsv, StringComparison.OrdinalIgnoreCase));
 
-        //    foreach (var keyValuePair in e)
-        //    {
-        //        this.averageByteSize = keyValuePair.Value.ByteSize / keyValuePair.Value.EventCount;
+                if (manifest != null)
+                {
+                    var typeName = this.GetTypeNameFromManifest(manifest);
 
-        //        var minDateTime = DateTime.FromFileTimeUtc(keyValuePair.Value.MinTime);
+                    if (!string.IsNullOrWhiteSpace(typeName) &&
+                        string.Equals(typeName, typeNameFromCsv, StringComparison.OrdinalIgnoreCase))
+                    {
+                        var type = typeCache.Types.FirstOrDefault(t => string.Equals(t.Name, typeName, StringComparison.OrdinalIgnoreCase));
 
-        //        var maxDateTime = DateTime.FromFileTimeUtc(keyValuePair.Value.MaxTime);
+                        if (type != null)
+                        {
+                            EventStatistics statsFromCsv = new EventStatistics
+                            {
+                                AverageByteSize = long.Parse(tokens[5]),
+                                ByteSize = long.Parse(tokens[2]),
+                                EventCount = long.Parse(tokens[2]),
+                                EventsPerSecond = double.Parse(tokens[3]),
+                            };
 
-        //        this.duration = (maxDateTime - minDateTime).TotalSeconds;
+                            EventStatistics existingStats;
+                            if (eventStatsCollection.TryGetValue(type, out existingStats))
+                            {
+                                
+                                existingStats = existingStats + statsFromCsv;
+                                Console.WriteLine("Stats for type {0} updated.", typeNameFromCsv);
+                            }
+                            else
+                            {
+                                eventStatsCollection[type] = statsFromCsv;
+                                Console.WriteLine("Stats for type {0} added.", typeNameFromCsv);
+                            }
+                            
+                            isParsable = true;
+                        }
+                    }
+                }
+            }
 
-        //        if (Math.Abs(this.duration) < 0.01)
-        //        {
-        //            this.duration = 1;
-        //        }
+            return isParsable;
+            
+        }
 
-        //        this.eventsPerSecond = keyValuePair.Value.EventCount / this.duration;
+        private void CreateCsvStatsFile(string file, Dictionary<Type, CsvRelatedStats> stats)
+        {
+            // process only if you have write access.
+            try
+            {
+                stats = stats.OrderBy(a => a.Key.Name).ToDictionary(a => a.Key, b => b.Value);
 
-        //        streamWriter.WriteLine(keyValuePair.Value.ManifestId + "," + keyValuePair.Key + "," + keyValuePair.Value.EventCount + "," + this.eventsPerSecond + "," + keyValuePair.Value.ByteSize + "," + this.averageByteSize + "," + minDateTime + "," + maxDateTime);
-        //    }
-        //}
+                using (StreamWriter sw = new StreamWriter(file))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    this.AppendFileRelatedDetails(sb, file);
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    this.AppendStats(sb, stats);
 
-        //private static void WriteFileDetails(TextWriter streamWriter, string file)
-        //{
-        //    if (streamWriter == null)
-        //    {
-        //        throw new ArgumentNullException("streamWriter");
-        //    }
+                    sw.Write(sb.ToString());
+                }
+            }
+            catch 
+            {
+                // writing to file, erred. What do we do?
+            }
 
-        //    if (string.IsNullOrWhiteSpace(file))
-        //    {
-        //        throw new ArgumentException("file");
-        //    }
+        }
 
-        //    streamWriter.WriteLine("File Name" + "," + Path.GetFileName(file));
+        private void AppendStats(StringBuilder sb, Dictionary<Type, CsvRelatedStats> stats)
+        {
+            sb.AppendLine(CsvHeaders);
 
-        //    streamWriter.WriteLine("Timestamp" + "," + File.GetCreationTimeUtc(file) + " (UTC)");
+            foreach (var item in stats)
+            {
+                sb.AppendFormat("{0},{1},{2},{3},{4},{5}", 
+                    item.Value.ManifestId, 
+                    item.Key.Name,
+                    item.Value.Statistics.EventCount,
+                    item.Value.Statistics.EventsPerSecond,
+                    item.Value.Statistics.ByteSize,
+                    item.Value.Statistics.AverageByteSize);
+                sb.AppendLine();
+            }
+        }
 
-        //    streamWriter.WriteLine("Checksum" + "," + CheckSum(file));
+        private void AppendFileRelatedDetails(StringBuilder sb, string file)
+        {
+            string parentFile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(file), System.IO.Path.GetFileNameWithoutExtension(file) + ".etl");
 
-        //    streamWriter.WriteLine();
-        //}
+            sb.AppendFormat("File Name,{0}", System.IO.Path.GetFileName(parentFile));
+            sb.AppendLine();
+            sb.AppendFormat("\nTimestamp,{0}", File.GetCreationTimeUtc(parentFile));
+            sb.AppendLine();
+            sb.AppendFormat("\nChecksum,{0}", CheckSum(parentFile));
+            sb.AppendLine();
+        }
 
-        //private string LookupTypeName(string manifestId)
-        //{
-        //    if (string.IsNullOrWhiteSpace(manifestId))
-        //    {
-        //        throw new ArgumentException("manifestId");
-        //    }
+        private static string CheckSum(string filename)
+        {
+            using (var checkSum = MD5.Create())
+            {
+                var hashValue = GetHashValue(checkSum, filename);
 
-        //    string type;
-        //    if (!this.TypeNames.TryGetValue(manifestId, out type))
-        //    {
-        //        return "UnknownEvent" + " " + manifestId;
-        //    }
+                var checkSumResult = hashValue;
 
-        //    return type;
-        //}
+                return checkSumResult;
+            }
+        }
 
-        //private static string CheckSum(string filename)
-        //{
-        //    if (string.IsNullOrWhiteSpace(filename))
-        //    {
-        //        throw new ArgumentException("fileName");
-        //    }
+        private static string GetHashValue(HashAlgorithm md5, string filename)
+        {
+            if (md5 == null)
+            {
+                throw new ArgumentNullException("md5");
+            }
 
-        //    using (var checkSum = MD5.Create())
-        //    {
-        //        var hashValue = GetHashValue(checkSum, filename);
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                throw new ArgumentException("filename");
+            }
 
-        //        var checkSumResult = hashValue;
+            var stringBuilder = new StringBuilder();
 
-        //        return checkSumResult;
-        //    }
-        //}
+            using (var streamReader = File.OpenRead(filename))
+            {
+                byte[] result = md5.ComputeHash(streamReader);
 
-        //private static string GetHashValue(HashAlgorithm md5, string filename)
-        //{
-        //    if (md5 == null)
-        //    {
-        //        throw new ArgumentNullException("md5");
-        //    }
+                foreach (var bytes in result)
+                {
+                    stringBuilder.Append(bytes.ToString("x2"));
+                }
+            }
 
-        //    if (string.IsNullOrWhiteSpace(filename))
-        //    {
-        //        throw new ArgumentException("filename");
-        //    }
+            return stringBuilder.ToString();
+        }
 
-        //    var stringBuilder = new StringBuilder();
-
-        //    var streamReader = File.OpenRead(filename);
-
-        //    byte[] result = md5.ComputeHash(streamReader);
-
-        //    foreach (var bytes in result)
-        //    {
-        //        stringBuilder.Append(bytes.ToString("x2"));
-        //    }
-
-        //    return stringBuilder.ToString();
-        //}
+        private class CsvRelatedStats
+        {
+            internal string ManifestId;
+            internal EventStatistics Statistics;
+        }
     }
+
+    
 }
