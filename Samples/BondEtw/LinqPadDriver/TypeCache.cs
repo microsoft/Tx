@@ -67,13 +67,24 @@ namespace Tx.Bond.LinqPad
 
         public void Init(string targetDir, string[] files)
         {
+            // Don't validate targetDir for empty. it will be created.
+            if (targetDir == null)
+            {
+                throw new ArgumentNullException("targetDir");
+            }
+
+            if (files == null || files.Length <= 0)
+            {
+                throw new ArgumentNullException("files");
+            }
+
             Stopwatch sw = Stopwatch.StartNew();
             CacheDirectory = ResolveCacheDirectory(targetDir);
 
             if (!Directory.Exists(CacheDirectory)) // Todo: do all below once, if we have to create the directory
                 Directory.CreateDirectory(CacheDirectory);
 
-            Manifests = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
+            this.Manifests = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
                 .ToEnumerable()
                 .GroupBy(manifest => manifest.ManifestId, StringComparer.OrdinalIgnoreCase)
                 .Select(grp => grp.First())
@@ -146,6 +157,11 @@ namespace Tx.Bond.LinqPad
 
         public Tuple<string, string[]> ParseClassNames(string manifest)
         {
+            if (string.IsNullOrWhiteSpace(manifest))
+            {
+                throw new ArgumentNullException("manifest");
+            }
+
             var lines = manifest.Split('\n');
 
             var line = lines

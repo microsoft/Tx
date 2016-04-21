@@ -35,7 +35,7 @@ namespace Tx.Bond.Extensions
 
             return new EventStatistics
             {
-                // To avoid inaccuracy, don't calculating average of averages.
+                // To avoid inaccuracy, don't calculate average of averages.
                 AverageByteSize = (x.ByteSize + y.ByteSize) / (x.EventCount + y.EventCount),
 
                 ByteSize = x.ByteSize + y.ByteSize,

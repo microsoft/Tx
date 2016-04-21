@@ -286,6 +286,8 @@
         public override List<ExplorerItem> GetSchemaAndBuildAssembly(
             IConnectionInfo cxInfo, AssemblyName assemblyToBuild, ref string nameSpace, ref string typeName)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             nameSpace = @"System.Reactive.Tx";
             typeName = "PlaybackClass";
 
@@ -328,8 +330,13 @@
                 }
             }
 
-            var controller = new EventStatisticController(_typeCache.CacheDirectory);
+            
+            var controller = new EventStatisticCache();
             var stat = controller.GetTypeStatistics(_typeCache, bondInEtwProperties.Files);
+
+            sw.Stop();
+
+            Console.WriteLine("Complete operation took {0} milliseconds.", sw.ElapsedMilliseconds);
 
             return this.CreateEventTree(stat);
         }
@@ -358,7 +365,7 @@
         /// </summary>
         /// <param name="stat"> Available event types and statistics. </param>
         /// <returns> Tree of available types and their statistics. </returns>
-        private List<ExplorerItem> CreateEventTree(Dictionary<Type, EventStatistics> stat)
+        private List<ExplorerItem> CreateEventTree(IDictionary<Type, EventStatistics> stat)
         {
             var result = new List<ExplorerItem>();
 
