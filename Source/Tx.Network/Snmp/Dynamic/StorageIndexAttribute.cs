@@ -9,5 +9,11 @@ namespace Tx.Network.Snmp.Dynamic
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class StorageIndexAttribute : Attribute
     {
+        public readonly uint Index;
+
+        public StorageIndexAttribute(uint index)
+        {
+            this.Index = index;
+        }
     }
 }

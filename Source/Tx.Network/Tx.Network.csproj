@@ -99,6 +99,8 @@
     </Compile>
     <Compile Include="Snmp\SnmpHeader.cs" />
     <Compile Include="Snmp\SnmpPDU.cs" />
+    <Compile Include="Snmp\SnmpSimpleDatagram.cs" />
+    <Compile Include="Snmp\SnmpSimpleTrapV2C.cs" />
     <Compile Include="Snmp\SnmpTrapV2C.cs">
       <SubType>Code</SubType>
     </Compile>
