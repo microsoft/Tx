@@ -1,4 +1,5 @@
-﻿namespace Tx.Bond.Extensions
+﻿using System;
+namespace Tx.Bond.Extensions
 {
     /// <summary>
     /// Stats class that defines the properties of the events.
@@ -24,5 +25,25 @@
         /// Gets or sets the average byte size.
         /// </summary>
         public double AverageByteSize { get; set; }
+
+        public static EventStatistics operator + (EventStatistics x, EventStatistics y)
+        {
+            if (x == null || y == null)
+            {
+                throw new ArgumentNullException("x and/or y");
+            }
+
+            return new EventStatistics
+            {
+                // To avoid inaccuracy, don't calculate average of averages.
+                AverageByteSize = (x.ByteSize + y.ByteSize) / (x.EventCount + y.EventCount),
+
+                ByteSize = x.ByteSize + y.ByteSize,
+                EventCount = x.EventCount + y.EventCount,
+
+                // change this if G and S, agree to add last/first event timestamps.
+                EventsPerSecond = (x.EventsPerSecond + y.EventsPerSecond) / 2,
+            };
+        }
     }
 }

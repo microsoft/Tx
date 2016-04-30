@@ -65,7 +65,7 @@
     <Compile Include="BondDynamicDriver.cs" />
     <Compile Include="BondInEtwProperties.cs" />
     <Compile Include="ConnectionDialog.xaml.cs" />
-    <Compile Include="EventStatisticController.cs" />
+    <Compile Include="EventStatisticCache.cs" />
     <Compile Include="EventStatistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
