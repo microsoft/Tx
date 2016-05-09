@@ -15,11 +15,6 @@
         public readonly ReadOnlyCollection<uint> Oids;
 
         /// <summary>
-        /// The oid string
-        /// </summary>
-        private string oidStr;
-
-        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>
@@ -27,12 +22,12 @@
         /// </returns>
         public override string ToString()
         {
-            if (oidStr == null)
+            if (Oids == null)
             {
-               oidStr = String.Join(".", Oids);
+                return string.Empty;
             }
 
-            return oidStr;
+            return String.Join(".", Oids);
         }
 
         /// <summary>
@@ -80,7 +75,22 @@
         internal ObjectIdentifier(uint[] oids)
         {
             Oids = new ReadOnlyCollection<uint>(oids);
-            oidStr = null;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectIdentifier"/> struct.
+        /// </summary>
+        /// <param name="oids">The list oids.</param>
+        public ObjectIdentifier(IList<uint> oids)
+        {
+            if (oids == null || oids.Count == 0)
+            {
+                throw new ArgumentNullException("oids");
+            }
+
+            uint[] newoids = new uint[oids.Count];
+            oids.CopyTo(newoids, 0);
+            Oids = new ReadOnlyCollection<uint>(newoids);
         }
 
         /// <summary>
@@ -94,7 +104,6 @@
                 throw new ArgumentNullException("oids");
             }
 
-            oidStr = oids;
             var oidArray = new uint[25];
             int count = 0;
             uint val = 0;
