@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Snmp\Dynamic\IpAddressAttribute.cs" />
     <Compile Include="Snmp\Dynamic\NotificationObjectsAttribute.cs" />
+    <Compile Include="Snmp\Dynamic\Asn1TypeAttribute.cs" />
     <Compile Include="Snmp\Dynamic\StorageIndexAttribute.cs" />
     <Compile Include="Snmp\Dynamic\TrapTypeMap.cs" />
     <Compile Include="Snmp\Dynamic\SnmpOidAttribute.cs" />
