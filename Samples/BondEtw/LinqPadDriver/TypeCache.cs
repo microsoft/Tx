@@ -44,6 +44,7 @@ namespace Tx.Bond.LinqPad
 ";
 
         public string CacheDirectory { get; private set; }
+
         public EventManifest[] Manifests { get; private set; }
 
         public TypeCache()
@@ -81,34 +82,56 @@ namespace Tx.Bond.LinqPad
             Stopwatch sw = Stopwatch.StartNew();
             CacheDirectory = ResolveCacheDirectory(targetDir);
 
-            if (!Directory.Exists(CacheDirectory)) // Todo: do all below once, if we have to create the directory
+            if (!Directory.Exists(CacheDirectory))
+            {
+                // Todo: do all below once, if we have to create the directory
                 Directory.CreateDirectory(CacheDirectory);
+            }
+            else
+            {
+                // Clean
+                Directory.Delete(CacheDirectory, true);
 
-            this.Manifests = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
+                // Recreate.
+                Directory.CreateDirectory(CacheDirectory);
+            }
+
+            var manifestsFromFiles = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
                 .ToEnumerable()
                 .GroupBy(manifest => manifest.ManifestId, StringComparer.OrdinalIgnoreCase)
                 .Select(grp => grp.First())
                 .ToArray();
-            if (Manifests.Length == 0)
+
+            if (manifestsFromFiles.Length == 0)
+            {
                 throw new Exception("No Bond manifests found");
+            }
 
-            var sources = new List<string>(Manifests.Length);
+            var sources = new List<string>();
 
-            foreach (var manifestTypes in Manifests
+            List<EventManifest> manifests = new List<EventManifest>();
+
+            foreach (var manifestTypes in manifestsFromFiles
                 .GroupBy(i => i.Manifest, StringComparer.Ordinal))
             {
                 string bondFileName = Path.Combine(CacheDirectory, "BondTypes" + sources.Count + ".bond");
 
                 File.WriteAllText(bondFileName, manifestTypes.Key);
 
-                var source = GenerateCSharpCode(bondFileName);
+                var source = this.GenerateCSharpCode(bondFileName);
 
-                sources.Add(source);
+                if (!string.IsNullOrWhiteSpace(source))
+                {
+                    manifests.Add(manifestTypes.First());
+                    sources.Add(source);
+                }
 
-                var manifestInfo = ParseClassNames(manifestTypes.Key);
+                var manifestInfo = this.ParseClassNames(manifestTypes.Key);
 
                 sources.AddRange(GenerateAdditionalSourceCodeItems(manifestInfo, manifestTypes.Select(i => i.ManifestId).ToArray()));
             }
+
+            this.Manifests = manifests.ToArray();
 
             string asm = Path.Combine(CacheDirectory, @"BondTypes.dll");
             OutputAssembly(sources.ToArray(), asm);
@@ -169,13 +192,15 @@ namespace Tx.Bond.LinqPad
 
             var @namespace = (line ?? string.Empty).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
 
-            var classNames = lines
+            var classNamesObtained = lines
                 .Where(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase))
-                .Select(l => l.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim());
+                .Select(l => l.Split(new[] { ' ', '{' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim());
+            
+            var classNamesValid = classNamesObtained.Where(a => CodeCompiler.IsValidLanguageIndependentIdentifier(a)).ToArray();
 
             return new Tuple<string, string[]>(
                 @namespace,
-                classNames.ToArray());
+                classNamesValid);
         }
 
         private string GenerateManifestOverrideCSharpClass(string @namespace, string className, string manifestId)
@@ -202,20 +227,28 @@ namespace Tx.Bond.LinqPad
                 FileName = this._gbcPath,
                 Arguments = command,
                 WorkingDirectory = CacheDirectory,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
             };
 
+            string error = string.Empty;
             using (var gbc = Process.Start(processStartInfo))
             {
                 var reader = gbc.StandardOutput;
                 gbc.WaitForExit();
                 var output = reader.ReadToEnd();
                 var output2 = output;
+
+                error = gbc.StandardError.ReadToEnd();
             }
 
-            var flename = Path.GetFileNameWithoutExtension(bondFileName) + "_types.cs";
-            string fullFileName = Path.Combine(CacheDirectory, flename);
-            string source = File.ReadAllText(fullFileName);
+            string source = null;
+            if (string.IsNullOrWhiteSpace(error))
+            {
+                var filename = Path.GetFileNameWithoutExtension(bondFileName) + "_types.cs";
+                string fullFileName = Path.Combine(CacheDirectory, filename);
+                source = File.ReadAllText(fullFileName);
+            }
 
             return source;
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Core", "..\..\Source\Tx.Core\Tx.Core.csproj", "{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}"
 EndProject
@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqPadDriver", "LinqPadDri
 	ProjectSection(ProjectDependencies) = postProject
 		{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8} = {C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqPadDriver.Tests", "LinqPadDriver.Tests\LinqPadDriver.Tests.csproj", "{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -190,6 +192,36 @@ Global
 		{C08B80DD-5E1B-4F9E-986D-F1668F5E8DF4}.Release45|Mixed Platforms.ActiveCfg = Release45|Any CPU
 		{C08B80DD-5E1B-4F9E-986D-F1668F5E8DF4}.Release45|Mixed Platforms.Build.0 = Release45|Any CPU
 		{C08B80DD-5E1B-4F9E-986D-F1668F5E8DF4}.Release45|x86.ActiveCfg = Release45|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug40|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug40|Any CPU.Build.0 = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug40|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug40|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug40|x86.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug45|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug45|Any CPU.Build.0 = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug45|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug45|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Debug45|x86.ActiveCfg = Debug|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release40|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release40|Any CPU.Build.0 = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release40|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release40|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release40|x86.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release45|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release45|Any CPU.Build.0 = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release45|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release45|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D7895B8-A87A-4E0C-8AA5-4075C89376EC}.Release45|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
