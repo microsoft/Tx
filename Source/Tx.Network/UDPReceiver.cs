@@ -159,6 +159,14 @@
                 disposeCalled = true;
                 Socket.Shutdown(SocketShutdown.Both);
                 Socket.Dispose();
+                
+                while(_receivedDataProcessorsPool.Count > 0)
+                {
+                    var dequeued = new SocketAsyncEventArgs();
+                    _receivedDataProcessorsPool.TryDequeue(out dequeued);
+                    dequeued.Dispose();
+                }
+
                 _packetSubject.OnCompleted();
                 _packetSubject.Dispose();
             }
