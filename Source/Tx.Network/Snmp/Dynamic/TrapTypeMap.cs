@@ -40,19 +40,15 @@ namespace Tx.Network.Snmp.Dynamic
         public ObjectIdentifier GetInputKey(IpPacket evt)
         {
             var snmpDatagram = GetSnmpDatagram(evt);
-            if (snmpDatagram == default(SnmpDatagram))
-            {
-                return default(ObjectIdentifier);
-            }
 
-            var pdu = snmpDatagram.PDU;
+            var pdu = snmpDatagram.PduV2c;
             if (pdu.PduType != PduType.SNMPv2Trap || pdu.VarBinds == null)
             {
                 return default(ObjectIdentifier);
             }
 
             VarBind trapVarBind;
-            return pdu.SearchFirstSubOidWith(trapOid, out trapVarBind)
+            return pdu.VarBinds.SearchFirstSubOidWith(trapOid, out trapVarBind)
                        ? (ObjectIdentifier)trapVarBind.Value
                        : default(ObjectIdentifier);
         }
@@ -67,9 +63,9 @@ namespace Tx.Network.Snmp.Dynamic
             var parameter = Expression.Parameter(typeof(IpPacket), "ipPacket");
             var getPduCall = Expression.Call(typeof(TrapTypeMap).GetMethod("GetPdu", BindingFlags.Static | BindingFlags.NonPublic), parameter);
 
-            var pduVar = Expression.Variable(typeof(SnmpPDU), "pdu");
+            var pduVar = Expression.Variable(typeof(SnmpV2cPDU), "pdu");
             var assignment = Expression.Assign(pduVar, getPduCall);
-            var pduVarBindsField = typeof(SnmpPDU).GetField(
+            var pduVarBindsField = typeof(SnmpV2cPDU).GetField(
                 "VarBinds",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             var sourceAddressProperty = typeof(IpPacket).GetProperty(
@@ -79,7 +75,7 @@ namespace Tx.Network.Snmp.Dynamic
             var varbindVar = Expression.Variable(typeof(VarBind), "varBind");
             var varbindValueField = typeof(VarBind).GetField("Value", BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
-            var getVarBindMethod = typeof(SnmpPDU).GetMethod("SearchFirstSubOidWith");
+            var getVarBindMethod = typeof(SnmpV2cPDU).GetMethod("SearchFirstSubOidWith");
             var bindings = new List<MemberBinding>();
 
             MemberAssignment notificationObjectsExpression = null, ipAddressExpresion = null;
@@ -172,10 +168,10 @@ namespace Tx.Network.Snmp.Dynamic
             }
         }
 
-        private static SnmpPDU GetPdu(IpPacket ipPacket)
+        private static SnmpV2cPDU GetPdu(IpPacket ipPacket)
         {
             var snmpDatagram = GetSnmpDatagram(ipPacket);
-            return snmpDatagram != default(SnmpDatagram) ? snmpDatagram.PDU : default(SnmpPDU);
+            return snmpDatagram.PduV2c;
         }
     }
 }

@@ -1,25 +1,28 @@
-﻿namespace Tx.Network.Snmp
+﻿
+namespace Tx.Network.Snmp
 {
+    using System.Net;
+    using Tx.Network.Snmp.Asn1Types;
+
     /// <summary>
-    /// Class to provide decoded snmp data
+    /// Struct to provide decoded snmp data
     /// </summary>
-    public class SnmpDatagram
+    public struct SnmpDatagram
     {
         /// <summary>
         /// Gets the header.
         /// </summary>
-        /// <value>
-        /// The header.
-        /// </value>
-        public SnmpHeader Header { get; private set; }
+        public readonly SnmpHeader Header;
 
         /// <summary>
-        /// Gets the pdu.
+        /// Gets the V2c pdu.
         /// </summary>
-        /// <value>
-        /// The pdu.
-        /// </value>
-        public SnmpPDU PDU { get; private set; }
+        public readonly SnmpV2cPDU PduV2c;
+
+        /// <summary>
+        /// Gets the V2c pdu.
+        /// </summary>
+        public readonly SnmpV1PDU PduV1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SnmpDatagram"/> class.
@@ -34,7 +37,27 @@
         public SnmpDatagram(PduType pduType, SnmpVersion snmpVersion, string community, int requestId, SnmpErrorStatus errorStatus, int errorIndex, VarBind[] varBinds)
         {
             Header = new SnmpHeader(snmpVersion, community);
-            PDU = new SnmpPDU(pduType, requestId, errorStatus, errorIndex, varBinds);
+            PduV2c = new SnmpV2cPDU(pduType, requestId, errorStatus, errorIndex, varBinds);
+            PduV1 = default(SnmpV1PDU);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SnmpDatagram"/> class.
+        /// </summary>
+        /// <param name="pduType">Type of the pdu.</param>
+        /// <param name="snmpVersion">The SNMP version.</param>
+        /// <param name="community">The community.</param>
+        /// <param name="enterprise">The enterprise.</param>
+        /// <param name="agentAddress">The agent address.</param>
+        /// <param name="genericV1Trap">The generic v1 trap.</param>
+        /// <param name="specificTrap">The specific trap.</param>
+        /// <param name="timeStamp">The time stamp.</param>
+        /// <param name="varBinds">The variable binds.</param>
+        public SnmpDatagram(PduType pduType, SnmpVersion snmpVersion, string community, ObjectIdentifier enterprise, IPAddress agentAddress, GenericTrap genericV1Trap, int specificTrap, uint timeStamp, VarBind[] varBinds)
+        {
+            Header = new SnmpHeader(snmpVersion, community);
+            PduV1 = new SnmpV1PDU(pduType, enterprise, agentAddress, genericV1Trap, specificTrap, timeStamp, varBinds);
+            PduV2c = default(SnmpV2cPDU);
         }
 
         /// <summary>
@@ -42,10 +65,23 @@
         /// </summary>
         /// <param name="snmpHeader">The SNMP header.</param>
         /// <param name="snmpPDU">The SNMP pdu.</param>
-        public SnmpDatagram(SnmpHeader snmpHeader, SnmpPDU snmpPDU)
+        public SnmpDatagram(SnmpHeader snmpHeader, SnmpV2cPDU snmpPDU)
         {
             Header = snmpHeader;
-            PDU = snmpPDU;
+            PduV2c = snmpPDU;
+            PduV1 = default(SnmpV1PDU);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SnmpDatagram"/> class.
+        /// </summary>
+        /// <param name="snmpHeader">The SNMP header.</param>
+        /// <param name="snmpPDU">The SNMP pdu.</param>
+        public SnmpDatagram(SnmpHeader snmpHeader, SnmpV1PDU snmpPDU)
+        {
+            Header = snmpHeader;
+            PduV1 = snmpPDU;
+            PduV2c = default(SnmpV2cPDU);
         }
 
         /// <summary>
@@ -56,7 +92,8 @@
         public SnmpDatagram(SnmpDatagram snmpPacket)
         {
             Header = snmpPacket.Header;
-            PDU = snmpPacket.PDU;
+            PduV1 = snmpPacket.PduV1;
+            PduV2c = snmpPacket.PduV2c;
         }
 
         /// <summary>
@@ -73,17 +110,39 @@
             sb.AppendLine();
             sb.Append("community: ");
             sb.AppendLine(Header.Community);
-            sb.Append("request-id: ");
-            sb.Append(PDU.RequestId);
-            sb.AppendLine();
-            sb.Append("error-status: ");
-            sb.Append(PDU.ErrorStatus);
-            sb.AppendLine();
-            sb.Append("error-index: ");
-            sb.Append(PDU.ErrorIndex);
+            if (Header.Version == SnmpVersion.V2C)
+            {
+                sb.Append("request-id: ");
+                sb.Append(PduV2c.RequestId);
+                sb.AppendLine();
+                sb.Append("error-status: ");
+                sb.Append(PduV2c.ErrorStatus);
+                sb.AppendLine();
+                sb.Append("error-index: ");
+                sb.Append(PduV2c.ErrorIndex);
+            }
+            else
+            {
+                sb.Append("Enterprise: ");
+                sb.Append(PduV1.Enterprise.ToString());
+                sb.AppendLine();
+                sb.Append("AgentAddress: ");
+                sb.Append(PduV1.AgentAddress);
+                sb.AppendLine();
+                sb.Append("GenericV1Trap: ");
+                sb.Append(PduV1.GenericV1Trap.ToString());
+                sb.AppendLine();
+                sb.Append("SpecificTrap: ");
+                sb.Append(PduV1.SpecificTrap.ToString());
+                sb.AppendLine();
+                sb.Append("TimeStamp: ");
+                sb.Append(PduV1.TimeStamp.ToString());
+            }
+
             sb.AppendLine();
             sb.AppendLine("VarBinds:-");
-            foreach (var vb in PDU.VarBinds)
+            var vbs = (Header.Version == SnmpVersion.V2C) ?PduV2c.VarBinds: PduV1.VarBinds;
+            foreach (var vb in vbs)
             {
                 sb.Append(vb.Oid);
                 sb.Append("=");

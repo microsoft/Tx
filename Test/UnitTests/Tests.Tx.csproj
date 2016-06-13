@@ -88,6 +88,7 @@
     <Compile Include="Network\SnmpDatagramUnitTest.cs" />
     <Compile Include="Network\SnmpSimpleDatagramTest.cs" />
     <Compile Include="Network\SnmpSimpleTrapV2CTest.cs" />
+    <Compile Include="Network\SnmpTrapTest.cs" />
     <Compile Include="Network\SyslogSender.cs" />
     <Compile Include="Network\TestHelpers.cs" />
     <Compile Include="Network\TrapTypeMapTests.cs" />

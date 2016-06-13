@@ -53,7 +53,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(506009u, (uint)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(506009u, (uint)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(506009u, (uint)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(506009u, (uint)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual((ulong)50600900, (ulong)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual((ulong)50600900, (ulong)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -116,7 +116,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(506009979999L, (long)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(506009979999L, (long)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(-506009979999L, (long)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(-506009979999L, (long)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -158,7 +158,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(1, (long)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(1, (long)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -179,7 +179,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(506009u, (uint)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(506009u, (uint)snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -200,7 +200,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual("61.226.1.0", snmpPack.PDU.VarBinds[0].Value.ToString());
+            Assert.AreEqual("61.226.1.0", snmpPack.PduV2c.VarBinds[0].Value.ToString());
         }
 
         [TestMethod]
@@ -220,7 +220,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.IsNull(snmpPack.PDU.VarBinds[0].Value);
+            Assert.IsNull(snmpPack.PduV2c.VarBinds[0].Value);
         }
 
         [TestMethod]
@@ -242,8 +242,8 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.IsNull(snmpPack.PDU.VarBinds[0].Value);
-            Assert.AreEqual(1, (long)snmpPack.PDU.VarBinds[1].Value);
+            Assert.IsNull(snmpPack.PduV2c.VarBinds[0].Value);
+            Assert.AreEqual(1, (long)snmpPack.PduV2c.VarBinds[1].Value);
         }
 
         [TestMethod]
@@ -274,8 +274,8 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.IsNull(snmpPack.PDU.VarBinds[0].Value);
-            Assert.AreEqual(1, (long)snmpPack.PDU.VarBinds[1].Value);
+            Assert.IsNull(snmpPack.PduV2c.VarBinds[0].Value);
+            Assert.AreEqual(1, (long)snmpPack.PduV2c.VarBinds[1].Value);
         }
 
         [TestMethod]
@@ -296,7 +296,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual( "TestString", snmpPack.PDU.VarBinds[0].Value.ToString());
+            Assert.AreEqual( "TestString", snmpPack.PduV2c.VarBinds[0].Value.ToString());
         }
 
         [TestMethod]
@@ -317,7 +317,7 @@
             var encoded = packet.ToSnmpEncodedByteArray();
             var snmpPack = encoded.ToSnmpDatagram();
 
-            Assert.AreEqual(new ObjectIdentifier("1.3.6.1.2.1.1.1.1.1"), (ObjectIdentifier)snmpPack.PDU.VarBinds[0].Value);
+            Assert.AreEqual(new ObjectIdentifier("1.3.6.1.2.1.1.1.1.1"), (ObjectIdentifier)snmpPack.PduV2c.VarBinds[0].Value);
         }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Snmp\Asn1Types\ConstructType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Snmp\Asn1Types\GenericTrap.cs" />
     <Compile Include="Snmp\Asn1Types\PduType.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,7 +100,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Snmp\SnmpHeader.cs" />
-    <Compile Include="Snmp\SnmpPDU.cs" />
+    <Compile Include="Snmp\SnmpTrapV1.cs" />
+    <Compile Include="Snmp\SnmpV1PDU.cs" />
+    <Compile Include="Snmp\SnmpV2cPDU.cs" />
     <Compile Include="Snmp\SnmpSimpleDatagram.cs" />
     <Compile Include="Snmp\SnmpSimpleTrapV2C.cs" />
     <Compile Include="Snmp\SnmpTrapV2C.cs">
@@ -109,6 +112,7 @@
     <Compile Include="Snmp\VarBind.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Snmp\VarBindExtensions.cs" />
     <Compile Include="Syslog.cs" />
     <Compile Include="NetworkTransformExtensions.cs" />
     <Compile Include="UdpDatagram.cs" />

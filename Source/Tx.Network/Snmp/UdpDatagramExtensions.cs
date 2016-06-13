@@ -8,12 +8,8 @@ namespace Tx.Network.Snmp
             try
             {
                 var transportObject = udpDatagram.TransportObject;
-                var datagram = transportObject as SnmpDatagram;
-                if (datagram == null)
-                {
-                    datagram = udpDatagram.UdpData.ToSnmpDatagram();
-                    udpDatagram.TransportObject = datagram;
-                }
+                var datagram = udpDatagram.UdpData.ToSnmpDatagram();
+                udpDatagram.TransportObject = datagram;
 
                 return datagram;
             }

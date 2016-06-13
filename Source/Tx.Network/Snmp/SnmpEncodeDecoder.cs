@@ -1,9 +1,10 @@
 ﻿
 namespace Tx.Network.Snmp
 {
+    using Asn1Types;
     using System;
     using System.IO;
-
+    using System.Net;
     /// <summary>
     /// Class to Encode\Decode SNMP data
     /// </summary>
@@ -23,18 +24,13 @@ namespace Tx.Network.Snmp
         /// <exception cref="System.ArgumentNullException">snmpPacket</exception>
         public static byte[] ToSnmpEncodedByteArray(this SnmpDatagram snmpPacket)
         {
-            if (snmpPacket == null)
-            {
-                throw new ArgumentNullException("snmpPacket");
-            }
-
             if (snmpPacket.Header.Version == SnmpVersion.V3)
             {
                 throw new InvalidDataException("Snmp Version V3 not supported");
             }
 
             byte[] dataBytes = new byte[8194];
-            int length = dataBytes.EncodeVarBinds(0, snmpPacket.PDU.VarBinds);
+            int length = dataBytes.EncodeVarBinds(0, snmpPacket.PduV2c.VarBinds);
             Array.Resize(ref dataBytes, length);
 
             int headerLength = SnmpV2MessageHeaderLength + snmpPacket.Header.Community.Length;
@@ -49,13 +45,13 @@ namespace Tx.Network.Snmp
             offset = headerBytes.EncodeOctetString(offset, snmpPacket.Header.Community);
 
             //Encode PDU Type
-            offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.ContextSpecific, ConstructType.Constructed, (byte)snmpPacket.PDU.PduType);
+            offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.ContextSpecific, ConstructType.Constructed, (byte)snmpPacket.PduV2c.PduType);
 
             int CommonPduControlFieldLength =
                 1 //pduType
-                + snmpPacket.PDU.RequestId.GetIntegerLength()
-                + ((int)snmpPacket.PDU.ErrorStatus).GetIntegerLength()
-                + snmpPacket.PDU.ErrorIndex.GetIntegerLength()
+                + snmpPacket.PduV2c.RequestId.GetIntegerLength()
+                + ((int)snmpPacket.PduV2c.ErrorStatus).GetIntegerLength()
+                + snmpPacket.PduV2c.ErrorIndex.GetIntegerLength()
                 + length; //length of varbind values
 
 
@@ -63,13 +59,13 @@ namespace Tx.Network.Snmp
             offset = headerBytes.EncodeLength(offset, CommonPduControlFieldLength);
 
             //Encode RequestId
-            offset = headerBytes.EncodeInteger(offset, snmpPacket.PDU.RequestId);
+            offset = headerBytes.EncodeInteger(offset, snmpPacket.PduV2c.RequestId);
 
             //Encode ErrorStatus
-            offset = headerBytes.EncodeInteger(offset, (int)snmpPacket.PDU.ErrorStatus);
+            offset = headerBytes.EncodeInteger(offset, (int)snmpPacket.PduV2c.ErrorStatus);
 
             //Encode ErrorIndex
-            offset = headerBytes.EncodeInteger(offset, snmpPacket.PDU.ErrorIndex);
+            offset = headerBytes.EncodeInteger(offset, snmpPacket.PduV2c.ErrorIndex);
 
             //Encode VarBinds Length
             offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Constructed, (byte)Asn1Tag.Sequence);
@@ -121,29 +117,53 @@ namespace Tx.Network.Snmp
             offset += length;
 
             PduType pduType = (PduType)(bytes[offset++] & 0x1F);
-            if (pduType == PduType.Trap)
-            {
-                throw new NotImplementedException("SNMP v1 traps are not yet implemented");
-            }
-
             offset = bytes.ReadLength(offset, out length);
+            if (snmpVersion == SnmpVersion.V1 && pduType== PduType.Trap)
+            {
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.ObjectIdentifier, out length);
+                ObjectIdentifier oid = new ObjectIdentifier(bytes.ReadOids(offset, length));
+                offset += length;
 
-            offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
-            int requestId = bytes.ReadInteger(offset, length);
-            offset += length;
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1SnmpTag.IpAddress, out length);
+                IPAddress ipAddress = bytes.ReadIpAddress(offset);
+                offset += length;
 
-            offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
-            SnmpErrorStatus errorStatus = (SnmpErrorStatus)bytes.ReadInteger(offset, length);
-            offset += length;
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
+                GenericTrap genericTrap = (GenericTrap)bytes.ReadInteger(offset, length);
+                offset += length;
 
-            offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
-            int errorIndex = bytes.ReadInteger(offset, length);
-            offset += length;
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
+                int specificTrap = bytes.ReadInteger(offset, length);
+                offset += length;
 
-            offset = bytes.NextValueLength(offset, (int)Asn1Class.Universal, (int)ConstructType.Constructed, (int)Asn1Tag.Sequence, out length);
-            VarBind[] varBinds = bytes.ReadVarBinds(offset, length);
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1SnmpTag.TimeTicks, out length);
+                uint timeStamp = bytes.ReadUnsignedInteger(offset, length);
+                offset += length;
 
-            return new SnmpDatagram(new SnmpHeader(snmpVersion, community), new SnmpPDU(pduType, varBinds, requestId, errorStatus, errorIndex));
+                offset = bytes.NextValueLength(offset, (int)Asn1Class.Universal, (int)ConstructType.Constructed, (int)Asn1Tag.Sequence, out length);
+                VarBind[] varBinds = bytes.ReadVarBinds(offset, length);
+
+                return new SnmpDatagram(new SnmpHeader(snmpVersion, community), new SnmpV1PDU(pduType, varBinds, oid, ipAddress, genericTrap, specificTrap, timeStamp));
+            }
+            else
+            {
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
+                int requestId = bytes.ReadInteger(offset, length);
+                offset += length;
+
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
+                SnmpErrorStatus errorStatus = (SnmpErrorStatus)bytes.ReadInteger(offset, length);
+                offset += length;
+
+                offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
+                int errorIndex = bytes.ReadInteger(offset, length);
+                offset += length;
+
+                offset = bytes.NextValueLength(offset, (int)Asn1Class.Universal, (int)ConstructType.Constructed, (int)Asn1Tag.Sequence, out length);
+                VarBind[] varBinds = bytes.ReadVarBinds(offset, length);
+
+                return new SnmpDatagram(new SnmpHeader(snmpVersion, community), new SnmpV2cPDU(pduType, varBinds, requestId, errorStatus, errorIndex));
+            }
         }
 
         /// <summary>
@@ -176,9 +196,19 @@ namespace Tx.Network.Snmp
                 throw new InvalidDataException("Expected ConstructType tag is: " + ((ConstructType)constructValidations).ToString());
             }
 
-            if (typeValidations != -1 && type.Asn1TagType != (Asn1Tag)typeValidations)
+            if (type.Asn1TagType != Asn1Tag.NotAsn1Data)
             {
-                throw new InvalidDataException("Expected Ans1 tag is: " + ((Asn1Tag)typeValidations).ToString());
+                if (typeValidations != -1 && type.Asn1TagType != (Asn1Tag)typeValidations)
+                {
+                    throw new InvalidDataException("Expected Ans1 tag is: " + ((Asn1Tag)typeValidations).ToString());
+                }
+            }
+            else
+            {
+                if (typeValidations != -1 && type.Asn1SnmpTagType != (Asn1SnmpTag)typeValidations)
+                {
+                    throw new InvalidDataException("Expected Ans1Snmp tag is: " + ((Asn1SnmpTag)typeValidations).ToString());
+                }
             }
 
             return bytes.ReadLength(offset, out length);

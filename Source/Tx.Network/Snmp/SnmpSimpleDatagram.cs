@@ -76,14 +76,14 @@
             snmpDatagram = snmpDatagramInput;
             Version = snmpDatagram.Header.Version;
             Community = snmpDatagram.Header.Community;
-            PDUType = snmpDatagram.PDU.PduType;
-            RequestId = snmpDatagram.PDU.RequestId;
-            ErrorStatus = snmpDatagram.PDU.ErrorStatus;
-            ErrorIndex = snmpDatagram.PDU.ErrorIndex;
+            PDUType = snmpDatagram.PduV2c.PduType;
+            RequestId = snmpDatagram.PduV2c.RequestId;
+            ErrorStatus = snmpDatagram.PduV2c.ErrorStatus;
+            ErrorIndex = snmpDatagram.PduV2c.ErrorIndex;
             VarBinds = new List<KeyValuePair<string, object>>();
-            for(int i=0 ; i< snmpDatagram.PDU.VarBinds.Count; i++)
+            for(int i=0 ; i< snmpDatagram.PduV2c.VarBinds.Count; i++)
             {
-                var varBind = snmpDatagram.PDU.VarBinds[i];
+                var varBind = snmpDatagram.PduV2c.VarBinds[i];
                 VarBinds.Add(new KeyValuePair<string, object>(varBind.Oid.ToString(), varBind.Value));
             }
         }
@@ -117,7 +117,7 @@
         {
             varbind = default(KeyValuePair<string, object>);
             VarBind getVarbind;
-            if(snmpDatagram.PDU.SearchFirstSubOidWith(new ObjectIdentifier(oid), out getVarbind))
+            if(snmpDatagram.PduV2c.VarBinds.SearchFirstSubOidWith(new ObjectIdentifier(oid), out getVarbind))
             {
                 varbind = new KeyValuePair<string, object>(getVarbind.Oid.ToString(), getVarbind.Value);
                 return true;
@@ -136,7 +136,7 @@
         {
             varbind = default(KeyValuePair<string, object>);
             VarBind getVarbind;
-            if (snmpDatagram.PDU.SearchLastSubOidWith(new ObjectIdentifier(oid), out getVarbind))
+            if (snmpDatagram.PduV2c.VarBinds.SearchLastSubOidWith(new ObjectIdentifier(oid), out getVarbind))
             {
                 varbind = new KeyValuePair<string, object>(getVarbind.Oid.ToString(), getVarbind.Value);
                 return true;
@@ -155,7 +155,7 @@
         public IList<KeyValuePair<string, object>> GetAllOidsStartingWith(string oid)
         {
             var varBinds = new List<KeyValuePair<string, object>>();
-            foreach (var varBind in snmpDatagram.PDU.GetAllOidsStartingWith(new ObjectIdentifier(oid)))
+            foreach (var varBind in snmpDatagram.PduV2c.VarBinds.GetAllOidsStartingWith(new ObjectIdentifier(oid)))
             {
                 varBinds.Add(new KeyValuePair<string, object>(varBind.Oid.ToString(), varBind.Value));
             }

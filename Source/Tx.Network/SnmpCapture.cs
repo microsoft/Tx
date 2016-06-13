@@ -63,7 +63,7 @@
 
             foreach (UdpDatagram p in capture.ParseUdp())
             {
-                SnmpTrapV2C pdu = null;
+                SnmpTrapV2C pdu = default(SnmpTrapV2C);
                 try
                 {
                     pdu = new SnmpTrapV2C(p.UdpData);

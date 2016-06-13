@@ -1,20 +1,22 @@
-﻿namespace Tx.Network.Snmp
+﻿
+namespace Tx.Network.Snmp
 {
+    using System.IO;
+
     /// <summary>
-    /// Protocol definition class for SnmpTrapV2 data.
-    /// This also works fine for V1 Version, get the Enterprise name from TrapId.
+    /// Protocol definition class for SnmpTrap V2c data.
     /// </summary>
-    public class SnmpTrapV2C : SnmpDatagram
+    public struct SnmpTrapV2C
     {
         /// <summary>
-        /// The enterprise oid
+        /// The pdu for V2C Trap.
         /// </summary>
-        private readonly static ObjectIdentifier trapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
+        public readonly SnmpV2cPDU PduV2c;
 
         /// <summary>
-        /// The system up time oid
+        /// The Snmp header
         /// </summary>
-        private readonly static ObjectIdentifier sysUpTimeOid = new ObjectIdentifier("1.3.6.1.2.1.1.3.0");
+        public readonly SnmpHeader Header;
 
         /// <summary>
         /// Gets the SysUpTime which represents in 100th of a second.
@@ -22,7 +24,7 @@
         /// <value>
         /// SysUpTime which represents in 100th of a second.
         /// </value>
-        public uint SysUpTime { get; private set; }
+        public readonly uint SysUpTime;
 
         /// <summary>
         /// Gets the trap object identifier.
@@ -30,27 +32,54 @@
         /// <value>
         /// The trap object identifier.
         /// </value>
-        public ObjectIdentifier TrapOid { get; private set; }
+        public readonly ObjectIdentifier TrapOid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SnmpTrapV2C"/> class.
         /// </summary>
-        /// <param name="bytes">The snmp encoded bytes.</param>
-        public SnmpTrapV2C(byte[] bytes)
-            : base(bytes.ToSnmpDatagram())
+        /// <param name="snmpDatagram">The snmp datagram.</param>
+        public SnmpTrapV2C(SnmpDatagram snmpDatagram)
         {
+            if(snmpDatagram.Header.Version != SnmpVersion.V2C || snmpDatagram.PduV2c.PduType == PduType.Trap)
+            {
+                throw new InvalidDataException("Not a Valid V2c Trap");
+            }
+
+            ObjectIdentifier trapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
+            ObjectIdentifier sysUpTimeOid = new ObjectIdentifier("1.3.6.1.2.1.1.3.0");
+
+            PduV2c = snmpDatagram.PduV2c;
+            Header = snmpDatagram.Header;
             TrapOid = default(ObjectIdentifier);
             SysUpTime = 0;
             VarBind varBind;
-            if (PDU.SearchFirstSubOidWith(sysUpTimeOid, out varBind) && varBind.Asn1TypeInfo.Asn1SnmpTagType == Asn1SnmpTag.TimeTicks)
+            if (PduV2c.VarBinds.SearchFirstSubOidWith(sysUpTimeOid, out varBind) && varBind.Asn1TypeInfo.Asn1SnmpTagType == Asn1SnmpTag.TimeTicks)
             {
                 SysUpTime = (uint)varBind.Value;
             }
 
-            if (PDU.SearchFirstSubOidWith(trapOid, out varBind) && varBind.Asn1TypeInfo.Asn1TagType == Asn1Tag.ObjectIdentifier)
+            if (PduV2c.VarBinds.SearchFirstSubOidWith(trapOid, out varBind) && varBind.Asn1TypeInfo.Asn1TagType == Asn1Tag.ObjectIdentifier)
             {
                 TrapOid = (ObjectIdentifier)varBind.Value;
             }
         }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SnmpTrapV2C"/> struct.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        public SnmpTrapV2C(byte[] bytes):this(bytes.ToSnmpDatagram())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SnmpTrapV2C"/> struct.
+        /// </summary>
+        /// <param name="ipPacket">The ip packet.</param>
+        public SnmpTrapV2C(IpPacket ipPacket) : this(ipPacket.PacketData)
+        {
+        }
+
     }
 }

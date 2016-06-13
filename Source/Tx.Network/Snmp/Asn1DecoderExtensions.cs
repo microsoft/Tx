@@ -25,7 +25,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns>uint</returns>
-        private static uint ReadUnsignedInteger(byte[] bytes, int offset, int length)
+        public static uint ReadUnsignedInteger(this byte[] bytes, int offset, int length)
         {
             uint value = 0;
             int endOfContentIndex = offset + length;
@@ -253,7 +253,7 @@
 
                     case Asn1Tag.ObjectIdentifier:
                         {
-                            value = new ObjectIdentifier(ReadOids(bytes, offset, length));
+                            value = new ObjectIdentifier(bytes.ReadOids(offset, length));
                             break;
                         }
 
@@ -294,7 +294,7 @@
         /// <param name="offset">The offset.</param>
         /// <param name="length">The length.</param>
         /// <returns>uint array</returns>
-        private static uint[] ReadOids(byte[] bytes, int offset, int length)
+        public static uint[] ReadOids(this byte[] bytes, int offset, int length)
         {
             uint subId = 0;
             uint[] oids = new uint[length];
