@@ -95,6 +95,7 @@
         /// Decoders the performance test.
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void SnmpDecoderPerformanceTest()
         {
             long mSec = 0;
@@ -130,6 +131,7 @@
         /// Encoders the performance test.
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void SnmpEncoderPerformanceTest()
         {
             IList<SnmpDatagram> packets = new List<SnmpDatagram>();
