@@ -42,15 +42,15 @@
 
             Assert.IsNotNull(testObject);
             Assert.AreEqual(testObject.SysUpTime, 2314u);
-            Assert.AreEqual(testObject.TrapOid, "1.3.6.1.2.1.1.3.0.23");
+            Assert.AreEqual(testObject.TrapOid.ToString(), "1.3.6.1.2.1.1.3.0.23");
             Assert.AreEqual(testObject.Header.Community, "test");
             Assert.AreEqual(testObject.Header.Version, SnmpVersion.V2C);
             Assert.AreEqual(testObject.PduV2c.RequestId, 1);
             Assert.AreEqual(testObject.PduV2c.ErrorIndex, 1);
             Assert.AreEqual(testObject.PduV2c.ErrorStatus, SnmpErrorStatus.NoError);
             Assert.AreEqual(testObject.PduV2c.VarBinds.Count, 2);
-            Assert.AreEqual(testObject.PduV2c.VarBinds[0], new KeyValuePair<string, object>("1.3.6.1.2.1.1.3.0", 2314u));
-            Assert.AreEqual(testObject.PduV2c.VarBinds[1], new KeyValuePair<string, object>("1.3.6.1.6.3.1.1.4.1.0", new ObjectIdentifier("1.3.6.1.2.1.1.3.0.23")));
+            Assert.AreEqual(testObject.PduV2c.VarBinds[0], new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"), 2314u, new Asn1TagInfo(Asn1SnmpTag.TimeTicks)));
+            Assert.AreEqual(testObject.PduV2c.VarBinds[1], new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0"), new ObjectIdentifier("1.3.6.1.2.1.1.3.0.23"), new Asn1TagInfo(Asn1Tag.ObjectIdentifier)));
         }
 
         [TestMethod]

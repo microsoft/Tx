@@ -3,6 +3,7 @@ namespace Tx.Network.Snmp.Dynamic
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Net;
@@ -75,7 +76,7 @@ namespace Tx.Network.Snmp.Dynamic
             var varbindVar = Expression.Variable(typeof(VarBind), "varBind");
             var varbindValueField = typeof(VarBind).GetField("Value", BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
-            var getVarBindMethod = typeof(SnmpV2cPDU).GetMethod("SearchFirstSubOidWith");
+            var getVarBindMethod = typeof(VarBindExtensions).GetMethod("SearchFirstSubOidWith");
             var bindings = new List<MemberBinding>();
 
             MemberAssignment notificationObjectsExpression = null, ipAddressExpresion = null;
@@ -112,7 +113,7 @@ namespace Tx.Network.Snmp.Dynamic
                     continue;
                 }
 
-                var foundValue = Expression.Call(pduVar, getVarBindMethod, Expression.Constant(notificationObjectIdentifier.Oid), varbindVar);
+                var foundValue = Expression.Call(getVarBindMethod, Expression.Field(pduVar, pduVarBindsField), Expression.Constant(notificationObjectIdentifier.Oid), varbindVar);
 
                 Expression convertedValue = Expression.Field(varbindVar, varbindValueField);
                 if (p.PropertyType.IsEnum || typeof(int).IsAssignableFrom(p.PropertyType))
