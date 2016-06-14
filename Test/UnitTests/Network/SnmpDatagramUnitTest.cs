@@ -95,7 +95,6 @@
         /// Decoders the performance test.
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void SnmpDecoderPerformanceTest()
         {
             long mSec = 0;
@@ -121,9 +120,9 @@
             }
 
             #if DEBUG
-              Assert.IsTrue(mSec < 1050, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 1250, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #else
-              Assert.IsTrue(mSec < 500, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 600, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #endif
         }
 
@@ -131,7 +130,6 @@
         /// Encoders the performance test.
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void SnmpEncoderPerformanceTest()
         {
             IList<SnmpDatagram> packets = new List<SnmpDatagram>();
@@ -163,9 +161,9 @@
             }
 
             #if DEBUG
-              Assert.IsTrue(mSec < 1000, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 1250, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #else
-              Assert.IsTrue(mSec < 500, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+              Assert.IsTrue(mSec < 600, "Parser running slower than designed, Time Taken :" + mSec.ToString());
             #endif
         }
 
