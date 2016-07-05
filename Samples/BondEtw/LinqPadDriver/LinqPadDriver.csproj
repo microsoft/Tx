@@ -82,7 +82,9 @@
     </Compile>
     <Compile Include="Stats.cs" />
     <Compile Include="TypeCache.cs" />
+    <Compile Include="TypeCacheItem.cs" />
     <Compile Include="TypeFinder.cs" />
+    <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

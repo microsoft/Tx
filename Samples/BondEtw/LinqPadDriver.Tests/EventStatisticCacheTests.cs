@@ -12,6 +12,15 @@ namespace LinqPadDriver.Tests
     {
         private string testDataFile = @"TestData\Triangles.etl";
 
+        [TestInitializeAttribute]
+        public void InitializeTest()
+        {
+            var testDir = @"TestData";
+            var staleCsv = Directory.EnumerateFiles(testDir, "*.csv").ToList();
+
+            staleCsv.ForEach(a => File.Delete(a));
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void EventStatisticCacheGetTypeStatisticsNullTypesTest()
@@ -47,7 +56,7 @@ namespace LinqPadDriver.Tests
         public void EventStatisticCacheGetTypeStatisticsHappyPathTest()
         {
             TypeCache typecache = new TypeCache();
-            typecache.Init("test1", new[] { testDataFile });
+            typecache.Initialize("test1", new[] { testDataFile });
 
             EventStatisticCache cache = new EventStatisticCache();
             var result = cache.GetTypeStatistics(typecache, new[] { testDataFile });
@@ -63,7 +72,7 @@ namespace LinqPadDriver.Tests
         public void EventStatisticCacheCreatesCsvTest()
         {
             TypeCache typecache = new TypeCache();
-            typecache.Init("test2", new[] { testDataFile });
+            typecache.Initialize("test2", new[] { testDataFile });
 
             EventStatisticCache cache = new EventStatisticCache();
             var result = cache.GetTypeStatistics(typecache, new[] { testDataFile });
@@ -72,14 +81,13 @@ namespace LinqPadDriver.Tests
 
             File.Delete(Path.Combine(Environment.CurrentDirectory, Path.GetFileNameWithoutExtension(testDataFile) + ".csv"));
 
-            Directory.Delete(typecache.CacheDirectory, true);
         }
 
         [TestMethod]
         public void EventStatisticLoadCsvValuesTest()
         {
             TypeCache typecache = new TypeCache();
-            typecache.Init("test3", new[] { testDataFile });
+            typecache.Initialize("test3", new[] { testDataFile });
 
             EventStatisticCache cache = new EventStatisticCache();
             var result = cache.GetTypeStatistics(typecache, new[] { testDataFile });
@@ -96,21 +104,21 @@ namespace LinqPadDriver.Tests
                         Assert.AreEqual(27D, item.Value.AverageByteSize);
                         Assert.AreEqual(270, item.Value.ByteSize);
                         Assert.AreEqual(10, item.Value.EventCount);
-                        Assert.AreEqual(0.037034740115022D, item.Value.EventsPerSecond);
+                        Assert.AreEqual(0.0370, item.Value.EventsPerSecond);
                         break;
 
                     case "EquilateralTriangle":
                         Assert.AreEqual(25D, item.Value.AverageByteSize);
                         Assert.AreEqual(250, item.Value.ByteSize);
                         Assert.AreEqual(10, item.Value.EventCount);
-                        Assert.AreEqual(0.0370347958146437D, item.Value.EventsPerSecond);
+                        Assert.AreEqual(0.0370, item.Value.EventsPerSecond);
                         break;
 
                     case "RightAngledTriangle":
                         Assert.AreEqual(29D, item.Value.AverageByteSize);
                         Assert.AreEqual(290, item.Value.ByteSize);
                         Assert.AreEqual(10, item.Value.EventCount);
-                        Assert.AreEqual(0.0370333241033945D, item.Value.EventsPerSecond);
+                        Assert.AreEqual(0.037, item.Value.EventsPerSecond);
                         break;
 
                     default:
@@ -119,8 +127,6 @@ namespace LinqPadDriver.Tests
                 }
                 
             }
-
-            Directory.Delete(typecache.CacheDirectory, true);
         }
     }
 }

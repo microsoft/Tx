@@ -1,5 +1,6 @@
 ﻿namespace LinqPadDriver.Tests
 {
+    using BondEtwDriver;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.IO;
@@ -45,14 +46,14 @@
         public void TypeCacheInitHappyPathTest()
         {
             var typeCache = new TypeCache();
-            typeCache.Init("test", new[] { testDataFile });
+            typeCache.Initialize("test", new[] { testDataFile });
 
             var dir = typeCache.CacheDirectory;
 
             Assert.AreEqual(3, Directory.GetFiles(dir, "*.bond").Length);
-            Assert.AreEqual(3, typeCache.Manifests.Length);
+            Assert.AreEqual(3, typeCache.Cache.Count);
 
-            Directory.Delete(dir, true);
+            Utilities.ForceDeleteDirectory("test");
         }
 
         [TestMethod]
@@ -60,8 +61,8 @@
         public void TypeCacheInitNoFilesTest()
         {
             var typeCache = new TypeCache();
-            typeCache.Init("dir", new string[] { });
-            typeCache.Init("dir", null);
+            typeCache.Initialize("dir", new string[] { });
+            typeCache.Initialize("dir", null);
         }
 
         [TestMethod]
@@ -69,7 +70,7 @@
         public void TypeCacheInitNullFilesTest()
         {
             var typeCache = new TypeCache();
-            typeCache.Init("dir", null);
+            typeCache.Initialize("dir", null);
         }
 
         [TestMethod]
@@ -77,7 +78,7 @@
         public void TypeCacheInitTargetDirNullTest()
         {
             var typeCache = new TypeCache();
-            typeCache.Init(null, new string[] { testDataFile });
+            typeCache.Initialize(null, new string[] { testDataFile });
         }
 
         [TestMethod]
@@ -184,10 +185,9 @@ struct ValidTriangle{
         public void TypeCacheIgnoresTypesContainingImportTest()
         {
             var typeCache = new TypeCache();
-            typeCache.Init("test5", new[] { @"TestData\TrianglesWithImport.etl" });
+            typeCache.Initialize("TypeCacheIgnoresTypesContainingImportTest", @"TestData\TrianglesWithImport.etl");
 
-            Assert.AreEqual(4, typeCache.Types.Length);
-            Assert.AreEqual(3, typeCache.Manifests.Length);
+            Assert.AreEqual(3, typeCache.Cache.Count);
         }
         
     }
