@@ -113,8 +113,6 @@ using System.Globalization;
             int counter = 0;
             foreach (var manifestItem in manifestsFromFiles)
             {
-                File.WriteAllText(@"F:\Replay\temp\" + counter + ".txt", manifestItem.ManifestId + "\n" + manifestItem.Manifest);
-
                 var codeSources = new List<string>();
 
                 var namespaceAndClasses = this.ParseClassNames(manifestItem.Manifest);

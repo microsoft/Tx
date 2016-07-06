@@ -253,21 +253,17 @@
                         EventsPerSecond = double.Parse(tokens[3]),
                     };
 
-                    Debug.WriteLine("Reached");
-
                     EventStatistics existingStats;
                     if (eventStatsCollection.TryGetValue(typeCacheItem.Type, out existingStats))
                     {
 
                         existingStats = existingStats + statsFromCsv;
                         Console.WriteLine("Stats for type {0} updated.", typeNameFromCsv);
-                        Debug.WriteLine("Reached");
                     }
                     else
                     {
                         eventStatsCollection[typeCacheItem.Type] = statsFromCsv;
                         Console.WriteLine("Stats for type {0} added.", typeNameFromCsv);
-                        Debug.WriteLine("Reached");
                     }
 
                     isParsable = true;
