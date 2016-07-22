@@ -62,6 +62,8 @@ namespace Tx.Network.Snmp.Dynamic
 
             var parameter = Expression.Parameter(typeof(IpPacket), "ipPacket");
             var getPduCall = Expression.Call(typeof(TrapTypeMap).GetMethod("GetPdu", BindingFlags.Static | BindingFlags.NonPublic), parameter);
+            var receivedTimestampProperty = typeof (IpPacket).GetProperty("ReceivedTime",
+                BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
 
             var pduVar = Expression.Variable(typeof(SnmpV2cPDU), "pdu");
             var assignment = Expression.Assign(pduVar, getPduCall);
@@ -78,7 +80,7 @@ namespace Tx.Network.Snmp.Dynamic
             var getVarBindMethod = typeof(VarBindExtensions).GetMethod("SearchFirstSubOidWith");
             var bindings = new List<MemberBinding>();
 
-            MemberAssignment notificationObjectsExpression = null, ipAddressExpresion = null;
+            MemberAssignment notificationObjectsExpression = null, ipAddressExpresion = null, timestampExpression = null;
             foreach (var p in outputTrapType.GetProperties())
             {
                 var notificationObjectIdentifier =
@@ -109,6 +111,15 @@ namespace Tx.Network.Snmp.Dynamic
                         ipAddressExpresion = Expression.Bind(p, ipAddress);
                     }
 
+                    var timestampAttribute = p.GetCustomAttributes(typeof(TimestampAttribute), false)
+                        .OfType<TimestampAttribute>()
+                        .FirstOrDefault();
+                    if (timestampAttribute != null && p.PropertyType.IsAssignableFrom(receivedTimestampProperty.PropertyType))
+                    {
+                        Expression timestamp = Expression.Property(parameter, receivedTimestampProperty);
+                        timestampExpression = Expression.Bind(p, timestamp);
+                    }
+
                     continue;
                 }
 
@@ -134,6 +145,11 @@ namespace Tx.Network.Snmp.Dynamic
             if (ipAddressExpresion != null)
             {
                 bindings.Add(ipAddressExpresion);
+            }
+
+            if (timestampExpression != null)
+            {
+                bindings.Add(timestampExpression);
             }
 
             var newExpression = Expression.New(outputTrapType);
