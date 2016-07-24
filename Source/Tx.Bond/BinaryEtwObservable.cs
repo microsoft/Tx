@@ -17,13 +17,21 @@ namespace Tx.Binary
         /// Takes an array of files and creates an observer that retrieves all BinaryEnvelope type events. These Events have EventId 0 
         /// and belong to EtwBinaryEventManifestProviderId
         /// </summary>
-        /// <param name="files"></param>
-        /// <returns></returns>
+        /// <param name="files">Up to 63 files to read.</param>
+        /// <returns>Sequence of events ordered by timestamp.</returns>
         public static IObservable<BinaryEnvelope> FromFiles(params string[] files)
         {
             return FromFiles(BinaryEventSource.Log.Guid, false, null, null, files);
         }
 
+        /// <summary>
+        /// Takes an array of files and creates an observer that retrieves all BinaryEnvelope type events. These Events have EventId 0 
+        /// and belong to EtwBinaryEventManifestProviderId
+        /// </summary>
+        /// <param name="startTime">Start time of sequence of events, if null then DateTime.MinValue will be used.</param>
+        /// <param name="endTime">End time of sequence of events, if null then DateTime.MaxValue will be used.</param>
+        /// <param name="files">Up to 63 files to read.</param>
+        /// <returns>Sequence of events ordered by timestamp.</returns>
         public static IObservable<BinaryEnvelope> FromFiles(DateTime startTime, DateTime endTime, params string[] files)
         {
             return FromFiles(BinaryEventSource.Log.Guid, false, startTime, endTime, files);
@@ -59,6 +67,16 @@ namespace Tx.Binary
             return BinaryManifestFromFiles(BinaryEventSource.Log.Guid, true, startTime, endTime, files);
         }
 
+        /// <summary>
+        /// Takes an array of files and creates an observer that retrieves all BinaryEnvelope type events. These Events have EventId 0, 1 and 2.
+        /// and belong to specified provider.
+        /// </summary>
+        /// <param name="providerId">Identifier of ETW provider.</param>
+        /// <param name="useSequentialReader">Flag to specify if the input ETL files are already ordered by timestamp.</param>
+        /// <param name="startTime">Start time of sequence of events, if null then DateTime.MinValue will be used.</param>
+        /// <param name="endTime">End time of sequence of events, if null then DateTime.MaxValue will be used.</param>
+        /// <param name="files">Either unlimited number of ETL files containing events ordered by timestamp or up to 63 files to read.</param>
+        /// <returns>Sequence of events ordered by timestamp.</returns>
         public static IObservable<BinaryEnvelope> FromFiles(
             Guid providerId,
             bool useSequentialReader,
@@ -69,6 +87,26 @@ namespace Tx.Binary
             var parser = new BinaryEtwParser(providerId);
 
             var etwObservable = CreateEtwObservable(useSequentialReader, startTime, endTime, files);
+
+            return etwObservable
+                .Select(parser.Parse)
+                .Where(item => item != null);
+        }
+
+        /// <summary>
+        /// Creates a listener to ETW real-time session for BinaryEnvelope events. These Events have EventId 0, 1 and 2.
+        /// and belong to specified provider.
+        /// </summary>
+        /// <param name="providerId">Identifier of ETW provider.</param>
+        /// <param name="sessionName">Session name.</param>
+        /// <returns>Sequence of events ordered by timestamp.</returns>
+        public static IObservable<BinaryEnvelope> FromSession(
+            Guid providerId,
+            string sessionName)
+        {
+            var parser = new BinaryEtwParser(providerId);
+
+            var etwObservable = EtwObservable.FromSession(sessionName);
 
             return etwObservable
                 .Select(parser.Parse)
