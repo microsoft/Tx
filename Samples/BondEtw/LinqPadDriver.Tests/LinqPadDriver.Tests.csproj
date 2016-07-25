@@ -89,6 +89,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventStatisticsTests.cs" />
     <Compile Include="EventStatisticCacheTests.cs" />
+    <Compile Include="MultipleStructsManifestTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LinqPadDriver\LinqPadDriver.csproj">
@@ -105,6 +106,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="TestData\Employees.etl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\Triangles.etl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

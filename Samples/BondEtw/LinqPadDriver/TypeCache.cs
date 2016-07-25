@@ -15,7 +15,8 @@ using Tx.Binary;
 
 namespace Tx.Bond.LinqPad
 {
-    using System.Globalization;
+    using BondEtwDriver;
+using System.Globalization;
 
     public class TypeCache
     {
@@ -45,18 +46,24 @@ namespace Tx.Bond.LinqPad
 
         public string CacheDirectory { get; private set; }
 
-        public EventManifest[] Manifests { get; private set; }
+        public IList<TypeCacheItem> Cache
+        {
+            get;
+            private set;
+        }
 
         public TypeCache()
         {
             this._gbcPath = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 @"gbc.exe");
+
+            this.Cache = new List<TypeCacheItem>();
         }
 
         public static string Resolve(string targetDir)
         {
-            return Path.Combine(ResolveCacheDirectory(targetDir), @"BondTypes.dll");
+            return Path.Combine(ResolveCacheDirectory(targetDir), "*.dll");
         }
 
         public static string ResolveCacheDirectory(string targetDir)
@@ -66,7 +73,7 @@ namespace Tx.Bond.LinqPad
             return path;
         }
 
-        public void Init(string targetDir, string[] files)
+        public void Initialize(string targetDir, params string[] files)
         {
             // Don't validate targetDir for empty. it will be created.
             if (targetDir == null)
@@ -79,103 +86,141 @@ namespace Tx.Bond.LinqPad
                 throw new ArgumentNullException("files");
             }
 
-            Stopwatch sw = Stopwatch.StartNew();
-            CacheDirectory = ResolveCacheDirectory(targetDir);
+            this.CacheDirectory = ResolveCacheDirectory(targetDir);
 
             if (!Directory.Exists(CacheDirectory))
             {
-                // Todo: do all below once, if we have to create the directory
                 Directory.CreateDirectory(CacheDirectory);
             }
             else
             {
-                // Clean
-                Directory.Delete(CacheDirectory, true);
-
-                // Recreate.
-                Directory.CreateDirectory(CacheDirectory);
+                Utilities.EmptyDirectory(this.CacheDirectory);
             }
 
+            // Get all manifests.
             var manifestsFromFiles = BinaryEtwObservable.BinaryManifestFromSequentialFiles(files)
                 .ToEnumerable()
+                .Where(a => !string.IsNullOrWhiteSpace(a.Manifest))
                 .GroupBy(manifest => manifest.ManifestId, StringComparer.OrdinalIgnoreCase)
                 .Select(grp => grp.First())
                 .ToArray();
 
             if (manifestsFromFiles.Length == 0)
             {
-                throw new Exception("No Bond manifests found");
+                throw new Exception("No Bond manifests found. Ensure that the Bond manifests are written to the ETL file.");
             }
 
-            var sources = new List<string>();
-
-            List<EventManifest> manifests = new List<EventManifest>();
-
-            foreach (var manifestTypes in manifestsFromFiles
-                .GroupBy(i => i.Manifest, StringComparer.Ordinal))
+            int counter = 0;
+            foreach (var manifestItem in manifestsFromFiles)
             {
-                string bondFileName = Path.Combine(CacheDirectory, "BondTypes" + sources.Count + ".bond");
+                var codeSources = new List<string>();
 
-                File.WriteAllText(bondFileName, manifestTypes.Key);
+                var namespaceAndClasses = this.ParseClassNames(manifestItem.Manifest);
 
-                var source = this.GenerateCSharpCode(bondFileName);
+                var assembliesOfThisManifest = new List<string>();
 
-                if (!string.IsNullOrWhiteSpace(source))
+                if (!this.AreAnyTypesAlreadyInCache(namespaceAndClasses.Item2))
                 {
-                    manifests.Add(manifestTypes.First());
-                    sources.Add(source);
+                    string bondFileName = Path.Combine(CacheDirectory, "BondTypes" + counter + ".bond");
+
+                    counter++;
+
+                    File.WriteAllText(bondFileName, manifestItem.Manifest);
+                    var codeGenerated = this.GenerateCSharpCode(bondFileName);
+
+                    if (!string.IsNullOrWhiteSpace(codeGenerated))
+                    {
+                        codeSources.Add(codeGenerated);
+
+                        foreach (var @class in namespaceAndClasses.Item2)
+                        {
+                            var completeName = namespaceAndClasses.Item1 + "." + @class;
+
+                            var id = BondIdentifierHelpers.GenerateGuidFromName(@class.ToUpperInvariant());
+
+                            // case when single manifest has multiple structs.
+                            if (namespaceAndClasses.Item2.Length > 1 && 
+                                !string.Equals(manifestItem.ManifestId, id.ToString(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                codeSources.Add(GenerateAdditionalSourceCodeItems(namespaceAndClasses.Item1, @class, id));
+
+                                this.Cache.Add(new TypeCacheItem
+                                    {
+                                        Manifest = new EventManifest
+                                        {
+                                            ActivityId = manifestItem.ActivityId,
+                                            Manifest = manifestItem.Manifest,
+                                            ManifestId = id.ToString(),
+                                            OccurenceFileTimeUtc = manifestItem.OccurenceFileTimeUtc,
+                                            Protocol = manifestItem.Protocol,
+                                            ReceiveFileTimeUtc = manifestItem.ReceiveFileTimeUtc,
+                                            Source = manifestItem.Source,
+                                        },
+                                    });
+                            }
+                            else
+                            {
+                                codeSources.Add(GenerateAdditionalSourceCodeItems(namespaceAndClasses.Item1, @class, new Guid(manifestItem.ManifestId)));
+                                this.Cache.Add(new TypeCacheItem
+                                {
+                                    Manifest = new EventManifest
+                                    {
+                                        ActivityId = manifestItem.ActivityId,
+                                        Manifest = manifestItem.Manifest,
+                                        ManifestId = manifestItem.ManifestId,
+                                        OccurenceFileTimeUtc = manifestItem.OccurenceFileTimeUtc,
+                                        Protocol = manifestItem.Protocol,
+                                        ReceiveFileTimeUtc = manifestItem.ReceiveFileTimeUtc,
+                                        Source = manifestItem.Source,
+                                    },
+                                });
+                            }
+                        }
+
+                        // After building the assembly, the types will be available.
+                        string asm = Path.Combine(CacheDirectory, bondFileName + ".dll");
+                        this.OutputAssembly(codeSources.ToArray(), asm);
+                        assembliesOfThisManifest.Add(asm);
+
+                        try
+                        {
+                            var types = assembliesOfThisManifest.Select(Assembly.LoadFile)
+                                        .SelectMany(a => a.GetTypes().Where(type => type.IsPublic))
+                                        .ToArray();
+
+                            foreach (var item in types)
+                            {
+                                var targetCacheItem = this.FindMatchOrDefault(item.GUID.ToString());
+
+
+                                if (targetCacheItem != null)
+                                {
+                                    targetCacheItem.Type = item;
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            //Ignore this type
+                            throw;
+                        }
+                    }
+                    
                 }
-
-                var manifestInfo = this.ParseClassNames(manifestTypes.Key);
-
-                sources.AddRange(GenerateAdditionalSourceCodeItems(manifestInfo, manifestTypes.Select(i => i.ManifestId).ToArray()));
             }
 
-            this.Manifests = manifests.ToArray();
-
-            string asm = Path.Combine(CacheDirectory, @"BondTypes.dll");
-            OutputAssembly(sources.ToArray(), asm);
-
-            sw.Stop();
-
-            Console.WriteLine("TypeCache Init took {0} milliseconds.", sw.ElapsedMilliseconds);
         }
 
-        public IEnumerable<string> GenerateAdditionalSourceCodeItems(
-            Tuple<string, string[]> bondManifest,
-            string[] manifestIds)
+        public string GenerateAdditionalSourceCodeItems(string @namespace, string @class, Guid manifestId)
         {
-            if (bondManifest.Item1 == null)
+            if (string.IsNullOrWhiteSpace(@namespace) || string.IsNullOrWhiteSpace(@class) || manifestId == Guid.Empty)
             {
-                return new string[0];
+                return string.Empty;
             }
 
-            if (manifestIds.Length == 1)
-            {
-                var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var code = GenerateManifestOverrideCSharpClass(@namespace, @class, manifestId.ToString());
 
-                foreach (var className in bondManifest.Item2)
-                {
-                    var name = bondManifest.Item1 + "." + className;
-
-                    var id = BondIdentifierHelpers.GenerateGuidFromName(name);
-
-                    map[name] = id.ToString();
-                }
-
-                if (!string.Equals(
-                    manifestIds[0],
-                    map[bondManifest.Item1 + "." + bondManifest.Item2.Last()],
-                    StringComparison.OrdinalIgnoreCase))
-                {
-                    return new string[]
-                    {
-                        GenerateManifestOverrideCSharpClass(bondManifest.Item1, bondManifest.Item2.Last(), manifestIds[0]),
-                    };
-                }
-            }
-
-            return new string[0];
+            return code;
         }
 
         public Tuple<string, string[]> ParseClassNames(string manifest)
@@ -194,7 +239,7 @@ namespace Tx.Bond.LinqPad
 
             var classNamesObtained = lines
                 .Where(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase))
-                .Select(l => l.Split(new[] { ' ', '{' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim());
+                .Select(l => l.Split(new[] { ' ', '{', ':' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim());
             
             var classNamesValid = classNamesObtained.Where(a => CodeCompiler.IsValidLanguageIndependentIdentifier(a)).ToArray();
 
@@ -258,40 +303,19 @@ namespace Tx.Bond.LinqPad
             return Directory.GetFiles(CacheDirectory, @"*.dll");
         }
 
-        public Type[] Types
-        {
-            get
-            {
-                Type[] types = new Type[0];
-
-                try
-                {
-                    types = GetAssemblies(CacheDirectory)
-                        .Select(Assembly.LoadFrom)
-                        .SelectMany(assembly => assembly.GetTypes().Where(type => type.IsPublic))
-                        .ToArray();
-                }
-                catch (Exception)
-                {
-                    // Ignore
-                }
-
-                return types;
-            }
-        }
-
         public static Type[] GetTypes(string targetDir)
         {
             Type[] types = new Type[0];
 
             try
             {
-                types = Assembly.LoadFrom(Resolve(targetDir))
-                    .GetTypes()
-                    .Where(type => type.IsPublic)
+                var assemblies = Directory.GetFiles(ResolveCacheDirectory(targetDir), "*.dll");
+
+                types = assemblies.Select(Assembly.LoadFrom)
+                    .SelectMany(a => a.GetTypes().Where(type => type.IsPublic))
                     .ToArray();
             }
-            catch (Exception)
+            catch
             {
                 // Ignore
             }
@@ -301,6 +325,8 @@ namespace Tx.Bond.LinqPad
 
         private void OutputAssembly(string[] sources, string assemblyPath)
         {
+            Utilities.ForceDeleteFile(assemblyPath);
+
             var providerOptions = new Dictionary<string, string> {{"CompilerVersion", "v4.0"}};
 
             using (var codeProvider = new CSharpCodeProvider(providerOptions))
@@ -314,7 +340,7 @@ namespace Tx.Bond.LinqPad
 
                 if (results.Errors.Count == 0)
                     return;
-
+                
                 var sb = new StringBuilder();
                 foreach (object o in results.Errors)
                 {
@@ -324,6 +350,42 @@ namespace Tx.Bond.LinqPad
                 string errors = sb.ToString();
                 throw new Exception(errors);
             }
+        }
+
+        private bool AreAnyTypesAlreadyInCache(string[] typeNames)
+        {
+            bool result = false;
+            foreach (var cacheItem in this.Cache)
+            {
+                if (result)
+                {
+                    break;
+                }
+
+                foreach (var item in typeNames)
+                {
+                    if (cacheItem.Type != null && string.Equals(cacheItem.Type.Name, item, StringComparison.OrdinalIgnoreCase))
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public TypeCacheItem FindMatchOrDefault(string manifestId)
+        {
+            foreach (var item in this.Cache)
+            {
+                if (string.Equals(item.Manifest.ManifestId, manifestId, StringComparison.OrdinalIgnoreCase))
+                {
+                    return item;
+                }
+            }
+
+
+            return null;
         }
     }
 }

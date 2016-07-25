@@ -1,5 +1,6 @@
 ﻿namespace Tx.Bond.LinqPad
 {
+    using BondEtwDriver;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -59,10 +60,12 @@
 
                     if (csvRelatedStatsOfThisFile != null)
                     {
-                        statsOfThisFile = csvRelatedStatsOfThisFile.Select(a =>
-                            new { Type = a.Key, Stats = a.Value.Statistics })
-                            .ToDictionary(key => key.Type, value => value.Stats);
-
+                        statsOfThisFile = new Dictionary<Type, EventStatistics>();
+                        foreach (var item in csvRelatedStatsOfThisFile)
+                        {
+                            statsOfThisFile.Add(item.Key, item.Value.Statistics);
+                        }
+                        
                         this.CreateCsvStatsFile(expectedCsv, csvRelatedStatsOfThisFile);
                     }
                 }
@@ -110,9 +113,9 @@
                                            EventCount = ac.EventCount + 1,
                                            Bytes = ac.Bytes + events.EventPayloadLength,
                                            minTime = Math.Min(ac.minTime, events.ReceiveFileTimeUtc),
-                                           maxTime = Math.Max(ac.maxTime, events.ReceiveFileTimeUtc)
+                                           maxTime = Math.Max(ac.maxTime, events.ReceiveFileTimeUtc),
                                        })
-                               select new { ManifestId = eventTypes.Key, all.EventCount, all.Bytes, all.minTime, all.maxTime };
+                               select new { ManifestId = eventTypes.Key, all.EventCount, all.Bytes, all.minTime, all.maxTime, };
 
             var counts = rawCount.ToEnumerable().ToArray();
 
@@ -121,41 +124,31 @@
 
             foreach (var c in counts)
             {
-                var manifest = typeCache.Manifests
-                    .FirstOrDefault(m => string.Equals(m.ManifestId, c.ManifestId, StringComparison.OrdinalIgnoreCase));
+                var typeCacheItem = typeCache.FindMatchOrDefault(c.ManifestId);
 
-                if (manifest != null)
+                if (typeCacheItem != null && typeCacheItem.Type != null)
                 {
-                    var line = manifest.Manifest
-                        .Split('\n').LastOrDefault(l => l.Trim().StartsWith(@"struct ", StringComparison.OrdinalIgnoreCase));
-
-                    if (line != null)
+                    var type = typeCacheItem.Type;
+                    if (type != null)
                     {
-                        var className = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1].Trim();
+                        var minDateTime = DateTime.FromFileTimeUtc(c.minTime);
+                        var maxDateTime = DateTime.FromFileTimeUtc(c.maxTime);
+                        var duration = (maxDateTime - minDateTime).TotalSeconds;
+                        if (Math.Abs(duration) < 0.01) duration = 1;
 
-                        var type = typeCache.Types.FirstOrDefault(t => t.Name == className);
-
-                        if (type != null)
+                        var stats = new EventStatistics
                         {
-                            var minDateTime = DateTime.FromFileTimeUtc(c.minTime);
-                            var maxDateTime = DateTime.FromFileTimeUtc(c.maxTime);
-                            var duration = (maxDateTime - minDateTime).TotalSeconds;
-                            if (Math.Abs(duration) < 0.01) duration = 1;
+                            AverageByteSize = c.Bytes / c.EventCount,
+                            ByteSize = c.Bytes,
+                            EventCount = c.EventCount,
+                            EventsPerSecond = Math.Round(c.EventCount / duration, 3, MidpointRounding.AwayFromZero),
+                        };
 
-                            var stats = new EventStatistics
-                            {
-                                AverageByteSize = c.Bytes / c.EventCount,
-                                ByteSize = c.Bytes,
-                                EventCount = c.EventCount,
-                                EventsPerSecond = c.EventCount / duration
-                            };
-
-                            statsPerType[type] = new CsvRelatedStats
-                                {
-                                    ManifestId = c.ManifestId,
-                                    Statistics = stats,
-                                };
-                        }
+                        statsPerType[type] = new CsvRelatedStats
+                        {
+                            ManifestId = c.ManifestId,
+                            Statistics = stats,
+                        };
                     }
                 }
             }
@@ -211,6 +204,11 @@
                 }
             }
 
+            if (eventStatsCollection.Count == 0)
+            {
+                isParsingSuccessful = false;
+            }
+
             return isParsingSuccessful;
         }
 
@@ -233,51 +231,42 @@
 
             var tokens = line.Split(CsvSeparator);
 
-            string eventManifestFromCsv = string.Empty;
+            string eventManifestIdFromCsv = string.Empty;
             string typeNameFromCsv = string.Empty;
 
-            if (tokens != null && tokens.Length == 6)
+            if (tokens != null && tokens.Length == 6 && tokens.All(a => !string.IsNullOrWhiteSpace(a)))
             {
-                eventManifestFromCsv = tokens[0];
+                eventManifestIdFromCsv = tokens[0];
                 typeNameFromCsv = tokens[1];
 
-                var manifest = typeCache.Manifests.FirstOrDefault(m => string.Equals(m.ManifestId, eventManifestFromCsv, StringComparison.OrdinalIgnoreCase));
+                var typeCacheItem = typeCache.FindMatchOrDefault(eventManifestIdFromCsv);
 
-                if (manifest != null)
+                if (typeCacheItem != null && typeCacheItem.Type != null && string.Equals(typeCacheItem.Type.Name, typeNameFromCsv, StringComparison.OrdinalIgnoreCase))
                 {
-                    var typeName = this.GetTypeNameFromManifest(manifest);
+                    Debug.WriteLine(typeCacheItem.Type.Name);
 
-                    if (!string.IsNullOrWhiteSpace(typeName) &&
-                        string.Equals(typeName, typeNameFromCsv, StringComparison.OrdinalIgnoreCase))
+                    EventStatistics statsFromCsv = new EventStatistics
                     {
-                        var type = typeCache.Types.FirstOrDefault(t => string.Equals(t.Name, typeName, StringComparison.OrdinalIgnoreCase));
+                        AverageByteSize = long.Parse(tokens[5]),
+                        ByteSize = long.Parse(tokens[4]),
+                        EventCount = long.Parse(tokens[2]),
+                        EventsPerSecond = double.Parse(tokens[3]),
+                    };
 
-                        if (type != null)
-                        {
-                            EventStatistics statsFromCsv = new EventStatistics
-                            {
-                                AverageByteSize = long.Parse(tokens[5]),
-                                ByteSize = long.Parse(tokens[4]),
-                                EventCount = long.Parse(tokens[2]),
-                                EventsPerSecond = double.Parse(tokens[3]),
-                            };
+                    EventStatistics existingStats;
+                    if (eventStatsCollection.TryGetValue(typeCacheItem.Type, out existingStats))
+                    {
 
-                            EventStatistics existingStats;
-                            if (eventStatsCollection.TryGetValue(type, out existingStats))
-                            {
-                                
-                                existingStats = existingStats + statsFromCsv;
-                                Console.WriteLine("Stats for type {0} updated.", typeNameFromCsv);
-                            }
-                            else
-                            {
-                                eventStatsCollection[type] = statsFromCsv;
-                                Console.WriteLine("Stats for type {0} added.", typeNameFromCsv);
-                            }
-                            
-                            isParsable = true;
-                        }
+                        existingStats = existingStats + statsFromCsv;
+                        Console.WriteLine("Stats for type {0} updated.", typeNameFromCsv);
                     }
+                    else
+                    {
+                        eventStatsCollection[typeCacheItem.Type] = statsFromCsv;
+                        Console.WriteLine("Stats for type {0} added.", typeNameFromCsv);
+                    }
+
+                    isParsable = true;
                 }
             }
 
@@ -373,6 +362,7 @@
             internal string ManifestId;
             internal EventStatistics Statistics;
         }
+
     }
 
     

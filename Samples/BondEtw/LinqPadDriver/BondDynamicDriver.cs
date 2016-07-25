@@ -299,7 +299,7 @@
                                                  .Replace(@"[properties]", sbContextProperties.ToString());
 
             var bondInEtwProperties = new BondInEtwProperties(cxInfo);
-            _typeCache.Init(bondInEtwProperties.ContextName, bondInEtwProperties.Files);
+            _typeCache.Initialize(bondInEtwProperties.ContextName, bondInEtwProperties.Files);
          
             sourceCode.Add(dataContext);
 
