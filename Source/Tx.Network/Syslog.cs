@@ -331,6 +331,11 @@ namespace Tx.Network
             public DateTimeOffset ReceivedTime { get; private set; }
 
             /// <summary>
+            /// The IP Address of the station that sent the Syslog to the local receiver.
+            /// </summary>
+            public string SourceIpAddress { get; private set; }
+
+            /// <summary>
             /// The message contained in the datagram following the PRIVAL
             /// </summary>
             public string Message { get; private set; }
@@ -355,12 +360,14 @@ namespace Tx.Network
             /// </summary>
             public Syslog(
                 DateTimeOffset receivedTime,
+                string sourceIpAddress,
                 Severity severity,
                 Facility facility,
                 string message,
                 IDictionary<string, string> namedCollectedMatches)
             {
                 ReceivedTime = receivedTime;
+                SourceIpAddress = sourceIpAddress;
                 LogSeverity = severity;
                 LogFacility = facility;
                 Message = message;
@@ -391,7 +398,7 @@ namespace Tx.Network
         {
             public static readonly Regex DefaultParser = new Regex(
                 @"\<(?<PRIVAL>\d+?)\>\s*(?<MESSAGE>.+)",
-                RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
+                RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture| RegexOptions.Compiled);
 
             private readonly Regex parser;
 
@@ -441,11 +448,13 @@ namespace Tx.Network
 
                 var privalMatch = defMatch.Groups["PRIVAL"].Value.Trim();
 
-                if (!string.IsNullOrWhiteSpace(privalMatch))
+                if (string.IsNullOrWhiteSpace(privalMatch))
                 {
                     throw new ArgumentException(
                         "Datagram does not contain the correct string indicating the PRIVAL of the Syslog");
                 }
+
+                
 
                 var prival = int.Parse(privalMatch);
                 var severity = (Severity)Enum.ToObject(typeof(Severity), prival & 0x7);
@@ -464,7 +473,7 @@ namespace Tx.Network
                     }
                 }
 
-                return new Syslog(receivedPacket.ReceivedTime, severity, facility, message, matches);
+                return new Syslog(receivedPacket.ReceivedTime, receivedPacket.SourceIpAddress.ToString(), severity, facility, message, matches);
             }
         }
     }
