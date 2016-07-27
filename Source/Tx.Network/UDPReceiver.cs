@@ -118,6 +118,7 @@
                     && packetCheck
                     )
                 {
+                    packet.ReceivedTime = DateTimeOffset.UtcNow;
                     _packetSubject.OnNext(packet);
                 }
                 socketArgs.SetBuffer(0, ushort.MaxValue);
