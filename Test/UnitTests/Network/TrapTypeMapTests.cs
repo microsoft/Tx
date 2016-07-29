@@ -97,6 +97,8 @@ namespace Tests.Tx.Network
 
             Assert.IsNotNull(transform);
 
+            var receivedTime = DateTimeOffset.UtcNow;
+            this.fakeTrapUdp.ReceivedTime = receivedTime;
             var transformedOutput = transform(this.fakeTrapUdp) as FakeTrap;
 
             Assert.IsNotNull(transformedOutput);
@@ -105,6 +107,7 @@ namespace Tests.Tx.Network
             Assert.IsNotNull(transformedOutput.Objects);
             Assert.AreEqual(4, transformedOutput.Objects.Count);
             Assert.AreEqual(IPAddress.Parse("1.1.1.1"), transformedOutput.SourceAddress);
+            Assert.AreEqual(receivedTime, transformedOutput.ReceivedTime);
 
             var varbinds = transformedOutput.Objects;
             var extraneous = varbinds.FirstOrDefault(vb => vb.Oid.Equals(new ObjectIdentifier("1.3.6.1.6.3.1.1.42.42.42.0")));
@@ -170,6 +173,9 @@ namespace Tests.Tx.Network
 
             [NotificationObjects]
             public ReadOnlyCollection<VarBind> Objects { get; set; }
+
+            [Timestamp]
+            public DateTimeOffset ReceivedTime { get; set; }
         }
 
         [SnmpTrap("1.3.6.1.4.1.500.12")]
