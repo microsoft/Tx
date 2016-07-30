@@ -306,8 +306,9 @@
                 Array.Copy(packetBytes, offset, PacketData, 0, length);
                 offset += length;
             }
+            DataBuffer = new byte[IpPacketLength];
+            Array.Copy(packetBytes, 0, DataBuffer, 0, IpPacketLength);
 
-            DataBuffer = packetBytes;
         }
 
         #endregion
