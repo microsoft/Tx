@@ -11,7 +11,7 @@ This downloads a zip file, and useful if you want to take a quick look
 * Install [Github for Windows](http://windows.github.com/)
 * launch the Git Shell, and choose one of the three repositories we keep in sync:
     *  **git clone https://git01.codeplex.com/tx**
-    *  **git clone https://github.com/MSOpenTech/Tx.git**
+    *  **git clone https://github.com/Microsoft/Tx.git**
     *  **git clone https://github.com/Reactive-Extensions/Tx.git**
 
 The documentation comes interleaved with the source code
