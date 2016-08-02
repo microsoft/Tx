@@ -18,7 +18,7 @@ With this change, the tracing for WCF in .Net 4.5 becomes from worse to best:
 * Structured, Manifested like the kernel components
 * Best usage of correlation discipline - Activity ID-s, Transfers and correlation tokens (the SOAP Message ID)
 
-In this paper we illustrate how to use LINQ to Logs and Traces to troubleshoot WCF. This is useful to understand the underlying infrastructure below SvcPerf. Finally we will give some guidance when to use [Tx in LINQPad](https://github.com/MSOpenTech/Tx/blob/master/Source/Tx.LinqPad/Readme.md) and when to use SvcPerf.
+In this paper we illustrate how to use LINQ to Logs and Traces to troubleshoot WCF. This is useful to understand the underlying infrastructure below SvcPerf. Finally we will give some guidance when to use [Tx in LINQPad](../../../../Source/Tx.LinqPad/Readme.md) and when to use SvcPerf.
 
 ### Creating ETL trace for WCF
 
@@ -48,7 +48,7 @@ Run WcfSampleTraceScript.bat
 
 Once the ETL trace is created, the next step is to view the details in LINQPad using Tx driver.
 
-New to LINQPad and Tx driver? Refer this [wiki on LINQPad driver for Tx](https://github.com/MSOpenTech/Tx/blob/master/Source/Tx.LinqPad/Readme.md).
+New to LINQPad and Tx driver? Refer this [wiki on LINQPad driver for Tx](../../../../Source/Tx.LinqPad/Readme.md).
 
 After setting up the LINQPad and Tx driver,
 
