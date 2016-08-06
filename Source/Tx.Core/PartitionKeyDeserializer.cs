@@ -38,7 +38,7 @@ namespace System.Reactive
             ts = default(Timestamped<object>);
 
             Func<TInput, object> transform;
-            if (key == null || key.Equals(default(TKey)) || !_transforms.TryGetValue(key, out transform))
+            if (key == null || !_transforms.TryGetValue(key, out transform))
                 return false;
 
             if (transform == null)
