@@ -175,39 +175,41 @@ namespace Tx.Network.Snmp
         /// <param name="constructValidations">The construct validations.</param>
         /// <param name="typeValidations">The type validations.</param>
         /// <param name="length">The length.</param>
-        /// <returns></returns>
-        /// <exception cref="System.IO.InvalidDataException">
-        /// Expected Ans1 Class tag is:  + ((Asn1Class)classValidations).ToString()
+        /// <returns>int [value to next offset]</returns>
+        /// <exception cref="DataMisalignedException">
+        /// Data Malformated/Expected Asn1 Class tag is:  + ((Asn1Class)classValidations).ToString()
         /// or
-        /// Expected ConstructType tag is:  + ((ConstructType)constructValidations).ToString()
+        /// Data Malformated/Expected ConstructType tag is:  + ((ConstructType)constructValidations).ToString()
         /// or
-        /// Expected Ans1 tag is:  + ((Asn1Tag)typeValidations).ToString()
+        /// Data Malformated/Expected Asn1 tag is:  + ((Asn1Tag)typeValidations).ToString()
+        /// or
+        /// Data Malformated/Expected Asn1Snmp tag is:  + ((Asn1SnmpTag)typeValidations).ToString()
         /// </exception>
         private static int NextValueLength(this byte[] bytes, int offset, int classValidations, int constructValidations, int typeValidations, out int length)
         {
             var type = bytes[offset++].DecodeToClassConstructType();
             if (classValidations != -1 && type.Asn1ClassType != (Asn1Class)classValidations)
             {
-                throw new InvalidDataException("Expected Ans1 Class tag is: " + ((Asn1Class)classValidations).ToString());
+                throw new DataMisalignedException("Data Malformated/Expected Asn1 Class tag is: " + ((Asn1Class)classValidations).ToString());
             }
 
             if (constructValidations != -1 && type.Asn1ConstructType != (ConstructType)constructValidations)
             {
-                throw new InvalidDataException("Expected ConstructType tag is: " + ((ConstructType)constructValidations).ToString());
+                throw new DataMisalignedException("Data Malformated/Expected ConstructType tag is: " + ((ConstructType)constructValidations).ToString());
             }
 
             if (type.Asn1TagType != Asn1Tag.NotAsn1Data)
             {
                 if (typeValidations != -1 && type.Asn1TagType != (Asn1Tag)typeValidations)
                 {
-                    throw new InvalidDataException("Expected Ans1 tag is: " + ((Asn1Tag)typeValidations).ToString());
+                    throw new DataMisalignedException("Data Malformated/Expected Asn1 tag is: " + ((Asn1Tag)typeValidations).ToString());
                 }
             }
             else
             {
                 if (typeValidations != -1 && type.Asn1SnmpTagType != (Asn1SnmpTag)typeValidations)
                 {
-                    throw new InvalidDataException("Expected Ans1Snmp tag is: " + ((Asn1SnmpTag)typeValidations).ToString());
+                    throw new DataMisalignedException("Data Malformated/Expected Asn1Snmp tag is: " + ((Asn1SnmpTag)typeValidations).ToString());
                 }
             }
 
