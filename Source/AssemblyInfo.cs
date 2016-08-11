@@ -2,8 +2,8 @@
 
 using System.Reflection;
 
-[assembly: AssemblyCompany("MS Open Tech")]
+[assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("Tx (LINQ to Logs and Traces)")]
-[assembly: AssemblyCopyright("Copyright © MS Open Tech 2012")]
-[assembly: AssemblyVersion("1.0.60805.0")]
-[assembly: AssemblyFileVersion("1.0.60805.0")]
+[assembly: AssemblyCopyright("Copyright © Microsoft. All Rights Reserved")]
+[assembly: AssemblyVersion("1.0.60811.0")]
+[assembly: AssemblyFileVersion("1.0.60811.0")]

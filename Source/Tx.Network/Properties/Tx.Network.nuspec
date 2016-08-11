@@ -6,8 +6,8 @@
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
     <description>Parsing of Network related file and wire formats, such as .pcap and .pcapng</description>
-    <authors>Microsoft Open Technologies, Inc.</authors>
-    <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
+    <authors>Microsoft</authors>
+    <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
     
     <projectUrl>http://tx.codeplex.com</projectUrl>
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>

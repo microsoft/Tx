@@ -6,8 +6,8 @@
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
     <version>1.0.5-beta</version>
     <description>Tx (LINQ to Logs and Traces) components for generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</description>
-    <authors>Microsoft Open Technologies, Inc.</authors>
-    <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
+    <authors>Microsoft</authors>
+    <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
 
     <projectUrl>http://tx.codeplex.com</projectUrl>
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>

@@ -5,8 +5,8 @@
     <title>Tx.All</title>
     <version>1.0.5-beta</version>
     <description>Tx (LINQ to Logs and Traces) container package for all supported raw trace/log sources</description>
-    <authors>Microsoft Open Technologies, Inc.</authors>
-    <copyright>Microsoft Open Technologies, Inc. © 2013</copyright>
+    <authors>Microsoft</authors>
+    <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
 
     <projectUrl>http://tx.codeplex.com</projectUrl>
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
