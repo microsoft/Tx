@@ -63,8 +63,8 @@ namespace Tx.Network.Snmp
         /// <summary>
         /// Initializes a new instance of the <see cref="SnmpTrapV1"/> struct.
         /// </summary>
-        /// <param name="ipPacket">The ip packet.</param>
-        public SnmpTrapV1(IpPacket ipPacket) : this(ipPacket.PacketData)
+        /// <param name="udpDatagram">The udpDatagram.</param>
+        public SnmpTrapV1(UdpDatagram udpDatagram) : this(udpDatagram.UdpData)
         {
         }
     }
