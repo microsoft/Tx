@@ -2,14 +2,18 @@ set bin="c:\Bin"
 
 if not exist "%bin%" mkdir %bin% || goto failFast
 
+if "%1"=="NoBuild" goto noBuild
+
 pushd %~dp0
 
-msbuild /p:Configuration=Release40
-msbuild /p:Configuration=Debug40
-msbuild /p:Configuration=Release45
-msbuild /p:Configuration=Debug45
+msbuild /p:Configuration=Release40 || goto failFast
+msbuild /p:Configuration=Debug40 || goto failFast
+msbuild /p:Configuration=Release45 || goto failFast
+msbuild /p:Configuration=Debug45 || goto failFast
 
 popd
+
+:noBuild
 
 copy ..\tools\NuGet.exe %bin%\ || goto failFast
 copy ..\tools\zip.exe %bin%\ || goto failFast
@@ -31,7 +35,6 @@ call :packAll || goto failFast
 
 cd /d %bin%\Release\Net40 || goto failFast
 ..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Reactive.Windows.Forms.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll msvcr100.dll xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl || goto failFast
-
 
 popd
 goto end
