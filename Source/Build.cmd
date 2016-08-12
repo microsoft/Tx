@@ -46,7 +46,7 @@ pushd Net45\Properties || goto failFast
 ..\SetVersion.exe || goto failFast
 popd
 
-goto end
+exit /b 0 
 
 :packAll
 call :pack Tx.Core || goto failFast
@@ -57,7 +57,7 @@ call :pack Tx.Windows.TypeGeneration || goto failFast
 call :pack Tx.SqlServer || goto failFast
 call :pack Tx.All || goto failFast
 
-goto end
+exit /b 0 
 
 :pack %1
 call Net40\Properties\%1.Layout.cmd || goto failFast
@@ -67,7 +67,7 @@ copy ..\Net40\Properties\%1.nuspec || goto failFast
 move *.nupkg ..\ || goto failFast
 cd ..
 rd /s/q %1 || goto failFast
-goto end
+exit /b 0
 
 :end
 cd %~dp0
