@@ -16,6 +16,8 @@ namespace System.Reactive
     {
         private readonly Dictionary<Type, IObserver<object>> _outputs = new Dictionary<Type, IObserver<object>>();
 
+        private readonly Dictionary<Type, List<Type>> _knownOutputMappings = new Dictionary<Type, List<Type>>();
+
         public void OnCompleted()
         {
             foreach (var output in _outputs.Values.ToArray())
@@ -32,17 +34,22 @@ namespace System.Reactive
             }
         }
 
-        public void OnNext(object value)
+        public void OnNext(object inputObject)
         {
-            IObserver<object> output;
-            if (_outputs.TryGetValue(value.GetType(), out output))
+            var inputObjectType = inputObject.GetType();
+
+            if (!_knownOutputMappings.ContainsKey(inputObjectType))
             {
-                output.OnNext(value);
+                _knownOutputMappings.Add(inputObjectType, new List<Type>());
+                foreach (var type in GetTypes(inputObjectType).Where(type => _outputs.ContainsKey(type)))
+                {
+                    _knownOutputMappings[inputObjectType].Add(type);
+                }
             }
 
-            if (_outputs.TryGetValue(value.GetType().BaseType, out output))
+            foreach (var keyType in _knownOutputMappings[inputObjectType])
             {
-                output.OnNext(value);
+                _outputs[keyType].OnNext(inputObject);
             }
         }
 
@@ -54,14 +61,39 @@ namespace System.Reactive
         public IObservable<TOutput> GetObservable<TOutput>()
         {
             IObserver<object> o;
-            if (!_outputs.TryGetValue(typeof (TOutput), out o))
+            if (!_outputs.TryGetValue(typeof(TOutput), out o))
             {
                 o = new OutputSubject<TOutput>();
-                _outputs.Add(typeof (TOutput), o);
+                _outputs.Add(typeof(TOutput), o);
+                RefreshKnownOutputMappings(typeof(TOutput));
             }
 
-            var output = (IObservable<TOutput>) o;
+            var output = (IObservable<TOutput>)o;
             return output;
+        }
+
+        private List<Type> GetTypes(Type inputType)
+        {
+            var typeList = new List<Type>();
+            var temp = inputType;
+            while (temp.FullName != typeof(object).FullName)
+            {
+                typeList.Add(temp);
+                temp = temp.BaseType;
+            }
+            typeList.AddRange(inputType.GetInterfaces());
+            return typeList;
+        }
+
+        private void RefreshKnownOutputMappings(Type outputType)
+        {
+            foreach (var knownMappings in _knownOutputMappings)
+            {
+                if (GetTypes(knownMappings.Key).Contains(outputType) && !knownMappings.Value.Contains(outputType))
+                {
+                    knownMappings.Value.Add(outputType);
+                }
+            }
         }
 
         private class OutputSubject<T> : ISubject<object, T>, IDisposable
@@ -95,7 +127,7 @@ namespace System.Reactive
 
             public void OnNext(object value)
             {
-                _subject.OnNext((T) value);
+                _subject.OnNext((T)value);
             }
 
             public IDisposable Subscribe(IObserver<T> observer)
