@@ -1,3 +1,5 @@
+[![Nuget](https://img.shields.io/nuget/vpre/Tx.Core.svg)](https://www.nuget.org/packages/Tx.Core/)
+
 # Tx (LINQ to Logs and Traces)
  
 Tx allows you to do Language Integrated Query (LINQ) directly on raw event sources:
