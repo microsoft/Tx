@@ -75,7 +75,7 @@ namespace System.Reactive
         {
             var typeList = new List<Type>();
             var temp = inputType;
-            while (temp.FullName != typeof(object).FullName)
+            while (temp != typeof(object))
             {
                 typeList.Add(temp);
                 temp = temp.BaseType;
