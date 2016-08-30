@@ -37,17 +37,16 @@ namespace System.Reactive
         public void OnNext(object inputObject)
         {
             var inputObjectType = inputObject.GetType();
-
-            if (!_knownOutputMappings.ContainsKey(inputObjectType))
+            List<Type> outputKeys;
+            _knownOutputMappings.TryGetValue(inputObjectType, out outputKeys);
+            if (outputKeys == null)
             {
-                _knownOutputMappings.Add(inputObjectType, new List<Type>());
-                foreach (var type in GetTypes(inputObjectType).Where(type => _outputs.ContainsKey(type)))
-                {
-                    _knownOutputMappings[inputObjectType].Add(type);
-                }
+                outputKeys = new List<Type>();
+                _knownOutputMappings.Add(inputObjectType, outputKeys);
+                outputKeys.AddRange(GetTypes(inputObjectType).Where(type => _outputs.ContainsKey(type)));
             }
 
-            foreach (var keyType in _knownOutputMappings[inputObjectType])
+            foreach (var keyType in outputKeys)
             {
                 _outputs[keyType].OnNext(inputObject);
             }
