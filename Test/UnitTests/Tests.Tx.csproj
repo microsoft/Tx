@@ -92,6 +92,7 @@
     <Compile Include="Network\SyslogSender.cs" />
     <Compile Include="Network\TestHelpers.cs" />
     <Compile Include="Network\TrapTypeMapTests.cs" />
+    <Compile Include="Network\UdpReceiverTests.cs" />
     <Compile Include="Network\UnitTestWireEncoding.cs" />
     <Compile Include="Network\UnitTestSyslog.cs" />
     <Compile Include="PerfCounterTest.cs" />

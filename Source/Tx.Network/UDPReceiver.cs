@@ -11,12 +11,15 @@
     {
         #region Public Fields
         public IPEndPoint ListenEndPoint { get; private set; }
-        public Socket Socket { get; private set; }
+
         public ProtocolType ListenProtocol { get; private set; }
         public uint ConcurrentReceivers { get; private set; }
         #endregion
 
         #region Private Fields
+
+        private Socket socket;
+
         Subject<IpPacket> _packetSubject { get; set; }
         ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
         bool _subscribed { get; set; }
@@ -60,10 +63,10 @@
         /// reception from the underlying socket object.</remarks>
         public UdpReceiver(IPEndPoint ListenEndPoint, uint ConcurrentReceivers = 10)
         {
-            ListenProtocol = ProtocolType.Udp;
+            this.ListenProtocol = ProtocolType.Udp;
             this.ConcurrentReceivers = ConcurrentReceivers;
             this.ListenEndPoint = ListenEndPoint;
-            _packetSubject = new Subject<IpPacket>();
+            this._packetSubject = new Subject<IpPacket>();
         }
         #endregion
 
@@ -99,8 +102,8 @@
                 eventArgs.Completed += eventArgsHandler;
                 _receivedDataProcessorsPool.Enqueue(eventArgs);
             }
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
-            Socket.Bind(ListenEndPoint);
+            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
+            this.socket.Bind(ListenEndPoint);
             GetDataProcessorAndReceive();
         }
 
@@ -136,7 +139,7 @@
                 {
                     deqAsyncEvent.SetBuffer(0, ushort.MaxValue);
                 }
-                var sockCheck = Socket.ReceiveAsync(deqAsyncEvent);
+                var sockCheck = this.socket.ReceiveAsync(deqAsyncEvent);
             }
 
         }
@@ -153,18 +156,38 @@
 
         #region IDisposable Support
         bool disposeCalled;
+
         private void Dispose(bool disposing)
         {
             if (disposing)
             {
                 disposeCalled = true;
-                Socket.Shutdown(SocketShutdown.Both);
-                Socket.Dispose();
-                SocketAsyncEventArgs dequeued;
-                while(_receivedDataProcessorsPool.TryDequeue(out dequeued))
+
+                if (this.socket != null)
                 {
-                    dequeued.Dispose();
+                    try
+                    {
+                        this.socket.Shutdown(SocketShutdown.Both);
+                        this.socket.Dispose();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+
+                    this.socket = null;
                 }
+
+                if (_receivedDataProcessorsPool != null)
+                {
+                    SocketAsyncEventArgs dequeued;
+                    while (_receivedDataProcessorsPool.TryDequeue(out dequeued))
+                    {
+                        dequeued.Dispose();
+                    }
+                    _receivedDataProcessorsPool = null;
+                }
+
                 _packetSubject.OnCompleted();
                 _packetSubject.Dispose();
             }
