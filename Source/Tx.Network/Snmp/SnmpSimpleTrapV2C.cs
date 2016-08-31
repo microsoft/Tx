@@ -12,7 +12,7 @@ namespace Tx.Network.Snmp
         /// <summary>
         /// The enterprise oid
         /// </summary>
-        private readonly static string trapOid = "1.3.6.1.6.3.1.1.4.1.0";
+        private static readonly string trapOid = "1.3.6.1.6.3.1.1.4.1.0";
 
         /// <summary>
         /// The system up time oid

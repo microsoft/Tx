@@ -5,7 +5,6 @@
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
     using System.Text;
-    using System.IO;
 
     /// <summary>
     /// IP IpPacket Class Definition

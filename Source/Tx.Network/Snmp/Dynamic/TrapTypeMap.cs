@@ -14,7 +14,7 @@ namespace Tx.Network.Snmp.Dynamic
     /// </summary>
     public sealed class TrapTypeMap : IPartitionableTypeMap<IpPacket, ObjectIdentifier>
     {
-        private readonly static ObjectIdentifier trapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
+        private static readonly ObjectIdentifier trapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
 
         public TrapTypeMap()
         {
@@ -184,6 +184,7 @@ namespace Tx.Network.Snmp.Dynamic
             }
         }
 
+        // ReSharper disable once UnusedMember.Local
         private static SnmpV2cPDU GetPdu(IpPacket ipPacket)
         {
             var snmpDatagram = GetSnmpDatagram(ipPacket);
