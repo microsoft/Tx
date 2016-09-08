@@ -86,6 +86,21 @@
             }
             return o;
         }
+
+        /// <summary>
+        /// Gets the amount of data that has been received from the network and is available to be read.
+        /// </summary>
+        /// <value>
+        /// The amount of data that has been received from the network and is available to be read.
+        /// </value>
+        public int AvailableBytes
+        {
+            get
+            {
+                return this.socket.Available;
+            }
+        }
+
         #endregion
 
         #region Private Methods

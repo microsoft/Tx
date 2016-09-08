@@ -1,4 +1,4 @@
-[![Nuget](https://img.shields.io/nuget/vpre/Tx.Core.svg)](https://www.nuget.org/packages/Tx.Core/)
+[![Nuget](https://img.shields.io/nuget/vpre/Tx.All.svg)](https://www.nuget.org/packages/Tx.All/)
 
 # Tx (LINQ to Logs and Traces)
  
