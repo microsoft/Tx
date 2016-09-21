@@ -10,7 +10,7 @@ namespace Tx.Network.Snmp.Dynamic
     /// The property must be assignable from <see cref="IpPacket.ReceivedTime"/>.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property)]
-    class TimestampAttribute : Attribute
+    public class TimestampAttribute : Attribute
     {
     }
 }
