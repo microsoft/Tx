@@ -75,6 +75,7 @@
     <Compile Include="BinaryEtw\GeneralPartitionableTypeMapTests.cs" />
     <Compile Include="CompositeDeserializerTests.cs" />
     <Compile Include="DemultiplexorTest.cs" />
+    <Compile Include="EnvelopeTypeMapTests.cs" />
     <Compile Include="EtwDeserializerTest.cs" />
     <Compile Include="EtwGeneration.cs" />
     <Compile Include="EtwTest.cs" />

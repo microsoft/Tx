@@ -52,8 +52,14 @@ namespace System.Reactive
             }
 
             object o = transform(value);
-            ts = new Timestamped<object>(o, _timeFunction(value));
-            return true;
+
+            if (o != null)
+            {
+                ts = new Timestamped<object>(o, _timeFunction(value));
+                return true;
+            }
+
+            return false;
         }
     }
 }
