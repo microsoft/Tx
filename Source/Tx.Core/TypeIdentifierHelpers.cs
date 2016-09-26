@@ -1,4 +1,4 @@
-﻿namespace System.Reactive
+﻿namespace Tx.Core
 {
     using System;
     using System.Linq;

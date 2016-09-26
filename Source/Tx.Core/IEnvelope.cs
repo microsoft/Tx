@@ -1,5 +1,7 @@
-﻿namespace System.Reactive
+﻿namespace Tx.Core
 {
+    using System;
+
     /// <summary>
     /// Represents the event sent and received from a stream. It contains the body of the event, various metadata describing the event.
     /// </summary>

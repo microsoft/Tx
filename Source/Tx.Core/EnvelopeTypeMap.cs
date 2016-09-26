@@ -1,7 +1,8 @@
-﻿namespace System.Reactive
+﻿namespace Tx.Core
 {
     using System;
     using System.Collections.Generic;
+    using System.Reactive;
 
     public class EnvelopeTypeMap : IPartitionableTypeMap<IEnvelope, string>
     {
