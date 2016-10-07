@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Sockets;
     using System.Reactive.Subjects;
@@ -23,7 +24,7 @@
         Subject<IpPacket> _packetSubject { get; set; }
         ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
         bool _subscribed { get; set; }
-
+        private List<IDisposable> disposeables = new List<IDisposable>();
         #endregion
 
         #region Constructors
@@ -108,7 +109,7 @@
         {
             _receivedDataProcessorsPool = new ConcurrentQueue<SocketAsyncEventArgs>();
             var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>(ReceiveCompletedHandler);
-
+            
             // pre-allocate the SocketAsyncEventArgs in a receiver queue to constrain memory usage for buffers
             for (var i = 0; i < ConcurrentReceivers; i++)
             {
@@ -116,6 +117,7 @@
                 eventArgs.SetBuffer(new byte[ushort.MaxValue], 0, ushort.MaxValue);
                 eventArgs.Completed += eventArgsHandler;
                 _receivedDataProcessorsPool.Enqueue(eventArgs);
+                disposeables.Add(eventArgs);
             }
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
             this.socket.Bind(ListenEndPoint);
@@ -127,7 +129,6 @@
             if (!disposeCalled)
             {
                 GetDataProcessorAndReceive(); //call a new processor
-                                              //var packet = new IP(socketArgs.Buffer);
                 var packet = new IpPacket();
                 var packetCheck = IsDestinationListenEndpoint(socketArgs.Buffer, out packet);
 
@@ -172,9 +173,9 @@
         #region IDisposable Support
         bool disposeCalled;
 
-        private void Dispose(bool disposing)
+        public void Dispose()
         {
-            if (disposing)
+            if (!disposeCalled)
             {
                 disposeCalled = true;
 
@@ -193,24 +194,19 @@
                     this.socket = null;
                 }
 
-                if (_receivedDataProcessorsPool != null)
+                if (disposeables != null)
                 {
-                    SocketAsyncEventArgs dequeued;
-                    while (_receivedDataProcessorsPool.TryDequeue(out dequeued))
+                    foreach(var toDispose in disposeables)
                     {
-                        dequeued.Dispose();
+                        toDispose.Dispose();
                     }
-                    _receivedDataProcessorsPool = null;
                 }
 
                 _packetSubject.OnCompleted();
                 _packetSubject.Dispose();
             }
         }
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+       
         #endregion
     }
 }

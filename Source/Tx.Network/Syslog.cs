@@ -6,6 +6,7 @@ namespace Tx.Network
     using System.Net.Sockets;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Linq;
 
     #region Enums
 
@@ -398,15 +399,18 @@ namespace Tx.Network
         {
             public static readonly Regex DefaultParser = new Regex(
                 @"\<(?<PRIVAL>\d+?)\>\s*(?<MESSAGE>.+)",
-                RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture| RegexOptions.Compiled);
+                RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
             private readonly Regex parser;
 
             private readonly string[] groupNames;
 
+            private bool usingOnlyDefaultParser = false;
+
             public SyslogParser()
                 : this(DefaultParser)
             {
+                usingOnlyDefaultParser = true;
             }
 
             public SyslogParser(Regex parser)
@@ -434,7 +438,7 @@ namespace Tx.Network
                     throw new ArgumentException("Incoming UDP datagram contained no Syslog data.");
                 }
 
-                var defMatch = this.parser.Match(logMessage);
+                var defMatch = DefaultParser.Match(logMessage);
 
                 if (!defMatch.Success)
                 {
@@ -454,18 +458,28 @@ namespace Tx.Network
                         "Datagram does not contain the correct string indicating the PRIVAL of the Syslog");
                 }
 
-                
+
 
                 var prival = int.Parse(privalMatch);
                 var severity = (Severity)Enum.ToObject(typeof(Severity), prival & 0x7);
                 var facility = (Facility)Enum.ToObject(typeof(Facility), prival >> 3);
                 var message = defMatch.Groups["MESSAGE"].Value.Trim();
 
+                Match customMatch;
+                if (usingOnlyDefaultParser)
+                {
+                    customMatch = defMatch;
+                }
+                else
+                {
+                    customMatch = this.parser.Match(logMessage);
+                }
+
                 var matches = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 foreach (var groupName in this.groupNames)
                 {
-                    var group = defMatch.Groups[groupName];
+                    var group = customMatch.Groups[groupName];
 
                     if (group.Success && !string.IsNullOrEmpty(group.Value))
                     {
