@@ -117,7 +117,7 @@
     <Compile Include="Syslog.cs" />
     <Compile Include="NetworkTransformExtensions.cs" />
     <Compile Include="UdpDatagram.cs" />
-    <Compile Include="UDPReceiver.cs" />
+    <Compile Include="UdpReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\key.snk">

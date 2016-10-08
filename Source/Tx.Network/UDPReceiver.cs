@@ -175,7 +175,12 @@
 
         public void Dispose()
         {
-            if (!disposeCalled)
+            Dispose(true);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing && !disposeCalled)
             {
                 disposeCalled = true;
 
