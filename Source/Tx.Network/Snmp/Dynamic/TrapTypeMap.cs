@@ -8,6 +8,7 @@ namespace Tx.Network.Snmp.Dynamic
     using System.Net;
     using System.Reactive;
     using System.Reflection;
+    using System.Text;
 
     /// <summary>
     /// TypeMap implementation for SNMP attributed classes.
@@ -130,9 +131,19 @@ namespace Tx.Network.Snmp.Dynamic
                 {
                     convertedValue = Expression.Convert(convertedValue, typeof(int));
                 }
+                else if (p.PropertyType == typeof(byte[]))
+                {
+                    convertedValue = Expression.Call(
+                        Expression.Property(null, typeof(Encoding).GetProperties().Single(n => n.Name.Equals("UTF8", StringComparison.Ordinal))), 
+                        typeof(Encoding).GetMethod("GetBytes", new[] { typeof(string) }),
+                        Expression.Convert(convertedValue, typeof(string)));
+                }
 
-                var conditional = Expression.Condition(foundValue, Expression.Convert(convertedValue, p.PropertyType),
+                var conditional = Expression.Condition(
+                    foundValue, 
+                    Expression.Convert(convertedValue, p.PropertyType),
                     Expression.Default(p.PropertyType));
+
                 var b = Expression.Bind(p, conditional);
                 bindings.Add(b);
             }

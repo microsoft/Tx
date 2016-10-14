@@ -7,6 +7,7 @@ namespace Tests.Tx.Network
     using System.Net;
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
+    using System.Text;
 
     using global::Tx.Network;
     using global::Tx.Network.Snmp;
@@ -18,6 +19,8 @@ namespace Tests.Tx.Network
     public class TrapTypeMapTests
     {
         private UdpDatagram fakeTrapUdp;
+
+        private IpPacket fakeIpPacket;
 
         [TestInitialize]
         public void TestInitialize()
@@ -50,7 +53,7 @@ namespace Tests.Tx.Network
 
             var encoded = packet.ToSnmpEncodedByteArray();
 
-            var ipPacket = new IpPacket(
+            this.fakeIpPacket = new IpPacket(
                 NetworkInterfaceComponent.IPv4,
                 Byte.MaxValue,
                 Byte.MaxValue,
@@ -66,7 +69,7 @@ namespace Tests.Tx.Network
                 new byte[0],
                 new byte[0]);
 
-            this.fakeTrapUdp = new UdpDatagram(ipPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
+            this.fakeTrapUdp = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
         }
 
         [TestMethod]
@@ -157,6 +160,59 @@ namespace Tests.Tx.Network
             var typeKey = typeMap.GetTypeKey(typeof(FakeTrap));
 
             Assert.AreEqual(inputKey, typeKey);
+        }
+
+        [TestMethod]
+        public void Test_OctetStringAsByteArray()
+        {
+            var typeMap = new TrapTypeMap();
+
+            var transform = typeMap.GetTransform(typeof(FakeTrap2));
+
+            Assert.IsNotNull(transform);
+
+            var octetStringVarBind = new VarBind(
+                new ObjectIdentifier("1.3.6.1.4.1.562.29.6.2.2"),
+                "Hello",
+                new Asn1TagInfo(Asn1Tag.OctetString, ConstructType.Primitive, Asn1Class.Universal));
+
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
+                506009u,
+                new Asn1TagInfo(Asn1SnmpTag.TimeTicks));
+
+            var trapVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0"),
+                new ObjectIdentifier("1.3.6.1.4.1.500.12"),
+                new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                50000,
+                SnmpErrorStatus.NoError,
+                0,
+                new[] { sysUpTime, trapVb, octetStringVarBind });
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+
+            var udpDatagram = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
+
+            var transformedOutput = transform(udpDatagram) as FakeTrap2;
+
+            Assert.IsNotNull(transformedOutput);
+            Assert.IsNotNull(transformedOutput.Property);
+            Assert.AreEqual("Hello", Encoding.UTF8.GetString(transformedOutput.Property));
+            Assert.AreEqual("Hello", transformedOutput.StringProperty);
+        }
+
+        [SnmpTrap("1.3.6.1.4.1.500.12")]
+        internal class FakeTrap2
+        {
+            [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
+            public byte[] Property { get; set; }
+
+            [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
+            public string StringProperty { get; set; }
         }
 
         [SnmpTrap("1.3.6.1.4.1.500.12")]
