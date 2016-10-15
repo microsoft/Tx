@@ -205,6 +205,47 @@ namespace Tests.Tx.Network
             Assert.AreEqual("Hello", transformedOutput.StringProperty);
         }
 
+        [TestMethod]
+        public void Test_Enum()
+        {
+            var typeMap = new TrapTypeMap();
+
+            var transform = typeMap.GetTransform(typeof(FakeTrap3));
+
+            Assert.IsNotNull(transform);
+
+            var integerVarBind = new VarBind(
+                new ObjectIdentifier("1.3.6.1.4.1.562.29.6.1.1.1.6"),
+                1L,
+                new Asn1TagInfo(Asn1Tag.Integer, ConstructType.Primitive, Asn1Class.Universal));
+
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
+                506009u,
+                new Asn1TagInfo(Asn1SnmpTag.TimeTicks));
+
+            var trapVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0"),
+                new ObjectIdentifier("1.3.6.1.4.1.500.12"),
+                new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                50000,
+                SnmpErrorStatus.NoError,
+                0,
+                new[] { sysUpTime, trapVb, integerVarBind });
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+
+            var udpDatagram = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
+
+            var transformedOutput = transform(udpDatagram) as FakeTrap3;
+
+            Assert.IsNotNull(transformedOutput);
+            Assert.AreEqual(SimpleEnum.B, transformedOutput.EnumProperty);
+        }
+
         [SnmpTrap("1.3.6.1.4.1.500.12")]
         internal class FakeTrap2
         {
@@ -214,6 +255,20 @@ namespace Tests.Tx.Network
             [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
             public string StringProperty { get; set; }
         }
+
+        [SnmpTrap("1.3.6.1.4.1.500.12")]
+        internal class FakeTrap3
+        {
+            [SnmpOid("1.3.6.1.4.1.562.29.6.1.1.1.6")]
+            public SimpleEnum EnumProperty { get; set; }
+        }
+
+        public enum SimpleEnum
+        {
+            A = 0,
+            B = 1,
+            C = 2,
+        };
 
         [SnmpTrap("1.3.6.1.4.1.500.12")]
         internal class FakeTrap

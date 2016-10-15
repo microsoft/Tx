@@ -129,7 +129,7 @@ namespace Tx.Network.Snmp.Dynamic
                 Expression convertedValue = Expression.Field(varbindVar, varbindValueField);
                 if (p.PropertyType.IsEnum || typeof(int).IsAssignableFrom(p.PropertyType))
                 {
-                    convertedValue = Expression.Convert(convertedValue, typeof(int));
+                    convertedValue = Expression.Convert(convertedValue, typeof(long));
                 }
                 else if (p.PropertyType == typeof(byte[]))
                 {
