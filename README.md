@@ -29,16 +29,12 @@ Here:
 
 For more see the [documentation](Doc/Readme.md)
 
-## Contribute
+## Contributing
 
-There are lots of ways to [contribute](https://tx.codeplex.com/wikipage?title=Contributing) to the project, and we appreciate our [contributors](Contributors.txt).
+There are lots of ways to contribute to the project, and we appreciate our [contributors](Contributors.txt). We strongly welcome and encourage contributions to this project. Please read the [contributor's guide][ContribGuide]. If making a large change we request that you open an [issue][GitHubIssue] first. We follow the [Git Flow][GitFlow] approach to branching. 
 
-You can contribute by reviewing and sending feedback on code checkins, suggesting and trying out new features as they are implemented, submit bugs and help us verify fixes as they are checked in, as well as submit code fixes or code contributions of your own. Note that all code submissions will be rigorously reviewed and tested by the Rx Team, and only those that meet an extremely high bar for both quality and design/roadmap appropriateness will be merged into the source.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-You will need to sign a Contributor License Agreement before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the form (select "Reactive Extensions") and then electronically sign the Contributor License Agreement when you receive the email containing the link to the document. This needs to only be done once for any Microsoft Open Technologies OSS project.
-
-
-
-
-
-
+[ContribGuide]: Doc/CONTRIBUTING.md
+[GitFlow]: http://nvie.com/posts/a-successful-git-branching-model/
+[GitHubIssue]: https://github.com/Microsoft/Tx/issues
