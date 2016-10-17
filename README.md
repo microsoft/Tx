@@ -20,7 +20,7 @@ The following picture shows the dependencies among the main Tx components:
 ![TxCodeMap.JPG](TxCodeMap.JPG)
 
 Here:
-
+  
 - Dark green is .Net
 - Light green is mature open source
 - Light grey are framework components, also available on NuGet
