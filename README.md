@@ -9,7 +9,7 @@ Tx allows you to do Language Integrated Query (LINQ) directly on raw event sourc
 - standing queries on real-time feeds, such as Event Tracing for Windows (ETW) sessions
 
 The Tx approach is different than Databases, Hadoop, Splunk, Dapper, etc. which all require a stage of uploading before the events become available to queries.
-
+ 
 Instead, mixing Reactive Extensions (Rx) and LINQ-to-Objects allows the query to be embedded anywhere including:
 
 - In light-weight UI tools like [LINQPad](Source/Tx.LinqPad/Readme.md)  and [SvcPerf](http://svcperf.codeplex.com)
