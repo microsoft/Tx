@@ -1,6 +1,7 @@
 ﻿namespace Tx.Network.Snmp
 {
     using System;
+    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -103,7 +104,16 @@
         /// <returns>string</returns>
         internal static string ReadOctetString(this byte[] bytes, int offset, int length)
         {
-            return Encoding.UTF8.GetString(bytes, offset, length);
+            var stringValue = Encoding.UTF8.GetString(bytes, offset, length);
+
+            // If there are non-printable char, it has hex value.
+            if (stringValue.Any(char.IsControl))
+            {
+                // hex value
+                stringValue = BitConverter.ToString(bytes, offset, length);
+            }
+
+            return stringValue;
         }
 
         /// <summary>
