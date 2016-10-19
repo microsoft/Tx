@@ -37,7 +37,7 @@ copy ..\Traces\BasicPerfCounters.blg "%DRIVER_DIR%"\
 copy ..\Traces\CrossMachineHTTP.etl "%DRIVER_DIR%"\
 copy ..\Traces\CrossMachineIE.etl "%DRIVER_DIR%"\
 copy ..\Traces\sqltrace.xel "%DRIVER_DIR%"\
-copy ..\Samples\LinqPad\Manifests\Microsoft.Windows.ApplicationServer.Applications.man "%DRIVER_DIR%"\
+copy ..\Samples\LinqPad\Manifests\Microsoft.Windows.ApplicationServer.Applications.manifest "%DRIVER_DIR%"\
 copy ..\Samples\LinqPad\Traces\SampleWcfTrace.etl "%DRIVER_DIR%"\
 
 goto end

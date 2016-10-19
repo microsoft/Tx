@@ -5,7 +5,7 @@
     <DriverData>
       <ContextName>WcfSample</ContextName>
       <Files>($SampleTraces)SampleWcfTrace.etl;</Files>
-      <MetadataFiles>($SampleTraces)Microsoft.Windows.ApplicationServer.Applications.man;</MetadataFiles>
+      <MetadataFiles>($SampleTraces)Microsoft.Windows.ApplicationServer.Applications.manifest;</MetadataFiles>
       <IsRealTime>false</IsRealTime>
       <IsUsingDirectoryLookup>false</IsUsingDirectoryLookup>
     </DriverData>
