@@ -9,12 +9,15 @@ namespace Tx.Network.Snmp.Dynamic
     using System.Reactive;
     using System.Reflection;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     /// TypeMap implementation for SNMP attributed classes.
     /// </summary>
     public sealed class TrapTypeMap : IPartitionableTypeMap<IpPacket, ObjectIdentifier>
     {
+        private static readonly Regex HexStringRegex = new Regex("^[0-9A-F.-]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
+
         private static readonly ObjectIdentifier trapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
 
         public TrapTypeMap()
@@ -134,9 +137,9 @@ namespace Tx.Network.Snmp.Dynamic
                 else if (p.PropertyType == typeof(byte[]))
                 {
                     convertedValue = Expression.Call(
-                        Expression.Property(null, typeof(Encoding).GetProperties().Single(n => n.Name.Equals("UTF8", StringComparison.Ordinal))), 
-                        typeof(Encoding).GetMethod("GetBytes", new[] { typeof(string) }),
-                        Expression.Convert(convertedValue, typeof(string)));
+                        typeof(TrapTypeMap).GetMethod(
+                            "GetRawOctetStringBytes",
+                            BindingFlags.Static | BindingFlags.NonPublic), Expression.Convert(convertedValue, typeof(string)));
                 }
 
                 var conditional = Expression.Condition(
@@ -200,6 +203,35 @@ namespace Tx.Network.Snmp.Dynamic
         {
             var snmpDatagram = GetSnmpDatagram(ipPacket);
             return snmpDatagram.PduV2c;
+        }
+
+        private static byte[] GetRawOctetStringBytes(string octetString)
+        {
+            if (string.IsNullOrEmpty(octetString))
+            {
+                return new byte[0];
+            }
+
+            if ((((octetString.Length + 1) % 3) == 0) && HexStringRegex.IsMatch(octetString))
+            {
+                try
+                {
+                    var octetCount = (octetString.Length + 1) / 3;
+                    var octects = new byte[octetCount];
+                    for (int i = 0, index = 0; i < octetString.Length; i += 3, index++)
+                    {
+                        octects[index] = Convert.ToByte(octetString.Substring(i, 2), 16);
+                    }
+
+                    return octects;
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            return Encoding.UTF8.GetBytes(octetString);
         }
     }
 }

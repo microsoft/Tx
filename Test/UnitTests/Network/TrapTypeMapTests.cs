@@ -163,7 +163,7 @@ namespace Tests.Tx.Network
         }
 
         [TestMethod]
-        public void Test_OctetStringAsByteArray()
+        public void Test_OctetStringAsByteArray_1()
         {
             var typeMap = new TrapTypeMap();
 
@@ -203,6 +203,52 @@ namespace Tests.Tx.Network
             Assert.IsNotNull(transformedOutput.Property);
             Assert.AreEqual("Hello", Encoding.UTF8.GetString(transformedOutput.Property));
             Assert.AreEqual("Hello", transformedOutput.StringProperty);
+        }
+
+        [TestMethod]
+        public void Test_OctetStringAsByteArray_2()
+        {
+            var typeMap = new TrapTypeMap();
+
+            var transform = typeMap.GetTransform(typeof(FakeTrap2));
+
+            Assert.IsNotNull(transform);
+
+            var payload = new byte[] { 0x07, 0xE0, 0x06, 0x0E, 0x0E, 0x1E, 0x0E, 0x00 };
+
+            var octetStringVarBind = new VarBind(
+                new ObjectIdentifier("1.3.6.1.4.1.562.29.6.2.2"),
+                payload.ReadOctetString(0, payload.Length),
+                new Asn1TagInfo(Asn1Tag.OctetString, ConstructType.Primitive, Asn1Class.Universal));
+
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
+                506009u,
+                new Asn1TagInfo(Asn1SnmpTag.TimeTicks));
+
+            var trapVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0"),
+                new ObjectIdentifier("1.3.6.1.4.1.500.12"),
+                new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
+
+            var packet = new SnmpDatagram(
+                PduType.SNMPv2Trap,
+                SnmpVersion.V2C,
+                "Community",
+                50000,
+                SnmpErrorStatus.NoError,
+                0,
+                new[] { sysUpTime, trapVb, octetStringVarBind });
+
+            var encoded = packet.ToSnmpEncodedByteArray();
+
+            var udpDatagram = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
+
+            var transformedOutput = transform(udpDatagram) as FakeTrap2;
+
+            Assert.IsNotNull(transformedOutput);
+            Assert.IsNotNull(transformedOutput.Property);
+  
+            Assert.AreEqual(payload.Length, transformedOutput.Property.Length);
+            Assert.IsTrue(payload.Zip(transformedOutput.Property, (b, b1) => b == b1).All(i => i));
         }
 
         [TestMethod]
