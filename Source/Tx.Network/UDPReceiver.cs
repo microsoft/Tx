@@ -1,12 +1,11 @@
 ﻿namespace Tx.Network
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Sockets;
     using System.Reactive.Subjects;
-
+    using System.Threading;
 
     public class UdpReceiver : IObservable<IpPacket>, IDisposable
     {
@@ -22,8 +21,19 @@
         private Socket socket;
 
         Subject<IpPacket> _packetSubject { get; set; }
-        ConcurrentQueue<SocketAsyncEventArgs> _receivedDataProcessorsPool { get; set; }
-        bool _subscribed { get; set; }
+
+        private int runningFlag = 0;
+
+        private int disposeFlag = 0;
+
+        private bool IsDisposed
+        {
+            get
+            {
+                return this.disposeFlag == 1;
+            }
+        }
+
         private List<IDisposable> disposeables = new List<IDisposable>();
         #endregion
 
@@ -80,11 +90,12 @@
         public IDisposable Subscribe(IObserver<IpPacket> observer)
         {
             var o = _packetSubject.Subscribe(observer);
-            if (!_subscribed)
+
+            if (Interlocked.CompareExchange(ref this.runningFlag, 1, 0) == 0)
             {
-                _subscribed = true;
-                Start();
+                this.Start();
             }
+
             return o;
         }
 
@@ -107,83 +118,56 @@
         #region Private Methods
         private void Start()
         {
-            _receivedDataProcessorsPool = new ConcurrentQueue<SocketAsyncEventArgs>();
-            var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>(ReceiveCompletedHandler);
-            
-            // pre-allocate the SocketAsyncEventArgs in a receiver queue to constrain memory usage for buffers
-            for (var i = 0; i < ConcurrentReceivers; i++)
-            {
-                var eventArgs = new SocketAsyncEventArgs();
-                eventArgs.SetBuffer(new byte[ushort.MaxValue], 0, ushort.MaxValue);
-                eventArgs.Completed += eventArgsHandler;
-                _receivedDataProcessorsPool.Enqueue(eventArgs);
-                disposeables.Add(eventArgs);
-            }
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
-            this.socket.Bind(ListenEndPoint);
-            GetDataProcessorAndReceive();
+            this.socket.Bind(this.ListenEndPoint);
+
+            var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>(this.ReceiveCompletedHandler);
+            for (uint i = 0; i < this.ConcurrentReceivers; i++)
+            {
+                var arg = new SocketAsyncEventArgs();
+                arg.SetBuffer(new byte[ushort.MaxValue], 0, ushort.MaxValue);
+                arg.Completed += eventArgsHandler;
+
+                this.disposeables.Add(arg);
+                this.socket.ReceiveAsync(arg);
+            }
         }
 
         private void ReceiveCompletedHandler(object caller, SocketAsyncEventArgs socketArgs)
         {
-            if (!disposeCalled)
+            if (this.IsDisposed)
             {
-                GetDataProcessorAndReceive(); //call a new processor
-                var packet = new IpPacket();
-                var packetCheck = IsDestinationListenEndpoint(socketArgs.Buffer, out packet);
-
-                if (socketArgs.LastOperation == SocketAsyncOperation.Receive
-                    && socketArgs.SocketError == SocketError.Success
-                    && packetCheck
-                    )
-                {
-                    packet.ReceivedTime = DateTimeOffset.UtcNow;
-                    _packetSubject.OnNext(packet);
-                }
-                socketArgs.SetBuffer(0, ushort.MaxValue);
-                _receivedDataProcessorsPool.Enqueue(socketArgs);
-                GetDataProcessorAndReceive(); //failed to get a processor at the beginning, try now since an enqueue was performed.
-            }
-        }
-
-        private void GetDataProcessorAndReceive()
-        {
-            SocketAsyncEventArgs deqAsyncEvent = null;
-            if (_receivedDataProcessorsPool.TryDequeue(out deqAsyncEvent))
-            {
-                if (deqAsyncEvent.Offset != 0 || deqAsyncEvent.Count != ushort.MaxValue)
-                {
-                    deqAsyncEvent.SetBuffer(0, ushort.MaxValue);
-                }
-                var sockCheck = this.socket.ReceiveAsync(deqAsyncEvent);
+                return;
             }
 
-        }
+            if (socketArgs.SocketError == SocketError.Success)
+            {
+                var upacket = new UdpDatagram(socketArgs.Buffer);
+                if (upacket.Protocol == ProtocolType.Udp
+                    && upacket.DestinationIpAddress.Equals(this.ListenEndPoint.Address)
+                    && upacket.DestinationPort == this.ListenEndPoint.Port)
+                {
+                    upacket.ReceivedTime = DateTimeOffset.UtcNow;
+                    this._packetSubject.OnNext(upacket);
+                }
+            }
 
-        private bool IsDestinationListenEndpoint(byte[] Buffer, out IpPacket packet)
-        {
-            var upacket = new UdpDatagram(Buffer);
-            packet = upacket;
-            if (packet.Protocol != ProtocolType.Udp) return false;
-
-            return upacket.DestinationIpAddress.Equals(ListenEndPoint.Address) && upacket.DestinationPort == ListenEndPoint.Port;
+            socketArgs.SetBuffer(0, ushort.MaxValue);
+            this.socket.ReceiveAsync(socketArgs);
         }
         #endregion
 
         #region IDisposable Support
-        bool disposeCalled;
 
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
         }
 
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (disposing && !disposeCalled)
+            if (Interlocked.CompareExchange(ref this.disposeFlag, 1, 0) == 0)
             {
-                disposeCalled = true;
-
                 if (this.socket != null)
                 {
                     try
