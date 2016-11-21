@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9D30BB5D-227A-4EC0-8331-5ECC8A3407E7}</ProjectGuid>
+    <ProjectGuid>{A9590BB2-385A-4EB8-BBAC-C3DEA95C12B0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TxSamples</RootNamespace>

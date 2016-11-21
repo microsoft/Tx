@@ -1,12 +1,12 @@
-﻿
 namespace Tests.Tx.Network
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net;
-    using System.Net.NetworkInformation;
-    using System.Net.Sockets;
+    using System.Reactive;
+    using System.Reactive.Linq;
     using System.Text;
 
     using global::Tx.Network;
@@ -20,7 +20,7 @@ namespace Tests.Tx.Network
     {
         private UdpDatagram fakeTrapUdp;
 
-        private IpPacket fakeIpPacket;
+        private SnmpDatagramV2C fakeIpPacket;
 
         [TestInitialize]
         public void TestInitialize()
@@ -42,35 +42,24 @@ namespace Tests.Tx.Network
                 8938ul,
                 new Asn1TagInfo(Asn1SnmpTag.Counter64));
 
-            var packet = new SnmpDatagram(
+            fakeIpPacket = new SnmpDatagramV2C(
+                DateTimeOffset.MinValue,
+                "1.1.1.1",
+                new SnmpHeader(SnmpVersion.V2C, "Community"),
+                new[] { sysUpTime, trapVb, integerVarBind, extraneousVb },
                 PduType.SNMPv2Trap,
-                SnmpVersion.V2C,
-                "Community",
                 50000,
                 SnmpErrorStatus.NoError,
-                0,
-                new[] { sysUpTime, trapVb, integerVarBind, extraneousVb });
+                0);
 
-            var encoded = packet.ToSnmpEncodedByteArray();
+            var encoded = fakeIpPacket.ToSnmpEncodedByteArray();
 
-            this.fakeIpPacket = new IpPacket(
-                NetworkInterfaceComponent.IPv4,
-                Byte.MaxValue,
-                Byte.MaxValue,
-                Byte.MaxValue,
-                UInt16.MaxValue,
-                UInt16.MaxValue,
-                Byte.MaxValue,
-                UInt16.MaxValue,
-                Byte.MaxValue,
-                ProtocolType.Udp,
-                IPAddress.Parse("1.1.1.1"),
-                IPAddress.Parse("2.2.2.2"),
-                new byte[0],
-                new byte[0]);
-
-            this.fakeTrapUdp = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
-        }
+            this.fakeTrapUdp = new UdpDatagram
+            {
+                UdpData = encoded.AsByteArraySegment(),
+                PacketHeader = new IpPacketHeader(IPAddress.Parse("1.1.1.1"), IPAddress.Parse("2.2.2.2"), false, 1,1,1,1,1,1,1,1,1)
+            };
+       }
 
         [TestMethod]
         public void TestUnattributedClassReturnsDefaultKey()
@@ -102,7 +91,7 @@ namespace Tests.Tx.Network
 
             var receivedTime = DateTimeOffset.UtcNow;
             this.fakeTrapUdp.ReceivedTime = receivedTime;
-            var transformedOutput = transform(this.fakeTrapUdp) as FakeTrap;
+            var transformedOutput = transform(this.fakeIpPacket) as FakeTrap;
 
             Assert.IsNotNull(transformedOutput);
             Assert.AreEqual(506009u, transformedOutput.SysUpTime);
@@ -143,7 +132,7 @@ namespace Tests.Tx.Network
 
             Assert.IsNotNull(transform);
 
-            var transformedOutput = transform(this.fakeTrapUdp) as FakeTrapStringIp;
+            var transformedOutput = transform(this.fakeIpPacket) as FakeTrapStringIp;
 
             Assert.IsNotNull(transformedOutput);
             Assert.AreEqual("1.1.1.1", transformedOutput.SourceAddress);
@@ -153,7 +142,7 @@ namespace Tests.Tx.Network
         public void TestFakeTrapInputKey()
         {
             var typeMap = new TrapTypeMap();
-            var inputKey = typeMap.GetInputKey(this.fakeTrapUdp);
+            var inputKey = typeMap.GetInputKey(this.fakeIpPacket);
 
             Assert.AreEqual(new ObjectIdentifier("1.3.6.1.4.1.500.12"), inputKey);
 
@@ -163,7 +152,30 @@ namespace Tests.Tx.Network
         }
 
         [TestMethod]
+<<<<<<< HEAD
+        public void TestE2e()
+        {
+            var result = new List<FakeTrap>();
+
+            using (var playback = new Playback())
+            {
+                ((IPlaybackConfiguration)playback)
+                    .AddInput(() => Observable.Return(this.fakeTrapUdp), typeof(TrapTypeMap));
+
+                using (playback.GetObservable<FakeTrap>().Subscribe(result.Add))
+                {
+                    playback.Run();
+                }
+            }
+
+            Assert.AreEqual(1, result.Count);
+        }
+
+        [TestMethod]
+        public void Test_OctetStringAsByteArray()
+=======
         public void Test_OctetStringAsByteArray_1()
+>>>>>>> upstream/master
         {
             var typeMap = new TrapTypeMap();
 
@@ -184,20 +196,17 @@ namespace Tests.Tx.Network
                 new ObjectIdentifier("1.3.6.1.4.1.500.12"),
                 new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
 
-            var packet = new SnmpDatagram(
+            var packet = new SnmpDatagramV2C(
+                DateTimeOffset.MinValue,
+                "1.1.1.1",
+                new SnmpHeader(SnmpVersion.V2C, "Community"),
+                new[] { sysUpTime, trapVb, octetStringVarBind },
                 PduType.SNMPv2Trap,
-                SnmpVersion.V2C,
-                "Community",
                 50000,
                 SnmpErrorStatus.NoError,
-                0,
-                new[] { sysUpTime, trapVb, octetStringVarBind });
+                0);
 
-            var encoded = packet.ToSnmpEncodedByteArray();
-
-            var udpDatagram = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
-
-            var transformedOutput = transform(udpDatagram) as FakeTrap2;
+            var transformedOutput = transform(packet) as FakeTrap2;
 
             Assert.IsNotNull(transformedOutput);
             Assert.IsNotNull(transformedOutput.Property);
@@ -273,20 +282,17 @@ namespace Tests.Tx.Network
                 new ObjectIdentifier("1.3.6.1.4.1.500.12"),
                 new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
 
-            var packet = new SnmpDatagram(
+            var packet = new SnmpDatagramV2C(
+                DateTimeOffset.MinValue, 
+                "1.1.1.1",
+                new SnmpHeader(SnmpVersion.V2C,"Community"),
+                new[] { sysUpTime, trapVb, integerVarBind },
                 PduType.SNMPv2Trap,
-                SnmpVersion.V2C,
-                "Community",
-                50000,
+                50000, 
                 SnmpErrorStatus.NoError,
-                0,
-                new[] { sysUpTime, trapVb, integerVarBind });
+                0);
 
-            var encoded = packet.ToSnmpEncodedByteArray();
-
-            var udpDatagram = new UdpDatagram(this.fakeIpPacket, 10, 10, (ushort)(encoded.Length + 8), encoded);
-
-            var transformedOutput = transform(udpDatagram) as FakeTrap3;
+            var transformedOutput = transform(packet) as FakeTrap3;
 
             Assert.IsNotNull(transformedOutput);
             Assert.AreEqual(SimpleEnum.B, transformedOutput.EnumProperty);

@@ -28,9 +28,9 @@
         /// <param name="asn1TypeInfo">The asn1 type information.</param>
         public VarBind(ObjectIdentifier oid, object value, Asn1TagInfo asn1TypeInfo)
         {
-            Oid = oid;
-            Value = value;
-            Asn1TypeInfo = asn1TypeInfo;
+            this.Oid = oid;
+            this.Value = value;
+            this.Asn1TypeInfo = asn1TypeInfo;
         }
 
         /// <summary>
@@ -39,9 +39,9 @@
         /// <param name="oid">The oid.</param>
         public VarBind(ObjectIdentifier oid)
         {
-            Oid = oid;
-            Value = null;
-            Asn1TypeInfo = new Asn1TagInfo(Asn1Tag.Null);
+            this.Oid = oid;
+            this.Value = null;
+            this.Asn1TypeInfo = new Asn1TagInfo(Asn1Tag.Null);
         }
     }
 }

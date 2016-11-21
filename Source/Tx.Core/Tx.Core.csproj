@@ -29,11 +29,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System.Reactive.Interfaces">
       <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Linq">
       <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
@@ -48,18 +48,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Attributes.cs" />
+    <Compile Include="ITransformerBuilder.cs" />
+    <Compile Include="PassthroughTransformerBuilder.cs" />
+    <Compile Include="Transformer.cs" />
+    <Compile Include="TypeIdentifierHelpers.cs" />
     <Compile Include="ByteArrayExtensions.cs" />
-    <Compile Include="CsvObservable.cs" />
-    <Compile Include="CsvRecordTypeMap.cs" />
+    <Compile Include="Csv\CsvObservable.cs" />
+    <Compile Include="Csv\CsvRecordTypeMap.cs" />
     <Compile Include="CustomAttributeProviderExtensions.cs" />
     <Compile Include="BufferQueue.cs" />
     <Compile Include="Envelope.cs" />
-    <Compile Include="EnvelopeTypeMap.cs" />
     <Compile Include="IEnvelope.cs" />
     <Compile Include="IPlayback.cs" />
     <Compile Include="IPlaybackConfiguration.cs" />
     <Compile Include="ITypeMap.cs" />
-    <Compile Include="CsvExtensions.cs" />
+    <Compile Include="Csv\CsvExtensions.cs" />
     <Compile Include="NonDetachObservable.cs" />
     <Compile Include="PlaybackConfigurationExtensions.cs" />
     <Compile Include="PullMergeSort.cs" />
@@ -71,7 +74,6 @@
     <Compile Include="PartitionKeyDeserializer.cs" />
     <Compile Include="Playback.cs" />
     <Compile Include="RootDeserializer.cs" />
-    <Compile Include="TypeIdentifierHelpers.cs" />
     <Compile Include="TypeMap\SingleTypeMap.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TimeSource.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="TypeMap\TimestampedTypeMap.cs" />
     <Compile Include="TypeOccurenceAggregator.cs" />
     <Compile Include="TypeOccurenceStatistics.cs" />
+    <Compile Include="TypeMap\EnvelopeTypeMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\key.snk">

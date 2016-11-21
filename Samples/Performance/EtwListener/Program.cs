@@ -115,6 +115,7 @@ namespace EtwListener
         {
             _timer = new Timer(OnTimer, null, 1000, 1000);
 
+#if ETW_NATIVE_METHODS_ENABLED
             EVENT_TRACE_LOGFILE logFile = new EVENT_TRACE_LOGFILE();
             logFile.ProcessTraceMode = TraceModeEventRecord | TraceModeRealTime;
             logFile.LoggerName = "TxRealTime";
@@ -132,6 +133,7 @@ namespace EtwListener
             {
                 Console.WriteLine("Error in PropcessTrace {0}", error);
             }
+#endif
         }
 
         static long counter = 0;

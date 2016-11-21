@@ -28,8 +28,8 @@
         /// <param name="community">The Snmp Community.</param>
         public SnmpHeader(SnmpVersion version, string community)
         {
-            Version = version;
-            Community = community;
+            this.Version = version;
+            this.Community = community;
         }
     }
 }

@@ -6,8 +6,6 @@
     using System.Reactive;
     using System.Reactive.Linq;
 
-    using global::Tx.Core;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

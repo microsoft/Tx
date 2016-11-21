@@ -1,21 +1,21 @@
-﻿
-namespace Tx.Network.Snmp
+﻿namespace Tx.Network.Snmp
 {
+    using Tx.Network;
+
     internal static class UdpDatagramExtensions
     {
-        public static SnmpDatagram TryParseSnmpDatagram(this UdpDatagram udpDatagram)
+        public static bool TryParseSnmpDatagram(this IUdpDatagram udpDatagram, out SnmpDatagram snmpDatagram)
         {
             try
             {
-                var transportObject = udpDatagram.TransportObject;
-                var datagram = udpDatagram.UdpData.ToSnmpDatagram();
-                udpDatagram.TransportObject = datagram;
-
-                return datagram;
+                var segment = udpDatagram.Data.AsByteArraySegment();
+                snmpDatagram = segment.ToSnmpDatagram(udpDatagram.ReceivedTime, udpDatagram.PacketHeader.SourceIpAddress.ToString());
+                return true;
             }
             catch
             {
-                return default(SnmpDatagram);
+                snmpDatagram = default(SnmpDatagram);
+                return false;
             }
         }
     }

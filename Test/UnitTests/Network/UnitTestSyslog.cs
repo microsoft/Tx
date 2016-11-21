@@ -1,102 +1,157 @@
-﻿
-namespace Tx.Network.UnitTests
+﻿namespace Tx.Network.UnitTests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Net;
-    using System.Reactive.Linq;
-    using Tx.Network;
+    using Tx.Network.Syslogs;
+    using System.Text.RegularExpressions;
+    using System.Text;
 
     [TestClass]
     public class UnitTestSyslog
     {
+
         [TestMethod]
-        public void Run_1min_10ms()
+        public void TestBuildSyslogsSyslog()
         {
-            var duration = TimeSpan.FromSeconds(60);
-            var delay = TimeSpan.FromMilliseconds(10);
 
-            Run(duration, delay);
+            var someDateTimeOffset = DateTimeOffset.UtcNow;
+            var anyIpAddress = "127.0.0.1";
+            var anySeverity = Severity.Alert;
+            var anyFacility = Facility.Syslog;
+            var anyMessage = "This is a syslog";
+            var tmpDict = new Dictionary<string, string>();
+            tmpDict.Add("somekey", "somevalue");
+            var anyRODictionary = new ReadOnlyDictionary<string, string>(tmpDict);
+
+            var sys = new Syslog(someDateTimeOffset, anyIpAddress, anySeverity, anyFacility, anyMessage, anyRODictionary);
+
+            Assert.AreEqual(someDateTimeOffset, sys.ReceivedTime);
+            Assert.AreEqual(anyIpAddress, sys.SourceIpAddress);
+            Assert.AreEqual(anySeverity, sys.LogSeverity);
+            Assert.AreEqual(anyFacility, sys.LogFacility);
+            Assert.AreEqual(anyMessage, sys.Message);
+            Assert.AreEqual(tmpDict["somekey"], sys.NamedCollectedMatches["somekey"]);
+
         }
+
         [TestMethod]
-        public void Run_10s_10ms()
+        public void TestBuildSyslogParser()
         {
-            var duration = TimeSpan.FromSeconds(10);
-            var delay = TimeSpan.FromMilliseconds(10);
 
-            Run(duration, delay);
+            var sysparser = new SyslogParser();
+
+            Assert.IsNotNull(sysparser);
+
+            var anyRegex = new Regex(@"\<(?<PRIVAL>\d+?)\>\s*(?<MESSAGE>.+)");
+
+            var sysparserWithRegex = new SyslogParser(anyRegex);
+
+            Assert.IsNotNull(sysparserWithRegex);
+
         }
+
         [TestMethod]
-        public void Run_10m_100ms()
+        public void TestSyslogParserParsing()
         {
-            var duration = TimeSpan.FromSeconds(600);
-            var delay = TimeSpan.FromMilliseconds(100);
+            var testprival = "<140>";
+            var severity = (Severity)Enum.ToObject(typeof(Severity), 140 & 0x7);
+            var facility = (Facility)Enum.ToObject(typeof(Facility), 140 >> 3);
 
-            Run(duration, delay);
-        }
-        [TestMethod]
-        public void Run_SendReceive_1m_100ms()
-        {
-            var duration = TimeSpan.FromSeconds(60);
-            var delay = TimeSpan.FromMilliseconds(100);
-            RunCompareSendReceive(duration, delay);
-        }
-        [TestMethod]
-        public void Run_SendReceive_10m_100ms()
-        {
-            var duration = TimeSpan.FromSeconds(600);
-            var delay = TimeSpan.FromMilliseconds(100);
-            RunCompareSendReceive(duration, delay);
-        }
-        private void Run(TimeSpan duration, TimeSpan delay)
-        {
-            ReceiveTxSyslog recTxSys = new ReceiveTxSyslog(new IPEndPoint(IPAddress.Parse(TxSyslogTestSettings.TargetIP), TxSyslogTestSettings.TargetPort), 10);
-            recTxSys.RunCount();
-            TxSyslogSender sendTxSys = new TxSyslogSender();
-            var sendTask = sendTxSys.StartSendAsync(TxSyslogTestSettings.SourceIP,
-                 TxSyslogTestSettings.TargetIP,
-                 TxSyslogTestSettings.TargetPort,
-                 delay,
-                 duration,
-                 TxSyslogTestSettings.MessageList);
-            var count = sendTask.Result;
-            Assert.AreEqual(count, recTxSys.Counter);
-            Console.Out.WriteLine(" {0},{1} ", count, recTxSys.Counter);
-        }
-        private void RunCompareSendReceive(TimeSpan duration, TimeSpan delay)
-        {
-            ReceiveTxSyslog txReceiver = new ReceiveTxSyslog(new IPEndPoint(IPAddress.Parse(TxSyslogTestSettings.TargetIP), TxSyslogTestSettings.TargetPort), 10);
-            txReceiver.RunCount();
-            var txRecdObs = txReceiver.ObserveTx();
+            var testmessage =  "A message with any pri-val";
+            var testString = testprival + testmessage;
 
-            var receivedList = new List<Syslog>();
-            txRecdObs
-                .Subscribe<Syslog>(j => receivedList.Add(j));
+            var udData = new ArraySegment<byte>(Encoding.ASCII.GetBytes(testString));
 
-            TxSyslogSender sysSend = new TxSyslogSender();
-            var sendTask = sysSend.StartSendAsync(TxSyslogTestSettings.SourceIP,
-                TxSyslogTestSettings.TargetIP,
-                TxSyslogTestSettings.TargetPort,
-                delay,
-                duration,
-                TxSyslogTestSettings.MessageList);
+            var pHeader = new IpPacketHeader(
+                IPAddress.Parse("127.0.0.1"),
+                IPAddress.Parse("127.0.0.1"),
+                false,
+                4,
+                0,
+                0,
+                (ushort)(udData.Array.Length + 20 + 8),
+                0,
+                0,
+                0,
+                255,
+                0
+                );
+            
 
-            var counter = sendTask.Result;
-
-            Assert.AreEqual(counter, txReceiver.Counter);
-
-            for (int c = 0; c < txReceiver.Counter; c++)
+            var udHeader = new UdpDatagramHeader(16, 16, (ushort)udData.Array.Length, 0);
+            UdpDatagram ud = new UdpDatagram()
             {
-                Assert.AreEqual(sysSend.SentList[c].Fac,receivedList[c].LogFacility);
-                Assert.AreEqual(sysSend.SentList[c].Sev, receivedList[c].LogSeverity);
-                Assert.AreEqual(TxSyslogTestSettings.SourceIP, receivedList[c].SourceIpAddress.ToString());
-                Assert.AreEqual(TxSyslogTestSettings.TargetIP, receivedList[c].DestinationIpAddress.ToString());
-                Assert.AreEqual(TxSyslogTestSettings.TargetPort, receivedList[c].DestinationPort);
-                Assert.AreEqual(sysSend.SentList[c].Message.ToLowerInvariant(),receivedList[c].Message.ToLowerInvariant());
-                Console.Out.WriteLine(receivedList[c].Message);
-                Console.Out.WriteLine(sysSend.SentList[c].Message);
-            }
+                @UdpDatagramHeader = udHeader,
+                UdpData = udData,
+                PacketHeader = pHeader,
+                ReceivedTime = DateTimeOffset.UtcNow
+            };
+
+            var sysparser = new SyslogParser();
+            var sys = sysparser.Parse(ud);
+
+            Assert.IsNotNull(sys);
+            Assert.AreEqual(testmessage, sys.Message);
+            Assert.AreEqual(severity, sys.LogSeverity);
+            Assert.AreEqual(facility, sys.LogFacility);
+            Assert.AreEqual(testmessage, sys.NamedCollectedMatches["MESSAGE"]);
+
+
+
         }
+        [TestMethod]
+        public void TestSyslogCustomParserParsing()
+        {
+            var testprival = "<140>";
+            var severity = (Severity)Enum.ToObject(typeof(Severity), 140 & 0x7);
+            var facility = (Facility)Enum.ToObject(typeof(Facility), 140 >> 3);
+
+            var testmessage = "A message with any pri-val";
+            var testString = testprival + testmessage;
+
+            var udData = new ArraySegment<byte>(Encoding.ASCII.GetBytes(testString));
+
+            var pHeader = new IpPacketHeader(
+                IPAddress.Parse("127.0.0.1"),
+                IPAddress.Parse("127.0.0.1"),
+                false,
+                4,
+                0,
+                0,
+                (ushort)(udData.Array.Length + 20 + 8),
+                0,
+                0,
+                0,
+                255,
+                0
+                );
+
+
+            var udHeader = new UdpDatagramHeader(16, 16, (ushort)udData.Array.Length, 0);
+            UdpDatagram ud = new UdpDatagram()
+            {
+                @UdpDatagramHeader = udHeader,
+                UdpData = udData,
+                PacketHeader = pHeader,
+                ReceivedTime = DateTimeOffset.UtcNow
+            };
+
+            var customParser = new Regex(@"(?<WithAny>with\sany)", RegexOptions.ExplicitCapture);
+            var sysparser = new SyslogParser(customParser);
+            var sys = sysparser.Parse(ud);
+
+            Assert.IsNotNull(sys);
+            Assert.AreEqual(testmessage, sys.Message);
+            Assert.AreEqual(severity, sys.LogSeverity);
+            Assert.AreEqual(facility, sys.LogFacility);
+            Assert.AreEqual("with any", sys.NamedCollectedMatches["WithAny"]);
+
+
+
+        }
+
     }
 }

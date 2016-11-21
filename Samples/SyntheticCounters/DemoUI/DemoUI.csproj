@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AAE1BCF1-71E1-4E3E-99A5-1C934A9AC92E}</ProjectGuid>
+    <ProjectGuid>{C3898F2E-0ACF-4C1A-B23F-652185026848}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TcpSyntheticCounters</RootNamespace>

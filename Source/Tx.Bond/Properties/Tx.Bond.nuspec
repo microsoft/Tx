@@ -4,7 +4,7 @@
     <id>Tx.Bond</id>
     <title>Tx.Bond</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>1.0.5-beta</version>
+    <version>{version}-beta2</version>
     <description>Tx (LINQ to Logs and Traces) Bond-in-ETW component</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -12,15 +12,11 @@
     <projectUrl>http://tx.codeplex.com</projectUrl>
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
 
-<!--
-    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=186234</licenseUrl>
-    <iconUrl>http://go.microsoft.com/fwlink/?LinkId=215482</iconUrl>
--->
     <language>en-us</language>
       <tags>Tx Traces Logs Playback Replay XEvent ETW Bond</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Windows" version="1.0.5-beta" />
+      <dependency id="Tx.Windows" version="{version}-beta2" />
       <dependency id="Bond.Runtime.CSharp" version="3.0.6" />
       <dependency id="Microsoft.Diagnostics.Tracing.EventSource.Redist" version="1.0.26" />
     </dependencies>

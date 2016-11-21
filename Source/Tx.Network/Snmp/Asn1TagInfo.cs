@@ -34,17 +34,17 @@ namespace Tx.Network.Snmp
         /// <param name="tagType">Type of the tag.</param>
         internal Asn1TagInfo(int asn1Class, int constructType, int tagType)
         {
-            Asn1ClassType = (Asn1Class)asn1Class;
-            Asn1ConstructType = (ConstructType)constructType;
-            if (Asn1ClassType == Asn1Class.Application)
+            this.Asn1ClassType = (Asn1Class)asn1Class;
+            this.Asn1ConstructType = (ConstructType)constructType;
+            if (this.Asn1ClassType == Asn1Class.Application)
             {
-                Asn1SnmpTagType = (Asn1SnmpTag)tagType;
-                Asn1TagType = Asn1Tag.NotAsn1Data;
+                this.Asn1SnmpTagType = (Asn1SnmpTag)tagType;
+                this.Asn1TagType = Asn1Tag.NotAsn1Data;
             }
             else
             {
-                Asn1TagType = (Asn1Tag)tagType;
-                Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
+                this.Asn1TagType = (Asn1Tag)tagType;
+                this.Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
             }
         }
 
@@ -67,10 +67,10 @@ namespace Tx.Network.Snmp
         /// <param name="constructType">Type of the construct.</param>
         public Asn1TagInfo(Asn1SnmpTag asn1SnmpTag, ConstructType constructType)
         {
-            Asn1ClassType = Asn1Class.Application;
-            Asn1ConstructType = constructType;
-            Asn1SnmpTagType = asn1SnmpTag;
-            Asn1TagType = Asn1Tag.NotAsn1Data;
+            this.Asn1ClassType = Asn1Class.Application;
+            this.Asn1ConstructType = constructType;
+            this.Asn1SnmpTagType = asn1SnmpTag;
+            this.Asn1TagType = Asn1Tag.NotAsn1Data;
         }
 
         /// <summary>
@@ -80,10 +80,10 @@ namespace Tx.Network.Snmp
         /// <param name="constructType">Type of the construct.</param>
         public Asn1TagInfo(Asn1Tag asn1Tag, ConstructType constructType)
         {
-            Asn1ClassType = Asn1Class.Universal;
-            Asn1ConstructType = constructType;
-            Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
-            Asn1TagType = asn1Tag;
+            this.Asn1ClassType = Asn1Class.Universal;
+            this.Asn1ConstructType = constructType;
+            this.Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
+            this.Asn1TagType = asn1Tag;
         }
 
         /// <summary>
@@ -94,10 +94,10 @@ namespace Tx.Network.Snmp
         /// <param name="asn1Class">The asn1 class.</param>
         public Asn1TagInfo(Asn1Tag asn1Tag, ConstructType constructType, Asn1Class asn1Class)
         {
-            Asn1ClassType = asn1Class;
-            Asn1ConstructType = constructType;
-            Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
-            Asn1TagType = asn1Tag;
+            this.Asn1ClassType = asn1Class;
+            this.Asn1ConstructType = constructType;
+            this.Asn1SnmpTagType = Asn1SnmpTag.NotSnmpData;
+            this.Asn1TagType = asn1Tag;
         }
     }
 }

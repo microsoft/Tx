@@ -4,7 +4,7 @@
     <id>Tx.Core</id>
     <title>Tx.Core</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>1.0.5-beta</version>
+    <version>{version}-beta2</version>
     <description>Tx (LINQ to Logs and Traces) core components, not specific to the event format</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -12,15 +12,11 @@
     <projectUrl>http://tx.codeplex.com</projectUrl>
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
 
-<!--
-    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=186234</licenseUrl>
-    <iconUrl>http://go.microsoft.com/fwlink/?LinkId=215482</iconUrl>
--->
     <language>en-us</language>
       <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Rx-Main" version="2.2.4" />
+      <dependency id="System.Reactive" version="3.0.0" />
     </dependencies>
   </metadata>
 </package>

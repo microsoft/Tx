@@ -4,7 +4,6 @@ namespace Tx.Bond
 {
     using System;
     using System.Reactive;
-    using Tx.Binary;
 
     public static class EtwExtensions
     {
@@ -21,7 +20,7 @@ namespace Tx.Bond
                 throw new ArgumentNullException("files");
             }
 
-            playback.AddInput(() => BinaryEtwObservable.FromFiles(files), typeof(GeneralPartitionableTypeMap));
+            playback.AddInput(() => BinaryEtwObservable.FromFiles(files), typeof(BondJsonEnvelopeTypeMap));
         }
 
         [FileParser("Sequential Bond Event Trace Log", ".etl")]
@@ -37,7 +36,7 @@ namespace Tx.Bond
                 throw new ArgumentNullException("files");
             }
 
-            playback.AddInput(() => BinaryEtwObservable.FromSequentialFiles(files), typeof(GeneralPartitionableTypeMap));
+            playback.AddInput(() => BinaryEtwObservable.FromSequentialFiles(files), typeof(BondJsonEnvelopeTypeMap));
         }
     }
 }

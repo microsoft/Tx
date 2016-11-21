@@ -1,6 +1,7 @@
 ﻿namespace Tx.Network.Snmp
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Net;
     using System.Text;
@@ -139,22 +140,22 @@
         /// <param name="offset">The offset.</param>
         /// <param name="varBinds">The variable binds.</param>
         /// <returns>int offset</returns>
-        public static int EncodeVarBinds(this byte[] data, int offset, ReadOnlyCollection<VarBind> varBinds)
+        public static int EncodeVarBinds(this byte[] data, int offset, IReadOnlyCollection<VarBind> varBinds)
         {
             int length = offset;
-            int tempOffset = 0;
-            for(int i=0; i< varBinds.Count; i++)
+
+            foreach (var item in varBinds)
             {
                 offset = data.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Constructed, (byte)Asn1Tag.Sequence);
-                tempOffset = data.EncodeOid(offset + 1, varBinds[i].Oid.Oids);
+                int tempOffset = data.EncodeOid(offset + 1, item.Oid.Oids);
 
-                if (varBinds[i].Asn1TypeInfo.Asn1SnmpTagType == Asn1SnmpTag.NotSnmpData)
+                if (item.Asn1TypeInfo.Asn1SnmpTagType == Asn1SnmpTag.NotSnmpData)
                 {
-                    switch(varBinds[i].Asn1TypeInfo.Asn1TagType)
+                    switch (item.Asn1TypeInfo.Asn1TagType)
                     {
                         case Asn1Tag.Integer:
                             {
-                                tempOffset = data.EncodeLongInteger(tempOffset, Convert.ToInt64(varBinds[i].Value));
+                                tempOffset = data.EncodeLongInteger(tempOffset, Convert.ToInt64(item.Value));
                                 break;
                             }
                         case Asn1Tag.Null:
@@ -164,12 +165,12 @@
                             }
                         case Asn1Tag.OctetString:
                             {
-                                tempOffset = data.EncodeOctetString(tempOffset, (string)varBinds[i].Value);
+                                tempOffset = data.EncodeOctetString(tempOffset, (string)item.Value);
                                 break;
                             }
                         case Asn1Tag.ObjectIdentifier:
                             {
-                                tempOffset = data.EncodeOid(tempOffset, ((ObjectIdentifier)varBinds[i].Value).Oids);
+                                tempOffset = data.EncodeOid(tempOffset, ((ObjectIdentifier)item.Value).Oids);
                                 break;
                             }
                         default:
@@ -181,36 +182,36 @@
                 }
                 else
                 {
-                    switch (varBinds[i].Asn1TypeInfo.Asn1SnmpTagType)
+                    switch (item.Asn1TypeInfo.Asn1SnmpTagType)
                     {
                         case Asn1SnmpTag.Counter:
                             {
-                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)varBinds[i].Value, (byte)Asn1SnmpTag.Counter);
+                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)item.Value, (byte)Asn1SnmpTag.Counter);
                                 break;
                             }
                         case Asn1SnmpTag.IpAddress:
                             {
-                                tempOffset = data.EncodeIPAddress(tempOffset, (System.Net.IPAddress)varBinds[i].Value);
+                                tempOffset = data.EncodeIPAddress(tempOffset, (System.Net.IPAddress)item.Value);
                                 break;
                             }
                         case Asn1SnmpTag.Counter64:
                             {
-                                tempOffset = data.EncodeUnsignedLong(tempOffset, (ulong)varBinds[i].Value, (byte)Asn1SnmpTag.Counter64);
+                                tempOffset = data.EncodeUnsignedLong(tempOffset, (ulong)item.Value, (byte)Asn1SnmpTag.Counter64);
                                 break;
                             }
                         case Asn1SnmpTag.Gauge:
                             {
-                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)varBinds[i].Value, (byte)Asn1SnmpTag.Gauge);
+                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)item.Value, (byte)Asn1SnmpTag.Gauge);
                                 break;
                             }
                         case Asn1SnmpTag.TimeTicks:
                             {
-                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)varBinds[i].Value, (byte)Asn1SnmpTag.TimeTicks);
+                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)item.Value, (byte)Asn1SnmpTag.TimeTicks);
                                 break;
                             }
                         case Asn1SnmpTag.UInt32:
                             {
-                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)varBinds[i].Value, (byte)Asn1SnmpTag.UInt32);
+                                tempOffset = data.EncodeUnsignedInteger(tempOffset, (uint)item.Value, (byte)Asn1SnmpTag.UInt32);
                                 break;
                             }
                         default:

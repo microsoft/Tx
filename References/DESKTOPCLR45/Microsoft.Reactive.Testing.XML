@@ -261,6 +261,16 @@
             </summary>
             <typeparam name="T">Type of the value.</typeparam>
         </member>
+        <member name="P:Microsoft.Reactive.Testing.Recorded`1.Time">
+            <summary>
+            Gets the virtual time the value was produced on.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Reactive.Testing.Recorded`1.Value">
+            <summary>
+            Gets the recorded value.
+            </summary>
+        </member>
         <member name="M:Microsoft.Reactive.Testing.Recorded`1.#ctor(System.Int64,`0)">
             <summary>
             Creates a new object recording the production of the specified value at the given virtual time.
@@ -310,16 +320,6 @@
             </summary>
             <returns>String representation of the current Recorded&lt;T&gt; value.</returns>
         </member>
-        <member name="P:Microsoft.Reactive.Testing.Recorded`1.Time">
-            <summary>
-            Gets the virtual time the value was produced on.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Reactive.Testing.Recorded`1.Value">
-            <summary>
-            Gets the recorded value.
-            </summary>
-        </member>
         <member name="T:Microsoft.Reactive.Testing.Subscription">
             <summary>
             Records information about subscriptions to and unsubscriptions from observable sequences.
@@ -328,6 +328,16 @@
         <member name="F:Microsoft.Reactive.Testing.Subscription.Infinite">
             <summary>
             Infinite virtual time value, used to indicate an unsubscription never took place.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Reactive.Testing.Subscription.Subscribe">
+            <summary>
+            Gets the subscription virtual time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Reactive.Testing.Subscription.Unsubscribe">
+            <summary>
+            Gets the unsubscription virtual time.
             </summary>
         </member>
         <member name="M:Microsoft.Reactive.Testing.Subscription.#ctor(System.Int64)">
@@ -384,16 +394,6 @@
             Returns a string representation of the current Subscription value.
             </summary>
             <returns>String representation of the current Subscription value.</returns>
-        </member>
-        <member name="P:Microsoft.Reactive.Testing.Subscription.Subscribe">
-            <summary>
-            Gets the subscription virtual time.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Reactive.Testing.Subscription.Unsubscribe">
-            <summary>
-            Gets the unsubscription virtual time.
-            </summary>
         </member>
         <member name="T:Microsoft.Reactive.Testing.TestScheduler">
             <summary>

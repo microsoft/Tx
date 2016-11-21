@@ -11,7 +11,7 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
-using Tx.Binary;
+using Tx.Bond;
 
 namespace Tx.Bond.LinqPad
 {

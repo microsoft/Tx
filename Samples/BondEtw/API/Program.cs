@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Reactive;
-using System.Reflection;
 using System.Security.Principal;
 using Tx.Bond;
 
@@ -22,7 +19,7 @@ namespace BondEtwSample
         {
             StartEtw();
 
-            var observer = new BondEtwObserver(Type2ManifestMap(), TimeSpan.FromMinutes(1));
+            var observer = new BinaryEtwObserver("Sample", new[] { typeof(Evt) }, TimeSpan.FromMinutes(1));
 
             for (int i = 0; i < 10; i++)
                 observer.OnNext(new Evt { Time = DateTime.UtcNow.ToShortDateString(), Message = "iteration " + i });
@@ -65,19 +62,6 @@ namespace BondEtwSample
         {
             var logman = Process.Start("logman.exe", "stop " + sessionName + " -ets");
             logman.WaitForExit();
-        }
-
-        static Dictionary<Type, string> Type2ManifestMap()
-        {
-            // this is example how to keep Bond manifests as resources
-            // In the Properties of Syslog.bond choose Build Action = Embedded Resource
-            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("BondEtwSample.Evt.bond");
-            string manifest = new StreamReader(stream).ReadToEnd();
-
-            var map = new Dictionary<Type, string>();
-            map.Add(typeof(Evt), manifest);
-
-            return map;
         }
     }
 }

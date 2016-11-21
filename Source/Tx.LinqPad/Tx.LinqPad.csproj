@@ -26,19 +26,19 @@
     <Reference Include="LINQPad">
       <HintPath>..\..\References\LinqPad\LINQPad.exe</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.XE.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+    <Reference Include="Microsoft.SqlServer.XE.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+    <Reference Include="Microsoft.SqlServer.XEvent">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent.Targets, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+    <Reference Include="Microsoft.SqlServer.XEvent.Targets.Linq">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent.Targets, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+    <Reference Include="Microsoft.SqlServer.XEvent.Targets">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
     </Reference>

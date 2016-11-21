@@ -50,7 +50,7 @@ namespace SetVersion
             XElement xeMetadata = spec.Element("package").Element("metadata");
 
             XElement xeVersion = xeMetadata.Element("version");
-            xeVersion.SetValue(version);
+            xeVersion.SetValue(xeVersion.Value.Replace("{version}", version));
 
             XElement xeDependencies = xeMetadata.Element("dependencies");
             foreach (XElement xeDependency in xeDependencies.Elements("dependency"))
@@ -58,7 +58,7 @@ namespace SetVersion
                 if (!xeDependency.Attribute("id").Value.StartsWith("Tx."))
                     continue;
 
-                xeDependency.SetAttributeValue("version", version);
+                xeDependency.SetAttributeValue("version", xeDependency.Attribute("version").Value.Replace("{version}", version));
             }
 
             spec.Save(path);

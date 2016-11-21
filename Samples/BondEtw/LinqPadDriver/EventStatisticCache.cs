@@ -9,7 +9,7 @@
     using System.Reactive.Linq;
     using System.Security.Cryptography;
     using System.Text;
-    using Tx.Binary;
+    using Tx.Bond;
     using Tx.Bond.Extensions;
 
     public class EventStatisticCache

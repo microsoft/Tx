@@ -6,10 +6,8 @@ if "%1"=="NoBuild" goto noBuild
 
 pushd %~dp0
 
-msbuild /p:Configuration=Release40 || goto failFast
-msbuild /p:Configuration=Debug40 || goto failFast
-msbuild /p:Configuration=Release45 || goto failFast
-msbuild /p:Configuration=Debug45 || goto failFast
+msbuild Tx.sln /p:Configuration=Release45 /p:Platform="Any CPU" || goto failFast
+msbuild Tx.sln /p:Configuration=Debug45 /p:Platform="Any CPU" || goto failFast
 
 popd
 
@@ -33,17 +31,13 @@ cd /d %bin%\Release || goto failFast
 call :setVersion || goto failFast
 call :packAll || goto failFast
 
-cd /d %bin%\Release\Net40 || goto failFast
+cd /d %bin%\Release\Net45 || goto failFast
 ..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Reactive.Windows.Forms.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll msvcr100.dll xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl || goto failFast
 
 popd
 goto end
 
 :setVersion
-
-pushd Net40\Properties || goto failFast
-..\SetVersion.exe || goto failFast
-popd
 
 pushd Net45\Properties || goto failFast
 ..\SetVersion.exe || goto failFast
@@ -63,9 +57,9 @@ call :pack Tx.All || goto failFast
 exit /b 0 
 
 :pack %1
-call Net40\Properties\%1.Layout.cmd || goto failFast
+call Net45\Properties\%1.Layout.cmd || goto failFast
 cd /d %1 || goto failFast
-copy ..\Net40\Properties\%1.nuspec || goto failFast
+copy ..\Net45\Properties\%1.nuspec || goto failFast
 ..\..\NuGet pack %1.nuspec || goto failFast
 move *.nupkg ..\ || goto failFast
 cd ..

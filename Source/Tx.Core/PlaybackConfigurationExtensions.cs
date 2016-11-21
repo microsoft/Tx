@@ -4,7 +4,9 @@ namespace System.Reactive
 {
     using System.Collections.Generic;
     using System.Reactive.Concurrency;
+    using System.Reactive.Disposables;
     using System.Reactive.Linq;
+    using System.Reactive.Subjects;
 
     public static class PlaybackConfigurationExtensions
     {
@@ -111,6 +113,33 @@ namespace System.Reactive
                     .FromFiles(files)
                     .Select(item => new Timestamped<T>(transformation(item), timestampSelector(item))),
                 typeof(PartitionableTypeMap<T>));
+        }
+
+        //public static IObservable<TOutput> OfType<TOutput>(
+        //    this IObservable<IEnvelope> source,
+        //    params ITypeMap<IEnvelope>[] typeMaps)
+        //{
+        //    var subject = new Subject<Timestamped<object>>();
+        //    var deserialzier = new CompositeDeserializer<IEnvelope>(subject, typeMaps);
+
+        //    source.Subscribe(deserialzier);
+
+        //    return subject.Select(i => i.Value).OfType<TOutput>();
+        //}
+
+        public static IObservable<TOutput> OfType<TOutput>(
+            this IObservable<IEnvelope> source,
+            params ITypeMap<IEnvelope>[] typeMaps)
+        {
+            return Observable
+                .Create<Timestamped<object>>(observer =>
+                {
+                    var deserialzier = new CompositeDeserializer<IEnvelope>(observer, typeMaps);
+                    deserialzier.AddKnownType(typeof(TOutput));
+                    return source.Subscribe(deserialzier);
+                })
+                .Select(i => i.Value)
+                .OfType<TOutput>();
         }
 
         private sealed class PartitionableTypeMap<T> : IPartitionableTypeMap<Timestamped<T>, string>

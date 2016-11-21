@@ -1,7 +1,6 @@
 ﻿namespace Tests.Tx.BinaryEtw
 {
     using System;
-    using System.Collections.Generic;
 
     using global::Tx.Bond;
 
@@ -13,9 +12,9 @@
         [TestMethod]
         public void WriteToBinaryEtw()
         {
-            using (var observer = new BondEtwObserver())
+            using (var observer = new BinaryEtwObserverOld())
             {
-                observer.OnNext(new GeneralPartitionableTypeMapTests.TestBondClass{ EventId = "A" });
+                observer.OnNext(new TestBondClass{ EventId = "A" });
                 observer.OnNext("A");
                 observer.OnNext(null);
 
@@ -26,14 +25,15 @@
         [TestMethod]
         public void WriteToBinaryEtw_2()
         {
-            using (var observer = new BondEtwObserver(
-                new Dictionary<Type, string>
+            using (var observer = new BinaryEtwObserverOld(
+                "UnitTests",
+                new Type[] 
                 {
-                    { typeof(GeneralPartitionableTypeMapTests.TestBondClass), "Manifest" }
+                    typeof(TestBondClass),
                 }, 
                 TimeSpan.FromMinutes(1)))
             {
-                observer.OnNext(new GeneralPartitionableTypeMapTests.TestBondClass { EventId = "A" });
+                observer.OnNext(new TestBondClass { EventId = "A" });
                 observer.OnNext("A");
                 observer.OnNext(null);
 

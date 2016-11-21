@@ -46,12 +46,25 @@
       <Link>Properties\AssemblyInfo.cs</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Snmp\Enterprises.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="IpPacket.cs" />
-    <Compile Include="Pcap.cs" />
-    <Compile Include="PcapNg.cs" />
+    <Compile Include="Snmp\SnmpDatagram.cs" />
+    <Compile Include="Snmp\SnmpTrapListener.cs" />
+    <Compile Include="Syslogs\SyslogListener.cs" />
+    <Compile Include="Udp\Extensions.cs" />
+    <Compile Include="Ip\IIpPacket.cs" />
+    <Compile Include="Ip\IpPacket.cs" />
+    <Compile Include="Ip\IpPacketHeader.cs" />
+    <Compile Include="Pcap\PcapNgWriter.cs" />
+    <Compile Include="Udp\BaseUdpReceiver.cs" />
+    <Compile Include="Udp\IUdpDatagram.cs" />
+    <Compile Include="Ip\PacketParser.cs" />
+    <Compile Include="Pcap\Pcap.cs" />
+    <Compile Include="Pcap\PcapNg.cs" />
     <Compile Include="Properties\TxNetworkAssemblyInfo.cs" />
-    <Compile Include="SNMPCapture.cs" />
+    <Compile Include="Protocol.cs" />
+    <Compile Include="Snmp\Dynamic\SnmpTrapTypeMap.cs" />
+    <Compile Include="Snmp\SNMPCapture.cs" />
     <Compile Include="Snmp\Asn1DecoderExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,30 +107,24 @@
     <Compile Include="Snmp\ObjectIdentifier.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Snmp\SnmpDatagram.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Snmp\SnmpEncodeDecoder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Snmp\SnmpHeader.cs" />
-    <Compile Include="Snmp\SnmpTrapV1.cs" />
-    <Compile Include="Snmp\SnmpV1PDU.cs" />
-    <Compile Include="Snmp\SnmpV2cPDU.cs" />
-    <Compile Include="Snmp\SnmpSimpleDatagram.cs" />
-    <Compile Include="Snmp\SnmpSimpleTrapV2C.cs" />
-    <Compile Include="Snmp\SnmpTrapV2C.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Snmp\UdpDatagramExtensions.cs" />
     <Compile Include="Snmp\VarBind.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Snmp\VarBindExtensions.cs" />
-    <Compile Include="Syslog.cs" />
-    <Compile Include="NetworkTransformExtensions.cs" />
-    <Compile Include="UdpDatagram.cs" />
-    <Compile Include="UdpReceiver.cs" />
+    <Compile Include="Syslogs\Facility.cs" />
+    <Compile Include="Syslogs\Severity.cs" />
+    <Compile Include="Syslogs\Syslog.cs" />
+    <Compile Include="Udp\NetworkTransformExtensions.cs" />
+    <Compile Include="Syslogs\SyslogParser.cs" />
+    <Compile Include="Udp\UdpDatagram.cs" />
+    <Compile Include="Udp\UdpDatagramHeader.cs" />
+    <Compile Include="Udp\UdpEnvelopeReceiver.cs" />
+    <Compile Include="Udp\UdpReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\key.snk">

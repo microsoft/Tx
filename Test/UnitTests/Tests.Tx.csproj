@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(CPReferencePath)\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.assert">
+      <HintPath>$(CPReferencePath)\xunit.assert.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Reactive.Testing">
       <HintPath>$(CPReferencePath)\Microsoft.Reactive.Testing.dll</HintPath>
     </Reference>
@@ -72,7 +75,7 @@
       <Link>Microsoft_Windows_Kernel_Process.cs</Link>
     </Compile>
     <Compile Include="BinaryEtw\BondEtwObserverTests.cs" />
-    <Compile Include="BinaryEtw\GeneralPartitionableTypeMapTests.cs" />
+    <Compile Include="BinaryEtw\EnvelopeTypeMapTests.cs" />
     <Compile Include="CompositeDeserializerTests.cs" />
     <Compile Include="DemultiplexorTest.cs" />
     <Compile Include="EnvelopeTypeMapTests.cs" />
@@ -85,11 +88,12 @@
     <Compile Include="HttpQueriesTest.cs" />
     <Compile Include="Network\Asn1BERDecoderUnitTest.cs" />
     <Compile Include="Network\Asn1BEREncoderUnitTest.cs" />
-    <Compile Include="Network\ReceiveTxSyslog.cs" />
+    <Compile Include="Network\Extensions.cs" />
     <Compile Include="Network\SnmpDatagramUnitTest.cs" />
     <Compile Include="Network\SnmpSimpleDatagramTest.cs" />
     <Compile Include="Network\SnmpSimpleTrapV2CTest.cs" />
     <Compile Include="Network\SnmpTrapTest.cs" />
+    <Compile Include="Network\SnmpTrapTypeMapTests.cs" />
     <Compile Include="Network\SyslogSender.cs" />
     <Compile Include="Network\TestHelpers.cs" />
     <Compile Include="Network\TrapTypeMapTests.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullMergeSortTest.cs" />
     <Compile Include="TimeSourceTest.cs" />
+    <Compile Include="Transformer\BinaryPassthroughTransformerBuilderTests.cs" />
     <Compile Include="TypeStatisticsTest.cs" />
     <Compile Include="W3CTest.cs" />
   </ItemGroup>
@@ -130,6 +135,7 @@
       <Link>u_ex130609.log</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="BinaryEtw\TestBondClass.bond" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

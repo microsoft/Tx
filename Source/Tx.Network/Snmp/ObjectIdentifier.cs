@@ -22,12 +22,12 @@
         /// </returns>
         public override string ToString()
         {
-            if (Oids == null)
+            if (this.Oids == null)
             {
                 return string.Empty;
             }
 
-            return String.Join(".", Oids);
+            return string.Join(".", this.Oids);
         }
 
         /// <summary>
@@ -37,29 +37,29 @@
         /// <returns>boolean value true otherOid is suboid of this ObjectIdentifier</returns>
         public bool IsSubOid(ObjectIdentifier otherOid)
         {
-            if (Oids == null && otherOid.Oids == null)
+            if (this.Oids == null && otherOid.Oids == null)
             {
                 return true;
             }
 
-            if (Oids == null && otherOid.Oids != null)
+            if (this.Oids == null && otherOid.Oids != null)
             {
                 return false;
             }
 
-            if (Oids != null && otherOid.Oids == null)
+            if (this.Oids != null && otherOid.Oids == null)
             {
                 return false;
             }
 
-            if (otherOid.Oids.Count > Oids.Count)
+            if (otherOid.Oids.Count > this.Oids.Count)
             {
                 return false;
             }
 
             for (int i = 0; i < otherOid.Oids.Count; i++)
             {
-                if(otherOid.Oids[i] != Oids[i])
+                if(otherOid.Oids[i] != this.Oids[i])
                 {
                     return false;
                 }
@@ -74,7 +74,7 @@
         /// <param name="oids">The oids.</param>
         internal ObjectIdentifier(uint[] oids)
         {
-            Oids = new ReadOnlyCollection<uint>(oids);
+            this.Oids = new ReadOnlyCollection<uint>(oids);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@
 
             uint[] newoids = new uint[oids.Count];
             oids.CopyTo(newoids, 0);
-            Oids = new ReadOnlyCollection<uint>(newoids);
+            this.Oids = new ReadOnlyCollection<uint>(newoids);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@
             Array.Resize(ref oidArray, count + 1);
             oidArray[count] = val;
 
-            Oids = new ReadOnlyCollection<uint>(oidArray);
+            this.Oids = new ReadOnlyCollection<uint>(oidArray);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@
         /// </returns>
         public int CompareTo(ObjectIdentifier other)
         {
-            if(other.Oids ==null && Oids == null)
+            if(other.Oids ==null && this.Oids == null)
             {
                 return 0;
             }
@@ -156,24 +156,24 @@
                 return 1;
             }
 
-            if (Oids == null)
+            if (this.Oids == null)
             {
                 return -1;
             }
 
-            int length = other.Oids.Count - Oids.Count;
+            int length = other.Oids.Count - this.Oids.Count;
             if(length != 0)
             {
                 return length;
             }
 
-            for(int i = 0; i < Oids.Count; i++)
+            for(int i = 0; i < this.Oids.Count; i++)
             {
-                if (other.Oids[i] != Oids[i])
+                if (other.Oids[i] != this.Oids[i])
                 {
-                    return (other.Oids[i] > Oids[i]) ? 
-                        (int)(other.Oids[i] - Oids[i]) : 
-                        -1 * (int)(Oids[i] - other.Oids[i]);
+                    return (other.Oids[i] > this.Oids[i]) ? 
+                        (int)(other.Oids[i] - this.Oids[i]) : 
+                        -1 * (int)(this.Oids[i] - other.Oids[i]);
                 }
             }
 
@@ -192,24 +192,24 @@
                 return false;
             }
             ObjectIdentifier otherObj = (ObjectIdentifier)anotherObj;
-            if (Oids == null && otherObj.Oids == null)
+            if (this.Oids == null && otherObj.Oids == null)
             {
                 return true;
             }
 
-            if (Oids == null && otherObj.Oids != null)
+            if (this.Oids == null && otherObj.Oids != null)
             {
                 return false;
             }
 
-            if (Oids != null && otherObj.Oids == null)
+            if (this.Oids != null && otherObj.Oids == null)
             {
                 return false;
             }
 
-            for (int i = 0; i < Oids.Count; i++)
+            for (int i = 0; i < this.Oids.Count; i++)
             {
-                int length = (int)(otherObj.Oids[i] - Oids[i]);
+                int length = (int)(otherObj.Oids[i] - this.Oids[i]);
                 if (length != 0)
                 {
                     return false;
@@ -230,14 +230,14 @@
             int val = 0;
             int j = 0;
             int[] primes = new int[] { 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
-            for (int i = 0; i < Oids.Count; i++)
+            for (int i = 0; i < this.Oids.Count; i++)
             {
                 if(j == 24)
                 {
                     j = 0;
                 }
 
-                val += ((int)Oids[i] * primes[j++]);
+                val += ((int)this.Oids[i] * primes[j++]);
             }
 
             return val;

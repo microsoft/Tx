@@ -8,6 +8,8 @@
     using Tx.Network.Snmp;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    using Tests.Tx.Network;
+
     [TestClass]
     public class SnmpDatagramUnitTest
     {
@@ -41,7 +43,7 @@
             {
                 foreach (var device in testDeviceResponseCollection)
                 {
-                   device.ToSnmpDatagram();
+                    device.ToSnmpDatagram();
                 }
             }
             catch (Exception ex)
@@ -60,7 +62,7 @@
             {
                 foreach (var device in testDeviceResponseCollection)
                 {
-                    SnmpDatagram snmpPacket = device.ToSnmpDatagram();
+                    var snmpPacket = device.ToSnmpDatagram() as SnmpDatagramV2C;
                     byte[] encodedData = snmpPacket.ToSnmpEncodedByteArray();
 
                     //Check if encoding is correct by decoding that back
@@ -83,7 +85,7 @@
             {
                 var datagram = V1trapBytes.ToSnmpDatagram();
                 Assert.IsTrue(datagram.Header.Version == SnmpVersion.V1);
-                Assert.IsTrue(datagram.PduV1.PduType == PduType.Trap);
+                //Assert.IsTrue(datagram.PduV1.PduType == PduType.Trap);
             }
             catch (Exception ex)
             {
@@ -120,11 +122,11 @@
                 sw.Stop();
             }
 
-            #if DEBUG
-              Assert.IsTrue(mSec < 1250, "Parser running slower than designed, Time Taken :" + mSec.ToString());
-            #else
+#if DEBUG
+            Assert.IsTrue(mSec < 1250, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+#else
               Assert.IsTrue(mSec < 600, "Parser running slower than designed, Time Taken :" + mSec.ToString());
-            #endif
+#endif
         }
 
         /// <summary>
@@ -148,7 +150,7 @@
                 {
                     foreach (var packet in packets)
                     {
-                        packet.ToSnmpEncodedByteArray();
+                        (packet as SnmpDatagramV2C).ToSnmpEncodedByteArray();
                     }
                 }
             }
@@ -162,11 +164,11 @@
                 sw.Stop();
             }
 
-            #if DEBUG
-              Assert.IsTrue(mSec < 1250, "Parser running slower than designed, Time Taken :" + mSec.ToString());
-            #else
+#if DEBUG
+            Assert.IsTrue(mSec < 1250, "Parser running slower than designed, Time Taken :" + mSec.ToString());
+#else
               Assert.IsTrue(mSec < 600, "Parser running slower than designed, Time Taken :" + mSec.ToString());
-            #endif
+#endif
         }
 
         [TestMethod]

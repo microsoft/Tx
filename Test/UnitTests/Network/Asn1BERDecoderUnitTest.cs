@@ -1,8 +1,5 @@
 ﻿namespace Tx.Network.UnitTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using Tx.Network.Snmp;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

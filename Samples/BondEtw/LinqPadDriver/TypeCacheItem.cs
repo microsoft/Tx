@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Tx.Binary;
+    using Tx.Bond;
 
     public class TypeCacheItem
     {

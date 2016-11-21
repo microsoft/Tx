@@ -1,7 +1,9 @@
-﻿namespace Tx.Network.UnitTests
+﻿namespace Tests.Tx.Network
 {
     using System;
     using System.Collections.Generic;
+
+    using global::Tx.Network.Syslogs;
 
     public class TxSyslogTestSettings
     {

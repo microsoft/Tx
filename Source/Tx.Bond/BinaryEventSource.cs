@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-namespace Tx.Binary
+namespace Tx.Bond
 {
     using System;
-    using Microsoft.Diagnostics.Tracing;
     using System.Collections.Generic;
+    using System.Reactive;
+
+    using Microsoft.Diagnostics.Tracing;
 
     /// <summary>
     /// Custom EventSource Implementation that writes BinaryEnvelope information to ETW stream
@@ -238,6 +240,64 @@ namespace Tx.Binary
                             chunks.Count,
                             i++,
                             chunk);
+                    }
+                }
+            }
+        }
+
+        [NonEvent]
+        internal void WriteInternal(IEnvelope envelope)
+        {
+            var typeId = envelope.TypeId ?? string.Empty;
+            var source = envelope.Source ?? string.Empty;
+            var protocol = envelope.Protocol ?? string.Empty;
+
+            // Maximum record size is 64K for both system and user data, so counting 88 bytes for system data here as well
+            var maxPayloadSize = MaxPayloadSize - (typeId.Length + source.Length + protocol.Length) * 2;
+
+            if (maxPayloadSize <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            var occurenceFileTimeUtc = envelope.OccurrenceTime.ToFileTime();
+            var receiveFileTimeUtc = envelope.ReceivedTime.ToFileTime();
+
+            if (envelope.Payload.Length <= maxPayloadSize)
+            {
+                this.WriteBinaryPayload(
+                    occurenceFileTimeUtc,
+                    receiveFileTimeUtc,
+                    protocol,
+                    source,
+                    typeId,
+                    unchecked((uint)(envelope.Payload.Length)),
+                    envelope.Payload);
+            }
+            else
+            {
+                // User data for chunked event is 12 bytes greather than non-chunked event
+                maxPayloadSize -= 12;
+
+                var chunks = envelope.Payload.Split(maxPayloadSize);
+
+                lock (this.writeChuckedBinaryPayloadGuard)
+                {
+                    var packageId = unchecked(this.currentPackageId++);
+
+                    for (uint i = 0; i < chunks.Length; i++)
+                    {
+                        this.WriteChunkedBinaryPayload(
+                            packageId,
+                            occurenceFileTimeUtc,
+                            receiveFileTimeUtc,
+                            protocol,
+                            source,
+                            typeId,
+                            unchecked((uint)(chunks.Length)),
+                            i,
+                            unchecked((uint)(chunks[i].Length)),
+                            chunks[i]);
                     }
                 }
             }

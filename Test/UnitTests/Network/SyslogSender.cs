@@ -1,5 +1,4 @@
-﻿
-namespace Tx.Network.UnitTests
+﻿namespace Tests.Tx.Network
 {
     using System;
     using System.Collections.Generic;
@@ -9,38 +8,39 @@ namespace Tx.Network.UnitTests
     using System.Threading;
     using System.Threading.Tasks;
 
+    using global::Tx.Network.Syslogs;
+
     /// <summary>
     /// Simulates sending Syslogs over the network.
     /// </summary>
-    public class TxSyslogSender
+    internal class TxSyslogSender
     {
         //public int Counter;
         public CancellationToken Cancel { get; set; }
-       
+
         public List<SimpleTxSyslog> SentList { get; private set; }
         public TxSyslogSender()
         {
-            Cancel = Task.Factory.CancellationToken;
-            SentList = new List<SimpleTxSyslog>();
-            
+            this.Cancel = Task.Factory.CancellationToken;
+            this.SentList = new List<SimpleTxSyslog>();
         }
 
-        public Task<int> StartSendAsync(string SourceIp, string TargetIp, int UdpPort, TimeSpan Delay, TimeSpan Duration, List<string> Source)
+        public Task<int> StartSendAsync(string sourceIp, string targetIp, int udpPort, TimeSpan delay, TimeSpan duration, List<string> source)
         {
-            return Task.Factory.StartNew<int>(() => { return Send(SourceIp, TargetIp, UdpPort, Delay, Duration, Source); }, Cancel);
+            return Task.Factory.StartNew<int>(() => { return this.Send(sourceIp, targetIp, udpPort, delay, duration, source); }, this.Cancel);
         }
 
-        public int Send(string SourceIp, string TargetIp, int UdpPort, TimeSpan Delay, TimeSpan Duration, List<string> Source)
+        public int Send(string sourceIp, string targetIp, int udpPort, TimeSpan delay, TimeSpan duration, List<string> source)
         {
             var start = DateTime.UtcNow;
             var localCounter = 0;
-            using (var UC = new UdpClient(new IPEndPoint(IPAddress.Parse(SourceIp), 0)))
+            using (var UC = new UdpClient(new IPEndPoint(IPAddress.Parse(sourceIp), 0)))
             {
-                while (DateTime.UtcNow < start.Add(Duration))
+                while (DateTime.UtcNow < start.Add(duration))
                 {
-                    var txtMsg = Source[localCounter % Source.Count];
+                    var txtMsg = source[localCounter % source.Count];
                     var msg = Encoding.ASCII.GetBytes(txtMsg);
-                    var defMatch = Syslog.DefaultParser.Match(txtMsg);
+                    var defMatch = SyslogParser.DefaultParser.Match(txtMsg);
                     var privalMatch = defMatch.Groups["PRIVAL"].Value.Trim();
                     var prival = int.Parse(privalMatch);
                     var sent = new SimpleTxSyslog()
@@ -49,10 +49,10 @@ namespace Tx.Network.UnitTests
                         Fac = (Facility)Enum.ToObject(typeof(Facility), prival >> 3),
                         Message = defMatch.Groups["MESSAGE"].Value.Trim(),
                     };
-                    SentList.Add(sent);
-                    UC.Send(msg, msg.Length, TargetIp, UdpPort);
+                    this.SentList.Add(sent);
+                    UC.Send(msg, msg.Length, targetIp, udpPort);
                     localCounter++;
-                    Thread.Sleep(Delay);
+                    Thread.Sleep(delay);
                 }
             }
             return localCounter;

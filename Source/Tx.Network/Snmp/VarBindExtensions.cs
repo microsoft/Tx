@@ -4,7 +4,7 @@ namespace Tx.Network.Snmp
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public static class VarBindExtensions
+    internal static class VarBindExtensions
     {
         /// <summary>
         /// Searches the first sub oid.
@@ -13,15 +13,15 @@ namespace Tx.Network.Snmp
         /// <param name="varBind">The variable bind.</param>
         /// <param name="varBinds">The variable bind List.</param>
         /// <returns>Boolean value true if subOid is found else false</returns>
-        public static bool SearchFirstSubOidWith(this ReadOnlyCollection<VarBind> varBinds, ObjectIdentifier subOid, out VarBind varBind)
+        public static bool SearchFirstSubOidWith(this IReadOnlyCollection<VarBind> varBinds, ObjectIdentifier subOid, out VarBind varBind)
         {
             bool isFound = false;
             varBind = default(VarBind);
-            for (int i = 0; i < varBinds.Count; i++)
+            foreach (var item in varBinds)
             {
-                if (varBinds[i].Oid.IsSubOid(subOid))
+                if (item.Oid.IsSubOid(subOid))
                 {
-                    varBind = varBinds[i];
+                    varBind = item;
                     isFound = true;
                     break;
                 }

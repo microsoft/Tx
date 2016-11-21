@@ -20,7 +20,6 @@
 
     using Microsoft.CSharp;
 
-    using Tx.Binary;
     using Tx.Bond;
     using Tx.Bond.Extensions;
 
@@ -243,13 +242,13 @@
 
             try
             {
-                var bondTypemap = new GeneralPartitionableTypeMap();
+                var bondTypemap = new EnvelopeTypeMap();
 
                 var typeMaps = TypeFinder
                     .LoadTypeMaps(TypeCache.ResolveCacheDirectory(bondInEtwProperties.ContextName))
-                    .Where(i => i != typeof(GeneralPartitionableTypeMap))
+                    .Where(i => i != typeof(EnvelopeTypeMap))
                     .Select(Activator.CreateInstance)
-                    .OfType<ITypeMap<BinaryEnvelope>>()
+                    .OfType<ITypeMap<IEnvelope>>()
                     .Concat(new[] { bondTypemap })
                     .ToArray();
 

@@ -50,31 +50,34 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(CPReferencePath)\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="BinaryTypeMap.cs" />
-    <Compile Include="BinaryEnvelope.cs" />
+    <Compile Include="BinaryEtlReader.cs" />
     <Compile Include="BinaryEtwObservable.cs" />
-    <Compile Include="BinaryEtwParser.cs" />
+    <Compile Include="BinaryEventSourceObserver.cs" />
+    <Compile Include="BondCompactBinaryTransformerBuilder.cs" />
+    <Compile Include="BondEnvelope.cs" />
+    <Compile Include="Internal\BinaryEtwParser.cs" />
+    <Compile Include="BinaryEtwSessionListener.cs" />
     <Compile Include="BinaryEventSource.cs" />
-    <Compile Include="BondEtwObserver.cs" />
-    <Compile Include="BondEtwWriter.cs" />
-    <Compile Include="BondTypeMap.cs" />
-    <Compile Include="BondIdentifierHelpers.cs" />
-    <Compile Include="ByteArrayHelper.cs" />
+    <Compile Include="Internal\ByteArrayHelper.cs" />
     <Compile Include="EtwExtensions.cs" />
     <Compile Include="EventManifest.cs" />
-    <Compile Include="GeneralPartitionableTypeMap.cs" />
-    <Compile Include="ITypeProvider.cs" />
-    <Compile Include="InvalidBondTypeException.cs" />
-    <Compile Include="StringHelper.cs" />
-    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="BondJsonEnvelopeTypeMap.cs" />
+    <Compile Include="Internal\IpAddressConverter.cs" />
+    <Compile Include="Internal\PathUtils.cs" />
+    <Compile Include="JsonTransformerBuilder.cs" />
+    <Compile Include="Protocol.cs" />
+    <Compile Include="Internal\StringHelper.cs" />
+    <Compile Include="Internal\TypeExtensions.cs" />
+    <Compile Include="SimpleWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\key.snk">

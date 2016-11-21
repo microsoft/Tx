@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Reactive;
-using System.Reflection;
-using Tx.Network;
-using Tx.Network.Asn1;
-using Tx.Network.Snmp;
-
-namespace NetworkCaptures
+﻿namespace NetworkCaptures
 {
+    using System;
+    using System.Reflection;
+    using Tx.Network;
+    using System.Linq;
+    using Tx.Network.Snmp;
+    using System.Reactive;
+
     class Program
     {
         const string fileName = "snmp.pcapng"; // subset of the packets from the WireShark sample for SNMP
@@ -55,12 +54,14 @@ namespace NetworkCaptures
             {
                 int ipLen = packet.PacketData.Length - 14; // 14 is the size of the Ethernet header
 
-                byte[] datagram = new byte[ipLen];
-                Array.Copy(packet.PacketData, 14, datagram, 0, ipLen);
+                var ipPacket = PacketParser.Parse(
+                    DateTimeOffset.UtcNow,
+                    false,
+                    packet.PacketData,
+                    14,
+                    ipLen);
 
-                UdpDatagram udp = new UdpDatagram(datagram);
-
-                Console.WriteLine(udp.PacketData.ToHexDump());
+                Console.WriteLine(ipPacket.PacketData.Array.ToHexDump());
                 Console.WriteLine();
             }
         }
@@ -81,7 +82,7 @@ namespace NetworkCaptures
                 byte[] datagram = new byte[snmpLen];
                 Array.Copy(packet.PacketData, 42, datagram, 0, snmpLen);
 
-                Console.WriteLine(BasicEncodingReader.ReadAllText(datagram));
+                Console.WriteLine(datagram.ToHexDump());
             }
         }
 

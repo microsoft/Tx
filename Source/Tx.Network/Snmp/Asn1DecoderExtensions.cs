@@ -147,7 +147,7 @@
             while (offset < bytesLength)
             {
                 Asn1TagInfo cct = bytes[offset++].DecodeToClassConstructType();
-                int length = 0;
+                int length;
                 offset = ReadLength(bytes, offset, out length);
   
                 if (ConstructType.Primitive != cct.Asn1ConstructType)
@@ -306,7 +306,7 @@
         /// <returns>uint array</returns>
         public static uint[] ReadOids(this byte[] bytes, int offset, int length)
         {
-            uint subId = 0;
+            uint subId;
             uint[] oids = new uint[length];
             int count = 2;
             int endOfContentIndex = offset + length - 1;

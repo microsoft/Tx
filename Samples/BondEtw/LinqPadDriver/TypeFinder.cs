@@ -8,7 +8,7 @@
     using System.Reactive;
     using System.Reflection;
 
-    using Tx.Binary;
+    using Tx.Bond;
 
     public static class TypeFinder
     {

@@ -5,12 +5,12 @@ namespace Tx.Network.Snmp
     using System;
     using System.IO;
     using System.Net;
+
     /// <summary>
     /// Class to Encode\Decode SNMP data
     /// </summary>
-    public static class SnmpEncodeDecoder
+    internal static class SnmpEncodeDecoder
     {
-
         /// <summary>
         /// The header length offset
         /// </summary>
@@ -22,15 +22,10 @@ namespace Tx.Network.Snmp
         /// <param name="snmpPacket">The SNMP packet.</param>
         /// <returns>Asn.1 encoded byte array</returns>
         /// <exception cref="System.ArgumentNullException">snmpPacket</exception>
-        public static byte[] ToSnmpEncodedByteArray(this SnmpDatagram snmpPacket)
+        public static byte[] ToSnmpEncodedByteArray(this SnmpDatagramV2C snmpPacket)
         {
-            if (snmpPacket.Header.Version == SnmpVersion.V3)
-            {
-                throw new InvalidDataException("Snmp Version V3 not supported");
-            }
-
             byte[] dataBytes = new byte[8194];
-            int length = dataBytes.EncodeVarBinds(0, snmpPacket.PduV2c.VarBinds);
+            int length = dataBytes.EncodeVarBinds(0, snmpPacket.VarBinds);
             Array.Resize(ref dataBytes, length);
 
             int headerLength = SnmpV2MessageHeaderLength + snmpPacket.Header.Community.Length;
@@ -45,27 +40,27 @@ namespace Tx.Network.Snmp
             offset = headerBytes.EncodeOctetString(offset, snmpPacket.Header.Community);
 
             //Encode PDU Type
-            offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.ContextSpecific, ConstructType.Constructed, (byte)snmpPacket.PduV2c.PduType);
+            offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.ContextSpecific, ConstructType.Constructed, (byte)snmpPacket.PduType);
 
-            int CommonPduControlFieldLength =
+            int commonPduControlFieldLength =
                 1 //pduType
-                + snmpPacket.PduV2c.RequestId.GetIntegerLength()
-                + ((int)snmpPacket.PduV2c.ErrorStatus).GetIntegerLength()
-                + snmpPacket.PduV2c.ErrorIndex.GetIntegerLength()
+                + snmpPacket.RequestId.GetIntegerLength()
+                + ((int)snmpPacket.ErrorStatus).GetIntegerLength()
+                + snmpPacket.ErrorIndex.GetIntegerLength()
                 + length; //length of varbind values
 
 
             //Encode PDU length
-            offset = headerBytes.EncodeLength(offset, CommonPduControlFieldLength);
+            offset = headerBytes.EncodeLength(offset, commonPduControlFieldLength);
 
             //Encode RequestId
-            offset = headerBytes.EncodeInteger(offset, snmpPacket.PduV2c.RequestId);
+            offset = headerBytes.EncodeInteger(offset, snmpPacket.RequestId);
 
             //Encode ErrorStatus
-            offset = headerBytes.EncodeInteger(offset, (int)snmpPacket.PduV2c.ErrorStatus);
+            offset = headerBytes.EncodeInteger(offset, (int)snmpPacket.ErrorStatus);
 
             //Encode ErrorIndex
-            offset = headerBytes.EncodeInteger(offset, snmpPacket.PduV2c.ErrorIndex);
+            offset = headerBytes.EncodeInteger(offset, snmpPacket.ErrorIndex);
 
             //Encode VarBinds Length
             offset = headerBytes.EncodeClassConstructType(offset, Asn1Class.Universal, ConstructType.Constructed, (byte)Asn1Tag.Sequence);
@@ -86,21 +81,24 @@ namespace Tx.Network.Snmp
         /// <summary>
         /// Converts the Asn.1 encoded byte array to SNMP Datagram.
         /// </summary>
-        /// <param name="bytes">The asn.1 encoded bytes.</param>
+        /// <param name="byteSegment">The asn.1 encoded bytes.</param>
         /// <returns>
         /// SnmpPacket
         /// </returns>
         /// <exception cref="System.ArgumentNullException">bytes</exception>
         /// <exception cref="System.IO.InvalidDataException">Snmp Version V3 not supported</exception>
-        /// <exception cref="System.NotImplementedException">SNMP v1 traps are not yet implemented</exception>
-        public static SnmpDatagram ToSnmpDatagram(this byte[] bytes)
+        public static SnmpDatagram ToSnmpDatagram(
+            this ArraySegment<byte> byteSegment,
+            DateTimeOffset timestamp,
+            string sourceIpAddress)
         {
+            var bytes = byteSegment.Array;
             if(bytes == null || bytes.Length == 0)
             {
-                throw new ArgumentNullException("bytes");
+                throw new ArgumentNullException("byteSegment");
             }
 
-            int offset = 0;
+            int offset = byteSegment.Offset;
             int length;
             offset = bytes.NextValueLength(offset, -1, -1, -1, out length);
             offset = bytes.NextValueLength(offset, -1, -1, (int)Asn1Tag.Integer, out length);
@@ -143,7 +141,12 @@ namespace Tx.Network.Snmp
                 offset = bytes.NextValueLength(offset, (int)Asn1Class.Universal, (int)ConstructType.Constructed, (int)Asn1Tag.Sequence, out length);
                 VarBind[] varBinds = bytes.ReadVarBinds(offset, length);
 
-                return new SnmpDatagram(new SnmpHeader(snmpVersion, community), new SnmpV1PDU(pduType, varBinds, oid, ipAddress, genericTrap, specificTrap, timeStamp));
+                return new SnmpDatagramV1(
+                    timestamp,
+                    sourceIpAddress,
+                    new SnmpHeader(snmpVersion, community), 
+                    varBinds);
+                    //new SnmpV1Pdu(pduType, varBinds, oid, ipAddress, genericTrap, specificTrap, timeStamp));
             }
             else
             {
@@ -162,7 +165,15 @@ namespace Tx.Network.Snmp
                 offset = bytes.NextValueLength(offset, (int)Asn1Class.Universal, (int)ConstructType.Constructed, (int)Asn1Tag.Sequence, out length);
                 VarBind[] varBinds = bytes.ReadVarBinds(offset, length);
 
-                return new SnmpDatagram(new SnmpHeader(snmpVersion, community), new SnmpV2cPDU(pduType, varBinds, requestId, errorStatus, errorIndex));
+                return new SnmpDatagramV2C(
+                    timestamp, 
+                    sourceIpAddress, 
+                    new SnmpHeader(snmpVersion, community), 
+                    varBinds,
+                    pduType,
+                    requestId,
+                    errorStatus,
+                    errorIndex);
             }
         }
 

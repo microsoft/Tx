@@ -2,16 +2,16 @@
 
 using System;
 using System.Reactive.Linq;
-using System.Reactive.Tx;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Microsoft.Etw;
 using Microsoft.Etw.Prototype_Eventing_Provider;
 using System.Reactive.Subjects;
 using System.Reactive;
 
 namespace TransformPerf
 {
+    using Tx.Windows;
+
     unsafe class Program
     {
         static GCHandle userData;
@@ -175,14 +175,34 @@ namespace TransformPerf
             {
                 fixed (EVENT_RECORD* p = &record)
                 {
-                    EtwNativeEvent evt;
+                    EtwNativeEvent evt = new EtwNativeEvent();
                     evt.record = p;
-                    evt._data = (byte*)p;
-                    evt._end = ((byte*)p) + record.UserDataLength;
-                    evt._length = record.UserDataLength;
                     input.OnNext(evt);
                 }
             }
+        }
+    }
+
+    internal class EtwManifestDeserializer : IObserver<EtwNativeEvent>
+    {
+        public EtwManifestDeserializer(IObserver<Timestamped<object>> next)
+        {
+            
+        }
+
+        public void OnNext(EtwNativeEvent value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCompleted()
+        {
+            throw new NotImplementedException();
         }
     }
 }

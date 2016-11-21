@@ -46,12 +46,6 @@
     <Compile Include="TmfParser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj">
-      <Project>{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}</Project>
-      <Name>Tx.Windows</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\key.snk">
       <Link>Properties\key.snk</Link>
     </None>
@@ -62,6 +56,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
+      <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
+      <Name>Tx.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj">
+      <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
+      <Name>Tx.Windows</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

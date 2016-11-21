@@ -4,6 +4,58 @@
         <name>System.Reactive.PlatformServices</name>
     </assembly>
     <members>
+        <member name="T:System.Reactive.Strings_PlatformServices">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:System.Reactive.Strings_PlatformServices.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:System.Reactive.Strings_PlatformServices.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:System.Reactive.Strings_PlatformServices.WINRT_NO_SUB1MS_TIMERS">
+            <summary>
+              Looks up a localized string similar to The WinRT thread pool doesn&apos;t support creating periodic timers with a period below 1 millisecond..
+            </summary>
+        </member>
+        <member name="T:System.Reactive.PlatformServices.EnlightenmentProvider">
+            <summary>
+            Provides access to the platform enlightenments used by other Rx libraries to improve system performance and
+            runtime efficiency. While Rx can run without platform enlightenments loaded, it's recommended to deploy the
+            System.Reactive.PlatformServices assembly with your application and call <see cref="M:System.Reactive.PlatformServices.EnlightenmentProvider.EnsureLoaded"/> during application startup to ensure enlightenments are properly loaded.
+            </summary>
+        </member>
+        <member name="M:System.Reactive.PlatformServices.EnlightenmentProvider.EnsureLoaded">
+            <summary>
+            Ensures that the calling assembly has a reference to the System.Reactive.PlatformServices assembly with
+            platform enlightenments. If no reference is made from the user code, it's possible for the build process
+            to drop the deployment of System.Reactive.PlatformServices, preventing its runtime discovery.
+            </summary>
+            <returns>
+            true if the loaded enlightenment provider matches the provided defined in the current assembly; false
+            otherwise. When a custom enlightenment provider is installed by the host, false will be returned.
+            </returns>
+        </member>
+        <member name="T:System.Reactive.PlatformServices.CurrentPlatformEnlightenmentProvider">
+            <summary>
+            (Infrastructure) Provider for platform-specific framework enlightenments.
+            </summary>
+        </member>
+        <member name="M:System.Reactive.PlatformServices.CurrentPlatformEnlightenmentProvider.GetService``1(System.Object[])">
+            <summary>
+            (Infastructure) Tries to gets the specified service.
+            </summary>
+            <typeparam name="T">Service type.</typeparam>
+            <param name="args">Optional set of arguments.</param>
+            <returns>Service instance or null if not found.</returns>
+        </member>
         <member name="T:System.Reactive.Concurrency.EventLoopScheduler">
             <summary>
             Represents an object that schedules units of work on a designated thread.
@@ -80,6 +132,13 @@
             <param name="threadFactory">Factory function for thread creation.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="threadFactory"/> is null.</exception>
         </member>
+        <member name="P:System.Reactive.Concurrency.EventLoopScheduler.ExitIfEmpty">
+            <summary>
+            Indicates whether the event loop thread is allowed to quit when no work is left. If new work
+            is scheduled afterwards, a new event loop thread is created. This property is used by the
+            NewThreadScheduler which uses an event loop for its recursive invocations.
+            </summary>
+        </member>
         <member name="M:System.Reactive.Concurrency.EventLoopScheduler.Schedule``1(``0,System.TimeSpan,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
             <summary>
             Schedules an action to be executed after dueTime.
@@ -127,13 +186,6 @@
             which gets set by calls to Schedule, the next item timer, or calls to Dispose.
             </summary>
         </member>
-        <member name="P:System.Reactive.Concurrency.EventLoopScheduler.ExitIfEmpty">
-            <summary>
-            Indicates whether the event loop thread is allowed to quit when no work is left. If new work
-            is scheduled afterwards, a new event loop thread is created. This property is used by the
-            NewThreadScheduler which uses an event loop for its recursive invocations.
-            </summary>
-        </member>
         <member name="T:System.Reactive.Concurrency.NewThreadScheduler">
             <summary>
             Represents an object that schedules each unit of work on a separate thread.
@@ -142,6 +194,11 @@
         <member name="M:System.Reactive.Concurrency.NewThreadScheduler.#ctor">
             <summary>
             Creates an object that schedules each unit of work on a separate thread.
+            </summary>
+        </member>
+        <member name="P:System.Reactive.Concurrency.NewThreadScheduler.Default">
+            <summary>
+            Gets an instance of this scheduler that uses the default Thread constructor.
             </summary>
         </member>
         <member name="M:System.Reactive.Concurrency.NewThreadScheduler.#ctor(System.Func{System.Threading.ThreadStart,System.Threading.Thread})">
@@ -190,29 +247,6 @@
             </summary>
             <returns>New stopwatch object; started at the time of the request.</returns>
         </member>
-        <member name="P:System.Reactive.Concurrency.NewThreadScheduler.Default">
-            <summary>
-            Gets an instance of this scheduler that uses the default Thread constructor.
-            </summary>
-        </member>
-        <member name="T:System.Reactive.PlatformServices.EnlightenmentProvider">
-            <summary>
-            Provides access to the platform enlightenments used by other Rx libraries to improve system performance and
-            runtime efficiency. While Rx can run without platform enlightenments loaded, it's recommended to deploy the
-            System.Reactive.PlatformServices assembly with your application and call <see cref="M:System.Reactive.PlatformServices.EnlightenmentProvider.EnsureLoaded"/> during application startup to ensure enlightenments are properly loaded.
-            </summary>
-        </member>
-        <member name="M:System.Reactive.PlatformServices.EnlightenmentProvider.EnsureLoaded">
-            <summary>
-            Ensures that the calling assembly has a reference to the System.Reactive.PlatformServices assembly with
-            platform enlightenments. If no reference is made from the user code, it's possible for the build process
-            to drop the deployment of System.Reactive.PlatformServices, preventing its runtime discovery.
-            </summary>
-            <returns>
-            true if the loaded enlightenment provider matches the provided defined in the current assembly; false
-            otherwise. When a custom enlightenment provider is installed by the host, false will be returned.
-            </returns>
-        </member>
         <member name="T:System.Reactive.Concurrency.TaskPoolScheduler">
             <summary>
             Represents an object that schedules units of work on the Task Parallel Library (TPL) task pool.
@@ -225,6 +259,11 @@
             </summary>
             <param name="taskFactory">Task factory used to create tasks to run units of work.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="taskFactory"/> is null.</exception>
+        </member>
+        <member name="P:System.Reactive.Concurrency.TaskPoolScheduler.Default">
+            <summary>
+            Gets an instance of this scheduler that uses the default TaskScheduler.
+            </summary>
         </member>
         <member name="M:System.Reactive.Concurrency.TaskPoolScheduler.Schedule``1(``0,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
             <summary>
@@ -275,16 +314,16 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> is less than TimeSpan.Zero.</exception>
         </member>
-        <member name="P:System.Reactive.Concurrency.TaskPoolScheduler.Default">
-            <summary>
-            Gets an instance of this scheduler that uses the default TaskScheduler.
-            </summary>
-        </member>
         <member name="T:System.Reactive.Concurrency.ThreadPoolScheduler">
             <summary>
             Represents an object that schedules units of work on the CLR thread pool.
             </summary>
             <seealso cref="P:System.Reactive.Concurrency.ThreadPoolScheduler.Instance">Singleton instance of this type exposed through this static property.</seealso>
+        </member>
+        <member name="P:System.Reactive.Concurrency.ThreadPoolScheduler.Instance">
+            <summary>
+            Gets the singleton instance of the CLR thread pool scheduler.
+            </summary>
         </member>
         <member name="M:System.Reactive.Concurrency.ThreadPoolScheduler.Schedule``1(``0,System.Func{System.Reactive.Concurrency.IScheduler,``0,System.IDisposable})">
             <summary>
@@ -333,46 +372,7 @@
             <param name="action">Action to be executed, potentially updating the state.</param>
             <returns>The disposable object used to cancel the scheduled recurring action (best effort).</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is null.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> is less than or equal to zero.</exception>
-        </member>
-        <member name="P:System.Reactive.Concurrency.ThreadPoolScheduler.Instance">
-            <summary>
-            Gets the singleton instance of the CLR thread pool scheduler.
-            </summary>
-        </member>
-        <member name="T:System.Reactive.PlatformServices.CurrentPlatformEnlightenmentProvider">
-            <summary>
-            (Infrastructure) Provider for platform-specific framework enlightenments.
-            </summary>
-        </member>
-        <member name="M:System.Reactive.PlatformServices.CurrentPlatformEnlightenmentProvider.GetService``1(System.Object[])">
-            <summary>
-            (Infastructure) Tries to gets the specified service.
-            </summary>
-            <typeparam name="T">Service type.</typeparam>
-            <param name="args">Optional set of arguments.</param>
-            <returns>Service instance or null if not found.</returns>
-        </member>
-        <member name="T:System.Reactive.Strings_PlatformServices">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:System.Reactive.Strings_PlatformServices.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:System.Reactive.Strings_PlatformServices.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:System.Reactive.Strings_PlatformServices.WINRT_NO_SUB1MS_TIMERS">
-            <summary>
-              Looks up a localized string similar to The WinRT thread pool doesn&apos;t support creating periodic timers with a period below 1 millisecond..
-            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="period"/> is less than zero.</exception>
         </member>
     </members>
 </doc>

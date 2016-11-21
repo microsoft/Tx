@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-namespace Tx.Binary
+namespace Tx.Bond
 {
     using System;
+    using System.Reactive;
     using System.Reactive.Linq;
 
     using Tx.Windows;
@@ -19,7 +20,7 @@ namespace Tx.Binary
         /// </summary>
         /// <param name="files">Up to 63 files to read.</param>
         /// <returns>Sequence of events ordered by timestamp.</returns>
-        public static IObservable<BinaryEnvelope> FromFiles(params string[] files)
+        public static IObservable<IEnvelope> FromFiles(params string[] files)
         {
             return FromFiles(BinaryEventSource.Log.Guid, false, null, null, files);
         }
@@ -32,17 +33,17 @@ namespace Tx.Binary
         /// <param name="endTime">End time of sequence of events, if null then DateTime.MaxValue will be used.</param>
         /// <param name="files">Up to 63 files to read.</param>
         /// <returns>Sequence of events ordered by timestamp.</returns>
-        public static IObservable<BinaryEnvelope> FromFiles(DateTime startTime, DateTime endTime, params string[] files)
+        public static IObservable<IEnvelope> FromFiles(DateTime startTime, DateTime endTime, params string[] files)
         {
             return FromFiles(BinaryEventSource.Log.Guid, false, startTime, endTime, files);
         }
 
-        public static IObservable<BinaryEnvelope> FromSequentialFiles(params string[] files)
+        public static IObservable<IEnvelope> FromSequentialFiles(params string[] files)
         {
             return FromFiles(BinaryEventSource.Log.Guid, true, null, null, files);
         }
 
-        public static IObservable<BinaryEnvelope> FromSequentialFiles(DateTime startTime, DateTime endTime, params string[] files)
+        public static IObservable<IEnvelope> FromSequentialFiles(DateTime startTime, DateTime endTime, params string[] files)
         {
             return FromFiles(BinaryEventSource.Log.Guid, true, startTime, endTime, files);
         }
@@ -77,7 +78,7 @@ namespace Tx.Binary
         /// <param name="endTime">End time of sequence of events, if null then DateTime.MaxValue will be used.</param>
         /// <param name="files">Either unlimited number of ETL files containing events ordered by timestamp or up to 63 files to read.</param>
         /// <returns>Sequence of events ordered by timestamp.</returns>
-        public static IObservable<BinaryEnvelope> FromFiles(
+        public static IObservable<IEnvelope> FromFiles(
             Guid providerId,
             bool useSequentialReader,
             DateTime? startTime,
@@ -100,7 +101,7 @@ namespace Tx.Binary
         /// <param name="providerId">Identifier of ETW provider.</param>
         /// <param name="sessionName">Session name.</param>
         /// <returns>Sequence of events ordered by timestamp.</returns>
-        public static IObservable<BinaryEnvelope> FromSession(
+        public static IObservable<IEnvelope> FromSession(
             Guid providerId,
             string sessionName)
         {
