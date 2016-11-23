@@ -78,7 +78,7 @@
                     .SelectMany(
                         assembly =>
                         assembly.GetTypes(
-                            type => type.IsTypeMapType() && typeof(ITypeMap<BinaryEnvelope>).IsAssignableFrom(type)))
+                            type => type.IsTypeMapType() && typeof(ITypeMap<IEnvelope>).IsAssignableFrom(type)))
                     .ToArray();
             }
             catch

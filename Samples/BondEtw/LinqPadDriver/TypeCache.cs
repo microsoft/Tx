@@ -16,7 +16,8 @@ using Tx.Bond;
 namespace Tx.Bond.LinqPad
 {
     using BondEtwDriver;
-using System.Globalization;
+    using System.Globalization;
+    using System.Reactive;
 
     public class TypeCache
     {
@@ -136,7 +137,7 @@ using System.Globalization;
                         {
                             var completeName = namespaceAndClasses.Item1 + "." + @class;
 
-                            var id = BondIdentifierHelpers.GenerateGuidFromName(@class.ToUpperInvariant());
+                            var id = TypeIdentifierHelpers.GenerateGuidFromName(@class.ToUpperInvariant());
 
                             // case when single manifest has multiple structs.
                             if (namespaceAndClasses.Item2.Length > 1 && 

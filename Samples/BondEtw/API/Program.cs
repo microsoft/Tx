@@ -19,8 +19,7 @@ namespace BondEtwSample
         {
             StartEtw();
 
-            var observer = new BinaryEtwObserver("Sample", new[] { typeof(Evt) }, TimeSpan.FromMinutes(1));
-
+            var observer = new SimpleWriter(new BinaryEventSourceObserver());
             for (int i = 0; i < 10; i++)
                 observer.OnNext(new Evt { Time = DateTime.UtcNow.ToShortDateString(), Message = "iteration " + i });
 

@@ -199,7 +199,7 @@ namespace Tx.Network.Snmp.Dynamic
         }
 
         // ReSharper disable once UnusedMember.Local
-        private static SnmpV2cPDU GetPdu(IpPacket ipPacket)
+        private static SnmpV2cPdu GetPdu(IpPacket ipPacket)
         {
             var snmpDatagram = GetSnmpDatagram(ipPacket);
             return snmpDatagram.PduV2c;

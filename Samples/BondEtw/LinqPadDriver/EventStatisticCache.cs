@@ -102,7 +102,7 @@
             Stopwatch sw = Stopwatch.StartNew();
 
             var rawCount = from events in BinaryEtwObservable.FromSequentialFiles(inputFile)
-                           group events by events.PayloadId
+                           group events by events.TypeId
                                into eventTypes
                                from all in
                                    eventTypes.Aggregate(
@@ -111,9 +111,9 @@
                                        new
                                        {
                                            EventCount = ac.EventCount + 1,
-                                           Bytes = ac.Bytes + events.EventPayloadLength,
-                                           minTime = Math.Min(ac.minTime, events.ReceiveFileTimeUtc),
-                                           maxTime = Math.Max(ac.maxTime, events.ReceiveFileTimeUtc),
+                                           Bytes = ac.Bytes + events.Payload.Length,
+                                           minTime = Math.Min(ac.minTime, events.ReceivedTime.ToFileTime()),
+                                           maxTime = Math.Max(ac.maxTime, events.ReceivedTime.ToFileTime()),
                                        })
                                select new { ManifestId = eventTypes.Key, all.EventCount, all.Bytes, all.minTime, all.maxTime, };
 
