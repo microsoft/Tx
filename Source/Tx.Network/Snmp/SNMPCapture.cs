@@ -54,30 +54,30 @@
                 .Select(p => p.ToUdpDatagram());
         }
 
-        ///// <summary>
-        ///// Parses the SNMP.
-        ///// </summary>
-        ///// <param name="capture">The capture.</param>
-        ///// <returns>IEnumerable TrapPDU</returns>
-        //public static IEnumerable<SnmpTrapV2C> ParseSnmp(this IEnumerable<Block> capture)
-        //{
-        //    int unreadablePackets = 0; // for debugging
+        /// <summary>
+        /// Parses the SNMP.
+        /// </summary>
+        /// <param name="capture">The capture.</param>
+        /// <returns>IEnumerable TrapPDU</returns>
+        public static IEnumerable<SnmpDatagram> ParseSnmp(this IEnumerable<Block> capture)
+        {
+            foreach (var udpDatagram in capture.ParseUdp())
+            {
+                var pdu = default(SnmpDatagram);
+                try
+                {
+                    if (!udpDatagram.TryParseSnmpDatagram(out pdu))
+                    {
+                        continue;
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
 
-        //    foreach (var udpDatagram in capture.ParseUdp().OfType<UdpDatagram>())
-        //    {
-        //        var pdu = default(SnmpTrapV2C);
-        //        try
-        //        {
-        //            pdu = new SnmpTrapV2C(udpDatagram.UdpData);
-        //        }
-        //        catch
-        //        {
-        //            unreadablePackets++;
-        //            continue;
-        //        }
-
-        //        yield return pdu;
-        //    }
-        //}
-    }
+                yield return pdu;
+            }
+        }
+        }
 }

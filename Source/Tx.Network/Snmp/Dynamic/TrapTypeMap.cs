@@ -45,14 +45,13 @@ namespace Tx.Network.Snmp.Dynamic
         {
             var snmpDatagram = GetSnmpDatagram(evt);
 
-            var pdu = snmpDatagram.PduV2c;
-            if (pdu.PduType != PduType.SNMPv2Trap || pdu.VarBinds == null)
+            if (snmpDatagram == null || snmpDatagram.VarBinds == null)
             {
                 return default(ObjectIdentifier);
             }
 
             VarBind trapVarBind;
-            return pdu.VarBinds.SearchFirstSubOidWith(trapOid, out trapVarBind)
+            return snmpDatagram.VarBinds.SearchFirstSubOidWith(trapOid, out trapVarBind)
                        ? (ObjectIdentifier)trapVarBind.Value
                        : default(ObjectIdentifier);
         }
@@ -65,13 +64,13 @@ namespace Tx.Network.Snmp.Dynamic
             }
 
             var parameter = Expression.Parameter(typeof(IpPacket), "ipPacket");
-            var getPduCall = Expression.Call(typeof(TrapTypeMap).GetMethod("GetPdu", BindingFlags.Static | BindingFlags.NonPublic), parameter);
+            var getPduCall = Expression.Call(typeof(TrapTypeMap).GetMethod("GetSnmpDatagram", BindingFlags.Static | BindingFlags.NonPublic), parameter);
             var receivedTimestampProperty = typeof (IpPacket).GetProperty("ReceivedTime",
                 BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
 
-            var pduVar = Expression.Variable(typeof(SnmpV2cPDU), "pdu");
+            var pduVar = Expression.Variable(typeof(SnmpDatagram), "pdu");
             var assignment = Expression.Assign(pduVar, getPduCall);
-            var pduVarBindsField = typeof(SnmpV2cPDU).GetField(
+            var pduVarBindsField = typeof(SnmpDatagram).GetField(
                 "VarBinds",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             var sourceAddressProperty = typeof(IpPacket).GetProperty(
@@ -182,7 +181,7 @@ namespace Tx.Network.Snmp.Dynamic
 
         public static SnmpDatagram GetSnmpDatagram(IpPacket ipPacket)
         {
-            var udpDatagram = ipPacket as UdpDatagram;
+            var udpDatagram = ipPacket.ToUdpDatagram(true);
             if (udpDatagram == default(UdpDatagram))
             {
                 return default(SnmpDatagram);
@@ -190,19 +189,20 @@ namespace Tx.Network.Snmp.Dynamic
 
             try
             {
-                return udpDatagram.TryParseSnmpDatagram();
+                SnmpDatagram snmpDatagram;
+                var result = udpDatagram.TryParseSnmpDatagram(out snmpDatagram);
+
+                if (result)
+                {
+                    return snmpDatagram;
+                }
             }
             catch
             {
-                return default(SnmpDatagram);
+                // Ignored.
             }
-        }
 
-        // ReSharper disable once UnusedMember.Local
-        private static SnmpV2cPdu GetPdu(IpPacket ipPacket)
-        {
-            var snmpDatagram = GetSnmpDatagram(ipPacket);
-            return snmpDatagram.PduV2c;
+            return default(SnmpDatagram);
         }
 
         private static byte[] GetRawOctetStringBytes(string octetString)

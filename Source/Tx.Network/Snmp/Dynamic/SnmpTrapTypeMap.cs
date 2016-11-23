@@ -5,7 +5,7 @@
     using System.Reactive;
 
     using Tx.Network;
-
+/*
     public class SnmpTrapTypeMap : IPartitionableTypeMap<IEnvelope, ObjectIdentifier>
     {
         private readonly TrapTypeMap trapTypeMap = new TrapTypeMap();
@@ -62,4 +62,5 @@
             return time;
         }
     }
+*/
 }

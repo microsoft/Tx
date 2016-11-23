@@ -89,8 +89,9 @@
         static void Snmp()
         {
             Console.WriteLine("\n======================= {0} =======================\n", MethodInfo.GetCurrentMethod().Name);
-            var snmp = SnmpCapture.ReadPcapNg(fileName)
-                .Take(5);
+            var snmp = PcapNg.ReadForward(fileName)
+                    .ParseSnmp()
+                    .Take(5);
 
             foreach (var pdu in snmp)
                 Console.WriteLine(pdu.ToString());
