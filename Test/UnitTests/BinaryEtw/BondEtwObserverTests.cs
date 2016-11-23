@@ -16,7 +16,6 @@
             
             observer.OnNext(new TestBondClass{ EventId = "A" });
             observer.OnNext("A");
-            observer.OnNext(null);
 
             observer.OnCompleted();            
         }
