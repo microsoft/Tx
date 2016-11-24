@@ -51,7 +51,7 @@
         {
             if (transformerBuilder == null)
             {
-                throw new ArgumentNullException(nameof(transformerBuilder), "Cannot be null.");
+                throw new ArgumentNullException("transformerBuilder", "Cannot be null.");
             }
 
             this.transformerBuilders = this.transformerBuilders
