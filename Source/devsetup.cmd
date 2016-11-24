@@ -17,11 +17,11 @@ call :copy_dll Tx.SqlServer
 call :copy_dll Tx.LinqPad
 
 echo Reactive Binaries
-copy ..\References\DESKTOPCLR40\System.Reactive.Interfaces.dll "%DRIVER_DIR%"\
-copy ..\References\DESKTOPCLR40\System.Reactive.Core.dll "%DRIVER_DIR%"\
-copy ..\References\DESKTOPCLR40\System.Reactive.Linq.dll "%DRIVER_DIR%"\
-copy ..\References\DESKTOPCLR40\System.Reactive.PlatformServices.dll "%DRIVER_DIR%"\
-copy ..\References\DESKTOPCLR40\System.Reactive.Windows.Forms.dll "%DRIVER_DIR%"\
+copy ..\References\DESKTOPCLR45\System.Reactive.Interfaces.dll "%DRIVER_DIR%"\
+copy ..\References\DESKTOPCLR45\System.Reactive.Core.dll "%DRIVER_DIR%"\
+copy ..\References\DESKTOPCLR45\System.Reactive.Linq.dll "%DRIVER_DIR%"\
+copy ..\References\DESKTOPCLR45\System.Reactive.PlatformServices.dll "%DRIVER_DIR%"\
+copy ..\References\DESKTOPCLR45\System.Reactive.Windows.Forms.dll "%DRIVER_DIR%"\
 
 echo XEvent Binaries
 copy ..\References\XEvent\* "%DRIVER_DIR%"\
@@ -44,14 +44,14 @@ goto end
 
 :copy_dll
 echo %1.dll
-copy c:\bin\Debug\Net40\%1.dll "%DRIVER_DIR%"\
-copy c:\bin\Debug\Net40\%1.pdb "%DRIVER_DIR%"\
+copy c:\bin\Debug\Net45\%1.dll "%DRIVER_DIR%"\
+copy c:\bin\Debug\Net45\%1.pdb "%DRIVER_DIR%"\
 exit /b 0
 
 :copy_exe
 echo %1.exe
-copy c:\bin\Debug\Net40\%1.exe "%DRIVER_DIR%"\
-copy c:\bin\Debug\Net40\%1.pdb "%DRIVER_DIR%"\
+copy c:\bin\Debug\Net45\%1.exe "%DRIVER_DIR%"\
+copy c:\bin\Debug\Net45\%1.pdb "%DRIVER_DIR%"\
 
 exit /b 0
 

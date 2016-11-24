@@ -16,22 +16,22 @@
     <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bond, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Bond">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR40\Bond.dll</HintPath>
+      <HintPath>..\..\..\References\DESKTOPCLR45\Bond.dll</HintPath>
     </Reference>
-    <Reference Include="Bond.Attributes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Bond.Attributes">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR40\Bond.Attributes.dll</HintPath>
+      <HintPath>..\..\..\References\DESKTOPCLR45\Bond.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Reactive.Core, Version=2.1.30214.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Reactive.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=2.1.30214.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Reactive.Interfaces">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Reactive.Linq, Version=2.1.30214.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Reactive.Linq">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
