@@ -19,12 +19,12 @@ namespace System.Reactive
         {
             if (playbackConfiguration == null)
             {
-                throw new ArgumentNullException("playbackConfiguration");
+                throw new ArgumentNullException(nameof(playbackConfiguration));
             }
 
             if (source == null)
             {
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             }
 
             playbackConfiguration
