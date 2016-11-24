@@ -7,7 +7,7 @@ namespace System.Reactive
     /// </summary>
     public class NonDetachObservable<T> : IObservable<T>
     {
-        Func<IObserver<T>, IDisposable> _subscribe;
+        private readonly Func<IObserver<T>, IDisposable> _subscribe;
 
         public NonDetachObservable(Func<IObserver<T>, IDisposable> subscribe)
         {
