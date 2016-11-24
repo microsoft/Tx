@@ -48,6 +48,20 @@ namespace Tests.Tx
         }
 
         [TestMethod]
+        public void OfType()
+        {
+            var count = EtwObservable.FromFiles(this.EtlFileName)
+                .OfType<EtwNativeEvent, Parse>(
+                    new EtwManifestTypeMap(),
+                    new EtwClassicTypeMap(),
+                    new EtwTypeMap())
+                .Count()
+                .Wait();
+
+            Assert.AreEqual(291, count);
+        }
+
+        [TestMethod]
         public void PlayTwo()
         {
             var p = new Playback();
