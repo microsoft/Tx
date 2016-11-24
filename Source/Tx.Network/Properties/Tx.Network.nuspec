@@ -4,7 +4,7 @@
     <id>Tx.Network</id>
     <title>Tx.Network</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta2</version>
+    <version>{version}-beta3</version>
     <description>Parsing of Network related file and wire formats, such as .pcap and .pcapng</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -16,7 +16,7 @@
       <tags>Tx Traces Logs Playback Replay Pcap PcapNG</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Core" version="{version}-beta2" />
+      <dependency id="Tx.Core" version="{version}-beta3" />
     </dependencies>
   </metadata>
 </package>

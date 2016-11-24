@@ -4,7 +4,7 @@
     <id>Tx.Core</id>
     <title>Tx.Core</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta2</version>
+    <version>{version}-beta3</version>
     <description>Tx (LINQ to Logs and Traces) core components, not specific to the event format</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>

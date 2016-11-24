@@ -1,0 +1,3083 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bond</name>
+    </assembly>
+    <members>
+        <member name="T:Bond.IBonded">
+            <summary>
+            Interface representing bonded payload of unknown type
+            </summary>
+        </member>
+        <member name="M:Bond.IBonded.Serialize``1(``0)">
+            <summary>
+            Serialize content of IBonded instance to protocol writer
+            </summary>
+            <typeparam name="W">Type of the protocol writer</typeparam>
+            <param name="writer">Protocol writer instance</param>
+        </member>
+        <member name="M:Bond.IBonded.Deserialize``1">
+            <summary>
+            Deserialize an object of type U from the IBonded instance
+            </summary>
+            <typeparam name="U">Type of object to deserialize</typeparam>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:Bond.IBonded.Convert``1">
+            <summary>
+            Convert to an instance of IBonded&lt;U>
+            </summary>
+            <typeparam name="U">Type representing a Bond schema</typeparam>
+            <returns>An instance of IBonded&lt;U></returns>
+        </member>
+        <member name="T:Bond.IBonded`1">
+            <summary>
+            Interface representing the schema type bonded&lt;T>
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+        </member>
+        <member name="M:Bond.IBonded`1.Deserialize">
+            <summary>
+            Deserialize an object of type T from the IBonded&lt;T> instance
+            </summary>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="T:Bond.Bonded`1">
+            <summary>
+            Implementation of IBonded&lt;T> holding an instance of T
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+        </member>
+        <member name="F:Bond.Bonded`1.Empty">
+            <summary>
+            A static, readonly field representing an empty instance of Boned&lt;T>
+            </summary>
+        </member>
+        <member name="M:Bond.Bonded`1.#ctor(`0)">
+            <summary>
+            Creater Bonded&lt;T> from an instance of T
+            </summary>
+            <param name="instance">Object of type T</param>
+        </member>
+        <member name="T:Bond.Bonded`2">
+            <summary>
+            Implementation of IBonded&lt;T> holding data serialized using protocol R
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <typeparam name="R">Protocol reader</typeparam>
+        </member>
+        <member name="M:Bond.Bonded`2.#ctor(`1)">
+            <summary>
+            Create an instance of Bonded&lt;T, R> from a protocol reader
+            </summary>
+            <param name="reader">Protocol reader instance</param>
+        </member>
+        <member name="M:Bond.Bonded`2.#ctor(`1,Bond.RuntimeSchema)">
+            <summary>
+            Create an instance of Bonded&lt;T, R> from a protocol reader and runtime schema
+            </summary>
+            <param name="reader">Protocol reader instance</param>
+            <param name="schema">Runtime schema of the payload</param>
+        </member>
+        <member name="T:Bond.Clone`1">
+            <summary>
+            Clone API for creating objects of type T by deep cloning properties/fields of a compatible object.
+            </summary>
+            <typeparam name="T">type representing a Bond schema</typeparam>
+        </member>
+        <member name="M:Bond.Clone`1.From``1(``0)">
+            <summary>
+            Create an instance of type <typeparamref name="T"/> by deep cloning properties/fields of a source object of type <typeparamref name="SourceT"/>.
+            </summary>
+            <typeparam name="SourceT">type representing a source schema compatible with schema <typeparamref name="T"/></typeparam>
+            <param name="source">source object to create a clone from</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bond.Cloner`1">
+            <summary>
+            Utility for cloning objects of type <typeparamref name="SourceT"/>.
+            </summary>
+            <typeparam name="SourceT">type representing a Bond schema</typeparam>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor">
+            <summary>
+            Create a cloner that makes clones of the same type <typeparamref name="SourceT"/> as source objects.
+            </summary>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor(System.Type)">
+            <summary>
+            Create a cloner that makes clones of the specified type.
+            </summary>
+            <param name="type">type of clone object, may be different than source object</param>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor(System.Type,Bond.Expressions.IParser)">
+            <summary>
+            Create a cloner that makes clones of the specified type.
+            </summary>
+            <param name="type">type of clone object, may be different than source object</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor(System.Type,Bond.IFactory)">
+            <summary>
+            Create a cloner that makes clones of the specified type.
+            </summary>
+            <param name="type">type of clone object, may be different than source object</param>
+            /// <param name="factory">factory implementing <see cref="T:Bond.IFactory"/> interface</param>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor(System.Type,Bond.Expressions.IParser,Bond.IFactory)">
+            <summary>
+            Create a cloner that uses specified factory and makes clones of the specified type.
+            </summary>
+            <param name="type">type of clone object, may be different than source object</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+            <param name="factory">factory implementing <see cref="T:Bond.IFactory"/> interface</param>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor(System.Type,Bond.Factory)">
+            <summary>
+            Create a cloner that uses specified factory and makes clones of the specified type.
+            </summary>
+            <param name="type">type of clone object, may be different than source object</param>
+            <param name="factory">factory delegate returning expressions to create objects</param>
+        </member>
+        <member name="M:Bond.Cloner`1.#ctor(System.Type,Bond.Expressions.IParser,Bond.Factory)">
+            <summary>
+            Create a cloner that uses specified factory and makes clones of the specified type.
+            </summary>
+            <param name="type">type of clone object, may be different than source object</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+            <param name="factory">factory delegate returning expressions to create objects</param>
+        </member>
+        <member name="M:Bond.Cloner`1.Clone``1(`0)">
+            <summary>
+            Clone the source object into an object of type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">type of result, must be the same as types specified during <see cref="T:Bond.Cloner`1" /> construction</typeparam>
+            <param name="source">source object to be cloned</param>
+            <returns>clone of the source object projected on type <typeparamref name="T"/></returns>
+        </member>
+        <member name="T:Bond.Comparer">
+            <summary>
+            Utility for comparing instances of Bond schemas for equality
+            </summary>
+        </member>
+        <member name="M:Bond.Comparer.Equal``1(``0,``0)">
+            <summary>
+            Compare objects for equality
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <param name="left">First object to compare</param>
+            <param name="right">Second object to compare</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bond.Deserialize`1">
+            <summary>
+            Deserialize objects of type <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+        </member>
+        <member name="M:Bond.Deserialize`1.From``1(``0)">
+            <summary>
+            Deserialize an object of type <typeparamref name="T"/> from a payload
+            </summary>
+            <typeparam name="R">Protocol reader</typeparam>
+            <param name="reader">Protocol reader representing payload</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="T:Bond.Deserializer`1">
+            <summary>
+            Deserializer for a protocol reader <typeparamref name="R"/>
+            </summary>
+            <typeparam name="R">Protocol reader</typeparam>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.RuntimeSchema,Bond.IFactory,System.Boolean)">
+            <summary>
+            Create a deserializer instance for specified type and payload schema, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="schema">Schema of the payload</param>
+            <param name="factory">Factory to create objects during deserialization</param>
+            <param name="inlineNested">Inline nested types if possible (optimizes for reduction of execution time
+            at the expense of initialization time and memory)</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.RuntimeSchema,Bond.Factory,System.Boolean)">
+            <summary>
+            Create a deserializer instance for specified type and payload schema, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="schema">Schema of the payload</param>
+            <param name="factory">Factory providing expressions to create objects during deserialization</param>
+            <param name="inlineNested">Inline nested types if possible (optimizes for reduction of execution time
+            at the expense of initialization time and memory)</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.RuntimeSchema,Bond.IFactory)">
+            <summary>
+            Create a deserializer instance for specified type and payload schema, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="schema">Schema of the payload</param>
+            <param name="factory">Factory to create objects during deserialization</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.RuntimeSchema,Bond.Factory)">
+            <summary>
+            Create a deserializer instance for specified type and payload schema, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="schema">Schema of the payload</param>
+            <param name="factory">Factory providing expressions to create objects during deserialization</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.RuntimeSchema)">
+            <summary>
+            Create a deserializer instance for specified type and payload schema
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="schema">Schema of the payload</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.IFactory,System.Boolean)">
+            <summary>
+            Create a deserializer instance for specified type, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="factory">Factory to create objects during deserialization</param>
+            <param name="inlineNested">Inline nested types if possible (optimizes for reduction of execution time
+            at the expense of initialization time and memory)</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.Expressions.IParser,Bond.IFactory,System.Boolean)">
+            <summary>
+            Create a deserializer instance for specified type, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+            <param name="factory">Factory providing expressions to create objects during deserialization</param>
+            <param name="inlineNested">Inline nested types if possible (optimizes for reduction of execution time
+            at the expense of initialization time and memory)</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.Factory,System.Boolean)">
+            <summary>
+            Create a deserializer instance for specified type, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="factory">Factory providing expressions to create objects during deserialization</param>
+            <param name="inlineNested">Inline nested types if possible (optimizes for reduction of execution time
+            at the expense of initialization time and memory)</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.Expressions.IParser,Bond.Factory,System.Boolean)">
+            <summary>
+            Create a deserializer instance for specified type, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+            <param name="factory">Factory providing expressions to create objects during deserialization</param>
+            <param name="inlineNested">Inline nested types if possible (optimizes for reduction of execution time
+            at the expense of initialization time and memory)</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.IFactory)">
+            <summary>
+            Create a deserializer instance for specified type, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="factory">Factory to create objects during deserialization</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type,Bond.Factory)">
+            <summary>
+            Create a deserializer instance for specified type, using a custom object factory
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="factory">Factory providing expressions to create objects during deserialization</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.#ctor(System.Type)">
+            <summary>
+            Create a deserializer instance for specified type
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+        </member>
+        <member name="M:Bond.Deserializer`1.Deserialize``1(`0)">
+            <summary>
+            Deserialize an object of type <typeparamref name="T"/> from a payload
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <param name="reader">Protocol reader representing the payload</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:Bond.Deserializer`1.Deserialize(`0)">
+            <summary>
+            Deserialize an object from a payload
+            </summary>
+            <param name="reader">Protocol reader representing the payload</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:Bond.Deserializer`1.TryDeserialize``1(`0,``0@)">
+            <summary>
+            Deserialize an object of type <typeparamref name="T"/> from a payload
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <param name="reader">Protocol reader representing the payload</param>
+            <param name="dest">If a <typeparamref name="T"/> can be successfully deserialized, it will be written to
+                <paramref name="dest"/></param>
+            <returns><see cref="T:Bond.Deserialize.Result"/> indicating if and how deserialization failed.</returns>
+        </member>
+        <member name="T:Bond.Deserializer">
+            <summary>
+            Deserializer extension methods
+            </summary>
+        </member>
+        <member name="M:Bond.Deserializer.Deserialize``2(Bond.Deserializer{``1},Bond.IBonded{``0})">
+            <summary>
+            Deserialize an object from an <see cref="T:Bond.IBonded`1"/> instance using a specific deserializer
+            </summary>
+            <typeparam name="R">Protocol reader</typeparam>
+            <typeparam name="T">Type of source object in the bonded</typeparam>
+            <param name="deserializer">Deserializer to be used to deserialize <see cref="T:Bond.IBonded`1"/> payload</param>
+            <param name="bonded"><see cref="T:Bond.IBonded`1"/> instance representing payload</param>
+            <remarks>Implemented as an extension method to avoid <see cref="T:Bond.IO.ICloneable`1"/> constraint on <see cref="T:Bond.Deserializer`1"/></remarks>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="T:Bond.Expressions.ControlExpression">
+            <summary>
+            Helpers for creating loop expression trees
+            </summary>
+        </member>
+        <member name="T:Bond.Expressions.ContainerHandler">
+            <summary>
+            Handler for containers
+            </summary>
+            <param name="valueParser">Parser instance that can be used to process the elements</param>
+            <param name="valueType">Expression of type BondDataType indicating the element type</param>
+            <param name="next">Expression of type bool indicating if there are more elements</param>
+            <param name="count">Expression of type int indicating number of elements, may be null</param>
+            <returns>Expression to handle the container</returns>
+        </member>
+        <member name="T:Bond.Expressions.MapHandler">
+            <summary>
+            Handler for maps
+            </summary>
+            <param name="keyParser">Parser instance that can be used to process the keys</param>
+            <param name="valueParser">Parser instance that can be used to process the values</param>
+            <param name="keyType">Expression of type BondDataType indicating the key type</param>
+            <param name="valueType">Expression of type BondDataType indicating the value type</param>
+            <param name="nextKey">Expression of type bool indicating if there are more keys</param>
+            <param name="nextValue">Expression of type bool indicating if there are more values</param>
+            <param name="count">Expression of type int indicating number of key/value pairs, may be null</param>
+            <returns>Expression to handle the map</returns>
+        </member>
+        <member name="T:Bond.Expressions.ValueHandler">
+            <summary>
+            Handler of scalar values
+            </summary>
+            <param name="value">Expression representing the value</param>
+            <returns>Expression to handle the value</returns>
+        </member>
+        <member name="T:Bond.Expressions.IField">
+            <summary>
+            Interface implemented by transforms to handle fields
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.IField.Id">
+            <summary>
+            Identifier (a.k.a. ordinal) of the field
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.IField.Value(Bond.Expressions.IParser,System.Linq.Expressions.Expression)">
+            <summary>
+            Called by parser to process the field value
+            </summary>
+            <param name="parser">Parser instance that can be used to process the field</param>
+            <param name="valueType">Expression of type BondDataType indicating the field type</param>
+            <returns>Expression to handle the field</returns>
+        </member>
+        <member name="P:Bond.Expressions.IField.Omitted">
+            <summary>
+            Expression used by parser for fields that have default value and were/can be omitted
+            </summary>
+            <value>Expression to handle the omitted field</value>
+        </member>
+        <member name="T:Bond.Expressions.ITransform">
+            <summary>
+            Interface implemented by transforms to process Bond schema instances
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.ITransform.Begin">
+            <summary>
+            First expression used by the parser when a transform is applied
+            </summary>
+            <value>Expression starting transform</value>
+        </member>
+        <member name="M:Bond.Expressions.ITransform.Base(Bond.Expressions.IParser)">
+            <summary>
+            Called by the parser for the immediate base schema
+            </summary>
+            <param name="parser">Parser instance that can be used to process the base schema, 
+            usually by applying a transform to it</param>
+            <returns>Expression to handle the base</returns>
+        </member>
+        <member name="P:Bond.Expressions.ITransform.Fields">
+            <summary>
+            List of fields, sorted in order of increasing ordinals, that the transform can process
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.ITransform.UnknownField(Bond.Expressions.IParser,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+            Called by the parser for fields that are not found in the <see cref="P:Bond.Expressions.ITransform.Fields"/> list
+            </summary>
+            <param name="parser">Parser instance that can be used to process the field value</param>
+            <param name="fieldType">Expression of type BondDataType representing the field type</param>
+            <param name="fieldId">Expression of type ushort representing the field ordinal</param>
+            <returns>Expression to handle the unknown field</returns>
+        </member>
+        <member name="P:Bond.Expressions.ITransform.UnknownEnd">
+            <summary>
+            Expression used by the parser for an end of unknown base schema (i.e. base for which there
+            was no transform applied)
+            </summary>
+            <value>Expression to handle the unknown schema end</value>
+        </member>
+        <member name="P:Bond.Expressions.ITransform.End">
+            <summary>
+            Last expression used by the parser for the transform
+            </summary>
+            <value>Expression ending transform</value>
+        </member>
+        <member name="T:Bond.Expressions.IParser">
+            <summary>
+            Interface allowing parsing of different representations of Bond schema instances, 
+            such as serialized payloads or objects.
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Apply(Bond.Expressions.ITransform)">
+            <summary>
+            Apply transform to Bond schema instance represented by the parser
+            </summary>
+            <param name="transform"></param>
+            <returns>Expression to process the schema instance</returns>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Container(System.Nullable{Bond.BondDataType},Bond.Expressions.ContainerHandler)">
+            <summary>
+            Handle a container given a parser instance representing a BT_LIST or BT_SET
+            </summary>
+            <param name="expectedType">Optional type of element expected by the caller</param>
+            <param name="handler">Handler processing the container</param>
+            <returns>Expression to process the container</returns>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Map(System.Nullable{Bond.BondDataType},System.Nullable{Bond.BondDataType},Bond.Expressions.MapHandler)">
+            <summary>
+            Handle a container given a parser instance representing a BT_MAP
+            </summary>
+            <param name="expectedKeyType">Optional type of key expected by the caller</param>
+            <param name="expectedValueType">Optional type of value expected by the caller</param>
+            <param name="handler">Handler processing the map</param>
+            <returns>Expression to process the map</returns>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Blob(System.Linq.Expressions.Expression)">
+            <summary>
+            Get the content of the container as an ArraySegment&lt;byte>
+            </summary>
+            <param name="count">Number of bytes in the container</param>
+            <returns>Expression of type ArraySegment&lt;byte> or null if the parser can't provide the content 
+            as an ArraySegment&lt;byte></returns>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Scalar(System.Linq.Expressions.Expression,Bond.BondDataType,Bond.Expressions.ValueHandler)">
+            <summary>
+            Handle a scalar value
+            </summary>
+            <param name="valueType">Expression of type BondDataType indicating the parser value type</param>
+            <param name="expectedType">Type of value expected by the caller</param>
+            <param name="handler">Handler processing the value</param>
+            <returns>Expression to process the value</returns>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Bonded(Bond.Expressions.ValueHandler)">
+            <summary>
+            Get the value as an instance of <see cref="T:Bond.IBonded"/>, can be called for value of type BT_STRUCT 
+            and must be called to get value if <see cref="P:Bond.Expressions.IParser.IsBonded"/> returns true
+            </summary>
+            <param name="handler">Handler processing the IBonded instance</param>
+            <returns>Expression to process the IBonded value</returns>
+        </member>
+        <member name="M:Bond.Expressions.IParser.Skip(System.Linq.Expressions.Expression)">
+            <summary>
+            Skip a value of specified type
+            </summary>
+            <param name="valueType">Expression of type BondDataType indicating the type to skip</param>
+            <returns>Expression to skip the value</returns>
+        </member>
+        <member name="P:Bond.Expressions.IParser.ReaderParam">
+            <summary>
+            Expression representing variable holding the Reader used by the parser
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.IParser.ReaderValue">
+            <summary>
+            Expression representing value of the Reader used by the parser
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.IParser.HierarchyDepth">
+            <summary>
+            Depth of the schema hierarchy represented by the parser, may be 0 if unknown
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.IParser.IsBonded">
+            <summary>
+            Indicates whether the value represented by the parser must be handled as IBonded
+            </summary>
+        </member>
+        <member name="T:Bond.Expressions.ObjectBondedFactory">
+            <summary>
+            Creates expression of type <see cref="T:Bond.IBonded`1"/> given a object type and value.
+            </summary>
+            <param name="objectType">Type of object to be stored in <see cref="T:Bond.IBonded"/></param>
+            <param name="value">Expression representing the value to be stored in the bonded instance.</param>
+            <returns>Expression representing creation of bonded with the specified value.</returns>
+        </member>
+        <member name="T:Bond.Expressions.PayloadBondedFactory">
+            <summary>
+            Creates expression of type <see cref="T:Bond.IBonded"/> given a reader and runtime schema.
+            </summary>
+            <param name="reader">Expression representing reader.</param>
+            <param name="schema">Expression representing RuntimeSchema.</param>
+            <returns>Expression representing creation of <see cref="T:Bond.IBonded"/> with the specified reader and runtime schema.</returns>
+        </member>
+        <member name="T:Bond.Expressions.ProtocolWriter`1">
+            <summary>
+            Abstracts calling protocol writer methods via Expressions
+            </summary>
+            <typeparam name="W"></typeparam>
+            <remarks>The protocol should be a value type for the calls to be inlined.</remarks>
+        </member>
+        <member name="T:Bond.Expressions.Pull.IStateMachine`1">
+            <summary>
+            Defines the processing logic of a specific input protocol for parsing a specific type schema.
+            </summary>
+            <typeparam name="T">The type of current tokens that the reader can pull. </typeparam>
+            <remarks>
+            The state machine processing is done by running a loop on an input reader that follows the pattern of
+            XmlReader. Each iteration switches on the current node type, and then switches on the current state.
+            Each transition can generate an expression representing logic that will be executed in that transition.
+            </remarks>
+        </member>
+        <member name="P:Bond.Expressions.Pull.IStateMachine`1.InitialState">
+            <summary>
+            Initial state to set when processing this input.
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.Pull.IStateMachine`1.FinalState">
+            <summary>
+            When in this state, the processing loop terminates.
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.Pull.IStateMachine`1.IgnoredTokens">
+            <summary>
+            Gets tokens that should be ignored when encountered by the "main" outer loop processing the input.
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.Pull.IStateMachine`1.TokenTransitions">
+            <summary>
+            Gets the possible transitions for each handled token.
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.Pull.IStateMachine`1.Default(System.Linq.Expressions.Expression)">
+            <summary>
+            Generates an expression implementing the default logic for encountering an unhandled token.
+            </summary>
+        </member>
+        <member name="T:Bond.Expressions.Pull.ITokenTransition`1">
+            <summary>
+            Represents the state machine transitions that should occur for one token.
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.Pull.ITokenTransition`1.Token">
+            <summary>
+            Gets the token that this ITokenTransition represents.
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.Pull.ITokenTransition`1.StateTransitions">
+            <summary>
+            Gets the different possible transitions for each handled states.
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.Pull.ITokenTransition`1.Default(System.Linq.Expressions.Expression)">
+            <summary>
+            Generates an expression implementing the default logic for this token, for unhandled state.
+            </summary>
+        </member>
+        <member name="T:Bond.Expressions.Pull.IStateTransition">
+            <summary>
+            Represents a specific state transition.
+            </summary>
+        </member>
+        <member name="P:Bond.Expressions.Pull.IStateTransition.State">
+            <summary>
+            Specific state value indicating when this transition should occur.
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.Pull.IStateTransition.Body(System.Linq.Expressions.Expression)">
+            <summary>
+            Generates an expression implementing the transition's logic.
+            </summary>
+        </member>
+        <member name="F:Bond.Expressions.Pull.PullParser`1.flatten">
+            <summary>
+            Indicates whether fields parsing is flattened. When true, the generated state
+            machine expression will include detection and handling of fields defined in
+            the base schemas.
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.Pull.PullParser`1.Read">
+            <summary>
+            Returns an expression that pulls the next step off the reader.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Bond.Expressions.Pull.PullParser`1.EOF">
+            <summary>
+            Returns an expression that indicates if the end of the input has been reached.
+            </summary>
+        </member>
+        <member name="M:Bond.Expressions.Pull.PullParser`1.Token">
+            <summary>
+            Returns an expression that indicates the type of the currently pulled step.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bond.Expressions.SerializerGenerator`2.GenerateSerialize(Bond.Expressions.SerializerGenerator{`0,`1}.Serialize,Bond.Expressions.IParser,System.Linq.Expressions.ParameterExpression,System.Boolean)">
+            <summary>
+            Generate expression provided by Serialize delegate, either as inline expression or a lambda call
+            </summary>
+            <param name="serialize">Delegate to generate serialization expression</param>
+            <param name="parser">Parser used for the source of serialization</param>
+            <param name="writer">Writer to use for serialization</param>
+            <param name="inline">True if the expression can be inlined</param>
+            <remarks>
+            Generates lambda calls for recursive schemas to avoid infinitely inlining the same expression.
+            Expression is considered the same when both serialize delegate and parser are the same. It is
+            caller's responsibility to assure that the pair of serialize delegate and parser can be used 
+            to identify generated expression. For object serializer, when the parser is ObjectParser, this 
+            is generally guaranteed by using parser instance per schema type. Transcoding may use a single 
+            parser instance but different Serialize delegates for each transcoded schema type (e.g. when 
+            the delegate captures schema metadata).
+            </remarks>
+        </member>
+        <member name="T:Bond.Expressions.StringExpression">
+            <summary>
+            StringExpression is a utility that makes it easy to create expressions that call methods on the System.String class.
+            </summary>
+        </member>
+        <member name="T:Bond.Expressions.ThrowExpression">
+            <summary>
+            ThrowExpression is a utility that makes it easy to create expressions that throw exceptions.
+            </summary>
+        </member>
+        <member name="T:Bond.GenericFactory">
+            <summary>
+            Generic object factory
+            </summary>
+        </member>
+        <member name="M:Bond.GenericFactory.Create``1">
+            <summary>
+            Create an instance of T
+            </summary>
+            <typeparam name="T">Type of object to create</typeparam>
+            <returns>Object of type T initialized to the default value</returns>
+        </member>
+        <member name="T:Bond.IFactory">
+            <summary>
+            Interface for custom factory to create objects during deserialization
+            </summary>
+        </member>
+        <member name="M:Bond.IFactory.CreateObject(System.Type,System.Type)">
+            <summary>
+            Create an object
+            </summary>
+            <param name="type">Type of field/value the created object will be assigned to</param>
+            <param name="schemaType">Type in the schema</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bond.IFactory.CreateContainer(System.Type,System.Type,System.Int32)">
+            <summary>
+            Create a container
+            </summary>
+            <param name="type">Type of field/value the created object will be assigned to</param>
+            <param name="schemaType">Type in the schema</param>
+            <param name="count">Initial capacity</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bond.Factory">
+            <summary>
+            Returns an expression to create an object
+            </summary>
+            <param name="type">Type of field/value the created object will be assigned to</param>
+            <param name="schemaType">Type in the schema</param>
+            <param name="arguments">Optional, type-specific argument(s). For example for containers 
+            number of items, for IBonded&lt;T> the IBonded instance from the parser.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bond.IO.ICloneable`1">
+            <summary>
+            Clones an input stream or protocol reader
+            </summary>
+            <typeparam name="T">Object type</typeparam>
+        </member>
+        <member name="M:Bond.IO.ICloneable`1.Clone">
+            <summary>
+            Create a clone
+            </summary>
+        </member>
+        <member name="T:Bond.IO.IInputStream">
+            <summary>
+            Reads primitive data types as binary values in a specific encoding 
+            </summary>
+        </member>
+        <member name="P:Bond.IO.IInputStream.Length">
+            <summary>
+            Gets the length in bytes of the stream
+            </summary>
+            <exception cref="T:System.NotSupportedException"/>
+        </member>
+        <member name="P:Bond.IO.IInputStream.Position">
+            <summary>
+            Gets or sets the position within the stream
+            </summary>
+            <exception cref="T:System.NotSupportedException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadUInt8">
+            <summary>
+            Read 8-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadUInt16">
+            <summary>
+            Read little-endian encoded 16-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadUInt32">
+            <summary>
+            Read little-endian encoded 32-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadUInt64">
+            <summary>
+            Read little-endian encoded 64-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadFloat">
+            <summary>
+            Read little-endian encoded single precision ‎IEEE 754 float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadDouble">
+            <summary>
+            Read little-endian encoded double precision ‎IEEE 754 float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.SkipBytes(System.Int32)">
+            <summary>
+            Skip forward specified number ot bytes
+            </summary>
+            <param name="count">Number of bytes to skip</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadVarUInt16">
+            <summary>
+            Read variable encoded 16-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadVarUInt32">
+            <summary>
+            Read variable encoded 32-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadVarUInt64">
+            <summary>
+            Read variable encoded 64-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.IInputStream.ReadString(System.Text.Encoding,System.Int32)">
+            <summary>
+            Read UTF-8 or UTF-16 encoded string
+            </summary>
+            <param name="encoding">String encoding</param>
+            <param name="size">Size of payload in bytes</param>
+        </member>
+        <member name="T:Bond.IO.IntegerHelper">
+            <summary>
+            Helper methods for encoding and decoding integer values.
+            </summary>
+        </member>
+        <member name="T:Bond.IO.IOutputStream">
+            <summary>
+            Writes primitive data types as binary values in a specific encoding 
+            </summary>
+        </member>
+        <member name="P:Bond.IO.IOutputStream.Position">
+            <summary>
+            Gets or sets the position within the stream
+            </summary>
+            <exception cref="T:System.NotSupportedException"/>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteUInt8(System.Byte)">
+            <summary>
+            Write 8-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteUInt16(System.UInt16)">
+            <summary>
+            Write little-endian encoded 16-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteUInt32(System.UInt32)">
+            <summary>
+            Write little-endian encoded 32-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteUInt64(System.UInt64)">
+            <summary>
+            Write little-endian encoded 64-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteFloat(System.Single)">
+            <summary>
+            Write little-endian encoded single precision ‎IEEE 754 float
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteDouble(System.Double)">
+            <summary>
+            Write little-endian encoded double precision ‎IEEE 754 float
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write an array of bytes verbatim
+            </summary>
+            <param name="data">Array segment specifying bytes to write</param>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteVarUInt16(System.UInt16)">
+            <summary>
+            Write variable encoded 16-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteVarUInt32(System.UInt32)">
+            <summary>
+            Write variable encoded 32-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteVarUInt64(System.UInt64)">
+            <summary>
+            Write variable encoded 64-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.IOutputStream.WriteString(System.Text.Encoding,System.String,System.Int32)">
+            <summary>
+            Write UTF-8 or UTF-16 encoded string
+            </summary>
+            <param name="encoding">String encoding</param>
+            <param name="value">String value</param>
+            <param name="size">Size in bytes of encoded string</param>
+        </member>
+        <member name="T:Bond.IO.Safe.InputBuffer">
+            <summary>
+            Implements IInputStream on top of memory buffer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.Clone">
+            <summary>
+            Create a clone of the current state of the buffer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.SkipBytes(System.Int32)">
+            <summary>
+            Skip forward specified number ot bytes
+            </summary>
+            <param name="count">Number of bytes to skip</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadUInt8">
+            <summary>
+            Read 8-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadUInt16">
+            <summary>
+            Read little-endian encoded 16-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadUInt32">
+            <summary>
+            Read little-endian encoded 32-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadUInt64">
+            <summary>
+            Read little-endian encoded 64-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadFloat">
+            <summary>
+            Read little-endian encoded single precision ‎IEEE 754 float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadDouble">
+            <summary>
+            Read little-endian encoded double precision ‎IEEE 754 float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadVarUInt16">
+            <summary>
+            Read variable encoded 16-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadVarUInt32">
+            <summary>
+            Read variable encoded 32-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadVarUInt64">
+            <summary>
+            Read variable encoded 64-bit unsigned integer
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.IO.Safe.InputBuffer.ReadString(System.Text.Encoding,System.Int32)">
+            <summary>
+            Read UTF-8 or UTF-16 encoded string
+            </summary>
+            <param name="encoding">String encoding</param>
+            <param name="size">Size of payload in bytes</param>
+        </member>
+        <member name="T:Bond.IO.Safe.OutputBuffer">
+            <summary>
+            Implements IOutputStream on top of memory buffer
+            </summary>
+        </member>
+        <member name="P:Bond.IO.Safe.OutputBuffer.Data">
+            <summary>
+            Gets data inside the buffer
+            </summary>
+        </member>
+        <member name="P:Bond.IO.Safe.OutputBuffer.Position">
+            <summary>
+            Gets or sets the current position within the buffer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteUInt8(System.Byte)">
+            <summary>
+            Write 8-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteUInt16(System.UInt16)">
+            <summary>
+            Write little-endian encoded 16-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteUInt32(System.UInt32)">
+            <summary>
+            Write little-endian encoded 32-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteUInt64(System.UInt64)">
+            <summary>
+            Write little-endian encoded 64-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteFloat(System.Single)">
+            <summary>
+            Write little-endian encoded single precision ‎IEEE 754 float
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteDouble(System.Double)">
+            <summary>
+            Write little-endian encoded double precision ‎IEEE 754 float
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write an array of bytes verbatim
+            </summary>
+            <param name="data">Array segment specifying bytes to write</param>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteVarUInt16(System.UInt16)">
+            <summary>
+            Write variable encoded 16-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteVarUInt32(System.UInt32)">
+            <summary>
+            Write variable encoded 32-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteVarUInt64(System.UInt64)">
+            <summary>
+            Write variable encoded 64-bit unsigned integer
+            </summary>
+        </member>
+        <member name="M:Bond.IO.Safe.OutputBuffer.WriteString(System.Text.Encoding,System.String,System.Int32)">
+            <summary>
+            Write UTF-8 or UTF-16 encoded string
+            </summary>
+            <param name="encoding">String encoding</param>
+            <param name="value">String value</param>
+            <param name="size">Size in bytes of encoded string</param>
+        </member>
+        <member name="T:Bond.ISchemaField">
+            <summary>
+            ISchemaField abstracts a field or property representing a schema field.
+            </summary>
+            <remarks>
+            Schema fields on a compiled Type may be represented as class fields or as properties. An ISchemaField may represent either one.
+            </remarks>
+        </member>
+        <member name="T:Bond.Unmarshal">
+            <summary>
+            Unmarshal payload of unknown schema
+            </summary>
+        </member>
+        <member name="M:Bond.Unmarshal.From``1(``0)">
+            <summary>
+            Unmarshal payload into an instance of IBonded
+            </summary>
+            <typeparam name="I">Implementation of IInputStream</typeparam>
+            <param name="input">Input stream with the payload</param>
+            <returns>IBonded wrapping the input</returns>
+        </member>
+        <member name="M:Bond.Unmarshal.From``1(``0,Bond.RuntimeSchema)">
+            <summary>
+            Unmarshal payload with specified schema into an instance of IBonded
+            </summary>
+            <typeparam name="I">Implementation of IInputStream</typeparam>
+            <param name="input">Input stream with the payload</param>
+            <param name="schema">Runtime schema of the payload</param>
+            <returns>IBonded wrapping the input</returns>
+        </member>
+        <member name="M:Bond.Unmarshal.From(System.ArraySegment{System.Byte})">
+            <summary>
+            Unmarshal payload into an instance of IBonded
+            </summary>
+            <param name="data">Byte array containing the payload</param>
+        </member>
+        <member name="M:Bond.Unmarshal.From(System.ArraySegment{System.Byte},Bond.RuntimeSchema)">
+            <summary>
+            Unmarshal payload with specified schema into an instance of IBonded
+            </summary>
+            <param name="data">Byte array segment containing the payload</param>
+            <param name="schema">Runtime schema of the payload</param>
+        </member>
+        <member name="T:Bond.Unmarshal`1">
+            <summary>
+            Unmarshal an object of type T
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+        </member>
+        <member name="M:Bond.Unmarshal`1.From``1(``0)">
+            <summary>
+            Unmarshal object of type T from payload
+            </summary>
+            <typeparam name="I">Implementation of IInputStream</typeparam>
+            <param name="input">Input stream</param>
+            <returns>Unmarshaled object</returns>
+        </member>
+        <member name="M:Bond.Unmarshal`1.From(System.ArraySegment{System.Byte})">
+            <summary>
+            Unmarshal object of type T from payload
+            </summary>
+            <param name="data">Byte array segment containing the payload</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bond.Marshal">
+            <summary>
+            Marshal objects
+            </summary>
+        </member>
+        <member name="M:Bond.Marshal.To``2(``0,``1)">
+            <summary>
+            Marshal object of type T using protocol writer W
+            </summary>
+            <typeparam name="W">Protocol writer</typeparam>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <param name="writer">Writer instance</param>
+            <param name="obj">Object to be marshaled</param>
+        </member>
+        <member name="M:Bond.Marshaler.Marshal``1(Bond.Serializer{``0},System.Object,``0)">
+            <summary>
+            Marshal object of type T using protocol writer W and a specific Serializer instance.
+            </summary>
+            <typeparam name="W">Protocol writer</typeparam>
+            <param name="serializer">Serializer instance</param>
+            <param name="writer">Writer instance</param>
+            <param name="obj">Object to be marshaled</param>
+        </member>
+        <member name="T:Bond.Protocols.CompactBinaryWriter`1">
+            <summary>
+            Writer for the Compact Binary tagged protocol
+            </summary>
+            <typeparam name="O">Implementation of IOutputStream interface</typeparam>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.#ctor(`0,System.UInt16)">
+            <summary>
+            Create an instance of CompactBinaryWriter
+            </summary>
+            <param name="output">Serialized payload output</param>
+            <param name="version">Protocol version</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteVersion">
+            <summary>
+            Write protocol magic number and version
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteStructBegin(Bond.Metadata)">
+            <summary>
+            Start writing a struct
+            </summary>
+            <param name="metadata">Schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteBaseBegin(Bond.Metadata)">
+            <summary>
+            Start writing a base struct
+            </summary>
+            <param name="metadata">Base schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteStructEnd">
+            <summary>
+            End writing a struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteBaseEnd">
+            <summary>
+            End writing a base struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteFieldBegin(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Start writing a field
+            </summary>
+            <param name="type">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteFieldOmitted(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Indicate that field was omitted because it was set to its default value
+            </summary>
+            <param name="dataType">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteFieldEnd">
+            <summary>
+            End writing a field
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteContainerBegin(System.Int32,Bond.BondDataType)">
+            <summary>
+            Start writing a list or set container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="elementType">Type of the elements</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteContainerBegin(System.Int32,Bond.BondDataType,Bond.BondDataType)">
+            <summary>
+            Start writing a map container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="keyType">Type of the keys</param>
+            /// <param name="valueType">Type of the values</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteContainerEnd">
+            <summary>
+            End writing a container
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write array of bytes verbatim
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteUInt8(System.Byte)">
+            <summary>
+            Write an UInt8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteUInt16(System.UInt16)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteUInt32(System.UInt32)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteUInt64(System.UInt64)">
+            <summary>
+            Write an UInt64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteInt8(System.SByte)">
+            <summary>
+            Write an Int8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteInt16(System.Int16)">
+            <summary>
+            Write an Int16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteInt32(System.Int32)">
+            <summary>
+            Write an Int32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteInt64(System.Int64)">
+            <summary>
+            Write an Int64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteFloat(System.Single)">
+            <summary>
+            Write a float
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteDouble(System.Double)">
+            <summary>
+            Write a double
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteBool(System.Boolean)">
+            <summary>
+            Write a bool
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteString(System.String)">
+            <summary>
+            Write a UTF-8 string
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryWriter`1.WriteWString(System.String)">
+            <summary>
+            Write a UTF-16 string
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.CompactBinaryReader`1">
+            <summary>
+            Reader for the Compact Binary tagged protocol
+            </summary>
+            <typeparam name="I">Implementation of IInputStream interface</typeparam>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.#ctor(`0,System.UInt16)">
+            <summary>
+            Create an instance of CompactBinaryReader
+            </summary>
+            <param name="input">Input payload</param>
+            <param name="version">Protocol version</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.Bond#IO#ICloneable{Bond#Protocols#CompactBinaryReader{I}}#Clone">
+            <summary>
+            Clone the reader
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadStructBegin">
+            <summary>
+            Start reading a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadBaseBegin">
+            <summary>
+            Start reading a base of a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadStructEnd">
+            <summary>
+            End reading a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadBaseEnd">
+            <summary>
+            End reading a base of a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadFieldBegin(Bond.BondDataType@,System.UInt16@)">
+            <summary>
+            Start reading a field
+            </summary>
+            <param name="type">An out parameter set to the field type 
+            or BT_STOP/BT_STOP_BASE if there is no more fields in current struct/base</param>
+            <param name="id">Out parameter set to the field identifier</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadFieldEnd">
+            <summary>
+            End reading a field
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadContainerBegin(System.Int32@,Bond.BondDataType@)">
+            <summary>
+            Start reading a list or set container
+            </summary>
+            <param name="count">An out parameter set to number of items in the container</param>
+            <param name="elementType">An out parameter set to type of container elements</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadContainerBegin(System.Int32@,Bond.BondDataType@,Bond.BondDataType@)">
+            <summary>
+            Start reading a map container
+            </summary>
+            <param name="count">An out parameter set to number of items in the container</param>
+            <param name="keyType">An out parameter set to the type of map keys</param>
+            <param name="valueType">An out parameter set to the type of map values</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadContainerEnd">
+            <summary>
+            End reading a container
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadUInt8">
+            <summary>
+            Read an UInt8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadUInt16">
+            <summary>
+            Read an UInt16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadUInt32">
+            <summary>
+            Read an UInt32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadUInt64">
+            <summary>
+            Read an UInt64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadInt8">
+            <summary>
+            Read an Int8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadInt16">
+            <summary>
+            Read an Int16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadInt32">
+            <summary>
+            Read an Int32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadInt64">
+            <summary>
+            Read an Int64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadBool">
+            <summary>
+            Read a bool
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadFloat">
+            <summary>
+            Read a float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadDouble">
+            <summary>
+            Read a double
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadString">
+            <summary>
+            Read a UTF-8 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadWString">
+            <summary>
+            Read a UTF-16 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryReader`1.Skip(Bond.BondDataType)">
+            <summary>
+            Skip a value of specified type
+            </summary>
+            <param name="type">Type of the value to skip</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="T:Bond.Protocols.CompactBinaryCounter">
+            <summary>
+            Length-calculator for Bond CompactBinary protocol V2
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.#ctor(System.Collections.Generic.LinkedList{System.UInt32})">
+            <summary>
+            Create an instance of CompactBinaryCounter
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteVersion">
+            <summary>
+            Write protocol magic number and version
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteStructBegin(Bond.Metadata)">
+            <summary>
+            Start writing a struct
+            </summary>
+            <param name="metadata">Schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteStructEnd">
+            <summary>
+            End writing a struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteBaseBegin(Bond.Metadata)">
+            <summary>
+            Start writing a base struct
+            </summary>
+            <param name="metadata">Base schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteBaseEnd">
+            <summary>
+            End writing a base struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteFieldBegin(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Start writing a field
+            </summary>
+            <param name="type">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteFieldOmitted(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Indicate that field was omitted because it was set to its default value
+            </summary>
+            <param name="dataType">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteFieldEnd">
+            <summary>
+            End writing a field
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteContainerBegin(System.Int32,Bond.BondDataType)">
+            <summary>
+            Start writing a list or set container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="elementType">Type of the elements</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteContainerBegin(System.Int32,Bond.BondDataType,Bond.BondDataType)">
+            <summary>
+            Start writing a map container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="keyType">Type of the keys</param>
+            <param name="valueType">Type of the values</param>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteContainerEnd">
+            <summary>
+            End writing a container
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write array of bytes verbatim
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteUInt8(System.Byte)">
+            <summary>
+            Write an UInt8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteUInt16(System.UInt16)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteUInt32(System.UInt32)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteUInt64(System.UInt64)">
+            <summary>
+            Write an UInt64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteInt8(System.SByte)">
+            <summary>
+            Write an Int8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteInt16(System.Int16)">
+            <summary>
+            Write an Int16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteInt32(System.Int32)">
+            <summary>
+            Write an Int32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteInt64(System.Int64)">
+            <summary>
+            Write an Int64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteFloat(System.Single)">
+            <summary>
+            Write a float
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteDouble(System.Double)">
+            <summary>
+            Write a double
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteBool(System.Boolean)">
+            <summary>
+            Write a bool
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteString(System.String)">
+            <summary>
+            Write a UTF-8 string
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.CompactBinaryCounter.WriteWString(System.String)">
+            <summary>
+            Write a UTF-16 string
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.FastBinaryWriter`1">
+            <summary>
+            Writer for the Fast Binary tagged protocol
+            </summary>
+            <typeparam name="O">Implementation of IOutputStream interface</typeparam>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.#ctor(`0,System.UInt16)">
+            <summary>
+            Create an instance of FastBinaryWriter
+            </summary>
+            <param name="output">Serialized payload output</param>
+            <param name="version">Protocol version</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteVersion">
+            <summary>
+            Write protocol magic number and version
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteStructBegin(Bond.Metadata)">
+            <summary>
+            Start writing a struct
+            </summary>
+            <param name="metadata">Schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteBaseBegin(Bond.Metadata)">
+            <summary>
+            Start writing a base struct
+            </summary>
+            <param name="metadata">Base schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteStructEnd">
+            <summary>
+            End writing a struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteBaseEnd">
+            <summary>
+            End writing a base struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteFieldBegin(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Start writing a field
+            </summary>
+            <param name="type">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteFieldOmitted(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Indicate that field was omitted because it was set to its default value
+            </summary>
+            <param name="dataType">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteFieldEnd">
+            <summary>
+            End writing a field
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteContainerBegin(System.Int32,Bond.BondDataType)">
+            <summary>
+            Start writing a list or set container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="elementType">Type of the elements</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteContainerBegin(System.Int32,Bond.BondDataType,Bond.BondDataType)">
+            <summary>
+            Start writing a map container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="keyType">Type of the keys</param>
+            /// <param name="valueType">Type of the values</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteContainerEnd">
+            <summary>
+            End writing a container
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write array of bytes verbatim
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteUInt8(System.Byte)">
+            <summary>
+            Write an UInt8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteUInt16(System.UInt16)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteUInt32(System.UInt32)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteUInt64(System.UInt64)">
+            <summary>
+            Write an UInt64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteInt8(System.SByte)">
+            <summary>
+            Write an Int8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteInt16(System.Int16)">
+            <summary>
+            Write an Int16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteInt32(System.Int32)">
+            <summary>
+            Write an Int32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteInt64(System.Int64)">
+            <summary>
+            Write an Int64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteFloat(System.Single)">
+            <summary>
+            Write a float
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteDouble(System.Double)">
+            <summary>
+            Write a double
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteBool(System.Boolean)">
+            <summary>
+            Write a bool
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteString(System.String)">
+            <summary>
+            Write a UTF-8 string
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryWriter`1.WriteWString(System.String)">
+            <summary>
+            Write a UTF-16 string
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.FastBinaryReader`1">
+            <summary>
+            Reader for the Fast Binary tagged protocol
+            </summary>
+            <typeparam name="I">Implementation of IInputStream interface</typeparam>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.#ctor(`0,System.UInt16)">
+            <summary>
+            Create an instance of FastBinaryReader
+            </summary>
+            <param name="input">Input payload</param>
+            <param name="version">Protocol version</param>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.Bond#IO#ICloneable{Bond#Protocols#FastBinaryReader{I}}#Clone">
+            <summary>
+            Clone the reader
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadStructBegin">
+            <summary>
+            Start reading a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadBaseBegin">
+            <summary>
+            Start reading a base of a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadStructEnd">
+            <summary>
+            End reading a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadBaseEnd">
+            <summary>
+            End reading a base of a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadFieldBegin(Bond.BondDataType@,System.UInt16@)">
+            <summary>
+            Start reading a field
+            </summary>
+            <param name="type">An out parameter set to the field type 
+            or BT_STOP/BT_STOP_BASE if there is no more fields in current struct/base</param>
+            <param name="id">Out parameter set to the field identifier</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadFieldEnd">
+            <summary>
+            End reading a field
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadContainerBegin(System.Int32@,Bond.BondDataType@)">
+            <summary>
+            Start reading a list or set container
+            </summary>
+            <param name="count">An out parameter set to number of items in the container</param>
+            <param name="elementType">An out parameter set to type of container elements</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadContainerBegin(System.Int32@,Bond.BondDataType@,Bond.BondDataType@)">
+            <summary>
+            Start reading a map container
+            </summary>
+            <param name="count">An out parameter set to number of items in the container</param>
+            <param name="keyType">An out parameter set to the type of map keys</param>
+            <param name="valueType">An out parameter set to the type of map values</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadContainerEnd">
+            <summary>
+            End reading a container
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadUInt8">
+            <summary>
+            Read an UInt8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadUInt16">
+            <summary>
+            Read an UInt16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadUInt32">
+            <summary>
+            Read an UInt32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadUInt64">
+            <summary>
+            Read an UInt64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadInt8">
+            <summary>
+            Read an Int8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadInt16">
+            <summary>
+            Read an Int16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadInt32">
+            <summary>
+            Read an Int32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadInt64">
+            <summary>
+            Read an Int64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadBool">
+            <summary>
+            Read a bool
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadFloat">
+            <summary>
+            Read a float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadDouble">
+            <summary>
+            Read a double
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadString">
+            <summary>
+            Read a UTF-8 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadWString">
+            <summary>
+            Read a UTF-16 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.FastBinaryReader`1.Skip(Bond.BondDataType)">
+            <summary>
+            Skip a value of specified type
+            </summary>
+            <param name="type">Type of the value to skip</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="T:Bond.Protocols.IProtocolWriter">
+            <summary>
+            Writes serialized payload
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteVersion">
+            <summary>
+            Write protocol magic number and version
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteStructBegin(Bond.Metadata)">
+            <summary>
+            Start writing a struct
+            </summary>
+            <param name="metadata">Schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteBaseBegin(Bond.Metadata)">
+            <summary>
+            Start writing a base struct
+            </summary>
+            <param name="metadata">Base schema metadata</param>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteStructEnd">
+            <summary>
+            End writing a struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteBaseEnd">
+            <summary>
+            End writing a base struct
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteFieldBegin(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Start writing a field
+            </summary>
+            <param name="type">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteFieldEnd">
+            <summary>
+            End writing a field
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteFieldOmitted(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Indicate that field was omitted because it was set to its default value
+            </summary>
+            <param name="type">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteContainerBegin(System.Int32,Bond.BondDataType)">
+            <summary>
+            Start writing a list or set container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="elementType">Type of the elements</param>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteContainerBegin(System.Int32,Bond.BondDataType,Bond.BondDataType)">
+            <summary>
+            Start writing a map container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="keyType">Type of the keys</param>
+            /// <param name="valueType">Type of the values</param>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteContainerEnd">
+            <summary>
+            End writing a container
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteInt8(System.SByte)">
+            <summary>
+            Write an Int8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteInt16(System.Int16)">
+            <summary>
+            Write an Int16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteInt32(System.Int32)">
+            <summary>
+            Write an Int32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteInt64(System.Int64)">
+            <summary>
+            Write an Int64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteUInt8(System.Byte)">
+            <summary>
+            Write an UInt8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteUInt16(System.UInt16)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteUInt32(System.UInt32)">
+            <summary>
+            Write an UInt32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteUInt64(System.UInt64)">
+            <summary>
+            Write an UInt64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteFloat(System.Single)">
+            <summary>
+            Write a float
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteDouble(System.Double)">
+            <summary>
+            Write a double
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write array of bytes verbatim
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteBool(System.Boolean)">
+            <summary>
+            Write a bool
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteString(System.String)">
+            <summary>
+            Write a UTF-8 string
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IProtocolWriter.WriteWString(System.String)">
+            <summary>
+            Write a UTF-16 string
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.ITwoPassProtocolWriter">
+            <summary>
+            Provides interface to a writer to pre-run for protocols (like Compact Binary v2) which need two passes.
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.ITwoPassProtocolWriter.GetFirstPassWriter">
+            <summary>
+            Provide the first-pass writer, if one is needed for this writer.
+            Otherwise, returns null.
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.ITextProtocolWriter">
+            <summary>
+            Writes elements used in text protocols
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.ITextProtocolWriter.WriteItemBegin">
+            <summary>
+            Start writing a container item
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.ITextProtocolWriter.WriteItemEnd">
+            <summary>
+            End writing a container item
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.ITaggedProtocolReader">
+            <summary>
+            Reads from serialize payload encoded using a tagged protocol
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadStructBegin">
+            <summary>
+            Start reading a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadBaseBegin">
+            <summary>
+            Start reading a base of a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadStructEnd">
+            <summary>
+            End reading a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadBaseEnd">
+            <summary>
+            End reading a base of a struct
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadFieldBegin(Bond.BondDataType@,System.UInt16@)">
+            <summary>
+            Start reading a field
+            </summary>
+            <param name="type">An out parameter set to the field type 
+            or BT_STOP/BT_STOP_BASE if there is no more fields in current struct/base</param>
+            <param name="id">An out parameter set to the field identifier</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadFieldEnd">
+            <summary>
+            End reading a field
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadContainerBegin(System.Int32@,Bond.BondDataType@)">
+            <summary>
+            Start reading a list or set container
+            </summary>
+            <param name="count">An out parameter set to number of items in the container</param>
+            <param name="elementType">An out parameter set to type of container elements</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadContainerBegin(System.Int32@,Bond.BondDataType@,Bond.BondDataType@)">
+            <summary>
+            Start reading a map container
+            </summary>
+            <param name="count">An out parameter set to number of items in the container</param>
+            <param name="keyType">An out parameter set to the type of map keys</param>
+            <param name="valueType">An out parameter set to the type of map values</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadContainerEnd">
+            <summary>
+            End reading a container
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.Skip(Bond.BondDataType)">
+            <summary>
+            Skip a value of specified type
+            </summary>
+            <param name="type">Type of the value to skip</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadInt8">
+            <summary>
+            Read an Int8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadInt16">
+            <summary>
+            Read an Int16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadInt32">
+            <summary>
+            Read an Int32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadInt64">
+            <summary>
+            Read an Int64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadUInt8">
+            <summary>
+            Read an UInt8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadUInt16">
+            <summary>
+            Read an UInt16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadUInt32">
+            <summary>
+            Read an UInt32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadUInt64">
+            <summary>
+            Read an UInt64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadFloat">
+            <summary>
+            Read a float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadDouble">
+            <summary>
+            Read a double
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadBool">
+            <summary>
+            Read a bool
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadString">
+            <summary>
+            Read a UTF-8 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.ITaggedProtocolReader.ReadWString">
+            <summary>
+            Read a UTF-16 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="T:Bond.Protocols.IClonableTaggedProtocolReader">
+            <summary>
+            Extension of ITaggedProtocolReader that can be used as R in Bonded&lt;T, R>
+            </summary>
+        </member>
+        <member name="T:Bond.Protocols.IUntaggedProtocolReader">
+            <summary>
+            Reads from serialized payload encoded using a untagged protocol
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadFieldOmitted">
+            <summary>
+            Check if the next field was omitted
+            </summary>
+            <returns>true iff the field was omitted</returns>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadContainerBegin">
+            <summary>
+            Start reading a container
+            </summary>
+            <returns>Number of element in the container</returns>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadContainerEnd">
+            <summary>
+            End reading a container
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadInt8">
+            <summary> 
+            Read an Int8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipInt8">
+            <summary> 
+            Skip an Int8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadInt16">
+            <summary>
+            Read an Int16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipInt16">
+            <summary>
+            Skip an Int16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadInt32">
+            <summary>
+            Read an Int32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipInt32">
+            <summary>
+            Skip an Int32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadInt64">
+            <summary>
+            Read an Int64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipInt64">
+            <summary>
+            Skip an Int64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadUInt8">
+            <summary>
+            Read a UInt8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipUInt8">
+            <summary>
+            Skip an UInt8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadUInt16">
+            <summary> 
+            Read an UInt16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipUInt16">
+            <summary>
+            Skip an UInt16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadUInt32">
+            <summary>
+            Read an UInt32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipUInt32">
+            <summary>
+            Skip an UInt32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadUInt64">
+            <summary>
+            Read an UInt64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipUInt64">
+            <summary>
+            Skip one UInt64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadFloat">
+            <summary>
+            Read a float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipFloat">
+            <summary>
+            Skip an float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadDouble">
+            <summary>
+            Read a double
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipDouble">
+            <summary>
+            Skip a double
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipBytes(System.Int32)">
+            <summary>
+            Skip forward specified number of bytes
+            </summary>
+            <param name="count">Number of bytes to skip</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadBool">
+            <summary>
+            Read a bool
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipBool">
+            <summary> 
+            Skip a bool
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadString">
+            <summary>
+            Read a UTF8 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipString">
+            <summary>
+            Skip a UTF8 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.ReadWString">
+            <summary>
+            Read a UTF16 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.IUntaggedProtocolReader.SkipWString">
+            <summary>
+            Skip a UTF16 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="T:Bond.Protocols.IClonableUntaggedProtocolReader">
+            <summary>
+            Extension of IUntaggedProtocolReader that can be used as R in Bonded&lt;T, R>
+            </summary>
+        </member>
+        <member name="P:Bond.Protocols.IXmlReader.EOF">
+            <summary>
+            Indicates the Xml's end has been reached.
+            </summary>
+        </member>
+        <member name="P:Bond.Protocols.IXmlReader.NodeType">
+            <summary>
+            Returns the type of the current Xml node in the input.
+            </summary>
+        </member>
+        <member name="P:Bond.Protocols.IXmlReader.LocalName">
+            <summary>
+            Returns the local name of the current Xml node in the input.
+            </summary>
+        </member>
+        <member name="P:Bond.Protocols.IXmlReader.NamespaceURI">
+            <summary>
+            Returns the Xml namesapce URI of the current Xml node in the input.
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.#ctor(`0,System.UInt16)">
+            <summary> Construct a new SimpleBinaryWriter
+            </summary>
+            <param name="output">Serialize payload output</param>
+            <param name="version">Protocol version</param>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteVersion">
+            <summary>
+            Write protocol magic number and version
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteFieldOmitted(Bond.BondDataType,System.UInt16,Bond.Metadata)">
+            <summary>
+            Indicate that field was omitted because it was set to its default value
+            </summary>
+            <param name="dataType">Type of the field</param>
+            <param name="id">Identifier of the field</param>
+            <param name="metadata">Metadata of the field</param>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteContainerBegin(System.Int32,Bond.BondDataType)">
+            <summary>
+            Start writing a list or set container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="elementType">Type of the elements</param>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteContainerBegin(System.Int32,Bond.BondDataType,Bond.BondDataType)">
+            <summary>
+            Start writing a map container
+            </summary>
+            <param name="count">Number of elements in the container</param>
+            <param name="keyType">Type of the keys</param>
+            /// <param name="valueType">Type of the values</param>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteContainerEnd">
+            <summary>
+            End writing a container
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteUInt8(System.Byte)">
+            <summary>
+            Write an UInt8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteUInt16(System.UInt16)">
+            <summary>
+            Write an UInt16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteUInt32(System.UInt32)">
+            <summary>
+            Write an UInt32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteUInt64(System.UInt64)">
+            <summary>
+            Write an UInt64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteBytes(System.ArraySegment{System.Byte})">
+            <summary>
+            Write array of bytes verbatim
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteInt8(System.SByte)">
+            <summary>
+            Write an Int8
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteInt16(System.Int16)">
+            <summary>
+            Write an Int16
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteInt32(System.Int32)">
+            <summary>
+            Write an Int32
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteInt64(System.Int64)">
+            <summary>
+            Write an Int64
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteFloat(System.Single)">
+            <summary>
+            Write a float
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteDouble(System.Double)">
+            <summary>
+            Write a double
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteBool(System.Boolean)">
+            <summary> write bool, extending the stream if necessary and possible
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteString(System.String)">
+            <summary>
+            Write a UTF-8 string
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryWriter`1.WriteWString(System.String)">
+            <summary>
+            Write a UTF-16 string
+            </summary>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadContainerBegin">
+            <summary>
+            Start reading a list or set container
+            </summary>
+            <returns>Number of elements</returns>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadContainerEnd">
+            <summary>
+            End reading a container
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadUInt8">
+            <summary>
+            Read an UInt8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadUInt16">
+            <summary>
+            Read an UInt16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadUInt32">
+            <summary>
+            Read an UInt32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadUInt64">
+            <summary>
+            Read an UInt64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadInt8">
+            <summary>
+            Read an Int8
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadInt16">
+            <summary>
+            Read an Int16
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadInt32">
+            <summary>
+            Read an Int32
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadInt64">
+            <summary>
+            Read an Int64
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadBool">
+            <summary>
+            Read an bool
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadFloat">
+            <summary>
+            Read an float
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadDouble">
+            <summary>
+            Read an double
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadString">
+            <summary>
+            Read a UTF-8 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadWString">
+            <summary>
+            Read a UTF-16 string
+            </summary>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Protocols.SimpleBinaryReader`1.ReadBytes(System.Int32)">
+            <summary>
+            Read an array of bytes verbatim
+            </summary>
+            <param name="count">Number of bytes to read</param>
+            <exception cref="T:System.IO.EndOfStreamException"/>
+        </member>
+        <member name="M:Bond.Reflection.GetSchemaFields(System.Type)">
+            <summary>
+            Get list of fields for a Bond schema
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.GetValueType(System.Type)">
+            <summary>
+            Get the inner Type of composite/container types
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.GetKeyValueType(System.Type)">
+            <summary>
+            Get the key and value Type for a map
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondStruct(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond schema
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBonded(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a bonded&lt;T>
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondNullable(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond nullable type
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondString(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond string
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondBlob(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond blob
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondList(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond list
+            or a Bond vector
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondMap(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond map
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondSet(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond set
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.IsBondContainer(System.Type)">
+            <summary>
+            Get a value indicating whether the Type is a Bond container
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.GetBondDataType(System.Type)">
+            <summary>
+            Get the BondDataType value for the Type
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.GetBondListDataType(System.Type)">
+            <summary>
+            Get the ListSubType value for the Type
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.GetBaseSchemaType(System.Type)">
+            <summary>
+            Get the Type representing the base schema or null if the schema has no base
+            </summary>
+        </member>
+        <member name="M:Bond.Reflection.GetSchemaType(Bond.ISchemaField)">
+            <summary>
+            Get the Type of the schema field, including any type annotations from TypeAttribute
+            </summary>
+            <remarks>
+            In some cases this may not be the actual type of the property or field.
+            If the property or field has a TypeAttribute, this will be the attribute's value
+            and can provide schema information that is not available on the actual 
+            property/field type.
+            </remarks>
+        </member>
+        <member name="M:Bond.Reflection.InfoOf``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the MethodInfo for the "int Math::Abs(int)" overload, you can write:
+            <code>(MethodInfo)Reflection.InfoOf((int x) => Math.Abs(x))</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.MethodInfoOf``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if that member is not a method. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the MethodInfo for the "int Math::Abs(int)" overload, you can write:
+            <code>Reflection.MethodInfoOf((int x) => Math.Abs(x))</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.GenericMethodInfoOf``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if the member is not a generic method definition. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the generic method definition for some "int Foo::Bar&lt;T>(T)" overload, you can write:
+            <code>Reflection.GenericMethodInfoOf((int x) => Foo.Bar(x))</code>, which returns the definition Foo.Bar&lt;>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.PropertyInfoOf``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if the member is not a PropertyInfo. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the PropertyInfo for the "int Foo::SomeProperty", you can write:
+            <code>Reflection.PropertyInfoOf((Foo f) => f.SomeProperty)</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.FieldInfoOf``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if the member is not a FieldInfo. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the FieldInfo for the "int Foo::someField" field, you can write:
+            <code>Reflection.FieldInfoOf((Foo f) => f.someField)</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.InfoOf``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the PropertyInfo of "DateTime DateTime::Now { get; }", you can write:
+            <code>(PropertyInfo)Reflection.InfoOf(() => DateTime.Now)</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.MethodInfoOf``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if that member is not a method. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the MethodInfo for the "int Math::Abs(int)" overload, you can write:
+            <code>Reflection.MethodInfoOf(() => Math.Abs(default(int)))</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.GenericMethodInfoOf``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="TResult">Return type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if the member is not a generic method definition. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the generic method definition for some "int Foo::Bar&lt;T>(T)" overload, you can write:
+            <code>Reflection.GenericMethodInfoOf(() => Foo.Bar(default(int)))</code>, which returns the definition Foo.Bar&lt;>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.InfoOf``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the MethodInfo for the "void Console::WriteLine(string)" overload, you can write:
+            <code>(MethodInfo)Reflection.InfoOf((string s) => Console.WriteLine(s))</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.MethodInfoOf``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if that member is not a method. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the MethodInfo for the "void Foo::DoThing(int)" overload, you can write:
+            <code>Reflection.MethodInfoOf(() => Foo.DoThing(default(int)))</code>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.GenericMethodInfoOf``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <typeparam name="T">Input type of the lambda.</typeparam>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. Return null if the member is not a generic method definition. An exception occurs if this node does not contain member information.</returns>
+            <example>
+            To obtain the generic method definition for some "void Foo::Bar&lt;T>(T)" overload, you can write:
+            <code>Reflection.GenericMethodInfoOf(() => Foo.Bar(default(int)))</code>, which returns the definition Foo.Bar&lt;>
+            </example>
+        </member>
+        <member name="M:Bond.Reflection.InfoOf(System.Linq.Expressions.Expression)">
+            <summary>
+            Gets the reflection member information from the top-level node in the body of the given lambda expression.
+            </summary>
+            <param name="expression">Lambda expression to extract reflection information from</param>
+            <returns>Member information of the top-level node in the body of the lambda expression. An exception occurs if this node does not contain member information.</returns>
+        </member>
+        <member name="T:Bond.Schema">
+            <summary>
+            Utility to create runtime schema for dynamically specified Bond schema
+            </summary>
+        </member>
+        <member name="M:Bond.Schema.GetRuntimeSchema(System.Type)">
+            <summary>
+            Get runtime schema for the specified Bond schema
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <returns>Instance of <see cref="T:Bond.RuntimeSchema"/></returns>
+        </member>
+        <member name="T:Bond.Schema`1">
+            <summary>
+            Utility to create runtime schema for statically specified Bond schema 
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Bond.Schema`1.RuntimeSchema">
+            <summary>
+            Runtime schema for the Bond schema type T
+            </summary>
+        </member>
+        <member name="T:Bond.Serialize">
+            <summary>
+            Serialize objects
+            </summary>
+        </member>
+        <member name="M:Bond.Serialize.To``2(``0,``1)">
+            <summary>
+            Serialize object of type <typeparamref name="T"/> to protocol writer of type <typeparamref name="W"/>
+            </summary>
+            <typeparam name="W">Protocol writer</typeparam>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <param name="writer">Writer instance</param>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:Bond.Serialize.To``2(``0,Bond.IBonded{``1})">
+            <summary>
+            Serialize <see cref="T:Bond.IBonded`1" /> to protocol writer of type <typeparamref name="W"/>
+            </summary>
+            <typeparam name="W">Protocol writer</typeparam>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+            <param name="writer">Writer instance</param>
+            <param name="bonded"><see cref="T:Bond.IBonded"/> instance</param>
+        </member>
+        <member name="M:Bond.Serialize.To``1(``0,Bond.IBonded)">
+            <summary>
+            Serialize <see cref="T:Bond.IBonded"/> to protocol writer of type <typeparamref name="W"/>
+            </summary>
+            <typeparam name="W">Protocol writer</typeparam>
+            <param name="writer">Writer instance</param>
+            <param name="bonded"><see cref="T:Bond.IBonded"/> instance</param>
+        </member>
+        <member name="T:Bond.Serializer`1">
+            <summary>
+            Serializer for protocol writer <typeparamref name="W"/>
+            </summary>
+            <typeparam name="W">Protocol writer</typeparam>
+        </member>
+        <member name="M:Bond.Serializer`1.#ctor(System.Type)">
+            <summary>
+            Create a serializer for specified type
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+        </member>
+        <member name="M:Bond.Serializer`1.#ctor(System.Type,Bond.Expressions.IParser)">
+            <summary>
+            Create a serializer for specified type
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+        </member>
+        <member name="M:Bond.Serializer`1.#ctor(System.Type,System.Boolean)">
+            <summary>
+            Create a serializer for specified type
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="inlineNested">Indicates whether nested struct serialization code may be inlined</param>
+        </member>
+        <member name="M:Bond.Serializer`1.#ctor(System.Type,Bond.Expressions.IParser,System.Boolean)">
+            <summary>
+            Create a serializer for specified type
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+            <param name="inlineNested">Indicates whether nested struct serialization code may be inlined</param>
+        </member>
+        <member name="M:Bond.Serializer`1.Serialize(System.Object,`0)">
+            <summary>
+            Serialize object using protocol writer of type <typeparamref name="W"/>
+            </summary>
+            <param name="obj">Object to serialize</param>
+            <param name="writer">Writer instance</param>
+            <remarks>
+            The object must be of type used to create the <see cref="T:Bond.Serializer`1"/>, otherwise behavior is undefined
+            </remarks>
+        </member>
+        <member name="T:Bond.Transcode">
+            <summary>
+            Transcode payload from one protocol into another
+            </summary>
+        </member>
+        <member name="M:Bond.Transcode.FromTo``2(``0,``1)">
+            <summary>
+            Transcode data from protocol reader <typeparamref name="R"/> to protocol writer <typeparamref name="W"/>
+            </summary>
+            <typeparam name="R">Protocol reader</typeparam>
+            <typeparam name="W">Protocol writer</typeparam>
+            <param name="reader">Reader instance representing source payload</param>
+            <param name="writer">Writer instance</param>
+        </member>
+        <member name="T:Bond.Transcode`1">
+            <summary>
+            Transcode payload from one protocol into another using compile-time schema <typeparamref name="T"/>
+            </summary>
+            <typeparam name="T">Type representing a Bond schema</typeparam>
+        </member>
+        <member name="M:Bond.Transcode`1.FromTo``2(``0,``1)">
+            <summary>
+            Transcode data from protocol reader <typeparamref name="R"/> to protocol writer <typeparamref name="W"/>
+            </summary>
+            <typeparam name="R">Protocol reader</typeparam>
+            <typeparam name="W">Protocol writer</typeparam>
+            <param name="reader">Reader instance representing source payload</param>
+            <param name="writer">Writer instance</param>
+        </member>
+        <member name="T:Bond.Transcoder`2">
+            <summary>
+            Transcoder from protocol reader <typeparamref name="R"/> to protocol writer <typeparamref name="W"/>
+            </summary>
+            <typeparam name="R">Protocol reader</typeparam>
+            <typeparam name="W">Protocol writer</typeparam>
+        </member>
+        <member name="M:Bond.Transcoder`2.#ctor(Bond.RuntimeSchema)">
+            <summary>
+            Create a transcoder for payloads with specified runtime schema
+            </summary>
+            <param name="schema">Payload schema, required for transcoding from untagged protocols</param>
+        </member>
+        <member name="M:Bond.Transcoder`2.#ctor(System.Type)">
+            <summary>
+            Create a transcoder for payloads with specified compile-time schema
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+        </member>
+        <member name="M:Bond.Transcoder`2.#ctor(Bond.RuntimeSchema,Bond.Expressions.IParser)">
+            <summary>
+            Create a transcoder for payloads with specified runtime schema
+            </summary>
+            <param name="schema">Payload schema, required for transcoding from untagged protocols</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+        </member>
+        <member name="M:Bond.Transcoder`2.#ctor(System.Type,Bond.Expressions.IParser)">
+            <summary>
+            Create a transcoder for payloads with specified compile-time schema
+            </summary>
+            <param name="type">Type representing a Bond schema</param>
+            <param name="parser">Custom <see cref="T:Bond.Expressions.IParser"/> instance</param>
+        </member>
+        <member name="M:Bond.Transcoder`2.Transcode(`0,`1)">
+            <summary>
+            Transcode payload
+            </summary>
+            <param name="reader">Reader instance representing source payload</param>
+            <param name="writer">Writer instance</param>
+        </member>
+    </members>
+</doc>

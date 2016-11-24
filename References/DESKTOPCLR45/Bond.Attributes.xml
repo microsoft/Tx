@@ -103,5 +103,10 @@
             Applied to protocol writers to indicate the implementation of ISerializerGenerator used to generate serializer
             </summary>
         </member>
+        <member name="T:Bond.FirstPassWriterAttribute">
+            <summary>
+            Applied to 2-pass protocol writers to indicate the implementation of IProtocolWriter used to generate the first-pass serializer
+            </summary>
+        </member>
     </members>
 </doc>

@@ -4,7 +4,7 @@
     <id>Tx.Windows</id>
     <title>Tx.Windows</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta2</version>
+    <version>{version}-beta3</version>
     <description>Tx (LINQ to Logs and Traces) components for Windows: ETW, Logs (.evtx), Perormance Counters (.blg, .csv, .tsv), IIS Logs in W3C format</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -16,7 +16,7 @@
       <tags>Tx Traces Logs Playback ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Core" version="{version}-beta2" />
+      <dependency id="Tx.Core" version="{version}-beta3" />
     </dependencies>
   </metadata>
 </package>

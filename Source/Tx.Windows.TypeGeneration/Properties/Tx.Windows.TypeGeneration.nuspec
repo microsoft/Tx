@@ -4,7 +4,7 @@
     <id>Tx.Windows.TypeGeneration</id>
     <title>Tx.Windows.TypeGeneration</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta2</version>
+    <version>{version}-beta3</version>
     <description>Tx (LINQ to Logs and Traces) components for generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -16,8 +16,8 @@
       <tags>Tx Traces Logs Playback Replay ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Core" version="{version}-beta2" />
-      <dependency id="Tx.Windows" version="{version}-beta2" />
+      <dependency id="Tx.Core" version="{version}-beta3" />
+      <dependency id="Tx.Windows" version="{version}-beta3" />
     </dependencies>
   </metadata>
 </package>

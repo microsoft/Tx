@@ -4,7 +4,7 @@
     <id>Tx.SqlServer</id>
     <title>Tx.SqlServer</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta2</version>
+    <version>{version}-beta3</version>
     <description>Tx (LINQ to Logs and Traces) components for SQL Server. So far, this incldes Extended Events (XEvent)</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -16,7 +16,7 @@
     <tags>Tx Traces Logs Playback Replay XEvent</tags>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Core" version="{version}-beta2" />
+      <dependency id="Tx.Core" version="{version}-beta3" />
     </dependencies>
   </metadata>
 </package>
