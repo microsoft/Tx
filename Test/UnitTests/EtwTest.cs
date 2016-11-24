@@ -32,7 +32,7 @@ namespace Tests.Tx
 
             observable
                 .Take(1)
-                .ForEach(
+                .Do(
                 nativeEvent =>
                 {
                     try
@@ -65,7 +65,8 @@ namespace Tests.Tx
                     {
                         failureMessage = assertError.Message;
                     }
-                });
+                })
+                .Wait();
 
             if (failureMessage != null)
             {
@@ -78,13 +79,7 @@ namespace Tests.Tx
         {
             var observable = EtwObservable.FromFiles(FileName);
 
-            int count = 0;
-
-            observable.ForEach(
-                x =>
-                {
-                    count++;
-                });
+            int count = observable.Count().Wait();
 
             Assert.AreEqual(2041, count);
         }

@@ -9,6 +9,7 @@ namespace Tx.Network
         /// Creates UDP datagram based on the specified IP packet.
         /// </summary>
         /// <param name="ipPacket">A source IpPacket Object that contains a UDP datagram.</param>
+        /// <param name="reuseOriginalBuffer">A flag that determines if the original packet's buffer needs to be reused.</param>
         /// <returns>A new UdpDatagram instance.</returns>
         /// <exception cref="System.ArgumentNullException">ipPacket is null</exception>
         /// <exception cref="System.NotSupportedException">Only UDP packets are supported.</exception>

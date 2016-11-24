@@ -29,13 +29,8 @@ namespace Tests.Tx
         {
             var observable = PerfCounterObservable.FromFile(BlgFileName);
 
-            int count = 0;
-
-            observable.ForEach(
-                x =>
-                {
-                    count++;
-                });
+            int count = observable.Count()
+                .Wait();
 
             Assert.AreEqual(6000, count);
         }
@@ -45,13 +40,10 @@ namespace Tests.Tx
         {
             var observable = PerfCounterObservable.FromFile(BlgFileName);
 
-            int count = 0;
-
-            observable.Where(p=>p.CounterSet == "PhysicalDisk").ForEach(
-                x =>
-                {
-                    count++;
-                });
+            int count = observable
+                .Where(p => p.CounterSet == "PhysicalDisk")
+                .Count()
+                .Wait();
 
             Assert.AreEqual(3000, count);
         }
@@ -75,7 +67,7 @@ namespace Tests.Tx
                               Counters = g
                           };
 
-            var all = grouped.ToArray().First();
+            var all = grouped.ToEnumerable().ToArray();
 
             Assert.AreEqual(600, all.Length);
         }
@@ -145,17 +137,9 @@ namespace Tests.Tx
         [TestMethod]
         public void BlgFirst()
         {
-            PerformanceSample result = null;
-
             var observable = PerfCounterObservable.FromFile(BlgFileName);
 
-            observable
-                .Take(1)
-                .ForEach(
-                x =>
-                {
-                    result = x;
-                });
+            var result = observable.FirstAsync().Wait();
 
             Assert.IsNotNull(result);
 

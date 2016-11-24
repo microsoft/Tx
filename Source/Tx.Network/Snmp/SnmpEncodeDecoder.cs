@@ -82,6 +82,8 @@ namespace Tx.Network.Snmp
         /// Converts the Asn.1 encoded byte array to SNMP Datagram.
         /// </summary>
         /// <param name="byteSegment">The asn.1 encoded bytes.</param>
+        /// <param name="timestamp">The timestamp when the packet has been received.</param>
+        /// <param name="sourceIpAddress">The source IP address of the packet.</param>
         /// <returns>
         /// SnmpPacket
         /// </returns>
@@ -146,7 +148,6 @@ namespace Tx.Network.Snmp
                     sourceIpAddress,
                     new SnmpHeader(snmpVersion, community), 
                     varBinds);
-                    //new SnmpV1Pdu(pduType, varBinds, oid, ipAddress, genericTrap, specificTrap, timeStamp));
             }
             else
             {
