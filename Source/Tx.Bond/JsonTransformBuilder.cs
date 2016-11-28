@@ -10,7 +10,7 @@ namespace Tx.Bond
 
     using Tx.Core;
 
-    public class JsonTransformerBuilder : ITransformerBuilder<IEnvelope>
+    public class JsonTransformBuilder : ITransformBuilder<IEnvelope>
     {
         public Func<TIn, IEnvelope> Build<TIn>()
         {

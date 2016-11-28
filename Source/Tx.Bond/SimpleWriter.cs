@@ -5,14 +5,14 @@ namespace Tx.Bond
 
     using Tx.Core;
 
-    public class SimpleWriter : Transformer<object>
+    public class SimpleWriter : Tx.Core.Converter<object, IEnvelope>
     {
         public SimpleWriter(IObserver<IEnvelope> next)
             : base(
                 next, 
-                new PassthroughTransformerBuilder(),
-                new BondCompactBinaryTransformerBuilder(),
-                new JsonTransformerBuilder())
+                new PassthroughTransformBuilder(),
+                new BondCompactBinaryTransformBuilder(),
+                new JsonTransformBuilder())
         {
             if (next == null)
             {

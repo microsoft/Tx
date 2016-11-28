@@ -16,7 +16,7 @@
       <tags>Tx Traces Logs Playback Replay XEvent ETW Bond</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Windows" version="{version}-beta3" />
+      <dependency id="Tx.Windows" version="{version}" />
       <dependency id="Bond.Core.CSharp" version="5.0.0" />
       <dependency id="Microsoft.Diagnostics.Tracing.EventSource.Redist" version="1.0.26" />
     </dependencies>

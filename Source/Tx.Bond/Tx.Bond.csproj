@@ -62,7 +62,7 @@
     <Compile Include="BinaryEtlReader.cs" />
     <Compile Include="BinaryEtwObservable.cs" />
     <Compile Include="BinaryEventSourceObserver.cs" />
-    <Compile Include="BondCompactBinaryTransformerBuilder.cs" />
+    <Compile Include="BondCompactBinaryTransformBuilder.cs" />
     <Compile Include="BondEnvelope.cs" />
     <Compile Include="Internal\BinaryEtwParser.cs" />
     <Compile Include="BinaryEtwSessionListener.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="BondJsonEnvelopeTypeMap.cs" />
     <Compile Include="Internal\IpAddressConverter.cs" />
     <Compile Include="Internal\PathUtils.cs" />
-    <Compile Include="JsonTransformerBuilder.cs" />
+    <Compile Include="JsonTransformBuilder.cs" />
     <Compile Include="Protocol.cs" />
     <Compile Include="Internal\StringHelper.cs" />
     <Compile Include="Internal\TypeExtensions.cs" />

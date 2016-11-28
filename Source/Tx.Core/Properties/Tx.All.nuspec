@@ -15,7 +15,7 @@
       <tags>Tx Traces Logs Playback Replay XEvent ETW</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="Tx.Core" version="{version}-beta3" />
+      <dependency id="Tx.Core" version="{version}" />
       <dependency id="Tx.Windows" version="{version}-beta3" />
       <dependency id="Tx.Windows.TypeGeneration" version="{version}-beta3" />       
       <dependency id="Tx.SqlServer" version="{version}-beta3" />

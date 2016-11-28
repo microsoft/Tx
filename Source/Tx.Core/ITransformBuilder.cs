@@ -2,7 +2,7 @@
 {
     using System;
 
-    public interface ITransformerBuilder<out TOut>
+    public interface ITransformBuilder<out TOut>
     {
         Func<TIn, TOut> Build<TIn>();
     }

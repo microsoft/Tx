@@ -115,25 +115,19 @@ namespace System.Reactive
                 typeof(PartitionableTypeMap<T>));
         }
 
-        //public static IObservable<TOutput> OfType<TOutput>(
-        //    this IObservable<IEnvelope> source,
-        //    params ITypeMap<IEnvelope>[] typeMaps)
-        //{
-        //    return Observable
-        //        .Create<Timestamped<object>>(observer =>
-        //        {
-        //            var deserialzier = new CompositeDeserializer<IEnvelope>(observer, typeMaps);
-        //            deserialzier.AddKnownType(typeof(TOutput));
-        //            return source.Subscribe(deserialzier);
-        //        })
-        //        .Select(i => i.Value)
-        //        .OfType<TOutput>();
-        //}
-
         public static IObservable<TOutput> OfType<TInput, TOutput>(
             this IObservable<TInput> source,
             params ITypeMap<TInput>[] typeMaps)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            if (typeMaps == null)
+            {
+                throw new ArgumentNullException("typeMaps");
+            }
+
             return Observable
                 .Create<Timestamped<object>>(observer =>
                 {

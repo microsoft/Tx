@@ -22,14 +22,14 @@ namespace System.Reactive
                 new KeyValuePair<Record, Func<Record, object>>(new Record(), record => record));
         }
 
-        protected CsvRecordTypeMap(Type type, Func<Record, object> transformer) : this()
+        protected CsvRecordTypeMap(Type type, Func<Record, object> transform) : this()
         {
             this._payloadConverterCache.Add(
                 type,
-                new KeyValuePair<Record, Func<Record, object>>(new Record(), transformer));
+                new KeyValuePair<Record, Func<Record, object>>(new Record(), transform));
         }
 
-        public abstract Func<Record, object> Transformer { get; set; }
+        public abstract Func<Record, object> Transform { get; set; }
 
         public abstract Func<Record, DateTimeOffset> TimeFunction { get; }
 

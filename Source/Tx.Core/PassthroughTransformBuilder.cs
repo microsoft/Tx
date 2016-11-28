@@ -3,7 +3,7 @@
     using System;
     using System.Reactive;
 
-    public class PassthroughTransformerBuilder : ITransformerBuilder<IEnvelope>
+    public class PassthroughTransformBuilder : ITransformBuilder<IEnvelope>
     {
         public Func<TIn, IEnvelope> Build<TIn>()
         {

@@ -19,6 +19,10 @@
             // To have produced files compatible with PcapNg format
         }
 
+        /// <summary>
+        /// Provides the observer with new data.
+        /// </summary>
+        /// <param name="e">The current notification information.</param>
         public void OnNext(byte[] e)
         {
             var length = 12 + (e.Length / 4 + 1) * 4;
@@ -38,13 +42,20 @@
             this.stream.Write(size, 0, 4);
         }
 
+        /// <summary>
+        /// Notifies the observer that the provider has finished sending push-based notifications.
+        /// </summary>
         public void OnCompleted()
         {
             this.stream.Flush();
             this.stream.Close();
         }
 
-        public void OnError(Exception e)
+        /// <summary>
+        /// Notifies the observer that the provider has experienced an error condition.
+        /// </summary>
+        /// <param name="error">An object that provides additional information about the error.</param>
+        public void OnError(Exception error)
         {
         }
 

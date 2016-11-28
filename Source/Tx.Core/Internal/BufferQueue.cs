@@ -63,6 +63,10 @@ namespace System.Reactive
             _queue.CompleteAdding();
         }
 
+        /// <summary>
+        /// Provides the observer with new data.
+        /// </summary>
+        /// <param name="value">The current notification information.</param>
         public void OnNext(T value)
         {
             _queue.Add(value);

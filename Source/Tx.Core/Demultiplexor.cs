@@ -18,6 +18,9 @@ namespace System.Reactive
 
         private readonly Dictionary<Type, List<Type>> _knownOutputMappings = new Dictionary<Type, List<Type>>();
 
+        /// <summary>
+        /// Notifies the observer that the provider has finished sending push-based notifications.
+        /// </summary>
         public void OnCompleted()
         {
             foreach (var output in _outputs.Values.ToArray())
@@ -26,6 +29,10 @@ namespace System.Reactive
             }
         }
 
+        /// <summary>
+        /// Notifies the observer that the provider has experienced an error condition.
+        /// </summary>
+        /// <param name="error">An object that provides additional information about the error.</param>
         public void OnError(Exception error)
         {
             foreach (var output in _outputs.Values)
@@ -34,6 +41,10 @@ namespace System.Reactive
             }
         }
 
+        /// <summary>
+        /// Provides the observer with new data.
+        /// </summary>
+        /// <param name="inputObject">The current notification information.</param>
         public void OnNext(object inputObject)
         {
             var inputObjectType = inputObject.GetType();
@@ -114,16 +125,27 @@ namespace System.Reactive
                 //}
             }
 
+            /// <summary>
+            /// Notifies the observer that the provider has finished sending push-based notifications.
+            /// </summary>
             public void OnCompleted()
             {
                 _subject.OnCompleted();
             }
 
+            /// <summary>
+            /// Notifies the observer that the provider has experienced an error condition.
+            /// </summary>
+            /// <param name="error">An object that provides additional information about the error.</param>
             public void OnError(Exception error)
             {
                 _subject.OnError(error);
             }
 
+            /// <summary>
+            /// Provides the observer with new data.
+            /// </summary>
+            /// <param name="value">The current notification information.</param>
             public void OnNext(object value)
             {
                 _subject.OnNext((T)value);

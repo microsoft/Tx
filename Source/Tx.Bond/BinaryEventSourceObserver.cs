@@ -5,16 +5,27 @@
 
     public class BinaryEventSourceObserver : IObserver<IEnvelope>
     {
-        public void OnNext(IEnvelope item)
+        /// <summary>
+        /// Provides the observer with new data.
+        /// </summary>
+        /// <param name="value">The current notification information.</param>
+        public void OnNext(IEnvelope value)
         {
-            BinaryEventSource.Log.WriteInternal(item);
+            BinaryEventSource.Log.WriteInternal(value);
         }
 
+        /// <summary>
+        /// Notifies the observer that the provider has experienced an error condition.
+        /// </summary>
+        /// <param name="error">An object that provides additional information about the error.</param>
         public void OnError(Exception error)
         {
             BinaryEventSource.Log.Error(error.ToString());
         }
 
+        /// <summary>
+        /// Notifies the observer that the provider has finished sending push-based notifications.
+        /// </summary>
         public void OnCompleted()
         {
         }

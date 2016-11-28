@@ -9,7 +9,7 @@ namespace Tx.Bond
 
     using Tx.Core;
 
-    public class BondCompactBinaryTransformerBuilder : ITransformerBuilder<IEnvelope>
+    public class BondCompactBinaryTransformBuilder : ITransformBuilder<IEnvelope>
     {
         public Func<TIn, IEnvelope> Build<TIn>()
         {

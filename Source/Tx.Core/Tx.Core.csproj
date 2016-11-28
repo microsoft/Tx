@@ -48,15 +48,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Attributes.cs" />
-    <Compile Include="ITransformerBuilder.cs" />
-    <Compile Include="PassthroughTransformerBuilder.cs" />
-    <Compile Include="Transformer.cs" />
+    <Compile Include="ITransformBuilder.cs" />
+    <Compile Include="PassthroughTransformBuilder.cs" />
+    <Compile Include="Converter.cs" />
     <Compile Include="TypeIdentifierHelpers.cs" />
     <Compile Include="ByteArrayExtensions.cs" />
     <Compile Include="Csv\CsvObservable.cs" />
     <Compile Include="Csv\CsvRecordTypeMap.cs" />
     <Compile Include="CustomAttributeProviderExtensions.cs" />
-    <Compile Include="BufferQueue.cs" />
+    <Compile Include="Internal\BufferQueue.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="IEnvelope.cs" />
     <Compile Include="IPlayback.cs" />
@@ -66,7 +66,7 @@
     <Compile Include="NonDetachObservable.cs" />
     <Compile Include="PlaybackConfigurationExtensions.cs" />
     <Compile Include="PullMergeSort.cs" />
-    <Compile Include="Pump.cs" />
+    <Compile Include="Internal\Pump.cs" />
     <Compile Include="ITypeStatistics.cs" />
     <Compile Include="CompositeDeserializer.cs" />
     <Compile Include="IDeserializer.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="TypeMap\PartitionableContravariantTypeMap.cs" />
     <Compile Include="TypeMap\SystemClockTypeMap.cs" />
     <Compile Include="TypeMap\TimestampedTypeMap.cs" />
-    <Compile Include="TypeOccurenceAggregator.cs" />
+    <Compile Include="Internal\TypeOccurenceAggregator.cs" />
     <Compile Include="TypeOccurenceStatistics.cs" />
     <Compile Include="TypeMap\EnvelopeTypeMap.cs" />
   </ItemGroup>
