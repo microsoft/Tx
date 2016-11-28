@@ -48,6 +48,7 @@ namespace Tx.LinqPad
                 switch (Path.GetExtension(f).ToLower())
                 {
                     case ".man":
+                    case ".manifest":
                         {
                             string manifest = File.ReadAllText(f);
                             Dictionary<string, string> s = ManifestParser.Parse(manifest);

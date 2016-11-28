@@ -3,7 +3,7 @@
   <metadata>
     <id>Tx.All</id>
     <title>Tx.All</title>
-    <version>{version}-beta3</version>
+    <version>{version}</version>
     <description>Tx (LINQ to Logs and Traces) container package for all supported raw trace/log sources</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
@@ -16,9 +16,9 @@
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <dependency id="Tx.Core" version="{version}" />
-      <dependency id="Tx.Windows" version="{version}-beta3" />
-      <dependency id="Tx.Windows.TypeGeneration" version="{version}-beta3" />       
-      <dependency id="Tx.SqlServer" version="{version}-beta3" />
+      <dependency id="Tx.Windows" version="{version}" />
+      <dependency id="Tx.Windows.TypeGeneration" version="{version}" />       
+      <dependency id="Tx.SqlServer" version="{version}" />
     </dependencies>
   </metadata>
 </package>

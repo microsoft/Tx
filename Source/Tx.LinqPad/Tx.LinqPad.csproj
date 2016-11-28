@@ -11,6 +11,14 @@
     <RootNamespace>Tx.LinqPad</RootNamespace>
     <AssemblyName>Tx.LinqPad</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug45|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release45|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\Common.targets" />
   <PropertyGroup>

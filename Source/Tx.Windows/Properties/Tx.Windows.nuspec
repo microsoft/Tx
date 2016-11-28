@@ -4,7 +4,7 @@
     <id>Tx.Windows</id>
     <title>Tx.Windows</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta3</version>
+    <version>{version}</version>
     <description>Tx (LINQ to Logs and Traces) components for Windows: ETW, Logs (.evtx), Perormance Counters (.blg, .csv, .tsv), IIS Logs in W3C format</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
