@@ -77,7 +77,7 @@
     <Compile Include="Protocol.cs" />
     <Compile Include="Internal\StringHelper.cs" />
     <Compile Include="Internal\TypeExtensions.cs" />
-    <Compile Include="SimpleWriter.cs" />
+    <Compile Include="BondJsonConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\key.snk">

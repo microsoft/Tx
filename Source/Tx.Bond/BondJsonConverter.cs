@@ -5,9 +5,9 @@ namespace Tx.Bond
 
     using Tx.Core;
 
-    public class SimpleWriter : Tx.Core.Converter<object, IEnvelope>
+    public class BondJsonConverter : Tx.Core.Converter<object, IEnvelope>
     {
-        public SimpleWriter(IObserver<IEnvelope> next)
+        public BondJsonConverter(IObserver<IEnvelope> next)
             : base(
                 next, 
                 new PassthroughTransformBuilder(),

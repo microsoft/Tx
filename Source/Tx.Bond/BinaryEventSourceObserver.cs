@@ -31,7 +31,7 @@
         }
     }
 
-    public class BinaryEtwWriter : SimpleWriter
+    public class BinaryEtwWriter : BondJsonConverter
     {
         public BinaryEtwWriter()
             : base(new BinaryEventSourceObserver())

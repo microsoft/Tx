@@ -17,25 +17,22 @@ namespace Tx.Bond
 
     public class BondJsonEnvelopeTypeMap : EnvelopeTypeMap
     {
-        private readonly JsonSerializer jsonSerializer;
+        protected readonly JsonSerializer JsonSerializer;
 
         public BondJsonEnvelopeTypeMap()
-            : this(false)
+            : this(false, JsonTransformBuilder.DefaultSerializer)
         {            
         }
 
-        public BondJsonEnvelopeTypeMap(bool handleTransportObject)
+        public BondJsonEnvelopeTypeMap(bool handleTransportObject, JsonSerializer serializer)
             : base(handleTransportObject)
         {
-            var serializationSettings = new JsonSerializerSettings
+            if (serializer == null)
             {
-                CheckAdditionalContent = true,
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Include,
-                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-            };
-            serializationSettings.Converters.Add(new IpAddressConverter());
-            this.jsonSerializer = JsonSerializer.CreateDefault(serializationSettings);
+                throw new ArgumentNullException(nameof(serializer));
+            }
+
+            this.JsonSerializer = serializer;
         }
 
         protected override IReadOnlyDictionary<string, Func<byte[], object>> BuildDeserializers(Type outputType)
@@ -78,7 +75,7 @@ namespace Tx.Bond
         {
             using (var jsonTextReader = new JsonTextReader(new StringReader(Encoding.UTF8.GetString(data))))
             {
-                return this.jsonSerializer.Deserialize(jsonTextReader, outputType);
+                return this.JsonSerializer.Deserialize(jsonTextReader, outputType);
             }
         }
 
@@ -87,7 +84,7 @@ namespace Tx.Bond
             using (var memoryStream = new MemoryStream(data))
             using (var jsonTextReader = new BsonReader(memoryStream))
             {
-                return this.jsonSerializer.Deserialize(jsonTextReader, outputType);
+                return this.JsonSerializer.Deserialize(jsonTextReader, outputType);
             }
         }
     }
