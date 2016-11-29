@@ -19,7 +19,7 @@ namespace BondEtwSample
         {
             StartEtw();
 
-            var observer = new SimpleWriter(new BinaryEventSourceObserver());
+            var observer = new BondJsonConverter(new BinaryEventSourceObserver());
             for (int i = 0; i < 10; i++)
                 observer.OnNext(new Evt { Time = DateTime.UtcNow.ToShortDateString(), Message = "iteration " + i });
 
