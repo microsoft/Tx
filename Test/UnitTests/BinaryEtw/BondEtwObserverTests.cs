@@ -1,7 +1,5 @@
 ﻿namespace Tests.Tx.BinaryEtw
 {
-    using System;
-
     using global::Tx.Bond;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +10,7 @@
         [TestMethod]
         public void WriteToBinaryEtw()
         {
-            var observer = new SimpleWriter(new BinaryEventSourceObserver());
+            var observer = new BondJsonConverter(new BinaryEventSourceObserver());
             
             observer.OnNext(new TestBondClass{ EventId = "A" });
             observer.OnNext("A");
