@@ -63,7 +63,7 @@
     <Compile Include="BinaryEtwObservable.cs" />
     <Compile Include="BinaryEventSourceObserver.cs" />
     <Compile Include="BondCompactBinaryTransformBuilder.cs" />
-    <Compile Include="BondEnvelope.cs" />
+    <Compile Include="Internal\BondEnvelope.cs" />
     <Compile Include="Internal\BinaryEtwParser.cs" />
     <Compile Include="BinaryEtwSessionListener.cs" />
     <Compile Include="BinaryEventSource.cs" />
