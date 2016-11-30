@@ -4,8 +4,8 @@
     <id>Tx.Bond</id>
     <title>Tx.Bond</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta7</version>
-    <description>Tx (LINQ to Logs and Traces) Binary-in-ETW component</description>
+    <version>{version}</version>
+    <description>Tx (LINQ to Logs and Traces) Binary-in-ETW transport components</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
     
