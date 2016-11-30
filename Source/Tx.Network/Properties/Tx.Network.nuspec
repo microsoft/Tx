@@ -4,8 +4,8 @@
     <id>Tx.Network</id>
     <title>Tx.Network</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta3</version>
-    <description>Parsing of Network related file and wire formats, such as .pcap and .pcapng</description>
+    <version>{version}-beta6</version>
+    <description>Parsing of Network related file and wire formats, such as .pcap and .pcapng, UDP datagrams, Syslog and SNMP messages.</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
     
@@ -13,7 +13,7 @@
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
 
     <language>en-us</language>
-      <tags>Tx Traces Logs Playback Replay Pcap PcapNG</tags>
+      <tags>Tx Playback Replay Pcap PcapNG Snmp Syslog</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <dependency id="Tx.Core" version="{version}" />

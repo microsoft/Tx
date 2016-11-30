@@ -78,7 +78,7 @@
             {
                 get
                 {
-                    return "Syslog";//Tx.Network.Protocol.SnmpTrap;
+                    return Tx.Network.Protocol.Syslog;
                 }
             }
 

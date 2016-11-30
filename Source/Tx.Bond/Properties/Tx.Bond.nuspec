@@ -13,7 +13,7 @@
     <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
 
     <language>en-us</language>
-      <tags>Tx Traces Logs Playback Replay XEvent ETW Bond</tags>
+      <tags>Tx Traces Logs Playback Replay ETW Bond</tags>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <dependency id="Tx.Windows" version="{version}" />

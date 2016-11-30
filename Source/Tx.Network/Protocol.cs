@@ -4,5 +4,6 @@
     {
         public const string UdpDatagram = "UdpDatagram";
         public const string SnmpTrap = "SnmpTrap";
+        public const string Syslog = "Syslog";
     }
 }
