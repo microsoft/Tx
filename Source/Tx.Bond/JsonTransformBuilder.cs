@@ -1,32 +1,21 @@
 namespace Tx.Bond
 {
     using System;
-    using System.Globalization;
-    using System.IO;
     using System.Reactive;
     using System.Text;
-
-    using Newtonsoft.Json;
+    using System.Web.Script.Serialization;
 
     using Tx.Core;
 
     public class JsonTransformBuilder : ITransformBuilder<IEnvelope>
     {
-        internal static readonly JsonSerializer DefaultSerializer;
+        internal static readonly JavaScriptSerializer DefaultSerializer;
 
-        private readonly JsonSerializer serializer;
+        private readonly JavaScriptSerializer serializer;
 
         static JsonTransformBuilder()
         {
-            var serializationSettings = new JsonSerializerSettings
-            {
-                CheckAdditionalContent = false,
-                NullValueHandling = NullValueHandling.Ignore,
-                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-                DefaultValueHandling = DefaultValueHandling.Ignore
-            };
-            serializationSettings.Converters.Add(new IpAddressConverter());
-            DefaultSerializer = JsonSerializer.CreateDefault(serializationSettings);
+            DefaultSerializer = new JavaScriptSerializer();
         }
 
         public JsonTransformBuilder()
@@ -34,7 +23,7 @@ namespace Tx.Bond
         {
         }
 
-        public JsonTransformBuilder(JsonSerializer serializer)
+        public JsonTransformBuilder(JavaScriptSerializer serializer)
         {
             if (serializer == null)
             {
@@ -55,9 +44,9 @@ namespace Tx.Bond
 
             private readonly string manifestId;
 
-            private readonly JsonSerializer serializer;
+            private readonly JavaScriptSerializer serializer;
 
-            public JsonTransformer(JsonSerializer serializer)
+            public JsonTransformer(JavaScriptSerializer serializer)
             {
                 this.serializer = serializer;
                 this.manifestId = typeof(T).GetTypeIdentifier();
@@ -69,13 +58,7 @@ namespace Tx.Bond
 
                 this.stringBuilder.Clear();
 
-                using (var writer = new StringWriter(this.stringBuilder, CultureInfo.InvariantCulture))
-                using (var jsonWriter = new JsonTextWriter(writer))
-                {
-                    jsonWriter.Formatting = this.serializer.Formatting;
-
-                    DefaultSerializer.Serialize(jsonWriter, value, typeof(T));
-                }
+                this.serializer.Serialize(value, this.stringBuilder);
 
                 var json = this.stringBuilder.ToString();
 

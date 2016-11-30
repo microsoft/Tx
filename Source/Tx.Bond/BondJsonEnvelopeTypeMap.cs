@@ -4,27 +4,24 @@ namespace Tx.Bond
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Reactive;
     using System.Text;
+    using System.Web.Script.Serialization;
 
     using global::Bond;
     using global::Bond.IO.Safe;
     using global::Bond.Protocols;
 
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Bson;
-
     public class BondJsonEnvelopeTypeMap : EnvelopeTypeMap
     {
-        protected readonly JsonSerializer JsonSerializer;
+        protected readonly JavaScriptSerializer JsonSerializer;
 
         public BondJsonEnvelopeTypeMap()
             : this(false, JsonTransformBuilder.DefaultSerializer)
         {            
         }
 
-        public BondJsonEnvelopeTypeMap(bool handleTransportObject, JsonSerializer serializer)
+        public BondJsonEnvelopeTypeMap(bool handleTransportObject, JavaScriptSerializer serializer)
             : base(handleTransportObject)
         {
             if (serializer == null)
@@ -38,12 +35,10 @@ namespace Tx.Bond
         protected override IReadOnlyDictionary<string, Func<byte[], object>> BuildDeserializers(Type outputType)
         {
             Func<byte[], object> jsonDeserializer = e => this.DeserializeJson(e, outputType);
-            Func<byte[], object> bsonDeserializer = e => this.DeserializeBson(e, outputType);
 
             var deserializerMap = new Dictionary<string, Func<byte[], object>>(StringComparer.Ordinal)
             {
                 { Protocol.Json, jsonDeserializer },
-                { Protocol.Bson, bsonDeserializer }
             };
 
             if (outputType.IsBondStruct())
@@ -73,19 +68,9 @@ namespace Tx.Bond
 
         private object DeserializeJson(byte[] data, Type outputType)
         {
-            using (var jsonTextReader = new JsonTextReader(new StringReader(Encoding.UTF8.GetString(data))))
-            {
-                return this.JsonSerializer.Deserialize(jsonTextReader, outputType);
-            }
-        }
+            var json = Encoding.UTF8.GetString(data);
 
-        private object DeserializeBson(byte[] data, Type outputType)
-        {
-            using (var memoryStream = new MemoryStream(data))
-            using (var jsonTextReader = new BsonReader(memoryStream))
-            {
-                return this.JsonSerializer.Deserialize(jsonTextReader, outputType);
-            }
+            return this.JsonSerializer.Deserialize(json, outputType);
         }
     }
 }

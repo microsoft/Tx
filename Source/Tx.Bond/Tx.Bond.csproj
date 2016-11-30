@@ -50,9 +50,7 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>$(CPReferencePath)\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
@@ -71,7 +69,6 @@
     <Compile Include="EtwExtensions.cs" />
     <Compile Include="EventManifest.cs" />
     <Compile Include="BondJsonEnvelopeTypeMap.cs" />
-    <Compile Include="Internal\IpAddressConverter.cs" />
     <Compile Include="Internal\PathUtils.cs" />
     <Compile Include="JsonTransformBuilder.cs" />
     <Compile Include="Protocol.cs" />
