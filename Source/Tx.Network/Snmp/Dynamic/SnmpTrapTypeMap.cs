@@ -5,17 +5,14 @@
     using System.Reactive;
 
     using Tx.Network;
-/*
+
     public class SnmpTrapTypeMap : IPartitionableTypeMap<IEnvelope, ObjectIdentifier>
     {
         private readonly TrapTypeMap trapTypeMap = new TrapTypeMap();
 
-        private SnmpDatagram udpDatagram;
+        private SnmpDatagram snmpDatagram;
 
-        public IEqualityComparer<ObjectIdentifier> Comparer
-        {
-            get { return this.trapTypeMap.Comparer; }
-        }
+        public IEqualityComparer<ObjectIdentifier> Comparer => this.trapTypeMap.Comparer;
 
         public ObjectIdentifier GetTypeKey(Type outputType)
         {
@@ -26,33 +23,27 @@
         {
             var transform = this.trapTypeMap.GetTransform(outputType);
 
-            return transform != null ? _ => transform(this.udpDatagram) : (Func<IEnvelope, object>)null;
+            return transform != null ? _ => transform(this.snmpDatagram) : (Func<IEnvelope, object>)null;
         }
 
-        public Func<IEnvelope, DateTimeOffset> TimeFunction
-        {
-            get
-            {
-                return GetTime;
-            }
-        }
+        public Func<IEnvelope, DateTimeOffset> TimeFunction => GetTime;
 
         public ObjectIdentifier GetInputKey(IEnvelope envelope)
         {
-            this.udpDatagram = envelope.PayloadInstance as SnmpDatagram;
+            this.snmpDatagram = envelope.PayloadInstance as SnmpDatagram;
 
-            if (this.udpDatagram == null && string.Equals(envelope.Protocol, Protocol.SnmpTrap, StringComparison.OrdinalIgnoreCase))
+            if (this.snmpDatagram == null && string.Equals(envelope.Protocol, Protocol.SnmpTrap, StringComparison.OrdinalIgnoreCase))
             {
-                this.udpDatagram = envelope.Payload.AsByteArraySegment()
-                    .ToSnmpDatagram(envelope.ReceivedTime, "");
+                this.snmpDatagram = envelope.Payload.AsByteArraySegment()
+                    .ToSnmpDatagram(envelope.ReceivedTime, "0.0.0.0");
             }
 
-            if (this.udpDatagram == null)
+            if (this.snmpDatagram == null)
             {
                 return default(ObjectIdentifier);
             }
 
-            return this.trapTypeMap.GetInputKey(this.udpDatagram);
+            return this.trapTypeMap.GetInputKey(this.snmpDatagram);
         }
 
         private static DateTimeOffset GetTime(IEnvelope envelope)
@@ -62,5 +53,4 @@
             return time;
         }
     }
-*/
 }

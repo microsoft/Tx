@@ -4,7 +4,7 @@
     <id>Tx.Network</id>
     <title>Tx.Network</title>
     <!-- Automatically updated by build, keeping fixed dev build number here in case of local build -->
-    <version>{version}-beta6</version>
+    <version>{version}-beta7</version>
     <description>Parsing of Network related file and wire formats, such as .pcap and .pcapng, UDP datagrams, Syslog and SNMP messages.</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>

@@ -1,5 +1,4 @@
-﻿
-namespace Tx.Network.Snmp.Dynamic
+﻿namespace Tx.Network.Snmp.Dynamic
 {
     using System;
     using System.Collections.Generic;
@@ -14,11 +13,11 @@ namespace Tx.Network.Snmp.Dynamic
     /// <summary>
     /// TypeMap implementation for SNMP attributed classes.
     /// </summary>
-    public sealed class TrapTypeMap : IPartitionableTypeMap<IpPacket, ObjectIdentifier>
+    public sealed class TrapTypeMap : IPartitionableTypeMap<SnmpDatagram, ObjectIdentifier>
     {
         private static readonly Regex HexStringRegex = new Regex("^[0-9A-F.-]+$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
-        private static readonly ObjectIdentifier trapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
+        private static readonly ObjectIdentifier TrapOid = new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0");
 
         public TrapTypeMap()
         {
@@ -26,11 +25,11 @@ namespace Tx.Network.Snmp.Dynamic
             this.Comparer = EqualityComparer<ObjectIdentifier>.Default;
         }
 
-        public Func<IpPacket, DateTimeOffset> TimeFunction { get; private set; }
+        public Func<SnmpDatagram, DateTimeOffset> TimeFunction { get; }
 
-        public IEqualityComparer<ObjectIdentifier> Comparer { get; private set; }
+        public IEqualityComparer<ObjectIdentifier> Comparer { get; }
 
-        public Func<IpPacket, object> GetTransform(Type outputType)
+        public Func<SnmpDatagram, object> GetTransform(Type outputType)
         {
             return CreateTransform(outputType);
         }
@@ -38,42 +37,32 @@ namespace Tx.Network.Snmp.Dynamic
         public ObjectIdentifier GetTypeKey(Type outputType)
         {
             var attribute = outputType.GetAttribute<SnmpTrapAttribute>();
-            return attribute != null ? attribute.SnmpTrapOid : default(ObjectIdentifier);
+            return attribute?.SnmpTrapOid ?? default(ObjectIdentifier);
         }
 
-        public ObjectIdentifier GetInputKey(IpPacket evt)
+        public ObjectIdentifier GetInputKey(SnmpDatagram snmpDatagram)
         {
-            var snmpDatagram = GetSnmpDatagram(evt);
-
-            if (snmpDatagram == null || snmpDatagram.VarBinds == null)
+            if (snmpDatagram?.VarBinds == null)
             {
                 return default(ObjectIdentifier);
             }
 
             VarBind trapVarBind;
-            return snmpDatagram.VarBinds.SearchFirstSubOidWith(trapOid, out trapVarBind)
+            return snmpDatagram.VarBinds.SearchFirstSubOidWith(TrapOid, out trapVarBind)
                        ? (ObjectIdentifier)trapVarBind.Value
                        : default(ObjectIdentifier);
         }
 
-        internal static Func<IpPacket, object> CreateTransform(Type outputTrapType)
+        internal static Func<SnmpDatagram, object> CreateTransform(Type outputTrapType)
         {
-            if (outputTrapType.GetAttribute<SnmpTrapAttribute>() == null)
-            {
-                return null;
-            }
-
-            var parameter = Expression.Parameter(typeof(IpPacket), "ipPacket");
-            var getPduCall = Expression.Call(typeof(TrapTypeMap).GetMethod("GetSnmpDatagram", BindingFlags.Static | BindingFlags.NonPublic), parameter);
-            var receivedTimestampProperty = typeof (IpPacket).GetProperty("ReceivedTime",
+            var parameter = Expression.Parameter(typeof(SnmpDatagram), "snmpDatagram");
+            var receivedTimestampProperty = typeof (SnmpDatagram).GetProperty("ReceivedTime",
                 BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
 
-            var pduVar = Expression.Variable(typeof(SnmpDatagram), "pdu");
-            var assignment = Expression.Assign(pduVar, getPduCall);
-            var pduVarBindsField = typeof(SnmpDatagram).GetField(
+            var pduVarBindsField = typeof(SnmpDatagram).GetProperty(
                 "VarBinds",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            var sourceAddressProperty = typeof(IpPacket).GetProperty(
+            var sourceAddressProperty = typeof(SnmpDatagram).GetProperty(
                 "SourceIpAddress",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
@@ -94,9 +83,9 @@ namespace Tx.Network.Snmp.Dynamic
                         p.GetCustomAttributes(typeof(NotificationObjectsAttribute), false)
                             .OfType<NotificationObjectsAttribute>()
                             .FirstOrDefault();
-                    if (notificationObjects != null && p.PropertyType.IsAssignableFrom(pduVarBindsField.FieldType))
+                    if (notificationObjects != null && p.PropertyType.IsAssignableFrom(pduVarBindsField.PropertyType))
                     {
-                        notificationObjectsExpression = Expression.Bind(p, Expression.Field(pduVar, pduVarBindsField));
+                        notificationObjectsExpression = Expression.Bind(p, Expression.Property(parameter, pduVarBindsField));
                     }
 
                     var ipAddressAttribute =
@@ -106,11 +95,10 @@ namespace Tx.Network.Snmp.Dynamic
                     if (ipAddressAttribute != null)
                     {
                         Expression ipAddress = Expression.Property(parameter, sourceAddressProperty);
-                        if (p.PropertyType == typeof(string))
+                        if (p.PropertyType == typeof(IPAddress))
                         {
-                            ipAddress = Expression.Call(ipAddress, typeof(IPAddress).GetMethod("ToString"));
+                            ipAddress = Expression.Call(typeof(IPAddress).GetMethod("Parse"), ipAddress); 
                         }
-
                         ipAddressExpresion = Expression.Bind(p, ipAddress);
                     }
 
@@ -126,7 +114,7 @@ namespace Tx.Network.Snmp.Dynamic
                     continue;
                 }
 
-                var foundValue = Expression.Call(getVarBindMethod, Expression.Field(pduVar, pduVarBindsField), Expression.Constant(notificationObjectIdentifier.Oid), varbindVar);
+                var foundValue = Expression.Call(getVarBindMethod, Expression.Property(parameter, pduVarBindsField), Expression.Constant(notificationObjectIdentifier.Oid), varbindVar);
 
                 Expression convertedValue = Expression.Field(varbindVar, varbindValueField);
                 if (p.PropertyType.IsEnum || typeof(int).IsAssignableFrom(p.PropertyType))
@@ -170,18 +158,18 @@ namespace Tx.Network.Snmp.Dynamic
             var castToObject = Expression.Convert(memberInitialization, typeof(object));
 
             var nullCheck = Expression.Condition(
-                Expression.Equal(Expression.Constant(null, typeof(IpPacket)), parameter),
+                Expression.Equal(Expression.Constant(null, typeof(SnmpDatagram)), parameter),
                 Expression.Constant(null, typeof(object)), castToObject);
 
-            var codeBlock = Expression.Block(new[] { pduVar, varbindVar, }, assignment, nullCheck);
-            var transformExpression = Expression.Lambda<Func<IpPacket, object>>(codeBlock, parameter);
+            var codeBlock = Expression.Block(new[] { varbindVar, }, nullCheck);
+            var transformExpression = Expression.Lambda<Func<SnmpDatagram, object>>(codeBlock, parameter);
 
             return transformExpression.Compile();
         }
 
         public static SnmpDatagram GetSnmpDatagram(IpPacket ipPacket)
         {
-            var udpDatagram = ipPacket.ToUdpDatagram(true);
+            var udpDatagram = ipPacket.ToUdpDatagram();
             if (udpDatagram == default(UdpDatagram))
             {
                 return default(SnmpDatagram);
@@ -205,6 +193,7 @@ namespace Tx.Network.Snmp.Dynamic
             return default(SnmpDatagram);
         }
 
+        // ReSharper disable once UnusedMember.Local
         private static byte[] GetRawOctetStringBytes(string octetString)
         {
             if (string.IsNullOrEmpty(octetString))

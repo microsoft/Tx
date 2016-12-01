@@ -1,211 +1,201 @@
-﻿//namespace Tests.Tx.Network
-//{
-//    using System;
-//    using System.Collections.ObjectModel;
-//    using System.Linq;
-//    using System.Net;
-//    using System.Reactive;
+﻿namespace Tests.Tx.Network
+{
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Net;
+    using System.Reactive;
 
-//    using global::Tx.Network;
-//    using global::Tx.Network.Snmp;
-//    using global::Tx.Network.Snmp.Dynamic;
+    using global::Tx.Network;
+    using global::Tx.Network.Snmp;
+    using global::Tx.Network.Snmp.Dynamic;
 
-//    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-//    [TestClass]
-//    public class SnmpTrapTypeMapTests
-//    {
-//        private UdpDatagram fakeTrapUdp;
+    [TestClass]
+    public class SnmpTrapTypeMapTests
+    {
+        private SnmpDatagramV2C snmpDatagram;
 
-//        [TestInitialize]
-//        public void TestInitialize()
-//        {
-//            var integerVarBind = new VarBind(
-//                new ObjectIdentifier("1.3.6.1.4.1.1.1.1"),
-//                5L,
-//                new Asn1TagInfo(Asn1Tag.Integer, ConstructType.Primitive, Asn1Class.Universal));
+        private UdpDatagram fakeTrapUdp;
 
-//            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
-//                506009u,
-//                new Asn1TagInfo(Asn1SnmpTag.TimeTicks));
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            var integerVarBind = new VarBind(
+                new ObjectIdentifier("1.3.6.1.4.1.1.1.1"),
+                5L,
+                new Asn1TagInfo(Asn1Tag.Integer, ConstructType.Primitive, Asn1Class.Universal));
 
-//            var trapVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0"),
-//                new ObjectIdentifier("1.3.6.1.4.1.500.12"),
-//                new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
+            var sysUpTime = new VarBind(new ObjectIdentifier("1.3.6.1.2.1.1.3.0"),
+                506009u,
+                new Asn1TagInfo(Asn1SnmpTag.TimeTicks));
 
-//            var extraneousVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.42.42.42.0"),
-//                8938ul,
-//                new Asn1TagInfo(Asn1SnmpTag.Counter64));
+            var trapVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.4.1.0"),
+                new ObjectIdentifier("1.3.6.1.4.1.500.12"),
+                new Asn1TagInfo(Asn1Tag.ObjectIdentifier, ConstructType.Primitive, Asn1Class.Universal));
 
-//            var packet = new SnmpDatagramV2C(
-//                DateTimeOffset.MinValue, 
-//                "1.1.1.1",
-//                new SnmpHeader(SnmpVersion.V2C, "Community"),
-//                new[] { sysUpTime, trapVb, integerVarBind, extraneousVb },
-//                PduType.SNMPv2Trap,
-//                50000,
-//                SnmpErrorStatus.NoError,
-//                0);
+            var extraneousVb = new VarBind(new ObjectIdentifier("1.3.6.1.6.3.1.1.42.42.42.0"),
+                8938ul,
+                new Asn1TagInfo(Asn1SnmpTag.Counter64));
 
-//            var encoded = packet.ToSnmpEncodedByteArray();
+            this.snmpDatagram = new SnmpDatagramV2C(
+                DateTimeOffset.MinValue,
+                "1.1.1.1",
+                new SnmpHeader(SnmpVersion.V2C, "Community"),
+                new[] { sysUpTime, trapVb, integerVarBind, extraneousVb },
+                PduType.SNMPv2Trap,
+                50000,
+                SnmpErrorStatus.NoError,
+                0);
 
-//            this.fakeTrapUdp = new UdpDatagram
-//            {
-//                UdpData = encoded.AsByteArraySegment(),
-//                PacketHeader = new IpPacketHeader(IPAddress.Parse("1.1.1.1"), IPAddress.Parse("2.2.2.2"), false, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-//            };
-//        }
+            var encoded = this.snmpDatagram.ToSnmpEncodedByteArray();
 
-//        [TestMethod]
-//        public void TestUnattributedClassReturnsDefaultKey()
-//        {
-//            var typeMap = new SnmpTrapTypeMap();
-//            var key = typeMap.GetTypeKey(typeof(TrapTypeMapTests.UnmarkedTrap));
+            this.fakeTrapUdp = new UdpDatagram
+            {
+                UdpData = encoded.AsByteArraySegment(),
+                PacketHeader = new IpPacketHeader(IPAddress.Parse("1.1.1.1"), IPAddress.Parse("2.2.2.2"), false, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+            };
+        }
 
-//            Assert.IsNotNull(key);
-//            Assert.AreEqual(default(ObjectIdentifier), key);
-//        }
+        [TestMethod]
+        public void TestUnattributedClassReturnsDefaultKey()
+        {
+            var typeMap = new SnmpTrapTypeMap();
+            var key = typeMap.GetTypeKey(typeof(TrapTypeMapTests.UnmarkedTrap));
 
-//        [TestMethod]
-//        public void TestUnattributedClassReturnsNullTransform()
-//        {
-//            var typeMap = new SnmpTrapTypeMap();
-//            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.UnmarkedTrap));
+            Assert.IsNotNull(key);
+            Assert.AreEqual(default(ObjectIdentifier), key);
+        }
 
-//            Assert.IsNull(transform);
-//        }
+        [TestMethod]
+        public void TestFakeTrapTransform()
+        {
+            var typeMap = new SnmpTrapTypeMap();
 
-//        [TestMethod]
-//        public void TestFakeTrapTransform()
-//        {
-//            var typeMap = new SnmpTrapTypeMap();
+            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.FakeTrap));
 
-//            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.FakeTrap));
+            Assert.IsNotNull(transform);
 
-//            Assert.IsNotNull(transform);
+            var env = new Envelope(DateTimeOffset.MinValue, DateTimeOffset.MinValue, "", "", "", null, this.snmpDatagram);
+            var key = typeMap.GetInputKey(env);
+            var transformedOutput = transform(env) as TrapTypeMapTests.FakeTrap;
 
-//            var receivedTime = DateTimeOffset.UtcNow;
-//            this.fakeTrapUdp.ReceivedTime = receivedTime;
+            Assert.IsNotNull(transformedOutput);
+            Assert.AreEqual(506009u, transformedOutput.SysUpTime);
+            Assert.AreEqual(5L, transformedOutput.Integer);
+            Assert.IsNotNull(transformedOutput.Objects);
+            Assert.AreEqual(4, transformedOutput.Objects.Count);
+            Assert.AreEqual(IPAddress.Parse("1.1.1.1"), transformedOutput.SourceAddress);
+            Assert.AreEqual(this.snmpDatagram.ReceivedTime, transformedOutput.ReceivedTime);
 
-//            var env = new Envelope(DateTimeOffset.MinValue, DateTimeOffset.MinValue, "", "", "", null, this.fakeTrapUdp);
-//            var key = typeMap.GetInputKey(env);
-//            var transformedOutput = transform(env) as TrapTypeMapTests.FakeTrap;
+            var varbinds = transformedOutput.Objects;
+            var extraneous = varbinds.FirstOrDefault(vb => vb.Oid.Equals(new ObjectIdentifier("1.3.6.1.6.3.1.1.42.42.42.0")));
 
-//            Assert.IsNotNull(transformedOutput);
-//            Assert.AreEqual(506009u, transformedOutput.SysUpTime);
-//            Assert.AreEqual(5L, transformedOutput.Integer);
-//            Assert.IsNotNull(transformedOutput.Objects);
-//            Assert.AreEqual(4, transformedOutput.Objects.Count);
-//            Assert.AreEqual(IPAddress.Parse("1.1.1.1"), transformedOutput.SourceAddress);
-//            Assert.AreEqual(receivedTime, transformedOutput.ReceivedTime);
+            Assert.IsNotNull(extraneous);
+            Assert.AreNotEqual(default(VarBind), extraneous);
+            Assert.AreEqual(8938ul, extraneous.Value);
+        }
 
-//            var varbinds = transformedOutput.Objects;
-//            var extraneous = varbinds.FirstOrDefault(vb => vb.Oid.Equals(new ObjectIdentifier("1.3.6.1.6.3.1.1.42.42.42.0")));
+        [TestMethod]
+        public void TestNullTrap()
+        {
+            var typeMap = new SnmpTrapTypeMap();
 
-//            Assert.IsNotNull(extraneous);
-//            Assert.AreNotEqual(default(VarBind), extraneous);
-//            Assert.AreEqual(8938ul, extraneous.Value);
-//        }
+            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.FakeTrap));
 
-//        [TestMethod]
-//        public void TestNullTrap()
-//        {
-//            var typeMap = new SnmpTrapTypeMap();
+            Assert.IsNotNull(transform);
 
-//            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.FakeTrap));
+            var transformedOutput = transform(null) as TrapTypeMapTests.FakeTrap;
 
-//            Assert.IsNotNull(transform);
+            Assert.IsNull(transformedOutput);
+        }
 
-//            var transformedOutput = transform(null) as TrapTypeMapTests.FakeTrap;
+        [TestMethod]
+        public void TestFakeTrapStringIpTransform()
+        {
+            var typeMap = new SnmpTrapTypeMap();
 
-//            Assert.IsNull(transformedOutput);
-//        }
+            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.FakeTrapStringIp));
 
-//        [TestMethod]
-//        public void TestFakeTrapStringIpTransform()
-//        {
-//            var typeMap = new SnmpTrapTypeMap();
+            Assert.IsNotNull(transform);
 
-//            var transform = typeMap.GetTransform(typeof(TrapTypeMapTests.FakeTrapStringIp));
+            var env = new Envelope(DateTimeOffset.MinValue, DateTimeOffset.MinValue, "", "", "", null, this.snmpDatagram);
+            var key = typeMap.GetInputKey(env);
+            var transformedOutput = transform(env) as TrapTypeMapTests.FakeTrapStringIp;
 
-//            Assert.IsNotNull(transform);
+            Assert.IsNotNull(transformedOutput);
+            Assert.AreEqual("1.1.1.1", transformedOutput.SourceAddress);
+        }
 
-//            var env = new Envelope(DateTimeOffset.MinValue, DateTimeOffset.MinValue, "", "", "", null, this.fakeTrapUdp);
-//            var key = typeMap.GetInputKey(env);
-//            var transformedOutput = transform(env) as TrapTypeMapTests.FakeTrapStringIp;
+        [TestMethod]
+        public void TestFakeTrapInputKey()
+        {
+            var typeMap = new SnmpTrapTypeMap();
+            var env = new Envelope(DateTimeOffset.MinValue, DateTimeOffset.MinValue, "", "", "", null, this.snmpDatagram);
+            var inputKey = typeMap.GetInputKey(env);
 
-//            Assert.IsNotNull(transformedOutput);
-//            Assert.AreEqual("1.1.1.1", transformedOutput.SourceAddress);
-//        }
+            Assert.AreEqual(new ObjectIdentifier("1.3.6.1.4.1.500.12"), inputKey);
 
-//        [TestMethod]
-//        public void TestFakeTrapInputKey()
-//        {
-//            var typeMap = new SnmpTrapTypeMap();
-//            var env = new Envelope(DateTimeOffset.MinValue, DateTimeOffset.MinValue, "", "", "", null, this.fakeTrapUdp);
-//            var inputKey = typeMap.GetInputKey(env);
+            var typeKey = typeMap.GetTypeKey(typeof(TrapTypeMapTests.FakeTrap));
 
-//            Assert.AreEqual(new ObjectIdentifier("1.3.6.1.4.1.500.12"), inputKey);
+            Assert.AreEqual(inputKey, typeKey);
+        }
 
-//            var typeKey = typeMap.GetTypeKey(typeof(TrapTypeMapTests.FakeTrap));
+        [SnmpTrap("1.3.6.1.4.1.500.12")]
+        internal class FakeTrap2
+        {
+            [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
+            public byte[] Property { get; set; }
 
-//            Assert.AreEqual(inputKey, typeKey);
-//        }
+            [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
+            public string StringProperty { get; set; }
+        }
 
-//        [SnmpTrap("1.3.6.1.4.1.500.12")]
-//        internal class FakeTrap2
-//        {
-//            [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
-//            public byte[] Property { get; set; }
+        [SnmpTrap("1.3.6.1.4.1.500.12")]
+        internal class FakeTrap3
+        {
+            [SnmpOid("1.3.6.1.4.1.562.29.6.1.1.1.6")]
+            public SimpleEnum EnumProperty { get; set; }
+        }
 
-//            [SnmpOid("1.3.6.1.4.1.562.29.6.2.2")]
-//            public string StringProperty { get; set; }
-//        }
+        public enum SimpleEnum
+        {
+            A = 0,
+            B = 1,
+            C = 2,
+        };
 
-//        [SnmpTrap("1.3.6.1.4.1.500.12")]
-//        internal class FakeTrap3
-//        {
-//            [SnmpOid("1.3.6.1.4.1.562.29.6.1.1.1.6")]
-//            public SimpleEnum EnumProperty { get; set; }
-//        }
+        [SnmpTrap("1.3.6.1.4.1.500.12")]
+        internal class FakeTrap
+        {
+            [SnmpOid("1.3.6.1.2.1.1.3.0")]
+            public uint SysUpTime { get; set; }
 
-//        public enum SimpleEnum
-//        {
-//            A = 0,
-//            B = 1,
-//            C = 2,
-//        };
+            [SnmpOid("1.3.6.1.4.1.1.1.1")]
+            public long Integer { get; set; }
 
-//        [SnmpTrap("1.3.6.1.4.1.500.12")]
-//        internal class FakeTrap
-//        {
-//            [SnmpOid("1.3.6.1.2.1.1.3.0")]
-//            public uint SysUpTime { get; set; }
+            [IpAddress]
+            public IPAddress SourceAddress { get; set; }
 
-//            [SnmpOid("1.3.6.1.4.1.1.1.1")]
-//            public long Integer { get; set; }
+            [NotificationObjects]
+            public ReadOnlyCollection<VarBind> Objects { get; set; }
 
-//            [IpAddress]
-//            public IPAddress SourceAddress { get; set; }
+            [Timestamp]
+            public DateTimeOffset ReceivedTime { get; set; }
+        }
 
-//            [NotificationObjects]
-//            public ReadOnlyCollection<VarBind> Objects { get; set; }
+        [SnmpTrap("1.3.6.1.4.1.500.12")]
+        internal class FakeTrapStringIp
+        {
+            [IpAddress]
+            public string SourceAddress { get; set; }
+        }
 
-//            [Timestamp]
-//            public DateTimeOffset ReceivedTime { get; set; }
-//        }
-
-//        [SnmpTrap("1.3.6.1.4.1.500.12")]
-//        internal class FakeTrapStringIp
-//        {
-//            [IpAddress]
-//            public string SourceAddress { get; set; }
-//        }
-
-//        internal class UnmarkedTrap
-//        {
-//            [SnmpOid("1.3.6.1.2.1.1.3.0")]
-//            public uint SysUpTime { get; set; }
-//        }
-//    }
-//}
+        internal class UnmarkedTrap
+        {
+            [SnmpOid("1.3.6.1.2.1.1.3.0")]
+            public uint SysUpTime { get; set; }
+        }
+    }
+}
