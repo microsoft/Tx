@@ -16,11 +16,11 @@ The demo is WinForms application that uses Tx and Rx. It is only intended to sho
 
 Here is how to run it: 
 
-* in the Properties of the [IE Automation](IEAutomation/Program.cs) project, enter list of url-s., For example: http://bing.com/maps http://bing.com/news
+* in the Properties of the [IE Automation](IEAutomation/Program.cs) project, enter list of url-s., For example: http://codeplex.com http://github.com
 * start [DemoUI](DemoUI/TcpSyntheticCounters.cs), and wait a while to see if there is traffic when the machine is idle
 * start IEAutomation
 
-A screenshot looks like this:
+A screen-shot looks like this:
 
 ![SyntheticCounters.JPG](SyntheticCounters.JPG)
 
