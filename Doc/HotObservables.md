@@ -18,6 +18,7 @@ Both definitions are useful in many real-world situations, but there is a subtle
 
 Let's start with trivial implementation of Hot observable:
 
+```csharp
     class HotObservable : IObservable<int>
     {
         Subject<int> _subject = new Subject<int>();
@@ -33,10 +34,13 @@ Let's start with trivial implementation of Hot observable:
         {
             return _subject.Subscribe(observer);
         }
-    }
+    }
+```
+
 And do a simple query that relies on order: 
 
-    var o = new HotObservable();
+```csharp
+    var o = new HotObservable();
 
     var pairs =
         from f in o
@@ -44,8 +48,8 @@ And do a simple query that relies on order:
         select new { First = f, Next = n };
 
     pairs.Subscribe(Console.WriteLine);
-    o.Run();
- 
+    o.Run();
+``` 
 
 The output is:
 
@@ -68,7 +72,8 @@ Here:
 
 Now let's try the same query with Cold observable:
 
-    var data = new int[] { 0, 1, 2, 3, 4 };
+```csharp
+    var data = new int[] { 0, 1, 2, 3, 4 };
     var o = data.ToObservable();
 
     var pairs =
@@ -76,8 +81,8 @@ Now let's try the same query with Cold observable:
         from n in o.Take(1)
         select new { First = f, Next = n };
 
-    pairs.Subscribe(Console.WriteLine);
-
+    pairs.Subscribe(Console.WriteLine);
+```
 
 The output is:
 
@@ -89,13 +94,15 @@ The output is:
 
 This result is exactly the same as LINQ to Objects on the original data as IEnumerable collection:
 
+```csharp
     var data = new int[] { 0, 1, 2, 3, 4 };
     var pairs =
         from f in data
         from n in data.Take(1)
         select new { First = f, Next = n };
 
-    foreach (var p in pairs) Console.WriteLine(p);
+    foreach (var p in pairs) Console.WriteLine(p);
+```
 
 Unfortunately, it is not easy to think about it as a marble diagram - it would look like arrows return back in time to start from 0. 
 
@@ -129,7 +136,8 @@ Supporting Cold observables on the other hand requires that the events are store
 
 Let's consider example of Join query on IIS traces:
 
-	var requests = from b in begin 
+```csharp	
+var requests = from b in begin 
 			   from e in end.Where(e=>e.Header.ActivityId == b.Header.ActivityId).Take(1)
 			   select new
 			   {
@@ -137,6 +145,7 @@ Let's consider example of Join query on IIS traces:
 					e.HttpStatus,
 					Duration = (e.Header.Timestamp - b.Header.Timestamp).TotalMilliseconds
 				};
+ ```
  
 If "begin" and "end" were small in-memory collections this query could be done using LINQ to Objects. But if they refer to the same trace (say, 1TB etl file on disk):
 
@@ -174,7 +183,8 @@ This allows users to:
 
 Assuming **single, typed** input sequence the cold observable paradox can be avoided by turning the to hot:
 
-	var data = new int[] { 0, 1, 2, 3, 4 };
+```	
+var data = new int[] { 0, 1, 2, 3, 4 };
     var o = data.ToObservable().Publish();
 
     var pairs =
@@ -184,6 +194,7 @@ Assuming **single, typed** input sequence the cold observable paradox can be avo
 
     pairs.Subscribe(Console.WriteLine);
     o.Connect(); 
+```
 
 Behind the scenes, Publish() uses a Subject. 
 
