@@ -2,6 +2,7 @@
 
 namespace System.Reactive
 {
+    using Reflection;
     using System;
     using System.Collections.Generic;
 
@@ -34,13 +35,13 @@ namespace System.Reactive
                 return _objectType;
             }
 
-            var type = evt.Value.GetType();
+            var type = evt.Value.GetType().GetTypeInfo();
             while (type.BaseType != _objectType && type.BaseType != typeof(ValueType))
             {
-                type = type.BaseType;
+                type = type.BaseType.GetTypeInfo();
             }
 
-            return type;
+            return type.AsType();
         }
 
         public IEqualityComparer<Type> Comparer

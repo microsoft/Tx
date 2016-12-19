@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace System.Reactive
 {
+    using System.Reflection;
+
     public class CompositeDeserializer<TInput> : IObserver<TInput>, IDeserializer
     {
         private readonly List<IDeserializer<TInput>> _deserializers;
@@ -22,7 +24,7 @@ namespace System.Reactive
             _deserializers = new List<IDeserializer<TInput>>();
             foreach (ITypeMap<TInput> mapInstance in typeMaps)
             {
-                Type mapInterface = mapInstance.GetType().GetInterfaces()
+                Type mapInterface = mapInstance.GetType().GetTypeInfo().GetInterfaces()
                     .FirstOrDefault(i => i.Name == typeof(IPartitionableTypeMap<,>).Name);
 
                 if (mapInterface != null)
@@ -34,7 +36,7 @@ namespace System.Reactive
                     continue;
                 }
 
-                mapInterface = mapInstance.GetType().GetInterface(typeof(IRootTypeMap<,>).Name);
+                mapInterface = mapInstance.GetType().GetTypeInfo().GetInterface(typeof(IRootTypeMap<,>).Name);
                 if (mapInterface != null)
                 {
                     Type deserializerType =
@@ -44,7 +46,7 @@ namespace System.Reactive
                     continue;
                 }
 
-                mapInterface = mapInstance.GetType().GetInterface(typeof(ITypeMap<>).Name);
+                mapInterface = mapInstance.GetType().GetTypeInfo().GetInterface(typeof(ITypeMap<>).Name);
                 if (mapInterface != null)
                 {
                     Type deserializerType =
@@ -105,7 +107,7 @@ namespace System.Reactive
                 {
                     if (timestamp.HasValue && timestamp.Value != ts.Timestamp)
                     {
-                        _observer.OnError(new ApplicationException("Several type maps return different timestamps for the same source event."));
+                        _observer.OnError(new Exception("Several type maps return different timestamps for the same source event."));
                         return;
                     }
 

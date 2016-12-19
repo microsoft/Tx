@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Security.Cryptography;
     using System.Text;
@@ -61,7 +62,7 @@
                 throw new ArgumentNullException("type");
             }
 
-            var bondMapAttribute = ((GuidAttribute[])type.GetCustomAttributes(typeof(GuidAttribute), false))
+            var bondMapAttribute = ((GuidAttribute[])type.GetTypeInfo().GetCustomAttributes(typeof(GuidAttribute), false))
                 .FirstOrDefault();
 
             if (bondMapAttribute != null &&

@@ -7,6 +7,8 @@ using System.Reactive.Subjects;
 
 namespace System.Reactive
 {
+    using System.Reflection;
+
     /// <summary>
     ///     Efficiently demultiplexes input sequence of objects into output sequences of fixed types
     ///     The callbacks on the output sequences are called in the order of occurence of input events
@@ -89,7 +91,7 @@ namespace System.Reactive
             while (temp != typeof(object))
             {
                 typeList.Add(temp);
-                temp = temp.BaseType;
+                temp = temp.GetTypeInfo().BaseType;
             }
             typeList.AddRange(inputType.GetInterfaces());
             return typeList;

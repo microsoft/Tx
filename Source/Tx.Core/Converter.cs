@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     public class Converter<TIn, TOut> : IObserver<TIn>
     {
@@ -99,7 +100,8 @@
         public static Func<TIn, TOut> Build<TIn, TOut>(this ITransformBuilder<TOut> transformBuilder, Type type)
         {
             var method = typeof(ITransformBuilder<TOut>)
-                .GetMethod("Build")
+                .GetMethods()
+                .Single(m => m.Name == "Build")
                 .MakeGenericMethod(type)
                 .Invoke(transformBuilder, new object[0]) as Func<TIn, TOut>;
 
