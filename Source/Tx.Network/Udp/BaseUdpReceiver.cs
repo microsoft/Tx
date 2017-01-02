@@ -35,15 +35,28 @@ namespace Tx.Network
         protected BaseUdpReceiver(IPEndPoint listenEndPoint, uint concurrentReceivers)
         {
             this.ListenEndPoint = listenEndPoint;
-
-            this.observable = Observable.Create<T>(observer =>
+            
+            var byteObservable = Observable.Create<ArraySegment<byte>>(observer =>
             {
                 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
                 socket.Bind(listenEndPoint);
 
                 this.availableSocketBytesGetter = () => socket.Available;
 
-                var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>(this.ReceiveCompletedHandler);
+                var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>((caller, socketArgs) => {
+                    var localSocket = caller as Socket;
+                    if (localSocket == null || socketArgs.SocketError != SocketError.Success)
+                    {
+                        return;
+                    }
+
+                    var obs = (IObserver<ArraySegment<byte>>)socketArgs.UserToken;
+                    do
+                    {
+                        obs.OnNext(new ArraySegment<byte>(socketArgs.Buffer, 0, socketArgs.BytesTransferred));
+                        socketArgs.SetBuffer(0, ushort.MaxValue);
+                    } while (!socket.ReceiveAsync(socketArgs));
+                });
                 var disposables = new List<IDisposable> {
                         Disposable.Create(() => this.availableSocketBytesGetter = () => 0),
                         Disposable.Create(() => socket.Shutdown(SocketShutdown.Both)),
@@ -60,6 +73,19 @@ namespace Tx.Network
                 }
 
                 return new CompositeDisposable(disposables);
+            });
+
+            this.observable = Observable.Create<T>(observer =>
+            {
+                return byteObservable.Select(bytes => PacketParser.Parse(DateTimeOffset.UtcNow, false, bytes.Array, bytes.Offset, bytes.Count))
+                .Subscribe(ipPacket =>
+                {
+                    T packet;
+                    if (this.TryParse(ipPacket, out packet))
+                    {
+                        observer.OnNext(packet);
+                    }
+                });
             }).Publish().RefCount();
         }
         #endregion
@@ -92,28 +118,6 @@ namespace Tx.Network
         #endregion
 
         #region Private Methods
-
-        private void ReceiveCompletedHandler(object caller, SocketAsyncEventArgs socketArgs)
-        {
-            var socket = caller as Socket;
-            if (socket == null || socketArgs.SocketError != SocketError.Success)
-            {
-                return;
-            }
-            
-            do
-            {
-                var ipPacket = PacketParser.Parse(DateTimeOffset.UtcNow, false, socketArgs.Buffer, 0, socketArgs.Buffer.Length);
-
-                T packet;
-                if (this.TryParse(ipPacket, out packet))
-                {
-                    ((IObserver<T>)socketArgs.UserToken).OnNext(packet);
-                }
-
-                socketArgs.SetBuffer(0, ushort.MaxValue);
-            } while (!socket.ReceiveAsync(socketArgs));
-        }
 
         protected abstract bool TryParse(IpPacket packet, out T envelope);
 
