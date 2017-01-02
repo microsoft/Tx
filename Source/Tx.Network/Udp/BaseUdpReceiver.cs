@@ -1,32 +1,24 @@
 namespace Tx.Network
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Sockets;
-    using System.Reactive.Subjects;
+    using System.Reactive.Linq;
+    using System.Reactive.Disposables;
+    using System.Threading.Tasks;
 
-    public abstract class BaseUdpReceiver<T> : IObservable<T>, IDisposable
+    public abstract class BaseUdpReceiver<T> : IObservable<T>
     {
         #region Public Fields
         public IPEndPoint ListenEndPoint { get; private set; }
-
-        public ProtocolType ListenProtocol { get; private set; }
-        public uint ConcurrentReceivers { get; private set; }
         #endregion
 
         #region Private Fields
 
-        private Socket socket;
+        private Func<int> availableSocketBytesGetter;
 
-        private readonly Subject<T> packetSubject;
-
-        private ConcurrentQueue<SocketAsyncEventArgs> receivedDataProcessorsPool;
-
-        private bool subscribed;
-
-        private readonly List<IDisposable> disposeables = new List<IDisposable>();
+        private readonly IObservable<T> observable;
 
         #endregion
 
@@ -42,10 +34,33 @@ namespace Tx.Network
         /// reception from the underlying socket object.</remarks>
         protected BaseUdpReceiver(IPEndPoint listenEndPoint, uint concurrentReceivers)
         {
-            this.ListenProtocol = ProtocolType.Udp;
-            this.ConcurrentReceivers = concurrentReceivers;
             this.ListenEndPoint = listenEndPoint;
-            this.packetSubject = new Subject<T>();
+
+            this.observable = Observable.Create<T>(observer =>
+            {
+                var socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
+                socket.Bind(listenEndPoint);
+
+                this.availableSocketBytesGetter = () => socket.Available;
+
+                var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>(this.ReceiveCompletedHandler);
+                var disposables = new List<IDisposable> {
+                        Disposable.Create(() => this.availableSocketBytesGetter = () => 0),
+                        Disposable.Create(() => socket.Shutdown(SocketShutdown.Both)),
+                        socket };
+                for (var i = 0; i < concurrentReceivers; i++)
+                {
+                    var eventArgs = new SocketAsyncEventArgs();
+                    eventArgs.SetBuffer(new byte[ushort.MaxValue], 0, ushort.MaxValue);
+                    eventArgs.Completed += eventArgsHandler;
+                    eventArgs.UserToken = observer;
+                    disposables.Add(eventArgs);
+
+                    socket.ReceiveAsync(eventArgs);
+                }
+
+                return new CompositeDisposable(disposables);
+            }).Publish().RefCount();
         }
         #endregion
 
@@ -57,13 +72,7 @@ namespace Tx.Network
         /// <returns>IDisposable object</returns>
         public IDisposable Subscribe(IObserver<T> observer)
         {
-            var o = this.packetSubject.Subscribe(observer);
-            if (!this.subscribed)
-            {
-                this.subscribed = true;
-                this.Start();
-            }
-            return o;
+            return this.observable.Subscribe(observer);
         }
 
         /// <summary>
@@ -76,113 +85,37 @@ namespace Tx.Network
         {
             get
             {
-                return this.socket.Available;
+                return this.availableSocketBytesGetter();
             }
         }
 
         #endregion
 
         #region Private Methods
-        private void Start()
-        {
-            this.receivedDataProcessorsPool = new ConcurrentQueue<SocketAsyncEventArgs>();
-            var eventArgsHandler = new EventHandler<SocketAsyncEventArgs>(this.ReceiveCompletedHandler);
-
-            // pre-allocate the SocketAsyncEventArgs in a receiver queue to constrain memory usage for buffers
-            for (var i = 0; i < this.ConcurrentReceivers; i++)
-            {
-                var eventArgs = new SocketAsyncEventArgs();
-                eventArgs.SetBuffer(new byte[ushort.MaxValue], 0, ushort.MaxValue);
-                eventArgs.Completed += eventArgsHandler;
-                this.receivedDataProcessorsPool.Enqueue(eventArgs);
-                this.disposeables.Add(eventArgs);
-            }
-            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Udp) { ReceiveBufferSize = int.MaxValue };
-            this.socket.Bind(this.ListenEndPoint);
-            this.GetDataProcessorAndReceive();
-        }
 
         private void ReceiveCompletedHandler(object caller, SocketAsyncEventArgs socketArgs)
         {
-            if (!this.disposeCalled)
+            var socket = caller as Socket;
+            if (socket == null || socketArgs.SocketError != SocketError.Success)
             {
-                this.GetDataProcessorAndReceive(); //call a new processor
-                //var packet = new IP(socketArgs.Buffer);
-                T packet;
+                return;
+            }
+            
+            do
+            {
                 var ipPacket = PacketParser.Parse(DateTimeOffset.UtcNow, false, socketArgs.Buffer, 0, socketArgs.Buffer.Length);
 
-                var packetCheck = this.TryParse(ipPacket, out packet);
-
-                if (socketArgs.LastOperation == SocketAsyncOperation.Receive
-                    && socketArgs.SocketError == SocketError.Success
-                    && packetCheck
-                    )
+                T packet;
+                if (this.TryParse(ipPacket, out packet))
                 {
-                    this.packetSubject.OnNext(packet);
+                    ((IObserver<T>)socketArgs.UserToken).OnNext(packet);
                 }
+
                 socketArgs.SetBuffer(0, ushort.MaxValue);
-                this.receivedDataProcessorsPool.Enqueue(socketArgs);
-                this.GetDataProcessorAndReceive(); //failed to get a processor at the beginning, try now since an enqueue was performed.
-            }
-        }
-
-        private void GetDataProcessorAndReceive()
-        {
-            SocketAsyncEventArgs deqAsyncEvent;
-            if (this.receivedDataProcessorsPool.TryDequeue(out deqAsyncEvent))
-            {
-                if (deqAsyncEvent.Offset != 0 || deqAsyncEvent.Count != ushort.MaxValue)
-                {
-                    deqAsyncEvent.SetBuffer(0, ushort.MaxValue);
-                }
-                var sockCheck = this.socket.ReceiveAsync(deqAsyncEvent);
-            }
+            } while (!socket.ReceiveAsync(socketArgs));
         }
 
         protected abstract bool TryParse(IpPacket packet, out T envelope);
-
-        #endregion
-
-        #region IDisposable Support
-
-        private bool disposeCalled;
-
-        public void Dispose()
-        {
-            if (!this.disposeCalled)
-            {
-
-                this.disposeCalled = true;
-
-                if (this.socket != null)
-                {
-                    try
-                    {
-                        this.socket.Shutdown(SocketShutdown.Both);
-                        this.socket.Dispose();
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-
-                    this.socket = null;
-                }
-
-                if (this.disposeables != null)
-                {
-                    foreach (var toDispose in this.disposeables)
-                    {
-                        toDispose.Dispose();
-                    }
-
-                }
-
-                this.packetSubject.OnCompleted();
-                this.packetSubject.Dispose();
-            }
-
-        }
 
         #endregion
     }
