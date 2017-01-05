@@ -55,7 +55,10 @@ namespace Tx.Windows
 
         public override void Dispose()
         {
-            _timer.Dispose();
+            if (_timer != null)
+            {
+                _timer.Dispose();
+            }
 
             base.Dispose();
         }
