@@ -8,13 +8,19 @@ namespace Tx.Windows
     public sealed class PerfCounterRealTimeProbe : PerfCounterReader
     {
         private bool _firstMove = true;
-        private readonly Timer _timer;
+        private Timer _timer;
+        private bool _disposed = false;
 
         public PerfCounterRealTimeProbe(IObserver<PerformanceSample> observer, TimeSpan samplingRate, params string[] counterPaths)
             : base(observer)
         {
+            if (counterPaths == null)
+            {
+                throw new ArgumentNullException(nameof(counterPaths));
+            }
+
             PdhStatus status = PdhNativeMethods.PdhOpenQuery(null, IntPtr.Zero, out _query);
-            PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            PdhUtils.CheckStatus(status, PdhStatus.PDH_CSTATUS_VALID_DATA);            
 
             for (int i=0; i<counterPaths.Length; i++)
             {
@@ -53,14 +59,24 @@ namespace Tx.Windows
             }
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            if (_timer != null)
+            if (this._disposed)
+                return;
+
+            if (disposing)
             {
-                _timer.Dispose();
+                if (_timer != null)
+                {
+                    _timer.Dispose();
+                    _timer = null;
+                }
             }
 
-            base.Dispose();
+            this._disposed = true;
+            // Call base class implementation.
+            base.Dispose(disposing);
+
         }
 
         ~PerfCounterRealTimeProbe()

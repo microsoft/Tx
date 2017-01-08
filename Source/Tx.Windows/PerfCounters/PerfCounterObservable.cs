@@ -5,6 +5,8 @@ using System.Reactive.Linq;
 
 namespace Tx.Windows
 {
+    using System.Reactive.Disposables;
+
     public static class PerfCounterObservable
     {
         public static IObservable<PerformanceSample> FromFile(string perfTrace)
@@ -14,7 +16,23 @@ namespace Tx.Windows
 
         public static IObservable<PerformanceSample> FromRealTime(TimeSpan samplingRate, params string[] counterPaths)
         {
-            return Observable.Create<PerformanceSample>(o => new PerfCounterRealTimeProbe(o, samplingRate, counterPaths));
+            return Observable
+                .Create<PerformanceSample>(
+                    o =>
+                        {
+                            PerfCounterRealTimeProbe probe;
+                            try
+                            {
+                                probe = new PerfCounterRealTimeProbe(o, samplingRate, counterPaths);
+                            }
+                            catch (Exception error)
+                            {
+                                o.OnError(error);
+                                return Disposable.Empty;
+                            }
+
+                            return probe;
+                        });
         }
     }
 }
