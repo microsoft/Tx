@@ -15,7 +15,8 @@ namespace Tx.Network
         {
             using (var stream = File.OpenRead(filename))
             {
-                return ReadStream(stream);
+                foreach (var r in ReadStream(stream))
+                    yield return r;
             }
         }
 
