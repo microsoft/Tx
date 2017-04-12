@@ -11,6 +11,11 @@ namespace Tx.Network
 {
     public class Pcap
     {
+        /// <summary>
+        /// Reads a file and returns the parsed <see cref="PcapRecord"/>s.
+        /// </summary>
+        /// <param name="filename">The name of the file to parse.</param>
+        /// <returns>The parsed <see cref="PcapRecord"/>s.</returns>
         public static IEnumerable<PcapRecord> ReadFile(string filename)
         {
             using (var stream = File.OpenRead(filename))
@@ -20,8 +25,16 @@ namespace Tx.Network
             }
         }
 
+        /// <summary>
+        /// Reads a <see cref="Stream"/> and returns the parsed <see cref="PcapRecord"/>s.
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream"/> to parse.</param>
+        /// <returns>The parsed <see cref="PcapRecord"/>s.</returns>
         public static IEnumerable<PcapRecord> ReadStream(Stream stream)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
             using (var reader = new BinaryReader(stream))
             {
                 int pos = 0;
