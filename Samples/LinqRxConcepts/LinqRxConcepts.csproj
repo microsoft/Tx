@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05D2241C-A333-43F9-8851-2972A5662D88}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tx.Samples</RootNamespace>
+    <AssemblyName>LinqRxConcepts</AssemblyName>
+  </PropertyGroup>
+  <Import Project="..\..\Common.targets" />
+  <PropertyGroup>
+    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CSharp\ByteArrayExtensions.cs" />
+    <Compile Include="LinqPoc\Filter.cs" />
+    <Compile Include="LinqPoc\Pull2PushWrapper.cs" />
+    <Compile Include="LinqPoc\PullLinq.cs" />
+    <Compile Include="RxPoc\ActionObserver.cs" />
+    <Compile Include="RxPoc\ColdObservable.cs" />
+    <Compile Include="RxPoc\RxLinq.cs" />
+    <Compile Include="RxPoc\Select.cs" />
+    <Compile Include="RxPoc\Where.cs" />
+    <Compile Include="RxPoc\Subject.cs" />
+    <Compile Include="TxPoc\EvtxEnumerable.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
