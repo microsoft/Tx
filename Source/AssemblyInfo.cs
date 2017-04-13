@@ -5,5 +5,5 @@ using System.Reflection;
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("Tx (LINQ to Logs and Traces)")]
 [assembly: AssemblyCopyright("Copyright © Microsoft. All Rights Reserved")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.0.1.0")]
+[assembly: AssemblyFileVersion("2.0.1.0")]

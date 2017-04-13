@@ -11,8 +11,15 @@ namespace Tx.Windows
         internal readonly IObserver<PerformanceSample> _observer;
         internal PdhQueryHandle _query;
 
-        public PerfCounterReader(IObserver<PerformanceSample> observer)
+        private bool disposed = false;
+
+        protected PerfCounterReader(IObserver<PerformanceSample> observer)
         {
+            if (observer == null)
+            {
+                throw new ArgumentNullException(nameof(observer));
+            }
+
             _observer = observer;
         }
 
@@ -78,14 +85,30 @@ namespace Tx.Windows
             _counters.Add(counterInfo);
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
             foreach (PerfCounterInfo counterInfo in _counters)
             {
                 counterInfo.Dispose();
             }
 
-            _query.Dispose();
+            if (_query != null)
+            {
+                _query.Dispose();
+                _query = null;
+            }
+
+            disposed = true;
         }
     }
 }

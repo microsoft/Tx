@@ -184,6 +184,19 @@ namespace Tests.Tx
             Assert.IsTrue(dto <= endTime);
         }
 
+        [TestMethod]
+        public void PerformanceCounterProbeBadCounterName()
+        {
+            Exception error = null;
+            using (PerfCounterObservable.FromRealTime(TimeSpan.FromHours(1), "blah")
+                    .Subscribe(Observer.Create<PerformanceSample>(_ => { }, e => error = e)))
+            {
+                Assert.IsNotNull(error);
+                Assert.IsInstanceOfType(error, typeof(Exception));
+                Assert.AreEqual("PDH_CSTATUS_BAD_COUNTERNAME", error.Message);
+            }
+        }
+
         IEnumerable<InstanceCounterSnapshot> PivotToInstanceSnapshots(Playback playback, string counterSet)
         {
             var all = playback.GetObservable<PerformanceSample>();
