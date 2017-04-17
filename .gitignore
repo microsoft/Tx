@@ -12,3 +12,5 @@ _UpgradeReport_Files
 *.vspx
 *.vsp
 /release2.0.0.md
+/Source/Tx.Core/.vs
+/Source/Tx.Core/.vscode

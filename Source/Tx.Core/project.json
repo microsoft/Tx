@@ -1,0 +1,53 @@
+{
+  "name": "Tx.Core",
+  "description": "Tx (LINQ to Logs and Traces) core components, not specific to the event format",
+  "title": "Tx.Core",
+  "authors": ["Microsoft"],
+  "language": "en-US", 
+  "copyright": "Copyright © Microsoft. All Rights Reserved",
+  "projectUrl": "https://github.com/Microsoft/Tx",
+
+  "packOptions": {
+    "summary": "",
+    "tags": ["Tx", "Traces", "Logs", "Playback", "Replay"],
+    "releaseNotes": "",
+    "requireLicenseAcceptance": false,
+    "licenseUrl": "https://github.com/Microsoft/Tx/blob/master/license.txt",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Microsoft/Tx.git"
+    },
+    "owners": [
+      "georgis",
+      "sergey.baranchenkov"
+    ]
+  },
+
+  "version": "2.1.0-*",
+  "buildOptions": {
+    "optimize": true,
+    "debugType": "portable",
+    "emitEntryPoint": false
+  },
+  "dependencies": {},
+  "frameworks": {
+    "net45": {
+      "frameworkAssemblies": {
+        "System.Collections.Concurrent": {
+          "type": "build"
+        }
+      },
+      "dependencies": { "System.Reactive": "3.0.0" }
+    },
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.1"
+        },
+        "System.Reactive": "3.0.0"
+      },
+      "imports": "dnxcore50"
+    }
+  }
+}

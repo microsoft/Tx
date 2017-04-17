@@ -5,6 +5,8 @@ using System.IO;
 
 namespace System.Reactive
 {
+    using System.Reflection;
+
     public static class CsvExtensions
     {
         public static IDisposable ToCsvFile<T>(this IObservable<T> source, string filePath)
@@ -34,7 +36,7 @@ namespace System.Reactive
             /// </summary>
             public void OnCompleted()
             {
-                _writer.Close();
+                _writer.Flush();
             }
 
             /// <summary>
@@ -90,7 +92,7 @@ namespace System.Reactive
             void WriteHeader(T firstValue)
             {
                 bool isFirst = true;
-                foreach (var p in typeof(T).GetProperties())
+                foreach (var p in typeof(T).GetTypeInfo().GetProperties())
                 {
                     if (isFirst)
                         isFirst = false;

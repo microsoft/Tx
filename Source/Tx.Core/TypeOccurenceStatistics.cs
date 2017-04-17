@@ -8,6 +8,8 @@ using System.Threading;
 
 namespace System.Reactive
 {
+    using System.Reflection;
+
     public class TypeOccurenceStatistics : IPlaybackConfiguration
     {
         private readonly List<TypeOccurenceAggregator> _aggregators;
@@ -58,7 +60,7 @@ namespace System.Reactive
 
             foreach (var mapInstance in typeMaps)
             {
-                Type mapInterface = mapInstance.GetType().GetInterface(typeof(IPartitionableTypeMap<,>).Name);
+                Type mapInterface = mapInstance.GetType().GetTypeInfo().GetInterface(typeof(IPartitionableTypeMap<,>).Name);
                 if (mapInterface == null)
                     continue;
                 Type aggregatorType =

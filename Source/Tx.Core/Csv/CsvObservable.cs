@@ -36,8 +36,8 @@ namespace System.Reactive
         private IEnumerable<Record> ReadRecords(string fileName)
         {
             var stringBuilder = new StringBuilder();
-
-            using (var reader = new StreamReader(fileName))
+           
+            using (var reader = new StreamReader(File.OpenRead(fileName)))
             {
                 ReadOnlyCollection<string> header;
                 if (reader.Peek() >= 0)

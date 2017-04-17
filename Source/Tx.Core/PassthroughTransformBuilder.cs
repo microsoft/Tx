@@ -2,12 +2,13 @@
 {
     using System;
     using System.Reactive;
+    using System.Reflection;
 
     public class PassthroughTransformBuilder : ITransformBuilder<IEnvelope>
     {
         public Func<TIn, IEnvelope> Build<TIn>()
         {
-            if (typeof(IEnvelope).IsAssignableFrom(typeof(TIn)))
+            if (typeof(IEnvelope).GetTypeInfo().IsAssignableFrom(typeof(TIn)))
             {
                 return Transform<TIn>;
             }
