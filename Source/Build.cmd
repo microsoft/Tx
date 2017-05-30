@@ -1,70 +1,73 @@
-set bin="c:\Bin"
+set sourceFolder=%~dp0
+set dropFolder=%~dp0
 
-if not exist "%bin%" mkdir %bin% || goto failFast
+(
+set /p versionParam=
+)<%sourceFolder%version.txt
 
-if "%1"=="NoBuild" goto noBuild
+echo %versionParam%
 
-pushd %~dp0
-
-msbuild Tx.sln /p:Configuration=Release45 /p:Platform="Any CPU" || goto failFast
-msbuild Tx.sln /p:Configuration=Debug45 /p:Platform="Any CPU" || goto failFast
-
-popd
-
-:noBuild
-
-copy ..\tools\NuGet.exe %bin%\ || goto failFast
-copy ..\tools\zip.exe %bin%\ || goto failFast
-copy ..\tools\PushPackages.cmd %bin%\ || goto failFast
-
-pushd  ..\Samples\LinqPad\Queries || goto failFast
-call create_samples_package.cmd
-popd
+set msbuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe"
 
 pushd
-
-cd /d %bin%\Debug || goto failFast
-call :setVersion || goto failFast
-call :packAll || goto failFast
-
-cd /d %bin%\Release || goto failFast
-call :setVersion || goto failFast
-call :packAll || goto failFast
-
-cd /d %bin%\Release\Net45 || goto failFast
-..\..\zip.exe ..\..\Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Reactive.Windows.Forms.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll msvcr100.dll xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl || goto failFast
-
-popd
-goto end
-
-:setVersion
-
-pushd Net45\Properties || goto failFast
-..\SetVersion.exe || goto failFast
+cd /d %sourceFolder%SetVersion || goto failFast
+dotnet restore || goto failFast
+dotnet msbuild /p:Configuration=Release || goto failFast
 popd
 
-exit /b 0 
+pushd  %sourceFolder%..\Samples\LinqPad\Queries || goto failFast
+call create_samples_package.cmd %dropFolder%samples.zip
+popd
 
-:packAll
 call :pack Tx.Core || goto failFast
 call :pack Tx.Windows || goto failFast
 call :pack Tx.Bond || goto failFast
 call :pack Tx.Network || goto failFast
-call :pack Tx.Windows.TypeGeneration || goto failFast
 call :pack Tx.SqlServer || goto failFast
-call :pack Tx.All || goto failFast
 
-exit /b 0 
+pushd
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj || goto failFast
+cd /d %sourceFolder%Tx.Windows.TypeGeneration || goto failFast
+dotnet restore || goto failFast
+dotnet build -c=Release || goto failFast
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%EtwEventTypeGen\EtwEventTypeGen.csproj || goto failFast
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%EtwEventTypeGen\Properties\Tx.Windows.TypeGeneration.nuspec || goto failFast
+cd /d %sourceFolder%EtwEventTypeGen || goto failFast
+dotnet restore || goto failFast
+dotnet build -c=Release || goto failFast
+copy %sourceFolder%EtwEventTypeGen\Properties\Tx.Windows.TypeGeneration.nuspec %sourceFolder%EtwEventTypeGen\bin\Release\net45\ || goto failFast
+cd /d %sourceFolder%EtwEventTypeGen\bin\Release\net45 || goto failFast
+%sourceFolder%..\tools\NuGet pack Tx.Windows.TypeGeneration.nuspec || goto failFast
+copy %sourceFolder%EtwEventTypeGen\bin\Release\net45\Tx.Windows.TypeGeneration.%versionParam%*.nupkg %dropFolder% || goto failFast
+popd
+
+pushd
+cd /d %sourceFolder%Tx.Linqpad || goto failFast
+dotnet restore || goto failFast
+%msbuildPath% /p:Configuration=Release || goto failFast
+cd /d %sourceFolder%Tx.Linqpad\bin\Release\net45 || goto failFast
+%sourceFolder%..\tools\zip.exe %dropFolder%Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Reactive.Windows.Forms.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll %sourceFolder%..\References\XEvent\msvcr100.dll %sourceFolder%..\References\XEvent\xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl || goto failFast
+popd
+
+pushd
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%Tx.All\Tx.All.nuspec || goto failFast
+cd /d %sourceFolder%Tx.All || goto failFast
+%sourceFolder%..\tools\NuGet pack Tx.All.nuspec || goto failFast
+copy %sourceFolder%Tx.All\Tx.All.*.nupkg %dropFolder%\ || goto failFast
+popd
+
+goto end
 
 :pack %1
-call Net45\Properties\%1.Layout.cmd || goto failFast
-cd /d %1 || goto failFast
-copy ..\Net45\Properties\%1.nuspec || goto failFast
-..\..\NuGet pack %1.nuspec || goto failFast
-move *.nupkg ..\ || goto failFast
-cd ..
-rd /s/q %1 || goto failFast
-exit /b 0
+
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%%1\%1.csproj || goto failFast
+
+pushd
+cd /d %sourceFolder%%1 || goto failFast
+dotnet restore || goto failFast
+dotnet build -c=Release || goto failFast
+copy %sourceFolder%%1\bin\Release\%1.*.nupkg %dropFolder% || goto failFast
+popd
 
 :end
 cd %~dp0

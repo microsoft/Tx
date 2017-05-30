@@ -34,7 +34,7 @@ namespace System.Reactive
             Func<T, DateTimeOffset> timeFunction)
         {
             if (timeFunction == null)
-                throw new ArgumentNullException("timeFunction");
+                throw new ArgumentNullException(nameof(timeFunction));
 
             _source = source;
             _scheduler = new TimeSegmentScheduler();

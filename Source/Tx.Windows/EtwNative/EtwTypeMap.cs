@@ -59,7 +59,7 @@ namespace Tx.Windows
             PropertyInfo[] properties = outputType.GetProperties();
             foreach (PropertyInfo p in properties)
             {
-                var attribute = p.GetAttribute<EventFieldAttribute>();
+                var attribute = p.PropertyType.GetTypeInfo().GetCustomAttribute<EventFieldAttribute>();
                 if (attribute == null) continue;
 
                 Expression readExpression = null;

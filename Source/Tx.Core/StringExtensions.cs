@@ -6,7 +6,7 @@ namespace System.Reactive
     {
         public static string GetSubstring(this string source, string startMarker, string endMarker)
         {
-            int startIndex = source.IndexOf(startMarker, StringComparison.InvariantCulture);
+            int startIndex = source.IndexOf(startMarker, StringComparison.Ordinal);
             int begin = startIndex + startMarker.Length;
 
             string result;
@@ -16,7 +16,7 @@ namespace System.Reactive
             }
             else
             {
-                int end = source.IndexOf(endMarker, begin, StringComparison.InvariantCulture);
+                int end = source.IndexOf(endMarker, begin, StringComparison.Ordinal);
                 result = source.Substring(begin, end - begin);
             }
 

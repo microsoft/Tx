@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>    
+    <TargetFramework>net45</TargetFramework>    
+    <SignAssembly>True</SignAssembly>    
+    <AssemblyOriginatorKeyFile>..\..\Source\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.11" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Tx.Core\Tx.Core.csproj" />
+    <ProjectReference Include="..\..\Source\Tx.Windows\Tx.Windows.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Traces\u_ex130609.log">
+      <Link>u_ex130609.log</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Traces\Process.etl">
+      <Link>Process.etl</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\Traces\HTTP_Server.etl">
+      <Link>HTTP_Server.etl</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Traces\HTTP_Server.evtx">
+      <Link>HTTP_Server.evtx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Traces\BasicPerfCounters.blg">
+      <Link>BasicPerfCounters.blg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Generated\Microsoft_Windows_HttpService.cs">
+      <Link>Microsoft_Windows_HttpService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Generated\Microsoft_Windows_Kernel_Process.cs">
+      <Link>Microsoft_Windows_Kernel_Process.cs</Link>
+    </Compile>
+  </ItemGroup> 
+
+</Project>

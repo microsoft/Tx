@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace System.Reactive
 {
-    internal class BufferQueue<T> : IObserver<T>, IEnumerator<T>
+    internal sealed class BufferQueue<T> : IObserver<T>, IEnumerator<T>
     {
         private readonly BlockingCollection<T> _queue = new BlockingCollection<T>();
         private T _current;

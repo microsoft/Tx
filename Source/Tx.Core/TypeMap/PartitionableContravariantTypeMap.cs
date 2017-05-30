@@ -4,6 +4,7 @@ namespace System.Reactive
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
 
     public sealed class PartitionableContravariantTypeMap : IPartitionableTypeMap<Timestamped<object>, Type>
     {
@@ -35,9 +36,9 @@ namespace System.Reactive
             }
 
             var type = evt.Value.GetType();
-            while (type.BaseType != _objectType && type.BaseType != typeof(ValueType))
+            while (type.GetTypeInfo().BaseType != _objectType && type.GetTypeInfo().BaseType != typeof(ValueType))
             {
-                type = type.BaseType;
+                type = type.GetTypeInfo().BaseType;
             }
 
             return type;

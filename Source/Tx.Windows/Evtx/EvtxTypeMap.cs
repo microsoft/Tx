@@ -66,7 +66,7 @@ namespace Tx.Windows
             int index = 0;
             foreach (PropertyInfo p in properties)
             {
-                var attribute = p.GetAttribute<EventFieldAttribute>();
+                var attribute = p.PropertyType.GetTypeInfo().GetCustomAttribute<EventFieldAttribute>();
                 if (attribute == null) continue;
 
                 // the following is to handle value maps, that were emitted as enumerations

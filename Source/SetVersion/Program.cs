@@ -1,67 +1,99 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
-
-using System;
+﻿using System;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace SetVersion
 {
     internal class Program
     {
-        private const string Prefix = "[assembly: AssemblyVersion(";
-
-        private static void Main()
+        private static void Main(string[] args)
         {
-            string version = GetVersion();
-            Console.WriteLine(version);
+            string version = args[0];
+            var validCharacters = "1234567890.".ToCharArray();
+            var hasInvalidCharacters = version
+                .ToCharArray()
+                .Except(validCharacters).Any();
 
-            string[] specs = Directory.GetFiles(".", "*.nuspec");
-            foreach (string s in specs)
+            if (hasInvalidCharacters)
             {
-                Console.WriteLine(s);
-                FixNuSpec(s, version);
+                throw new ApplicationException("Version is in invalid format: " + version);
             }
-        }
 
-        private static string GetVersion()
-        {
-            StreamReader reader = File.OpenText("AssemblyInfo.cs");
-            string line = reader.ReadLine();
+            string filename = args[1];
 
-            while (line != null)
+            if (!File.Exists(filename))
             {
-                if (!line.StartsWith(Prefix))
+                throw new FileNotFoundException(filename);
+            }
+
+            var extension = Path.GetExtension(filename);
+
+            if (new[] { extension }
+                .Except(new[] { ".csproj", ".nuspec" }, StringComparer.OrdinalIgnoreCase).Any())
+            {
+                throw new ApplicationException("Only csproj and nuspec files are supported");
+            }
+
+            var document = XDocument.Load(filename);
+
+            XElement parentElement = null;
+
+            if (string.Equals(extension, ".csproj", StringComparison.OrdinalIgnoreCase))
+            {
+                parentElement = document.Descendants("Project")
+                    .First()
+                    .Descendants("PropertyGroup")
+                    .First();
+            }
+            else if(string.Equals(extension, ".nuspec", StringComparison.OrdinalIgnoreCase))
+            {
+                parentElement = document.Descendants("package")
+                    .First()
+                    .Descendants("metadata")
+                    .First();
+
+                foreach (var item in parentElement
+                    .Descendants("dependencies")
+                    .Descendants())
                 {
-                    line = reader.ReadLine();
-                    continue;
+                    var attribute = item.Attribute(XName.Get("id"));
+                    if (attribute.Value.StartsWith("Tx."))
+                    {
+                        var versionAttribute = item.Attribute(XName.Get("version"));
+                        if (versionAttribute.Value.Contains("{version}"))
+                        {
+                            versionAttribute.Value = versionAttribute.Value.Replace("{version}", version);
+                        }
+                        else
+                        {
+                            versionAttribute.Value = version;
+                        }
+                    }
                 }
-
-                int startIndex = Prefix.Length + 1;
-                int endIndex = line.LastIndexOf('.');
-                return line.Substring(startIndex, endIndex - startIndex);
             }
 
-            throw new Exception("could not find AssemblyVersion attribute");
-        }
+            var versionElement = parentElement
+                .Descendants()
+                .FirstOrDefault(i => string.Equals(i.Name.ToString(), "Version", StringComparison.OrdinalIgnoreCase));
 
-        private static void FixNuSpec(string path, string version)
-        {
-            XDocument spec = XDocument.Load(path);
-            XElement xeMetadata = spec.Element("package").Element("metadata");
-
-            XElement xeVersion = xeMetadata.Element("version");
-            xeVersion.SetValue(xeVersion.Value.Replace("{version}", version));
-
-            XElement xeDependencies = xeMetadata.Element("dependencies");
-            foreach (XElement xeDependency in xeDependencies.Elements("dependency"))
+            if (versionElement != null)
             {
-                if (!xeDependency.Attribute("id").Value.StartsWith("Tx."))
-                    continue;
-
-                xeDependency.SetAttributeValue("version", xeDependency.Attribute("version").Value.Replace("{version}", version));
+                if (versionElement.Value.Contains("{version}"))
+                {
+                    versionElement.Value = versionElement.Value.Replace("{version}", version);
+                }
+                else
+                {
+                    versionElement.Value = version;
+                }
+            }
+            else
+            {
+                parentElement.Add(new XElement(XName.Get("Version")) { Name = "Version", Value = version });
             }
 
-            spec.Save(path);
+            document.Save(filename);
         }
     }
 }

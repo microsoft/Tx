@@ -36,7 +36,7 @@
 
         public ObjectIdentifier GetTypeKey(Type outputType)
         {
-            var attribute = outputType.GetAttribute<SnmpTrapAttribute>();
+            var attribute = outputType.GetTypeInfo().GetCustomAttribute<SnmpTrapAttribute>();
             return attribute?.SnmpTrapOid ?? default(ObjectIdentifier);
         }
 
@@ -117,7 +117,7 @@
                 var foundValue = Expression.Call(getVarBindMethod, Expression.Property(parameter, pduVarBindsField), Expression.Constant(notificationObjectIdentifier.Oid), varbindVar);
 
                 Expression convertedValue = Expression.Field(varbindVar, varbindValueField);
-                if (p.PropertyType.IsEnum || typeof(int).IsAssignableFrom(p.PropertyType))
+                if (p.PropertyType.GetTypeInfo().IsEnum || typeof(int).IsAssignableFrom(p.PropertyType))
                 {
                     convertedValue = Expression.Convert(convertedValue, typeof(long));
                 }

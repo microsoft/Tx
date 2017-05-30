@@ -24,7 +24,7 @@ namespace Tx.SqlServer
 
         public Guid GetTypeKey(Type outpuType)
         {
-            var eventAttribute = outpuType.GetAttribute<XEventAttribute>();
+            var eventAttribute = outpuType.GetCustomAttribute<XEventAttribute>();
             if (eventAttribute == null)
                 return Guid.Empty;
 
@@ -50,7 +50,7 @@ namespace Tx.SqlServer
             foreach (PropertyInfo property in outpuType.GetProperties())
             {
                 Expression readExpression;
-                if (property.GetAttribute<NonPublishedAttribute>() != null)
+                if (property.GetCustomAttribute<NonPublishedAttribute>() != null)
                     continue;
 
                 MemberExpression propertyValue = Expression.Property(

@@ -1,73 +1,62 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3326CF58-CDA1-4514-BADD-465F4CEDAF50}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tx.LinqPad</RootNamespace>
-    <AssemblyName>Tx.LinqPad</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug45|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release45|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <Import Project="..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ConnectionDialog.xaml.cs">
+    </Compile>
+    <Compile Include="ConnectionDialog.xaml.cs">
+      <DependentUpon>ConnectionDialog.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ConnectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="3.0.0" />
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
+    <ProjectReference Include="..\Tx.SqlServer\Tx.SqlServer.csproj" />
+    <ProjectReference Include="..\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" />
+    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <Reference Include="LINQPad">
       <HintPath>..\..\References\LinqPad\LINQPad.exe</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.XE.Core">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.XEvent">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.XEvent.Targets.Linq">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.SqlServer.XEvent.Linq">
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.XEvent.Targets">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
     </Reference>
+
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
     <Reference Include="System.Reactive.Windows.Forms">
-      <HintPath>$(CPReferencePath)\System.Reactive.Windows.Forms.dll</HintPath>
+      <HintPath>..\..\References\DESKTOPCLR45\System.Reactive.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -77,101 +66,50 @@
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="ConnectionDialog.xaml.cs">
-      <DependentUpon>ConnectionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ParserRegistry.cs" />
-    <Compile Include="TxDataContextDriver.cs" />
-    <Compile Include="TxProperties.cs" />
-    <Compile Include="TypeCache.cs" />
+    <None Update="header.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Page Include="ConnectionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\Manifests\HTTP_Server.man">
-      <Link>HTTP_Server.man</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Traces\BasicPerfCounters.blg">
-      <Link>BasicPerfCounters.blg</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Traces\HTTP_Server.etl">
+    <None Include="..\..\Traces\HTTP_Server.etl">
       <Link>HTTP_Server.etl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Traces\CrossMachineHTTP.etl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Manifests\HTTP_Server.man">
+      <Link>HTTP_Server.man</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Traces\BasicPerfCounters.blg">
+      <Link>BasicPerfCounters.blg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Traces\CrossMachineHTTP.etl">
       <Link>CrossMachineHTTP.etl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Traces\CrossMachineIE.etl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Traces\CrossMachineIE.etl">
       <Link>CrossMachineIE.etl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Manifests\IE_Client.man">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Manifests\IE_Client.man">
       <Link>IE_Client.man</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Traces\sqltrace.xel">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Traces\sqltrace.xel">
       <Link>sqltrace.xel</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Manifests\Microsoft.Windows.ApplicationServer.Applications.manifest">
-      <Link>Microsoft.Windows.ApplicationServer.Applications.manifest</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\Traces\SampleWcfTrace.etl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Manifests\Microsoft.Windows.ApplicationServer.Applications.manifest">
+      <Link>Microsoft.Windows.ApplicationServer.Applications.man</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Traces\SampleWcfTrace.etl">
       <Link>SampleWcfTrace.etl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="..\devsetup.cmd">
-      <Link>devsetup.cmd</Link>
-    </None>
-    <None Include="..\key.snk">
-      <Link>Properties\key.snk</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="header.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tx.SqlServer\Tx.SqlServer.csproj">
-      <Project>{8892848f-45a1-46ac-a686-6a25eec1475b}</Project>
-      <Name>Tx.SqlServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj">
-      <Project>{A4517ABD-D558-42F3-8FE4-2A6BA3074014}</Project>
-      <Name>Tx.Windows.TypeGeneration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
-      <Project>{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}</Project>
-      <Name>Tx.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)devsetup.cmd $(SolutionDir)</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  
 </Project>

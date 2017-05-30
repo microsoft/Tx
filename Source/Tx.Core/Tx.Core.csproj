@@ -1,117 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System.Reactive</RootNamespace>
-    <AssemblyName>Tx.Core</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <Import Project="..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Tx (LINQ to Logs and Traces) core components, not specific to the event format</Description>
+    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
+    <Authors>Microsoft</Authors>
+    <Company>Microsoft</Company>
+    <PackageTags>Tx Traces Logs Playback Replay</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
+    <Version>2.1.1</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.1|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.1\.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
+    <PackageReference Include="System.Reactive" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Attributes.cs" />
-    <Compile Include="ITransformBuilder.cs" />
-    <Compile Include="PassthroughTransformBuilder.cs" />
-    <Compile Include="Converter.cs" />
-    <Compile Include="TypeIdentifierHelpers.cs" />
-    <Compile Include="ByteArrayExtensions.cs" />
-    <Compile Include="Csv\CsvObservable.cs" />
-    <Compile Include="Csv\CsvRecordTypeMap.cs" />
-    <Compile Include="CustomAttributeProviderExtensions.cs" />
-    <Compile Include="Internal\BufferQueue.cs" />
-    <Compile Include="Envelope.cs" />
-    <Compile Include="IEnvelope.cs" />
-    <Compile Include="IPlayback.cs" />
-    <Compile Include="IPlaybackConfiguration.cs" />
-    <Compile Include="ITypeMap.cs" />
-    <Compile Include="Csv\CsvExtensions.cs" />
-    <Compile Include="NonDetachObservable.cs" />
-    <Compile Include="PlaybackConfigurationExtensions.cs" />
-    <Compile Include="PullMergeSort.cs" />
-    <Compile Include="Internal\Pump.cs" />
-    <Compile Include="ITypeStatistics.cs" />
-    <Compile Include="CompositeDeserializer.cs" />
-    <Compile Include="IDeserializer.cs" />
-    <Compile Include="Demultiplexor.cs" />
-    <Compile Include="PartitionKeyDeserializer.cs" />
-    <Compile Include="Playback.cs" />
-    <Compile Include="RootDeserializer.cs" />
-    <Compile Include="TypeMap\SingleTypeMap.cs" />
-    <Compile Include="StringExtensions.cs" />
-    <Compile Include="TimeSource.cs" />
-    <Compile Include="TransformDeserializer.cs" />
-    <Compile Include="TypeMap\LambdaTypeMap.cs" />
-    <Compile Include="TypeMap\PartitionableContravariantTypeMap.cs" />
-    <Compile Include="TypeMap\SystemClockTypeMap.cs" />
-    <Compile Include="TypeMap\TimestampedTypeMap.cs" />
-    <Compile Include="Internal\TypeOccurenceAggregator.cs" />
-    <Compile Include="TypeOccurenceStatistics.cs" />
-    <Compile Include="TypeMap\EnvelopeTypeMap.cs" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\key.snk">
-      <Link>Properties\key.snk</Link>
-    </None>
-    <None Include="Properties\Tx.All.Layout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\Tx.All.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Tx.Core.Layout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\Tx.Core.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

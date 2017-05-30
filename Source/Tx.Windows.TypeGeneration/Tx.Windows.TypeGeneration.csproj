@@ -1,78 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A4517ABD-D558-42F3-8FE4-2A6BA3074014}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tx.Windows</RootNamespace>
-    <AssemblyName>Tx.Windows.TypeGeneration</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
-  <Import Project="..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
+    <Authors>Microsoft</Authors>
+    <Company>Microsoft</Company>
+    <Description>Tx (LINQ to Logs and Traces) components for generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</Description>
+    <PackageTags>Tx Traces Logs Playback Replay ETW</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
+    <Version>2.1.1</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\Tx.Windows.TypeGeneration.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyBuilder.cs" />
-    <Compile Include="ManifestParser.cs" />
-    <Compile Include="NameUtils.cs" />
-    <Compile Include="PerfCounterParser.cs" />
-    <Compile Include="TmfParser.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\key.snk">
-      <Link>Properties\key.snk</Link>
-    </None>
-    <None Include="Properties\Tx.Windows.TypeGeneration.Layout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\Tx.Windows.TypeGeneration.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
+    <None Update="Properties\Tx.Windows.TypeGeneration.nuspec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
-      <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
-      <Name>Tx.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj">
-      <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
-      <Name>Tx.Windows</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

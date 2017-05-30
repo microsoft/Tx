@@ -27,14 +27,14 @@ namespace Tx.LinqPad
 
             IEnumerable<MethodInfo> methods = from t in types
                                               from m in t.GetMethods()
-                                              where m.GetAttribute<FileParserAttribute>() != null
+                                              where m.GetCustomAttribute<FileParserAttribute>() != null
                                               select m;
 
             _addFiles = methods.ToArray();
 
             methods = from t in types
                       from m in t.GetMethods()
-                      where m.GetAttribute<RealTimeFeedAttribute>() != null
+                      where m.GetCustomAttribute<RealTimeFeedAttribute>() != null
                       select m;
 
             _addSessions = methods.ToArray();
@@ -45,7 +45,7 @@ namespace Tx.LinqPad
             get
             {
                 FileParserAttribute[] attributes = (from mi in _addFiles
-                                                    select mi.GetAttribute<FileParserAttribute>()).ToArray();
+                                                    select mi.GetCustomAttribute<FileParserAttribute>()).ToArray();
 
                 var sb = new StringBuilder("All Files|");
                 foreach (string ext in attributes.SelectMany(a => a.Extensions))
@@ -122,7 +122,7 @@ namespace Tx.LinqPad
             foreach (string ext in filesByExtension.Keys)
             {
                 MethodInfo addMethod = (from mi in _addFiles
-                                        where mi.GetAttribute<FileParserAttribute>().Extensions.Contains(ext)
+                                        where mi.GetCustomAttribute<FileParserAttribute>().Extensions.Contains(ext)
                                         select mi).FirstOrDefault();
 
                 addMethod.Invoke(null, new object[] {playback, filesByExtension[ext].ToArray()});

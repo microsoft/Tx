@@ -75,7 +75,7 @@ namespace Tx.LinqPad
                                 {
                                     s = ManifestParser.Parse(manifest);
                                 }
-                                catch (XmlException ex)
+                                catch (XmlException)
                                 {
                                     // if one manifest is bad, we should still see the other events
                                     string err = String.Format(

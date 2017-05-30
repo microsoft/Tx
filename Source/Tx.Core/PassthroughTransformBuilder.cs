@@ -1,4 +1,6 @@
-﻿namespace Tx.Core
+﻿using System.Reflection;
+
+namespace Tx.Core
 {
     using System;
     using System.Reactive;
@@ -7,7 +9,7 @@
     {
         public Func<TIn, IEnvelope> Build<TIn>()
         {
-            if (typeof(IEnvelope).IsAssignableFrom(typeof(TIn)))
+            if (typeof(IEnvelope).GetTypeInfo().IsAssignableFrom(typeof(TIn).GetTypeInfo()))
             {
                 return Transform<TIn>;
             }
