@@ -208,16 +208,20 @@ namespace Tx.Windows.Tests
         [TestMethod]
         public void HTTP_Parse_Format()
         {
-            string msg = "";
+            string msg = null;
 
-            var pb = new Playback();
-            pb.AddEtlFiles(EtlFileName);
+            using (var playback = new Playback())
+            {
+                playback.AddEtlFiles(EtlFileName);
 
-            var parsed = pb.GetObservable<Parse>().Take(1);
-            parsed.Subscribe(p => msg = p.ToString());
-            pb.Run();
+                var parsed = playback.GetObservable<Parse>().Take(1);
+                using (parsed.Subscribe(p => msg = p.ToString()))
+                {
+                    playback.Run();
+                }
+            }
 
-            Assert.AreEqual(msg, "Parsed request (request pointer 18446738026454074672, method 4) with URI http://georgis2:80/windir.txt");
+            Assert.AreEqual("Parsed request (request pointer 18446738026454074672, method 4) with URI http://georgis2:80/windir.txt", msg);
         }
 
         [TestMethod]
