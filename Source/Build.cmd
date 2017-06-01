@@ -70,6 +70,10 @@ dotnet build -c=Release || goto failFast
 move %sourceFolder%%1\bin\Release\%1.*.nupkg %dropFolder% || goto failFast
 popd
 
+cd %dropFolder%
+del /q %versionParam%.zip
+%sourceFolder%..\tools\zip.exe %versionParam%.zip samples.zip Tx.LinqPad.lpx || goto failFast
+
 :end
 cd %~dp0
 exit /b 0
