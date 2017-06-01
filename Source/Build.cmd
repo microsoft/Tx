@@ -7,7 +7,8 @@ set /p versionParam=
 
 echo %versionParam%
 
-set msbuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe"
+rem set msbuildPath="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe"
+set msbuildPath="msbuild"
 
 pushd
 cd /d %sourceFolder%SetVersion || goto failFast
