@@ -57,6 +57,12 @@ cd /d %sourceFolder%Tx.All || goto failFast
 move %sourceFolder%Tx.All\Tx.All.*.nupkg %dropFolder%\ || goto failFast
 popd
 
+cd %dropFolder%
+del /q %versionParam%.zip
+%sourceFolder%..\tools\zip.exe %versionParam%.zip samples.zip Tx.LinqPad.lpx || goto failFast
+
+for /f "usebackq delims=|" %%f in (`dir /b "*.nupkg"`) do %sourceFolder%..\tools\zip.exe %versionParam%.zip %%f
+
 goto end
 
 :pack %1
@@ -69,10 +75,6 @@ dotnet restore || goto failFast
 dotnet build -c=Release || goto failFast
 move %sourceFolder%%1\bin\Release\%1.*.nupkg %dropFolder% || goto failFast
 popd
-
-cd %dropFolder%
-del /q %versionParam%.zip
-%sourceFolder%..\tools\zip.exe %versionParam%.zip samples.zip Tx.LinqPad.lpx || goto failFast
 
 :end
 cd %~dp0
