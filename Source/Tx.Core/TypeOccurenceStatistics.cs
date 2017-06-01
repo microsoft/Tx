@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reactive.Subjects;
 using System.Threading;
+using System.Reflection;
 
 namespace System.Reactive
 {
@@ -58,11 +59,11 @@ namespace System.Reactive
 
             foreach (var mapInstance in typeMaps)
             {
-                Type mapInterface = mapInstance.GetType().GetInterface(typeof(IPartitionableTypeMap<,>).Name);
+                Type mapInterface = mapInstance.GetType().GetTypeInfo().ImplementedInterfaces.FirstOrDefault(i => i.Name == typeof(IPartitionableTypeMap<,>).Name);
                 if (mapInterface == null)
                     continue;
                 Type aggregatorType =
-                    typeof (TypeOccurenceAggregator<,>).MakeGenericType(mapInterface.GetGenericArguments());
+                    typeof (TypeOccurenceAggregator<,>).MakeGenericType(mapInterface.GenericTypeArguments);
                 object aggregatorInstance = Activator.CreateInstance(aggregatorType, mapInstance, _availableTypes);
                 _aggregators.Add((TypeOccurenceAggregator) aggregatorInstance);
 

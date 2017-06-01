@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>    
+    <TargetFramework>net45</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.11" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Tx.Bond\Tx.Bond.csproj" />
+    <ProjectReference Include="..\..\Source\Tx.Core\Tx.Core.csproj" />
+    <ProjectReference Include="..\..\Source\Tx.Windows\Tx.Windows.csproj" />
+  </ItemGroup>
+
+</Project>

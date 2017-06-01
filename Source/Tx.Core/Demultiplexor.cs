@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Subjects;
+using System.Reflection;
 
 namespace System.Reactive
 {
@@ -82,16 +83,16 @@ namespace System.Reactive
             return output;
         }
 
-        private List<Type> GetTypes(Type inputType)
+        private static List<Type> GetTypes(Type inputType)
         {
             var typeList = new List<Type>();
             var temp = inputType;
             while (temp != typeof(object))
             {
                 typeList.Add(temp);
-                temp = temp.BaseType;
+                temp = temp.GetTypeInfo().BaseType;
             }
-            typeList.AddRange(inputType.GetInterfaces());
+            typeList.AddRange(inputType.GetTypeInfo().ImplementedInterfaces);
             return typeList;
         }
 
@@ -106,7 +107,7 @@ namespace System.Reactive
             }
         }
 
-        private class OutputSubject<T> : ISubject<object, T>, IDisposable
+        private sealed class OutputSubject<T> : ISubject<object, T>, IDisposable
         {
             private readonly Subject<T> _subject;
             private int _refcount;

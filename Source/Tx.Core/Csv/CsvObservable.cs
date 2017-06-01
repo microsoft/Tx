@@ -37,7 +37,8 @@ namespace System.Reactive
         {
             var stringBuilder = new StringBuilder();
 
-            using (var reader = new StreamReader(fileName))
+            using(var stream = File.OpenRead(fileName))
+            using (var reader = new StreamReader(stream))
             {
                 ReadOnlyCollection<string> header;
                 if (reader.Peek() >= 0)

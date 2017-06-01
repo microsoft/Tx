@@ -5,6 +5,7 @@
     using System.Runtime.InteropServices;
     using System.Security.Cryptography;
     using System.Text;
+    using System.Reflection;
 
     public static class TypeIdentifierHelpers
     {
@@ -38,7 +39,7 @@
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             var type = instance.GetType();
@@ -58,10 +59,10 @@
         {
             if (type == null)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
 
-            var bondMapAttribute = ((GuidAttribute[])type.GetCustomAttributes(typeof(GuidAttribute), false))
+            var bondMapAttribute = ((GuidAttribute[])type.GetTypeInfo().GetCustomAttributes(typeof(GuidAttribute), false))
                 .FirstOrDefault();
 
             if (bondMapAttribute != null &&

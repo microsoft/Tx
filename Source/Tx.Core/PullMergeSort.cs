@@ -120,7 +120,7 @@ namespace System.Reactive
             }
         }
 
-        private class Reader : IDisposable
+        private sealed class Reader : IDisposable
         {
             private readonly IEnumerator<T> _enumerator;
             private bool _isCompleted;

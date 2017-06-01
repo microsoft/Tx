@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Reactive;
+using System.Reflection;
 
 namespace Tx.Windows
 {
@@ -28,7 +29,7 @@ namespace Tx.Windows
 
         public ManifestEventPartitionKey GetTypeKey(Type outputType)
         {
-            var eventAttribute = outputType.GetAttribute<ManifestEventAttribute>();
+            var eventAttribute = outputType.GetTypeInfo().GetCustomAttribute<ManifestEventAttribute>();
             if (eventAttribute == null)
                 return null;
 

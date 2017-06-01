@@ -1,155 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B5284D80-7497-4BF3-AFD5-9A3CF8F213FA}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tx.Network</RootNamespace>
-    <AssemblyName>Tx.Network</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <Import Project="..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
+    <Description>Parsing of Network related file and wire formats, such as .pcap and .pcapng, UDP datagrams, Syslog and SNMP messages.</Description>
+    <PackageTags>Tx Playback Replay Pcap PcapNG Snmp Syslog</PackageTags>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
+    <Company>Microsoft</Company>
+    <Authors>Microsoft</Authors>
+    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <Version>2.1.1</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.1|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp1.1\.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Snmp\Enterprises.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Snmp\SnmpDatagram.cs" />
-    <Compile Include="Snmp\SnmpTrapListener.cs" />
-    <Compile Include="Syslogs\SyslogListener.cs" />
-    <Compile Include="Udp\Extensions.cs" />
-    <Compile Include="Ip\IIpPacket.cs" />
-    <Compile Include="Ip\IpPacket.cs" />
-    <Compile Include="Ip\IpPacketHeader.cs" />
-    <Compile Include="Pcap\PcapNgWriter.cs" />
-    <Compile Include="Udp\BaseUdpReceiver.cs" />
-    <Compile Include="Udp\IUdpDatagram.cs" />
-    <Compile Include="Ip\PacketParser.cs" />
-    <Compile Include="Pcap\Pcap.cs" />
-    <Compile Include="Pcap\PcapNg.cs" />
-    <Compile Include="Properties\TxNetworkAssemblyInfo.cs" />
-    <Compile Include="Protocol.cs" />
-    <Compile Include="Snmp\Dynamic\SnmpTrapTypeMap.cs" />
-    <Compile Include="Snmp\SNMPCapture.cs" />
-    <Compile Include="Snmp\Asn1DecoderExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1EncoderExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1TagInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\Asn1Class.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\Asn1SnmpTag.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\Asn1Tag.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\ConstructType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\GenericTrap.cs" />
-    <Compile Include="Snmp\Asn1Types\PduType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\SnmpErrorStatus.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Asn1Types\SnmpVersion.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\Dynamic\IpAddressAttribute.cs" />
-    <Compile Include="Snmp\Dynamic\NotificationObjectsAttribute.cs" />
-    <Compile Include="Snmp\Dynamic\Asn1TypeAttribute.cs" />
-    <Compile Include="Snmp\Dynamic\StorageIndexAttribute.cs" />
-    <Compile Include="Snmp\Dynamic\TimestampAttribute.cs" />
-    <Compile Include="Snmp\Dynamic\TrapTypeMap.cs" />
-    <Compile Include="Snmp\Dynamic\SnmpOidAttribute.cs" />
-    <Compile Include="Snmp\Dynamic\SnmpTrapAttribute.cs" />
-    <Compile Include="Snmp\ObjectIdentifier.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\SnmpEncodeDecoder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\SnmpHeader.cs" />
-    <Compile Include="Snmp\UdpDatagramExtensions.cs" />
-    <Compile Include="Snmp\VarBind.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Snmp\VarBindExtensions.cs" />
-    <Compile Include="Syslogs\Facility.cs" />
-    <Compile Include="Syslogs\Severity.cs" />
-    <Compile Include="Syslogs\Syslog.cs" />
-    <Compile Include="Udp\NetworkTransformExtensions.cs" />
-    <Compile Include="Syslogs\SyslogParser.cs" />
-    <Compile Include="Udp\UdpDatagram.cs" />
-    <Compile Include="Udp\UdpDatagramHeader.cs" />
-    <Compile Include="Udp\UdpEnvelopeReceiver.cs" />
-    <Compile Include="Udp\UdpReceiver.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\key.snk">
-      <Link>Properties\key.snk</Link>
-    </None>
-    <None Include="Properties\Tx.Network.Layout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\Tx.Network.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
-      <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
-      <Name>Tx.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

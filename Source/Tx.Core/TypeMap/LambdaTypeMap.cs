@@ -10,7 +10,7 @@ namespace System.Reactive
         {
             if (timestampSelector == null)
             {
-                throw new ArgumentNullException("timestampSelector");
+                throw new ArgumentNullException(nameof(timestampSelector));
             }
 
             this._timestampSelector = timestampSelector;

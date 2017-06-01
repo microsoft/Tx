@@ -1,102 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6DCE4A40-4946-41B0-ABE5-CE1700B598E9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tx.Bond</RootNamespace>
-    <AssemblyName>Tx.Bond</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <Import Project="..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <Description>Tx (LINQ to Logs and Traces) Binary-in-ETW transport components</Description>
+    <Company>Microsoft</Company>
+    <Authors>Microsoft</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageTags>Tx Traces Logs Playback Replay ETW Bond</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
+    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
+    <Version>2.1.1</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\Tx.Bond.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bond">
-      <HintPath>$(CPReferencePath)\Bond.dll</HintPath>
-    </Reference>
-    <Reference Include="Bond.Attributes">
-      <HintPath>$(CPReferencePath)\Bond.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(CPReferencePath)\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Bond.Core.CSharp" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.EventSource.Redist" Version="1.0.26" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="BinaryEtlReader.cs" />
-    <Compile Include="BinaryEtwObservable.cs" />
-    <Compile Include="BinaryEventSourceObserver.cs" />
-    <Compile Include="BondCompactBinaryTransformBuilder.cs" />
-    <Compile Include="Internal\BondEnvelope.cs" />
-    <Compile Include="Internal\BinaryEtwParser.cs" />
-    <Compile Include="BinaryEtwSessionListener.cs" />
-    <Compile Include="BinaryEventSource.cs" />
-    <Compile Include="Internal\ByteArrayHelper.cs" />
-    <Compile Include="EtwExtensions.cs" />
-    <Compile Include="EventManifest.cs" />
-    <Compile Include="BondJsonEnvelopeTypeMap.cs" />
-    <Compile Include="Internal\PathUtils.cs" />
-    <Compile Include="JsonTransformBuilder.cs" />
-    <Compile Include="Protocol.cs" />
-    <Compile Include="Internal\StringHelper.cs" />
-    <Compile Include="Internal\TypeExtensions.cs" />
-    <Compile Include="BondJsonConverter.cs" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\key.snk">
-      <Link>Properties\key.snk</Link>
-    </None>
-    <None Include="Properties\Tx.Bond.Layout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\Tx.Bond.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
-      <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
-      <Name>Tx.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj">
-      <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
-      <Name>Tx.Windows</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
