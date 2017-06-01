@@ -58,10 +58,10 @@ move %sourceFolder%Tx.All\Tx.All.*.nupkg %dropFolder%\ || goto failFast
 popd
 
 cd %dropFolder%
-del /q %versionParam%.zip
-%sourceFolder%..\tools\zip.exe %versionParam%.zip samples.zip Tx.LinqPad.lpx || goto failFast
+del /q Tx.%versionParam%.zip
+%sourceFolder%..\tools\zip.exe Tx.%versionParam%.zip samples.zip Tx.LinqPad.lpx || goto failFast
 
-for /f "usebackq delims=|" %%f in (`dir /b "*.nupkg"`) do %sourceFolder%..\tools\zip.exe %versionParam%.zip %%f
+for /f "usebackq delims=|" %%f in (`dir /b "*.nupkg"`) do %sourceFolder%..\tools\zip.exe Tx.%versionParam%.zip %%f
 
 goto end
 
