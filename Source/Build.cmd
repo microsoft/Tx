@@ -39,7 +39,7 @@ dotnet build -c=Release || goto failFast
 copy %sourceFolder%EtwEventTypeGen\Properties\Tx.Windows.TypeGeneration.nuspec %sourceFolder%EtwEventTypeGen\bin\Release\net45\ || goto failFast
 cd /d %sourceFolder%EtwEventTypeGen\bin\Release\net45 || goto failFast
 %sourceFolder%..\tools\NuGet pack Tx.Windows.TypeGeneration.nuspec || goto failFast
-copy %sourceFolder%EtwEventTypeGen\bin\Release\net45\Tx.Windows.TypeGeneration.%versionParam%*.nupkg %dropFolder% || goto failFast
+move %sourceFolder%EtwEventTypeGen\bin\Release\net45\Tx.Windows.TypeGeneration.%versionParam%*.nupkg %dropFolder% || goto failFast
 popd
 
 pushd
@@ -54,7 +54,7 @@ pushd
 %sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%Tx.All\Tx.All.nuspec || goto failFast
 cd /d %sourceFolder%Tx.All || goto failFast
 %sourceFolder%..\tools\NuGet pack Tx.All.nuspec || goto failFast
-copy %sourceFolder%Tx.All\Tx.All.*.nupkg %dropFolder%\ || goto failFast
+move %sourceFolder%Tx.All\Tx.All.*.nupkg %dropFolder%\ || goto failFast
 popd
 
 goto end
@@ -67,7 +67,7 @@ pushd
 cd /d %sourceFolder%%1 || goto failFast
 dotnet restore || goto failFast
 dotnet build -c=Release || goto failFast
-copy %sourceFolder%%1\bin\Release\%1.*.nupkg %dropFolder% || goto failFast
+move %sourceFolder%%1\bin\Release\%1.*.nupkg %dropFolder% || goto failFast
 popd
 
 :end
