@@ -107,7 +107,7 @@ namespace Tx.Network
             if (!this.disposeCalled)
             {
                 this.GetDataProcessorAndReceive(); //call a new processor
-                //var packet = new IP(socketArgs.Buffer);
+                
                 T packet;
                 var ipPacket = PacketParser.Parse(DateTimeOffset.UtcNow, false, socketArgs.Buffer, 0, socketArgs.Buffer.Length);
 
