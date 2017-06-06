@@ -43,6 +43,7 @@ move %sourceFolder%EtwEventTypeGen\bin\Release\net45\Tx.Windows.TypeGeneration.%
 popd
 
 pushd
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%Tx.Linqpad\Tx.Linqpad.csproj || goto failFast
 cd /d %sourceFolder%Tx.Linqpad || goto failFast
 dotnet restore || goto failFast
 %msbuildPath% /p:Configuration=Release || goto failFast
