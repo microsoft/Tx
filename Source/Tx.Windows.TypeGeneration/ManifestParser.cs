@@ -575,13 +575,34 @@ using System;");
             if (_stringTable == null)
                 return message;
 
-            string stringId = message.Substring(9) // skip "$(string."
-                                     .TrimEnd(')');
+            string stringId = message.Substring(9); // skip "$(string."
 
-            return (from s in _stringTable.Elements()
-                    where s.Attribute(AttributeNames.Id).Value == stringId
-                    select s.Attribute(AttributeNames.Value).Value)
-                .FirstOrDefault();
+            if (stringId.Last() == ')')
+            {
+                stringId = stringId.Substring(0, stringId.Length - 1);
+            }
+
+            var elements = _stringTable.Elements()
+                .Select(s => new
+                {
+                    Id = s.Attribute(AttributeNames.Id),
+                    Value = s.Attribute(AttributeNames.Value)
+                })
+                .Where(s => s.Id != null && s.Value != null)
+                .OrderBy(s => s.Id)
+                .ToArray();
+
+            var element = elements
+                .FirstOrDefault(s => s.Id.Value == stringId);
+
+            if (element == null)
+            {
+                return message;
+            }
+            else
+            {
+                return element.Value.Value;
+            }
         }
 
         private string[] LookupKeywords(XElement evt, XElement keywords)
