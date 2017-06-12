@@ -30,9 +30,20 @@ namespace SetVersion
             var extension = Path.GetExtension(filename);
 
             if (new[] { extension }
-                .Except(new[] { ".csproj", ".nuspec" }, StringComparer.OrdinalIgnoreCase).Any())
+                .Except(new[] { ".csproj", ".nuspec", ".txt" }, StringComparer.OrdinalIgnoreCase).Any())
             {
                 throw new ApplicationException("Only csproj and nuspec files are supported");
+            }
+
+            if (Path.GetFileName(filename).Equals("DriverDescription.txt", StringComparison.OrdinalIgnoreCase))
+            {
+                var text = File.ReadAllText(filename);
+
+                text = text.Replace("{version}", version);
+
+                File.WriteAllText(filename, text);
+
+                return;
             }
 
             var document = XDocument.Load(filename);
