@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using LINQPad.Extensibility.DataContext;
 using Microsoft.SqlServer.XEvent;
 using System;
 using System.Collections.Generic;
@@ -147,7 +148,7 @@ namespace Tx.LinqPad
         public Type[] GetAvailableTypes(string targetDir, string[] traces, string[] metadaFiles)
         {
             Assembly[] assemblies = (from file in GetAssemblies(targetDir, traces, metadaFiles)
-                                     select Assembly.LoadFrom(file)).ToArray();
+                                     select DataContextDriver.LoadAssemblySafely(file)).ToArray();
 
             var types = (from a in assemblies
                          from t in a.GetTypes()

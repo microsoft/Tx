@@ -1,22 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net46</TargetFramework>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <Version>2.1.1</Version>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Remove="ConnectionDialog.xaml.cs">
-    </Compile>
+    <Compile Remove="ConnectionDialog.xaml.cs"></Compile>
     <Compile Include="ConnectionDialog.xaml.cs">
       <DependentUpon>ConnectionDialog.xaml</DependentUpon>
     </Compile>
@@ -25,7 +22,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="3.0.0" />
     <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
@@ -33,7 +29,6 @@
     <ProjectReference Include="..\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" />
     <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="LINQPad">
       <HintPath>..\..\References\LinqPad\LINQPad.exe</HintPath>
@@ -50,7 +45,6 @@
     <Reference Include="Microsoft.SqlServer.XEvent.Targets">
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
     </Reference>
-
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -66,13 +60,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="header.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\..\Traces\HTTP_Server.etl">
       <Link>HTTP_Server.etl</Link>
@@ -111,5 +103,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
 </Project>

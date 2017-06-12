@@ -47,7 +47,7 @@ pushd
 cd /d %sourceFolder%Tx.Linqpad || goto failFast
 dotnet restore || goto failFast
 %msbuildPath% /p:Configuration=Release || goto failFast
-cd /d %sourceFolder%Tx.Linqpad\bin\Release\net45 || goto failFast
+cd /d %sourceFolder%Tx.Linqpad\bin\Release\net46 || goto failFast
 %sourceFolder%..\tools\zip.exe %dropFolder%Tx.LinqPad.lpx header.xml System.Reactive.Interfaces.dll System.Reactive.Core.dll System.Reactive.Linq.dll System.Reactive.PlatformServices.dll System.Reactive.Windows.Forms.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll %sourceFolder%..\References\XEvent\msvcr100.dll %sourceFolder%..\References\XEvent\xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl || goto failFast
 popd
 
