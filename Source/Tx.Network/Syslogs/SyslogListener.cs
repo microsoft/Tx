@@ -6,8 +6,6 @@
 
     public class SyslogListener : BaseUdpReceiver<IEnvelope>
     {
-        private readonly SyslogParser syslogParser = new SyslogParser();
-
         public SyslogListener(IPEndPoint listenEndPoint, uint concurrentReceivers)
             : base(listenEndPoint, concurrentReceivers)
         {
@@ -32,7 +30,7 @@
 
                 try
                 {
-                    syslog = this.syslogParser.Parse(
+                    syslog = SyslogParser.Parse(
                         upacket.UdpData, 
                         upacket.ReceivedTime, 
                         upacket.PacketHeader.SourceIpAddress.ToString());

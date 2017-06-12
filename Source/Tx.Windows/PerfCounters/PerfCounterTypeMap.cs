@@ -21,7 +21,7 @@ namespace Tx.Windows
 
         public PerfCounterPartitionKey GetTypeKey(Type outputType)
         {
-            var attribute = outputType.GetAttribute<PerformanceCounterAttribute>();
+            var attribute = outputType.GetTypeInfo().GetCustomAttribute<PerformanceCounterAttribute>();
             if (attribute == null)
                 return null;
 

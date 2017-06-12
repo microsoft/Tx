@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using LINQPad.Extensibility.DataContext;
 using Microsoft.SqlServer.XEvent;
 using System;
 using System.Collections.Generic;
@@ -21,20 +22,20 @@ namespace Tx.LinqPad
             string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             IEnumerable<Type> types = from file in Directory.GetFiles(dir, "Tx*.dll")
-                                      from t in Assembly.LoadFrom(file).GetTypes()
+                                      from t in DataContextDriver.LoadAssemblySafely(file).GetTypes()
                                       where t.IsPublic
                                       select t;
 
             IEnumerable<MethodInfo> methods = from t in types
                                               from m in t.GetMethods()
-                                              where m.GetAttribute<FileParserAttribute>() != null
+                                              where m.GetCustomAttribute<FileParserAttribute>() != null
                                               select m;
 
             _addFiles = methods.ToArray();
 
             methods = from t in types
                       from m in t.GetMethods()
-                      where m.GetAttribute<RealTimeFeedAttribute>() != null
+                      where m.GetCustomAttribute<RealTimeFeedAttribute>() != null
                       select m;
 
             _addSessions = methods.ToArray();
@@ -45,7 +46,7 @@ namespace Tx.LinqPad
             get
             {
                 FileParserAttribute[] attributes = (from mi in _addFiles
-                                                    select mi.GetAttribute<FileParserAttribute>()).ToArray();
+                                                    select mi.GetCustomAttribute<FileParserAttribute>()).ToArray();
 
                 var sb = new StringBuilder("All Files|");
                 foreach (string ext in attributes.SelectMany(a => a.Extensions))
@@ -122,7 +123,7 @@ namespace Tx.LinqPad
             foreach (string ext in filesByExtension.Keys)
             {
                 MethodInfo addMethod = (from mi in _addFiles
-                                        where mi.GetAttribute<FileParserAttribute>().Extensions.Contains(ext)
+                                        where mi.GetCustomAttribute<FileParserAttribute>().Extensions.Contains(ext)
                                         select mi).FirstOrDefault();
 
                 addMethod.Invoke(null, new object[] {playback, filesByExtension[ext].ToArray()});

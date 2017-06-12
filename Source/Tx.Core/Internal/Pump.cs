@@ -2,14 +2,15 @@
 
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Reactive
 {
-    internal class OutputPump<T> : IDisposable
+    internal sealed class OutputPump<T> : IDisposable
     {
         private readonly IEnumerator<T> _source;
         private readonly IObserver<T> _target;
-        private readonly Thread _thread;
+        private readonly Task _thread;
         private readonly WaitHandle _waitStart;
         private long _eventsRead;
 
@@ -17,9 +18,8 @@ namespace System.Reactive
         {
             _source = source.GetEnumerator();
             _target = target;
-            _waitStart = waitStart;
-            _thread = new Thread(ThreadProc) {Name = "Pump " + typeof (T).Name};
-            _thread.Start();
+             _waitStart = waitStart;
+            _thread = Task.Run((Action)ThreadProc);
         }
 
         public void Dispose()

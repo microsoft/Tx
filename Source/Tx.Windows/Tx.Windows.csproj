@@ -1,118 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C4043ABB-EC40-4194-B15B-C0D13C2CF5C8}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tx.Windows</RootNamespace>
-    <AssemblyName>Tx.Windows</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <Import Project="..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\References\$(BuildFlavor)</CPReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
+    <Authors>Microsoft</Authors>
+    <Company>Microsoft</Company>
+    <Description>Tx (LINQ to Logs and Traces) components for Windows: ETW, Logs (.evtx), Perormance Counters (.blg, .csv, .tsv), IIS Logs in W3C format</Description>
+    <PackageTags>Tx Traces Logs Playback ETW W3C</PackageTags>
+    <Version>2.1.1</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\net45\.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>$(CPReferencePath)\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="Configuration\FormatAttribute.cs" />
-    <Compile Include="Configuration\PerformanceCounterAttribute.cs" />
-    <Compile Include="EtwNative\EtwClassicTypeMap.cs" />
-    <Compile Include="EventFormatter.cs" />
-    <Compile Include="Evtx\EvtxObservable.cs" />
-    <Compile Include="Configuration\ClassicEventAttribute.cs" />
-    <Compile Include="Configuration\EventFieldAttribute.cs" />
-    <Compile Include="Configuration\ManifestEventAttribute.cs" />
-    <Compile Include="EtwNative\EtwExtensions.cs" />
-    <Compile Include="ClassicEventPartitionKey.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EtwNative\EtwTypeMap.cs" />
-    <Compile Include="EtwNative\EtwManifestTypeMap.cs" />
-    <Compile Include="Evtx\EvtxEnumerable.cs" />
-    <Compile Include="IIS\W3CEnumerable.cs" />
-    <Compile Include="IIS\W3CEvent.cs" />
-    <Compile Include="IIS\W3CExtensions.cs" />
-    <Compile Include="IIS\W3CTypeMap.cs" />
-    <Compile Include="ManifestEventPartitionKey.cs" />
-    <Compile Include="EtwNative\EtwNativeEvent.cs" />
-    <Compile Include="EtwNative\EtwFileReader.cs" />
-    <Compile Include="EtwNative\EtwListener.cs" />
-    <Compile Include="EtwNative\TypeUtil.cs" />
-    <Compile Include="Evtx\EvtxExtensions.cs" />
-    <Compile Include="Evtx\EvtxTypeMap.cs" />
-    <Compile Include="Evtx\EvtxManifestTypeMap.cs" />
-    <Compile Include="EtwNative\EtwNativeMethods.cs" />
-    <Compile Include="EtwNative\EtwObservable.cs" />
-    <Compile Include="InternalsVisibleTo.cs" />
-    <Compile Include="PerfCounters\PerfCounteReader.cs" />
-    <Compile Include="PerfCounters\PerfCounterRealTimeProbe.cs" />
-    <Compile Include="PerfCounters\PerfCounterInfo.cs" />
-    <Compile Include="PerfCounters\PdhNativeMethods.cs" />
-    <Compile Include="PerfCounters\PerfCounterExtensions.cs" />
-    <Compile Include="PerfCounters\PerfCounterFileReader.cs" />
-    <Compile Include="PerfCounters\PdhUtils.cs" />
-    <Compile Include="PerfCounters\PerfCounterObservable.cs" />
-    <Compile Include="PerfCounters\PerfCounterTypeMap.cs" />
-    <Compile Include="PerfCounters\PerformanceSample.cs" />
-    <Compile Include="PerfMetadata.cs" />
-    <Compile Include="SystemEvent.cs" />
-    <Compile Include="TimeUtil.cs" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj">
-      <Project>{C5CC33B0-1684-4DD4-83A5-5DA4A9A25A7F}</Project>
-      <Name>Tx.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\key.snk">
-      <Link>Properties\key.snk</Link>
-    </None>
-    <None Include="Properties\Tx.Windows.Layout.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Properties\Tx.Windows.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -17,12 +17,12 @@ namespace System.Reactive
         {
             if (playbackConfiguration == null)
             {
-                throw new ArgumentNullException("playbackConfiguration");
+                throw new ArgumentNullException(nameof(playbackConfiguration));
             }
 
             if (source == null)
             {
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             }
 
             playbackConfiguration
@@ -47,22 +47,22 @@ namespace System.Reactive
         {
             if (playback == null)
             {
-                throw new ArgumentNullException("playback");
+                throw new ArgumentNullException(nameof(playback));
             }
 
             if (transformation == null)
             {
-                throw new ArgumentNullException("transformation");
+                throw new ArgumentNullException(nameof(transformation));
             }
 
             if (timestampSelector == null)
             {
-                throw new ArgumentNullException("timestampSelector");
+                throw new ArgumentNullException(nameof(timestampSelector));
             }
 
             if (files == null)
             {
-                throw new ArgumentNullException("files");
+                throw new ArgumentNullException(nameof(files));
             }
 
             AddCsvInput(playback, ',', 0, transformation, timestampSelector, files);
@@ -88,22 +88,22 @@ namespace System.Reactive
         {
             if (playback == null)
             {
-                throw new ArgumentNullException("playback");
+                throw new ArgumentNullException(nameof(playback));
             }
 
             if (transformation == null)
             {
-                throw new ArgumentNullException("transformation");
+                throw new ArgumentNullException(nameof(transformation));
             }
 
             if (timestampSelector == null)
             {
-                throw new ArgumentNullException("timestampSelector");
+                throw new ArgumentNullException(nameof(timestampSelector));
             }
 
             if (files == null)
             {
-                throw new ArgumentNullException("files");
+                throw new ArgumentNullException(nameof(files));
             }
 
             playback.AddInput(
@@ -119,11 +119,11 @@ namespace System.Reactive
         {
             if (source == null)
             {
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             }
             if (typeMaps == null)
             {
-                throw new ArgumentNullException("typeMaps");
+                throw new ArgumentNullException(nameof(typeMaps));
             }
 
             return Observable

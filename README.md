@@ -1,5 +1,5 @@
 [![Nuget](https://img.shields.io/nuget/vpre/Tx.All.svg)](https://www.nuget.org/packages/Tx.All/)
-![Build](https://ecs10.visualstudio.com/_apis/public/build/definitions/79dfec19-0be4-4364-86ec-b0b3146b0dc3/19/badge)
+[![Build status](https://ci.appveyor.com/api/projects/status/6n09scr9d74lb9vp?svg=true)](https://ci.appveyor.com/project/SergeyBaranchenkov/tx-6doyh)
 
 # Tx (LINQ to Logs and Traces)
  

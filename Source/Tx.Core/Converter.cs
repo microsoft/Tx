@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     public class Converter<TIn, TOut> : IObserver<TIn>
     {
@@ -16,11 +17,11 @@
         {
             if (next == null)
             {
-                throw new ArgumentNullException("next");
+                throw new ArgumentNullException(nameof(next));
             }
             if (transformBuilders == null)
             {
-                throw new ArgumentNullException("transformBuilders");
+                throw new ArgumentNullException(nameof(transformBuilders));
             }
 
             this.next = next;
@@ -70,7 +71,7 @@
         {
             if (transformBuilder == null)
             {
-                throw new ArgumentNullException("transformBuilder", "Cannot be null.");
+                throw new ArgumentNullException(nameof(transformBuilder), "Cannot be null.");
             }
 
             this.transformBuilders = this.transformBuilders
@@ -99,7 +100,7 @@
         public static Func<TIn, TOut> Build<TIn, TOut>(this ITransformBuilder<TOut> transformBuilder, Type type)
         {
             var method = typeof(ITransformBuilder<TOut>)
-                .GetMethod("Build")
+                .GetRuntimeMethod("Build", new Type[0])
                 .MakeGenericMethod(type)
                 .Invoke(transformBuilder, new object[0]) as Func<TIn, TOut>;
 

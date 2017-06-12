@@ -42,7 +42,7 @@ namespace System.Reactive
         {
             if (outputType == null)
             {
-                throw new ArgumentNullException("outputType");
+                throw new ArgumentNullException(nameof(outputType));
             }
 
             KeyValuePair<Record, Func<Record, object>> value;

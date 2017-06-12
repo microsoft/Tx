@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace System.Reactive
 {
@@ -22,33 +23,35 @@ namespace System.Reactive
             _deserializers = new List<IDeserializer<TInput>>();
             foreach (ITypeMap<TInput> mapInstance in typeMaps)
             {
-                Type mapInterface = mapInstance.GetType().GetInterfaces()
+                Type mapInterface = mapInstance.GetType().GetTypeInfo().ImplementedInterfaces
                     .FirstOrDefault(i => i.Name == typeof(IPartitionableTypeMap<,>).Name);
 
                 if (mapInterface != null)
                 {
                     Type deserializerType =
-                        typeof (PartitionKeyDeserializer<,>).MakeGenericType(mapInterface.GetGenericArguments());
+                        typeof (PartitionKeyDeserializer<,>).MakeGenericType(mapInterface.GenericTypeArguments);
                     object deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
                     _deserializers.Add((IDeserializer<TInput>) deserializerInstance);
                     continue;
                 }
 
-                mapInterface = mapInstance.GetType().GetInterface(typeof(IRootTypeMap<,>).Name);
+                mapInterface = mapInstance.GetType().GetTypeInfo().ImplementedInterfaces
+                    .FirstOrDefault(i => i.Name == typeof(IRootTypeMap<,>).Name);
                 if (mapInterface != null)
                 {
                     Type deserializerType =
-                        typeof (RootDeserializer<,>).MakeGenericType(mapInterface.GetGenericArguments());
+                        typeof (RootDeserializer<,>).MakeGenericType(mapInterface.GenericTypeArguments);
                     object deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
                     _deserializers.Add((IDeserializer<TInput>) deserializerInstance);
                     continue;
                 }
 
-                mapInterface = mapInstance.GetType().GetInterface(typeof(ITypeMap<>).Name);
+                mapInterface = mapInstance.GetType().GetTypeInfo().ImplementedInterfaces
+                    .FirstOrDefault(i => i.Name == typeof(ITypeMap<>).Name);
                 if (mapInterface != null)
                 {
                     Type deserializerType =
-                        typeof (TransformDeserializer<>).MakeGenericType(mapInterface.GetGenericArguments());
+                        typeof (TransformDeserializer<>).MakeGenericType(mapInterface.GenericTypeArguments);
                     object deserializerInstance = Activator.CreateInstance(deserializerType, mapInstance);
                     _deserializers.Add((IDeserializer<TInput>) deserializerInstance);
                     continue;
@@ -105,7 +108,7 @@ namespace System.Reactive
                 {
                     if (timestamp.HasValue && timestamp.Value != ts.Timestamp)
                     {
-                        _observer.OnError(new ApplicationException("Several type maps return different timestamps for the same source event."));
+                        _observer.OnError(new Exception("Several type maps return different timestamps for the same source event."));
                         return;
                     }
 

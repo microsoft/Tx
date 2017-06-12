@@ -133,8 +133,19 @@ namespace Tx.LinqPad
 
         public override bool ShowConnectionDialog(IConnectionInfo cxInfo, bool isNewConnection)
         {
-            var properties = new TxProperties(cxInfo);
-            return new ConnectionDialog(properties, _parserRegistry.Filter).ShowDialog() ?? false;
+            try
+            {
+                var properties = new TxProperties(cxInfo);
+                return new ConnectionDialog(properties, _parserRegistry.Filter).ShowDialog() ?? false;
+            }
+            catch (Exception error)
+            {
+                TxEventSource.Log.TraceError(error.ToString());
+
+                MessageBox.Show(error.ToString(), "ShowConnectionDialog");
+
+                return false;
+            }
         }
 
         public override ParameterDescriptor[] GetContextConstructorParameters(IConnectionInfo cxInfo)
@@ -301,19 +312,26 @@ namespace Tx.LinqPad
 
         private static Assembly AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            string assemblyname = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
-            string driverDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            IEnumerable<string> assemblies = Directory.EnumerateFiles(driverDir, assemblyname);
-            foreach (string path in assemblies)
+            try
             {
-                return Assembly.LoadFrom(path);
-            }
+                string assemblyname = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
+                string driverDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                IEnumerable<string> assemblies = Directory.EnumerateFiles(driverDir, assemblyname);
+                foreach (string path in assemblies)
+                {
+                    return DataContextDriver.LoadAssemblySafely(path);
+                }
 
-            string root = Path.Combine(Path.GetTempPath(), @"LINQPad\");
-            assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
-            foreach (string path in assemblies)
+                string root = Path.Combine(Path.GetTempPath(), @"LINQPad\");
+                assemblies = Directory.EnumerateFiles(root, assemblyname, SearchOption.AllDirectories);
+                foreach (string path in assemblies)
+                {
+                    return DataContextDriver.LoadAssemblySafely(path);
+                }
+            }
+            catch (Exception error)
             {
-                return Assembly.LoadFrom(path);
+                TxEventSource.Log.TraceError(error.ToString());
             }
 
             return null;

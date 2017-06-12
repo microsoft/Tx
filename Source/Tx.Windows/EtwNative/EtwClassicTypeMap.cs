@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Reflection;
 
 namespace Tx.Windows
 {
@@ -27,7 +28,7 @@ namespace Tx.Windows
 
         public ClassicEventPartitionKey GetTypeKey(Type outputType)
         {
-            var eventAttribute = outputType.GetAttribute<ClassicEventAttribute>();
+            var eventAttribute = outputType.GetTypeInfo().GetCustomAttribute<ClassicEventAttribute>();
             if (eventAttribute == null)
                 return null;
 

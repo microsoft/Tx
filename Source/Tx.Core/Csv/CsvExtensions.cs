@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.IO;
+using System.Reflection;
 
 namespace System.Reactive
 {
@@ -17,9 +18,9 @@ namespace System.Reactive
             return source.Subscribe(new TextFileWriter<T>("\t", filePath));
         }
 
-        class TextFileWriter<T> : IObserver<T>, IDisposable
+        internal sealed class TextFileWriter<T> : IObserver<T>, IDisposable
         {
-            private string _separator;
+            private readonly string _separator;
             private StreamWriter _writer;
             private bool _wroteHeader = false;
 
@@ -34,7 +35,7 @@ namespace System.Reactive
             /// </summary>
             public void OnCompleted()
             {
-                _writer.Close();
+                _writer.Dispose();
             }
 
             /// <summary>
@@ -59,7 +60,7 @@ namespace System.Reactive
                 }
 
                 bool isFirst = true;
-                foreach (var p in typeof(T).GetProperties())
+                foreach (var p in typeof(T).GetTypeInfo().DeclaredProperties)
                 {
                     if (isFirst)
                         isFirst = false;
@@ -90,7 +91,7 @@ namespace System.Reactive
             void WriteHeader(T firstValue)
             {
                 bool isFirst = true;
-                foreach (var p in typeof(T).GetProperties())
+                foreach (var p in typeof(T).GetTypeInfo().DeclaredProperties)
                 {
                     if (isFirst)
                         isFirst = false;
