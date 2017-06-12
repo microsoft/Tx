@@ -589,7 +589,7 @@ using System;");
                     Value = s.Attribute(AttributeNames.Value)
                 })
                 .Where(s => s.Id != null && s.Value != null)
-                .OrderBy(s => s.Id)
+                .OrderBy(s => s.Id.Value)
                 .ToArray();
 
             var element = elements
