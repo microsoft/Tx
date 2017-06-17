@@ -10,6 +10,14 @@ namespace System.Reactive
         private readonly List<IEnumerator<T>> _inputs;
         private readonly Func<T, DateTime> _keyFunction;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PullMergeSort{T}"/> class.
+        /// </summary>
+        /// <param name="keyFunction">Time stamp getter function.</param>
+        /// <param name="inputs">The collection of sequences of <see>
+        ///         <cref>T</cref>
+        ///     </see>
+        ///     elements.</param>
         public PullMergeSort(Func<T, DateTime> keyFunction, IEnumerable<IEnumerator<T>> inputs)
         {
             _keyFunction = keyFunction;

@@ -11,6 +11,12 @@ namespace System.Reactive
         private readonly Dictionary<TKey, Func<TInput, object>> _transforms;
         private readonly IPartitionableTypeMap<TInput, TKey> _typeMap;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PartitionKeyDeserializer{TInput, TKey}"/> class.
+        /// </summary>
+        /// <param name="typeMap">The instance of type map that will be used to deserialize the input of type <see>
+        ///     <cref>TInput</cref>
+        /// </see>.</param>
         public PartitionKeyDeserializer(IPartitionableTypeMap<TInput, TKey> typeMap)
         {
             _typeMap = typeMap;

@@ -16,6 +16,10 @@ namespace System.Reactive
         private readonly List<IInputStream> _inputs;
         private Dictionary<Type, long> _statistics;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeOccurenceStatistics"/> class.
+        /// </summary>
+        /// <param name="availableTypes">Types for which the collection of statistics need to be enabled.</param>
         public TypeOccurenceStatistics(Type[] availableTypes)
         {
             _availableTypes = availableTypes;

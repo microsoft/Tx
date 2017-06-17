@@ -8,6 +8,12 @@ namespace System.Reactive
         private readonly Func<TInput, object> _transform;
         private bool _enabled;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TransformDeserializer{TInput}"/> class.
+        /// </summary>
+        /// <param name="typeMap">The instance of type map that will be used to deserialize the input of type <see>
+        ///     <cref>TInput</cref>
+        /// </see>.</param>
         public TransformDeserializer(ITypeMap<TInput> typeMap)
         {
             _timeFunction = typeMap.TimeFunction;

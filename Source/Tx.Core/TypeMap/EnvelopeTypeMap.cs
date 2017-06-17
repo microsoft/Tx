@@ -13,6 +13,9 @@ namespace System.Reactive
 
         private static readonly IReadOnlyDictionary<string, Func<byte[], object>> emptyDeserializerMap = new Dictionary<string, Func<byte[], object>>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnvelopeTypeMap"/> class.
+        /// </summary>
         public EnvelopeTypeMap()
             : this(true)
         {
