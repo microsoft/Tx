@@ -12,12 +12,12 @@ namespace Tx.Bond
         {
             if (playback == null)
             {
-                throw new ArgumentNullException("playback");
+                throw new ArgumentNullException(nameof(playback));
             }
 
             if (files == null)
             {
-                throw new ArgumentNullException("files");
+                throw new ArgumentNullException(nameof(files));
             }
 
             playback.AddInput(() => BinaryEtwObservable.FromFiles(files), typeof(BondJsonEnvelopeTypeMap));
@@ -28,12 +28,12 @@ namespace Tx.Bond
         {
             if (playback == null)
             {
-                throw new ArgumentNullException("playback");
+                throw new ArgumentNullException(nameof(playback));
             }
 
             if (files == null)
             {
-                throw new ArgumentNullException("files");
+                throw new ArgumentNullException(nameof(files));
             }
 
             playback.AddInput(() => BinaryEtwObservable.FromSequentialFiles(files), typeof(BondJsonEnvelopeTypeMap));

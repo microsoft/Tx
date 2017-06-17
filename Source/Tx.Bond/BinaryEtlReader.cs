@@ -80,7 +80,7 @@
         {
             if (observer == null)
             {
-                throw new ArgumentNullException("observer");
+                throw new ArgumentNullException(nameof(observer));
             }
 
             this.ValidateConfiguration();

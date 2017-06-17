@@ -148,7 +148,7 @@ namespace Tx.Bond
 
             if (files == null)
             {
-                throw new ArgumentNullException("files");
+                throw new ArgumentNullException(nameof(files));
             }
 
             if (files.Length == 0)
