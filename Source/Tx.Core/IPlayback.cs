@@ -4,8 +4,15 @@ namespace System.Reactive
 {
     using System.Reactive.Concurrency;
 
+    /// <summary>
+    /// Contract for demiltiplexors providing sequences of events of specific types.
+    /// </summary>
     public interface IObservableDemultiplexor
     {
+        /// <summary>
+        ///     Call this to get just the events of given type
+        /// </summary>
+        /// <typeparam name="T">The type of interest</typeparam>
         IObservable<T> GetObservable<T>();
     }
 
