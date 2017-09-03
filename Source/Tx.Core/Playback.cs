@@ -199,7 +199,7 @@ namespace System.Reactive
             if (_inputs.Count == 0)
                 throw new Exception("No input sequences were added to the Playback");
 
-b           if (_inputs.Count > 1)
+           if (_inputs.Count > 1)
             {
                 IEnumerator<Timestamped<object>>[] queues = (from i in _inputs select i.Output).ToArray();
                 _mergesort = new PullMergeSort<Timestamped<object>>(e => e.Timestamp.DateTime, queues);
