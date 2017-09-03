@@ -199,7 +199,7 @@ namespace System.Reactive
             if (_inputs.Count == 0)
                 throw new Exception("No input sequences were added to the Playback");
 
-            if (_inputs.Count > 1)
+b           if (_inputs.Count > 1)
             {
                 IEnumerator<Timestamped<object>>[] queues = (from i in _inputs select i.Output).ToArray();
                 _mergesort = new PullMergeSort<Timestamped<object>>(e => e.Timestamp.DateTime, queues);
@@ -239,12 +239,12 @@ namespace System.Reactive
         ///     BufferOutput lets you accumulate a small collection that is the result of stream processing
         /// </summary>
         /// <typeparam name="TOutput">The event type of interest</typeparam>
-        /// <param name="observavle">the results to accumulate</param>
+        /// <param name="observable">the results to accumulate</param>
         /// <returns></returns>
-        public IEnumerable<TOutput> BufferOutput<TOutput>(IObservable<TOutput> observavle)
+        public IEnumerable<TOutput> BufferOutput<TOutput>(IObservable<TOutput> observable)
         {
             var list = new List<TOutput>();
-            IDisposable d = observavle.Subscribe(list.Add);
+            IDisposable d = observable.Subscribe(list.Add);
             _outputBuffers.Add(d);
             return list;
         }
