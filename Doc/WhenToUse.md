@@ -23,8 +23,8 @@ Use **only** [Reactive Extensions (Rx)](http://rx.codeplex.com) when:
 
 Tx.Core adds the following new features to Rx: 
 
-* Support for **Multiplexed** sequences (single sequence containing events of different types in order of occurence). The simplest example of turning multiplexd sequence into type-specific Obseravable-s is the [Demultiplexor](http://tx.codeplex.com/SourceControl/latest#Source/Tx.Core/Demultiplexor.cs)
-* Merging **multiple input files** in order of occurence - e.g. two log files
+* Support for **Multiplexed** sequences (single sequence containing events of different types in order of occurrence). The simplest example of turning multiplexd sequence into type-specific Obseravable-s is the [Demultiplexor](http://tx.codeplex.com/SourceControl/latest#Source/Tx.Core/Demultiplexor.cs)
+* Merging **multiple input files** in order of occurrence - e.g. two log files
 * **Heterogeneous** Inputs - e.g. queries across some log files (.evtx) and some traces (.etl)
 * **Single-pass-read** to answer multiple queries on file(s)
 * **Scale in # of queries**. This is side effect of the above, which applies to both real-time and single-read of past history
