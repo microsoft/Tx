@@ -12,6 +12,10 @@ namespace System.Reactive
         private readonly Dictionary<Type, KeyValuePair<Record, Func<Record, object>>> _payloadConverterCache =
             new Dictionary<Type, KeyValuePair<Record, Func<Record, object>>>();
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvRecordTypeMap"/> class.
+        /// </summary>
         protected CsvRecordTypeMap()
         {
             this._payloadConverterCache.Add(
@@ -22,6 +26,9 @@ namespace System.Reactive
                 new KeyValuePair<Record, Func<Record, object>>(new Record(), record => record));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvRecordTypeMap"/> class.
+        /// </summary>
         protected CsvRecordTypeMap(Type type, Func<Record, object> transform) : this()
         {
             this._payloadConverterCache.Add(

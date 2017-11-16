@@ -8,6 +8,10 @@ namespace System.Reactive
         private readonly Func<TInput, object> _transform;
         private bool _rootOfInterest;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RootDeserializer{TInput, TOutputBase}"/> class.
+        /// </summary>
+        /// <param name="typeMap">The instance of type map that will be used to deserialize the input.</param>
         public RootDeserializer(ITypeMap<TInput> typeMap)
         {
             _timeFunction = typeMap.TimeFunction;

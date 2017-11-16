@@ -1,6 +1,6 @@
 # Playback Features
 
-Here is description of the featuures that Playback adds, different than everything that already exists in Rx.
+Here is description of the features that Playback adds, different than everything that already exists in Rx.
 
 ## Multiplexed sequences
 In Rx, sequences are represented as IObservable**&lt;T&gt;**. 
@@ -105,7 +105,7 @@ Relevant samples are:
 * Get2Observables in the [Playback samples](../Samples/Playback/Program.cs) 
 * Single Pass in the [HTTP trace samples](../Samples/LinqPad/Queries/HTTP.sys/Readme.md)
 
-## Occurence Time Scheduler
+## Occurrence Time Scheduler
 
 Imagine for example counting events in 5 sec window of time. 
 
@@ -121,7 +121,7 @@ This can be passed as argument to primitives like Window, to produce determinist
 
 For more details see:
 
-* [TimeSource](TimeSource.md), which is the mechanism of presenting "occurence time" as virtual time
+* [TimeSource](TimeSource.md), which is the mechanism of presenting "occurrence time" as virtual time
 * [Playback Internals](PlaybackInternals.md)
 
 

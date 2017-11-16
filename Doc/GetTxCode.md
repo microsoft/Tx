@@ -16,7 +16,7 @@ This downloads a zip file, and useful if you want to take a quick look
 
 The documentation comes interleaved with the source code
 
-* To view or edit the docs, please install [MarkDownPad](http://www.markdownpad.com/) 
+* To view or edit the docs, please install either [MarkDownPad](http://www.markdownpad.com/) or [Visual Studio Code](https://code.visualstudio.com/)
 * To open the documents full screen, click Tools, Preview Markdown in Browser (F6)
 
 We wish our documentation showed on CodePlex as good as Github. Specific issues are:

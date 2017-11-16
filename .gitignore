@@ -12,3 +12,6 @@ _UpgradeReport_Files
 *.vspx
 *.vsp
 /release2.0.0.md
+/Source/*.nupkg
+/Source/*.zip
+/Source/Tx.LinqPad.lpx

@@ -2,7 +2,7 @@
 
 <p class="download">
 	<img src="../downloadglyph.png" />
-	<a class="download" href="http://linqpadupdates.net/tx/Tx.LinqPad.lpx">Download Tx Driver</a> Version 1.0 (download again to update)
+	<a class="download" href="http://linqpadupdates.net/tx/Tx.LinqPad.lpx">Download Tx Driver</a> Version {version} (download again to update)
 	<br/>
 </p>
 
@@ -13,5 +13,5 @@
 <li>Performance Counters</li>
 </ul>
 <p>
-     Tx is Open Source project: <a href="http://tx.codeplex.com" target="_blank">http://tx.codeplex.com</a>
+     Tx is Open Source project: <a href="https://github.com/Microsoft/Tx" target="_blank">https://github.com/Microsoft/Tx</a>
 </p>

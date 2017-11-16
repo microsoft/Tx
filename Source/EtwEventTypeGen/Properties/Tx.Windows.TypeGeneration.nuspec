@@ -8,8 +8,8 @@
     <description>Tx (LINQ to Logs and Traces) components for generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</description>
     <authors>Microsoft</authors>
     <copyright>Copyright © Microsoft. All Rights Reserved</copyright>
-    <projectUrl>http://tx.codeplex.com</projectUrl>
-    <licenseUrl>http://tx.codeplex.com/license</licenseUrl>
+    <projectUrl>https://github.com/Microsoft/Tx</projectUrl>
+    <licenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</licenseUrl>
     <language>en-us</language>
     <tags>Tx Traces Logs Playback Replay ETW</tags>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

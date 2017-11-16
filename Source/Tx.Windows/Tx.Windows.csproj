@@ -12,7 +12,7 @@
     <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
     <Authors>Microsoft</Authors>
     <Company>Microsoft</Company>
-    <Description>Tx (LINQ to Logs and Traces) components for Windows: ETW, Logs (.evtx), Perormance Counters (.blg, .csv, .tsv), IIS Logs in W3C format</Description>
+    <Description>Tx (LINQ to Logs and Traces) components for Windows: ETW, Logs (.evtx), Performance Counters (.blg, .csv, .tsv), IIS Logs in W3C format</Description>
     <PackageTags>Tx Traces Logs Playback ETW W3C</PackageTags>
     <Version>2.1.1</Version>
   </PropertyGroup>

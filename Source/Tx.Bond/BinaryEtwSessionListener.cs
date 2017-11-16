@@ -21,12 +21,12 @@
         {
             if (sessionName == null)
             {
-                throw new ArgumentNullException("sessionName");
+                throw new ArgumentNullException(nameof(sessionName));
             }
 
             if (string.IsNullOrEmpty(sessionName))
             {
-                throw new ArgumentOutOfRangeException("sessionName", "Should not be empty.");
+                throw new ArgumentOutOfRangeException(nameof(sessionName), "Should not be empty.");
             }
 
             this.observable = BinaryEtwObservable
@@ -43,7 +43,7 @@
         {
             if (observer == null)
             {
-                throw new ArgumentNullException("observer");
+                throw new ArgumentNullException(nameof(observer));
             }
 
             return this.observable.Subscribe(observer);

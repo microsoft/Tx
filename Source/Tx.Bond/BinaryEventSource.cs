@@ -68,22 +68,22 @@ namespace Tx.Bond
             {
                 if (protocol == null)
                 {
-                    throw new ArgumentNullException("protocol");
+                    throw new ArgumentNullException(nameof(protocol));
                 }
 
                 if (source == null)
                 {
-                    throw new ArgumentNullException("source");
+                    throw new ArgumentNullException(nameof(source));
                 }
 
                 if (eventData == null)
                 {
-                    throw new ArgumentNullException("eventData");
+                    throw new ArgumentNullException(nameof(eventData));
                 }
 
                 if (manifestId == null)
                 {
-                    throw new ArgumentNullException("manifestId");
+                    throw new ArgumentNullException(nameof(manifestId));
                 }
 
                 // before 12:00 midnight January 1, 1601 C.E. UTC.
@@ -146,22 +146,22 @@ namespace Tx.Bond
             {
                 if (protocol == null)
                 {
-                    throw new ArgumentNullException("protocol");
+                    throw new ArgumentNullException(nameof(protocol));
                 }
 
                 if (source == null)
                 {
-                    throw new ArgumentNullException("source");
+                    throw new ArgumentNullException(nameof(source));
                 }
 
                 if (manifestData == null)
                 {
-                    throw new ArgumentNullException("manifestData");
+                    throw new ArgumentNullException(nameof(manifestData));
                 }
 
                 if (manifestId == null)
                 {
-                    throw new ArgumentNullException("manifestId");
+                    throw new ArgumentNullException(nameof(manifestId));
                 }
 
                 // before 12:00 midnight January 1, 1601 C.E. UTC.

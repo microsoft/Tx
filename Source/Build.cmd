@@ -44,6 +44,7 @@ popd
 
 pushd
 %sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%Tx.Linqpad\Tx.Linqpad.csproj || goto failFast
+%sourceFolder%SetVersion\bin\Release\SetVersion.exe %versionParam% %sourceFolder%Tx.Linqpad\DriverDescription.txt || goto failFast
 cd /d %sourceFolder%Tx.Linqpad || goto failFast
 dotnet restore || goto failFast
 %msbuildPath% /p:Configuration=Release || goto failFast

@@ -3,7 +3,7 @@
 namespace System.Reactive
 {
     /// <summary>
-    /// This is like AnonimosObservable in Rx, but without the auto-detach logic
+    /// This is like AnonimousObservable in Rx, but without the auto-detach logic
     /// </summary>
     public class NonDetachObservable<T> : IObservable<T>
     {

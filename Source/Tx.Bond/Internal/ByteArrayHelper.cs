@@ -42,7 +42,7 @@ namespace Tx.Bond
         {
             if (source.Length <= limit)
             {
-                throw new ArgumentOutOfRangeException("limit");
+                throw new ArgumentOutOfRangeException(nameof(limit));
             }
 
             var chunkCount = ((source.Length - 1) / limit) + 1;

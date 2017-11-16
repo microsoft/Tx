@@ -16,7 +16,7 @@ namespace Tx.Bond
         {
             if (next == null)
             {
-                throw new ArgumentNullException("next");
+                throw new ArgumentNullException(nameof(next));
             }
         }
     }

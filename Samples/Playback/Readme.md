@@ -1,10 +1,10 @@
 # Playback Samples
 
-The class **Playback** delivers the events from one or more trace/log files or real-time feeds in order of occurence. 
+The class **Playback** delivers the events from one or more trace/log files or real-time feeds in order of occurrence. 
 
 Internally:
 
-* Event occurence records are transformed from their raw  format (e.g. native structures) to C# objects
+* Event occurrence records are transformed from their raw  format (e.g. native structures) to C# objects
 * Multiple inputs (files or real-time feeds) are merged on timestamp
 
 This [set of samples](Program.cs) illustrates what Playback does as component, without using much LINQ.
@@ -19,7 +19,7 @@ In this mode,
 
 Samples:
 
-* Parsing single event type occurences (GetObservable)
+* Parsing single event type occurrences (GetObservable)
 * Virtual Time as per event timestamps (VirtualTime)
 * Parsing begin/end events (Get2Observables)
 * Formatting the above events (Format2)

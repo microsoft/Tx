@@ -4,7 +4,7 @@ Building console app that counts the events in .etl (Event Trace Log) file
 
 * In Visual Studio, create new console project
 * Remove all other references except System
-* Click References->Manage NuGet  Pacakages
+* Click References->Manage NuGet  Packages
 * Search for Tx.*:
 
 ![TxOnNuget.JPG](TxOnNuget.JPG)
