@@ -4,9 +4,8 @@ namespace Tx.Bond
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.Tracing;
     using System.Reactive;
-
-    using Microsoft.Diagnostics.Tracing;
 
     /// <summary>
     /// Custom EventSource Implementation that writes BinaryEnvelope information to ETW stream

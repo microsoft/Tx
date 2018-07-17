@@ -3,27 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Core.Tests", "Tx.Core.Tests\Tx.Core.Tests.csproj", "{58AFB236-9BEC-4FA6-8EF3-A937AD619D0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Core.Tests", "Tx.Core.Tests\Tx.Core.Tests.csproj", "{58AFB236-9BEC-4FA6-8EF3-A937AD619D0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Core", "..\Source\Tx.Core\Tx.Core.csproj", "{6D4419B5-4F59-4666-991F-23D35A0C76FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Network", "..\Source\Tx.Network\Tx.Network.csproj", "{022862F8-D9EF-4A2D-9790-D9DA89B04CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Network.Tests", "Tx.Network.Tests\Tx.Network.Tests.csproj", "{26D16316-475E-4B64-9937-F99719BBCB31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Network.Tests", "Tx.Network.Tests\Tx.Network.Tests.csproj", "{26D16316-475E-4B64-9937-F99719BBCB31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Windows", "..\Source\Tx.Windows\Tx.Windows.csproj", "{BEC073AC-01E4-4158-AB27-D28DE542E3F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Windows", "..\Source\Tx.Windows\Tx.Windows.csproj", "{BEC073AC-01E4-4158-AB27-D28DE542E3F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Windows.Tests", "Tx.Windows.Tests\Tx.Windows.Tests.csproj", "{1580A387-C94F-40A5-84BF-6E1ADC6EE9CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Windows.Tests", "Tx.Windows.Tests\Tx.Windows.Tests.csproj", "{1580A387-C94F-40A5-84BF-6E1ADC6EE9CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.SqlServer", "..\Source\Tx.SqlServer\Tx.SqlServer.csproj", "{4F00AE91-FFAF-4150-9E4D-ACCA532B3953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.SqlServer", "..\Source\Tx.SqlServer\Tx.SqlServer.csproj", "{4F00AE91-FFAF-4150-9E4D-ACCA532B3953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Bond", "..\Source\Tx.Bond\Tx.Bond.csproj", "{4060E404-8ADD-4E19-8FBA-06D5A8121BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Bond", "..\Source\Tx.Bond\Tx.Bond.csproj", "{4060E404-8ADD-4E19-8FBA-06D5A8121BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Bond.Tests", "Tx.Bond.Tests\Tx.Bond.Tests.csproj", "{2604AC3D-1F61-4B73-85E8-74BC00E126F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Bond.Tests", "Tx.Bond.Tests\Tx.Bond.Tests.csproj", "{2604AC3D-1F61-4B73-85E8-74BC00E126F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Windows.TypeGeneration", "..\Source\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj", "{5DA070F5-72F7-4140-B8C2-71D0F8AD2C12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.Windows.TypeGeneration", "..\Source\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj", "{5DA070F5-72F7-4140-B8C2-71D0F8AD2C12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tx.LinqPad", "..\Source\Tx.LinqPad\Tx.LinqPad.csproj", "{389F5864-DBF2-462D-8DC1-E1649AAA23BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tx.Windows.Logs", "..\Source\Tx.Windows.Logs\Tx.Windows.Logs.csproj", "{E881AB95-6779-420F-A90C-E6B3B1486B78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,8 +77,15 @@ Global
 		{389F5864-DBF2-462D-8DC1-E1649AAA23BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{389F5864-DBF2-462D-8DC1-E1649AAA23BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{389F5864-DBF2-462D-8DC1-E1649AAA23BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E881AB95-6779-420F-A90C-E6B3B1486B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E881AB95-6779-420F-A90C-E6B3B1486B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E881AB95-6779-420F-A90C-E6B3B1486B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E881AB95-6779-420F-A90C-E6B3B1486B78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F323FFD-4A83-40D3-82E5-99C90F6DBD3F}
 	EndGlobalSection
 EndGlobal

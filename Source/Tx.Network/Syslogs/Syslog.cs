@@ -1,6 +1,7 @@
 ﻿namespace Tx.Network.Syslogs
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
 
     /// <summary>
@@ -32,7 +33,12 @@
         /// Facility of the Syslog provided from the PRIVAL field.
         /// </summary>
         public Facility LogFacility { get; private set; }
-        
+
+        /// <summary>
+        /// Collection of regular expression matches.
+        /// </summary>
+        public IReadOnlyDictionary<string, string> NamedCollectedMatches { get; private set; }
+
         /// <summary>
         /// Creates a default instance of the Log object.
         /// </summary>
@@ -41,22 +47,33 @@
             string sourceIpAddress,
             Severity severity,
             Facility facility,
-            string message)
+            string message,
+            IReadOnlyDictionary<string, string> namedCollectedMatches)
         {
             this.ReceivedTime = receivedTime;
             this.SourceIpAddress = sourceIpAddress;
             this.LogSeverity = severity;
             this.LogFacility = facility;
             this.Message = message;
-            
+            this.NamedCollectedMatches = namedCollectedMatches;
         }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
 
-            sb.AppendFormat("Received Time: {0}; Source IP: {1}; Severity: {2}; Facility: {3}; Message: {4}", ReceivedTime, SourceIpAddress, LogSeverity, LogFacility, Message);
-            
+            sb.AppendLine();
+
+            if (this.NamedCollectedMatches != null)
+            {
+                foreach (var c in this.NamedCollectedMatches)
+                {
+                    sb.AppendFormat(c.Key).Append(", ");
+                    sb.AppendLine(c.Value);
+                    sb.AppendLine();
+                }
+            }
+
             return sb.ToString();
         }
     }

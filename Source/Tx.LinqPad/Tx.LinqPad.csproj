@@ -23,16 +23,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="3.0.0" />
+    <PackageReference Include="LINQPad" Version="5.22.2" />
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
+    <PackageReference Include="System.Reactive.Windows.Forms" Version="4.0.0" />
     <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
     <ProjectReference Include="..\Tx.SqlServer\Tx.SqlServer.csproj" />
     <ProjectReference Include="..\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" />
     <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="LINQPad">
-      <HintPath>..\..\References\LinqPad\LINQPad.exe</HintPath>
-    </Reference>
     <Reference Include="Microsoft.SqlServer.XE.Core">
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
     </Reference>
@@ -45,13 +44,13 @@
     <Reference Include="Microsoft.SqlServer.XEvent.Targets">
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
     </Reference>
+	<Reference Include="Microsoft.SqlServer.XEvent.Configuration">
+	  <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Configuration.dll</HintPath>
+	</Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Windows.Forms">
-      <HintPath>..\..\References\DESKTOPCLR45\System.Reactive.Windows.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,9 +60,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="devsetup.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="header.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="..\..\Tools\gbc.exe">
+      <Link>gbc.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Tools\zip.exe">
+      <Link>zip.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Traces\HTTP_Server.etl">
@@ -102,5 +112,16 @@
       <Link>SampleWcfTrace.etl</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\..\References\XEvent\xe.dll">
+      <Link>xe.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\References\XEvent\msvcr100.dll">
+      <Link>msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>zip.exe Tx.LinqPad.lpx header.xml System.Reactive.dll System.Reactive.Linq.dll System.Reactive.Linq.dll System.Reactive.Windows.Forms.dll System.Security.Claims.dll System.Security.Principal.Windows.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll msvcr100.dll xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl</PostBuildEvent>
+  </PropertyGroup>
 </Project>

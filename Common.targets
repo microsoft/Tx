@@ -14,21 +14,21 @@
        ***********************
    -->
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug45|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug46|AnyCPU' ">
     <BuildConfig>Debug</BuildConfig>
-    <BuildTarget>45</BuildTarget>
+    <BuildTarget>46</BuildTarget>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release45|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release46|AnyCPU' ">
     <BuildConfig>Release</BuildConfig>
-    <BuildTarget>45</BuildTarget>
+    <BuildTarget>46</BuildTarget>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(BuildTarget)' == '45' ">
+  <PropertyGroup Condition=" '$(BuildTarget)' == '46' ">
     <DefineConstants>$(DefineConstants);NO_EVENTARGS_CONSTRAINT;HAS_EDI;HAS_WINRT;HAS_PROGRESS;PREFER_ASYNC;HAS_AWAIT;HAS_APTCA;                                                              HAS_DISPATCHER_PRIORITY;HAS_WINFORMS</DefineConstants>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <!--<NoStdLib>true</NoStdLib>-->
     <BuildPlatform>DESKTOPCLR</BuildPlatform>
     <BuildFlavor>DESKTOPCLR45</BuildFlavor>

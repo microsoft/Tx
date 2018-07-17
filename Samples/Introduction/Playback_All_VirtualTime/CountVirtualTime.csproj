@@ -20,15 +20,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
+    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -38,6 +35,10 @@
     <ProjectReference Include="..\..\..\Source\Tx.Core\Tx.Core.csproj">
       <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
       <Name>Tx.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Source\Tx.Windows.Logs\Tx.Windows.Logs.csproj">
+      <Project>{e881ab95-6779-420f-a90c-e6b3b1486b78}</Project>
+      <Name>Tx.Windows.Logs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Source\Tx.Windows\Tx.Windows.csproj">
       <Project>{c4043abb-ec40-4194-b15b-c0d13c2cf5c8}</Project>
@@ -53,6 +54,7 @@
       <Link>HTTP_Server.evtx</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

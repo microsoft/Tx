@@ -1,32 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>False</DelaySign>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.0.0</Version>
     <Description>Tx (LINQ to Logs and Traces) core components, not specific to the event format</Description>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
     <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
-    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
     <Authors>Microsoft</Authors>
-    <Company>Microsoft</Company>
     <PackageTags>Tx Traces Logs Playback Replay</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
-    <Version>2.1.1</Version>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.1|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp1.1\.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <DocumentationFile>bin\Release\net45\.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="3.0.0" />
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+
 </Project>

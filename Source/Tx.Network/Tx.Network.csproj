@@ -1,28 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;net45</TargetFrameworks>
-    <Description>Parsing of Network related file and wire formats, such as .pcap and .pcapng, UDP datagrams, Syslog and SNMP messages.</Description>
-    <PackageTags>Tx Playback Replay Pcap PcapNG Snmp Syslog</PackageTags>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.0.0</Version>
+    <Description>Tx Network</Description>
     <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
-    <Company>Microsoft</Company>
-    <Authors>Microsoft</Authors>
     <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
+    <Authors>Microsoft</Authors>
+    <PackageTags>Tx Traces Logs Playback Replay Network</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
-    <Version>2.1.1</Version>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.1|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp1.1\.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <DocumentationFile>bin\Release\net45\.xml</DocumentationFile>
-  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive.Core" Version="4.0.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
   </ItemGroup>
+
 </Project>

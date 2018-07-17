@@ -27,7 +27,7 @@ namespace UlsLogs
 
         public string GetTypeKey(Type outpuType)
         {
-            var eventAttribute = outpuType.GetAttribute<UlsEventAttribute>();
+            var eventAttribute = outpuType.GetCustomAttribute<UlsEventAttribute>();
             if (eventAttribute == null)
                 return null;
 
@@ -41,7 +41,7 @@ namespace UlsLogs
 
         public Func<UlsRecord, object> GetTransform(Type outputType)
         {
-            var eventAttribute = outputType.GetAttribute<UlsEventAttribute>();
+            var eventAttribute = outputType.GetCustomAttribute<UlsEventAttribute>();
             Regex parse = new Regex(eventAttribute.RegEx);
             _expressions.Add(outputType, parse);
 

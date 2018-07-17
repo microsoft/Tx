@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reactive;
 using System.Reflection;
 using System.Text;
 
@@ -52,7 +53,7 @@ namespace Tx.Windows
 
         private static Expression CompileFormatString(Type type)
         {
-            var attribute = type.GetTypeInfo().GetCustomAttribute<FormatAttribute>();
+            var attribute = type.GetCustomAttribute<FormatAttribute>();
 
             string format = attribute == null ? type.Name : attribute.FormatString;
 
