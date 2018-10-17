@@ -563,7 +563,7 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         [EventField("win:UInt32")]
         public uint AddressLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "AddressLength")]
         public byte[] Address { get; set; }
     }
 
@@ -679,7 +679,7 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         [EventField("win:UInt32")]
         public uint HintLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "HintLength")]
         public byte[] HintData { get; set; }
     }
 
@@ -1198,13 +1198,13 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         [EventField("win:UInt32")]
         public uint LocalAddrLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "LocalAddrLength")]
         public byte[] LocalAddr { get; set; }
 
         [EventField("win:UInt32")]
         public uint RemoteAddrLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "RemoteAddrLength")]
         public byte[] RemoteAddr { get; set; }
     }
 
@@ -1221,13 +1221,13 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         [EventField("win:UInt32")]
         public uint AddressLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "AddressLength")]
         public byte[] Address { get; set; }
 
         [EventField("win:UInt32")]
         public uint CertHashLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "CertHashLength")]
         public byte[] CertHash { get; set; }
 
         [EventField("win:UnicodeString")]
@@ -1262,7 +1262,7 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         [EventField("win:UInt32")]
         public uint IpAddrLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "IpAddrLength")]
         public byte[] IpAddress { get; set; }
     }
 
@@ -1565,7 +1565,7 @@ namespace Tx.Windows.Microsoft_Windows_HttpService
         [EventField("win:UInt32")]
         public uint RemoteAddrLength { get; set; }
 
-        [EventField("win:Binary")]
+        [EventField("win:Binary", "RemoteAddrLength")]
         public byte[] RemoteAddr { get; set; }
     }
 

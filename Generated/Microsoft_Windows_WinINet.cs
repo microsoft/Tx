@@ -97,7 +97,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Flags=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1056, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Select_Stop_1056 : SystemEvent
     {
@@ -111,7 +111,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Flags=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1055, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Select_Start_1055 : SystemEvent
     {
@@ -125,7 +125,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("error=%1, AddressName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1054, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_DHCP_I252WPAD_Stop_1054 : SystemEvent
     {
@@ -139,7 +139,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Order=%1, AddressName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1053, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_DHCP_I252WPAD_Start_1053 : SystemEvent
     {
@@ -153,7 +153,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("error=%1, Flags=%2, AddressName=%3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1052, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Getaddrinfo_Stop_1052 : SystemEvent
     {
@@ -170,7 +170,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Flags=%1, AddressName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1051, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Getaddrinfo_Start_1051 : SystemEvent
     {
@@ -184,7 +184,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, AddressName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1049, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Redirect_Info_1049 : SystemEvent
     {
@@ -198,7 +198,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Socket=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1048, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_LookupConnection_Stop_1048 : SystemEvent
     {
@@ -212,7 +212,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1047, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_LookupConnection_Start_1047 : SystemEvent
     {
@@ -223,7 +223,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Socket=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1046, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Connect_Stop_1046 : SystemEvent
     {
@@ -237,7 +237,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1045, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_Connect_Start_1045 : SystemEvent
     {
@@ -248,7 +248,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1043, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_DrainResponsePostReceiveBuf_Info_1043 : SystemEvent
     {
@@ -262,7 +262,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1041, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_SendRequest_PostReceiveBuf_Info_1041 : SystemEvent
     {
@@ -276,7 +276,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1039, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_ReadDataPostReceiveBuf_Info_1039 : SystemEvent
     {
@@ -290,7 +290,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1037, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_ReadData_Info_1037 : SystemEvent
     {
@@ -304,7 +304,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1035, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_SendRequest_CRLF_Info_1035 : SystemEvent
     {
@@ -318,7 +318,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1033, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_SendRequest_Extra_Info_1033 : SystemEvent
     {
@@ -332,7 +332,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, Size=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1031, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_SendRequest_Main_Info_1031 : SystemEvent
     {
@@ -346,7 +346,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, HostName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1030, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_ResolveHost_Stop_1030 : SystemEvent
     {
@@ -360,7 +360,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, HostName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1029, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_ResolveHost_Start_1029 : SystemEvent
     {
@@ -374,7 +374,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1028, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_AutodialIfNotLocalHost_Stop_1028 : SystemEvent
     {
@@ -385,7 +385,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, HostName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1027, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_AutodialIfNotLocalHost_Start_1027 : SystemEvent
     {
@@ -399,7 +399,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1025, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_PostNet_CacheMiss_Info_1025 : SystemEvent
     {
@@ -410,7 +410,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1023, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_PostNet_CacheHit_Info_1023 : SystemEvent
     {
@@ -421,7 +421,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1021, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_PostNet_CacheLookup_Info_1021 : SystemEvent
     {
@@ -432,7 +432,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1019, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_PreNet_CacheMiss_Info_1019 : SystemEvent
     {
@@ -443,7 +443,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1017, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_PreNet_CacheHit_Info_1017 : SystemEvent
     {
@@ -454,7 +454,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1015, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_PreNet_CacheLookup_Info_1015 : SystemEvent
     {
@@ -465,7 +465,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1013, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_OfflineCacheMiss_Info_1013 : SystemEvent
     {
@@ -476,7 +476,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1011, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_OfflineCacheHit_Info_1011 : SystemEvent
     {
@@ -487,7 +487,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1009, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_OfflineCacheLookup_Info_1009 : SystemEvent
     {
@@ -498,7 +498,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request=%1, StatusLineLength=%2, StatusLine=%3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1008, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_SendRequest_Stop_1008 : SystemEvent
     {
@@ -508,14 +508,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt32")]
         public uint StatusLineLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "StatusLineLength")]
         public string StatusLine { get; set; }
     }
 
     [Format("Request=%1, AddressName=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1007, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet IE events")]
 
     public class Wininet_SendRequest_Start_1007 : SystemEvent
     {
@@ -529,63 +529,63 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("_TestStr0Length=%1, TestStr0=%2, _TestStr1Length=%3, TestStr1=%4, _TestStr2Length=%5, TestStr2=%6, _TestStr0WLength=%7, TestStr0W=%8, _TestStr1WLength=%9, TestStr1W=%10, _TestStr2WLength=%11, TestStr2W=%12, TestStrLength=%13, TestStr=%14, TestStrWLength=%15, TestStrW=%16")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 1000, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_TEST_EVENT_Info_1000 : SystemEvent
     {
         [EventField("win:UInt8")]
         public byte _TestStr0Length { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_TestStr0Length")]
         public string TestStr0 { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _TestStr1Length { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_TestStr1Length")]
         public string TestStr1 { get; set; }
 
         [EventField("win:UInt32")]
         public uint _TestStr2Length { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_TestStr2Length")]
         public string TestStr2 { get; set; }
 
         [EventField("win:UInt8")]
         public byte _TestStr0WLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "_TestStr0WLength")]
         public string TestStr0W { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _TestStr1WLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "_TestStr1WLength")]
         public string TestStr1W { get; set; }
 
         [EventField("win:UInt32")]
         public uint _TestStr2WLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "_TestStr2WLength")]
         public string TestStr2W { get; set; }
 
         [EventField("win:UInt16")]
         public ushort TestStrLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "TestStrLength")]
         public string TestStr { get; set; }
 
         [EventField("win:UInt16")]
         public ushort TestStrWLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "TestStrWLength")]
         public string TestStrW { get; set; }
     }
 
     [Format("Autoproxy full scenario stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 835, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_ALL_Stop_835 : SystemEvent
     {
@@ -594,7 +594,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy full scenario started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 834, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_ALL_Start_834 : SystemEvent
     {
@@ -603,7 +603,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy Script Download Stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 829, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_SCRIPT_DOWNLOAD_Stop_829 : SystemEvent
     {
@@ -612,7 +612,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy Script Download Started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 828, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_SCRIPT_DOWNLOAD_Start_828 : SystemEvent
     {
@@ -621,7 +621,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy Detection with SWPAD UNKNOWN stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 827, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_UNKNOWN_DETECTION_Stop_827 : SystemEvent
     {
@@ -630,7 +630,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy Detection with SWPAD UNKNOWN started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 826, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_UNKNOWN_DETECTION_Start_826 : SystemEvent
     {
@@ -639,7 +639,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy Detection with SWPAD ON stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 825, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_KNOWN_DETECTION_Stop_825 : SystemEvent
     {
@@ -648,7 +648,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy Detection with SWPAD ON started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 824, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_KNOWN_DETECTION_Start_824 : SystemEvent
     {
@@ -657,7 +657,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy SWPAD lookup stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 823, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_SWPAD_LOOKUP_Stop_823 : SystemEvent
     {
@@ -666,7 +666,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy SWPAD lookup started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 822, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_SWPAD_LOOKUP_Start_822 : SystemEvent
     {
@@ -675,7 +675,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy host IP lookup stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 821, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_HOST_IP_LOOKUP_Stop_821 : SystemEvent
     {
@@ -684,7 +684,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Autoproxy host IP lookup started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 820, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_PERFTRACK_HOST_IP_LOOKUP_Start_820 : SystemEvent
     {
@@ -693,7 +693,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("AutoProxy SWPAD Decision (%1) NumConnections (%2)")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 819, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_SWPAD_Info_819 : SystemEvent
     {
@@ -707,7 +707,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("WinInet Activity Transfer Event")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 818, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_TRANSFER_Info_818 : SystemEvent
     {
@@ -716,7 +716,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Blocking autoproxy determination stopped")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 817, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_BLOCKING_AUTOPROXY_DETERMINATION_Stop_817 : SystemEvent
     {
@@ -725,7 +725,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Blocking autoproxy determination started")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 816, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_BLOCKING_AUTOPROXY_DETERMINATION_Start_816 : SystemEvent
     {
@@ -741,7 +741,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _URLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_URLLength")]
         public string URL { get; set; }
 
         [EventField("win:UInt32")]
@@ -751,34 +751,34 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client has successfully retrieved proxy data for accessing a specified resource: URL=%2, ProxyString=%4")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 814, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_FIND_INFO_FOR_URL_Stop_814 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _URLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_URLLength")]
         public string URL { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ProxyStringLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ProxyStringLength")]
         public string ProxyString { get; set; }
     }
 
     [Format("Searching for Proxy Information for the URL: URL=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 813, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_FIND_INFO_FOR_URL_Start_813 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _URLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_URLLength")]
         public string URL { get; set; }
     }
 
@@ -792,13 +792,13 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _MIMETypeLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_MIMETypeLength")]
         public string MIMEType { get; set; }
 
         [EventField("win:UInt32")]
@@ -815,7 +815,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
 
         [EventField("win:UInt32")]
@@ -825,28 +825,28 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client successfully downloaded the configuration file from the configuration URL: ConfigurationURL=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 810, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_DOWNLOAD_Stop_810 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
     }
 
     [Format("Begin downloading the configuration file from the configuration URL: ConfigurationURL=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 809, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_DOWNLOAD_Start_809 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
     }
 
@@ -878,14 +878,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("WPAD configuration file found using DNS: ConfigurationURL=%2, DetectFlags=%3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 806, 0,
-    "win:Stop", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_DNS_Stop_806 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
 
         [EventField("win:UInt32")]
@@ -895,7 +895,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Begin search for configuration file using DNS: DetectFlags=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 805, 0,
-    "win:Start", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_DNS_Start_805 : SystemEvent
     {
@@ -913,13 +913,13 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _InterfaceLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_InterfaceLength")]
         public string Interface { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
 
         [EventField("win:UInt32")]
@@ -929,48 +929,48 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("WPAD configuration file found using DHCP: Interface=%2, ConfigurationURL=%4")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 803, 0,
-    "win:Stop", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Stop", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_DHCP_Stop_803 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _InterfaceLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_InterfaceLength")]
         public string Interface { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ConfigurationURLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConfigurationURLLength")]
         public string ConfigurationURL { get; set; }
     }
 
     [Format("Begin search for configuration file using DHCP: Interface=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 802, 0,
-    "win:Start", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_DHCP_Start_802 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _InterfaceLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_InterfaceLength")]
         public string Interface { get; set; }
     }
 
     [Format("Client begins attempts to locate the WPAD configuration file: ConnectionName=%2, DetectFlags=%3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 801, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with AUTOPROXY")]
 
     public class WININET_AUTOPROXY_SEARCH_Start_801 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _ConnectionNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ConnectionNameLength")]
         public string ConnectionName { get; set; }
 
         [EventField("win:UInt32")]
@@ -994,7 +994,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("SSL renegotiation between client and server has completed successfully: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 712, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_RENEGOTIATION_Stop_712 : SystemEvent
     {
@@ -1005,7 +1005,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client begins SSL renegotiation: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 711, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_RENEGOTIATION_Start_711 : SystemEvent
     {
@@ -1016,7 +1016,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("The selected client certificate will be used for the SSL transaction: RequestHandle=%1, CertHash=%3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 708, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_CLIENT_CERT_SELECTED_Info_708 : SystemEvent
     {
@@ -1026,14 +1026,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _CertHashLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_CertHashLength")]
         public string CertHash { get; set; }
     }
 
     [Format("There is no client certificate available: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 707, 0,
-    "win:Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_CLIENT_CERT_UNAVAILABLE_Info_707 : SystemEvent
     {
@@ -1047,7 +1047,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Server requires a client certificate for client authorization: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 706, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_CLIENT_CERT_REQUIRED_Info_706 : SystemEvent
     {
@@ -1058,7 +1058,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Server certificate validated: RequestHandle=%1, CertHash=%3, WarningFlags=%4")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 705, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_SERVER_CERT_VALIDATED_Info_705 : SystemEvent
     {
@@ -1068,7 +1068,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _CertHashLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_CertHashLength")]
         public string CertHash { get; set; }
 
         [EventField("win:UInt32")]
@@ -1078,7 +1078,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Error validating server certificate (SCHANNEL error): RequestHandle=%1, Error=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 704, 0,
-    "win:Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_SERVER_CERT_ERROR_Info_704 : SystemEvent
     {
@@ -1106,7 +1106,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("SSL negotiation between client and server has completed successfully: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 702, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_NEGOTIATION_Stop_702 : SystemEvent
     {
@@ -1117,7 +1117,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client begins SSL negotiation: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 701, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with HTTPS")]
 
     public class WININET_HTTPS_NEGOTIATION_Start_701 : SystemEvent
     {
@@ -1128,7 +1128,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client adds authorization headers to an HTTP request: RequestHandle=%1, Scheme=%3, IsProxy=%4")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 606, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
 
     public class WININET_AUTH_CLIENT_ADD_HEADERS_Info_606 : SystemEvent
     {
@@ -1138,7 +1138,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _SchemeLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_SchemeLength")]
         public string Scheme { get; set; }
 
         [EventField("win:Boolean")]
@@ -1148,7 +1148,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Using default credentials: RequestHandle=%1, IsProxy=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 605, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
 
     public class WININET_AUTH_USING_DEFAULT_CREDS_Info_605 : SystemEvent
     {
@@ -1162,7 +1162,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Using cached credentials: RequestHandle=%1, IsProxy=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 604, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
 
     public class WININET_AUTH_USING_CACHED_CREDS_Info_604 : SystemEvent
     {
@@ -1176,7 +1176,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client sets password: RequestHandle=%1, IsProxy=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 603, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
 
     public class WININET_AUTH_CLIENT_SETS_PASSWORD_Info_603 : SystemEvent
     {
@@ -1190,7 +1190,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Client sets username: RequestHandle=%1, IsProxy=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 602, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
 
     public class WININET_AUTH_CLIENT_SETS_USERNAME_Info_602 : SystemEvent
     {
@@ -1204,7 +1204,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Auth response received: RequestHandle=%1, Scheme=%3, IsProxy=%4")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 601, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with authentication")]
 
     public class WININET_AUTH_RESPONSE_RECEIVED_Info_601 : SystemEvent
     {
@@ -1214,7 +1214,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _SchemeLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_SchemeLength")]
         public string Scheme { get; set; }
 
         [EventField("win:Boolean")]
@@ -1224,195 +1224,195 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Cookie added to the request header: Domain=%2, Path=%4, Name=%6, Value=%8")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 507, 0,
-    "win:Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_ADDED_TO_HEADER_Info_507 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _DomainLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_DomainLength")]
         public string Domain { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _PathLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_PathLength")]
         public string Path { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _NameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_NameLength")]
         public string Name { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ValueLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ValueLength")]
         public string Value { get; set; }
     }
 
     [Format("A cookie header was created for the request: URL=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 506, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_REQUEST_HEADER_CREATED_Info_506 : SystemEvent
     {
         [EventField("win:UInt32")]
         public uint URLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "URLLength")]
         public string URL { get; set; }
     }
 
     [Format("Server cookie was rejected by the client's P3P policy: Domain=%2, Path=%4, Name=%6, Value=%8")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 505, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_P3P_REJECTED_Info_505 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _DomainLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_DomainLength")]
         public string Domain { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _PathLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_PathLength")]
         public string Path { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _NameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_NameLength")]
         public string Name { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ValueLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ValueLength")]
         public string Value { get; set; }
     }
 
     [Format("Client has rejected a cookie sent by the server: Domain=%2, Path=%4, Name=%6, Value=%8")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 504, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_BLOCKED_Info_504 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _DomainLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_DomainLength")]
         public string Domain { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _PathLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_PathLength")]
         public string Path { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _NameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_NameLength")]
         public string Name { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ValueLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ValueLength")]
         public string Value { get; set; }
     }
 
     [Format("Client has deleted a cookie in the cookie jar: Domain=%2, Path=%4, Name=%6, Value=%8")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 503, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_DELETED_Info_503 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _DomainLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_DomainLength")]
         public string Domain { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _PathLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_PathLength")]
         public string Path { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _NameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_NameLength")]
         public string Name { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ValueLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ValueLength")]
         public string Value { get; set; }
     }
 
     [Format("Client has stored a cookie in the cookie jar: Domain=%2, Path=%4, Name=%6, Value=%8")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 502, 0,
-    "win:Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_STORED_Info_502 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _DomainLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_DomainLength")]
         public string Domain { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _PathLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_PathLength")]
         public string Path { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _NameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_NameLength")]
         public string Name { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ValueLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ValueLength")]
         public string Value { get; set; }
     }
 
     [Format("Received response including a cookie header: URL=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 501, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with Cookies")]
 
     public class WININET_COOKIE_HEADER_RECEIVED_Info_501 : SystemEvent
     {
         [EventField("win:UInt32")]
         public uint URLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "URLLength")]
         public string URL { get; set; }
     }
 
     [Format("A network change was detected: Handle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 308, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_NETWORK_CHANGE_DETECTED_Info_308 : SystemEvent
     {
@@ -1423,14 +1423,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Re-used DNS cache, query for %2 hostname is complete: Handle=%3, Addresses=%5")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 307, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_DNS_QUERY_Stop_307 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _HostNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_HostNameLength")]
         public string HostName { get; set; }
 
         [EventField("win:Pointer")]
@@ -1439,7 +1439,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _AddressListLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_AddressListLength")]
         public string AddressList { get; set; }
     }
 
@@ -1453,7 +1453,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _HostNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_HostNameLength")]
         public string HostName { get; set; }
 
         [EventField("win:Pointer")]
@@ -1466,14 +1466,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("DNS query for %2 hostname is complete: Handle=%3, Addresses=%5")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 305, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_DNS_QUERY_Stop_305 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _HostNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_HostNameLength")]
         public string HostName { get; set; }
 
         [EventField("win:Pointer")]
@@ -1482,21 +1482,21 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _AddressListLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_AddressListLength")]
         public string AddressList { get; set; }
     }
 
     [Format("DNS query for %2 hostname is sent: Handle=%3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 304, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_DNS_QUERY_Start_304 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _HostNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_HostNameLength")]
         public string HostName { get; set; }
 
         [EventField("win:Pointer")]
@@ -1506,7 +1506,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("TCP connection closed successfully: SocketHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 303, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_TCP_CONNECTION_Stop_303 : SystemEvent
     {
@@ -1524,7 +1524,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ServerNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ServerNameLength")]
         public string ServerName { get; set; }
 
         [EventField("win:Pointer")]
@@ -1537,14 +1537,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("TCP connection to server %2 established: ConnectionHandle=%3, SocketHandle=%4, LocalPort=%5")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 301, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with network operations (TCP, DNS)")]
 
     public class WININET_TCP_CONNECTION_Start_301 : SystemEvent
     {
         [EventField("win:UInt16")]
         public ushort _ServerNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ServerNameLength")]
         public string ServerName { get; set; }
 
         [EventField("win:Pointer")]
@@ -1560,7 +1560,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("HTTP Response Headers RequestHandle=%1 %3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 211, 0,
-    "win:Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses", "Flagged on all WinINet events dealing with potential personally identifiable information")]
+    "win_Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses", "Flagged on all WinINet events dealing with potential personally identifiable information")]
 
     public class WININET_RESPONSE_HEADER_Info_211 : SystemEvent
     {
@@ -1570,14 +1570,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort Length { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "Length")]
         public string Headers { get; set; }
     }
 
     [Format("HTTP Request Headers RequestHandle=%1 %3")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 210, 0,
-    "win:Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses", "Flagged on all WinINet events dealing with potential personally identifiable information")]
+    "win_Info", "win:Verbose", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses", "Flagged on all WinINet events dealing with potential personally identifiable information")]
 
     public class WININET_REQUEST_HEADER_Info_210 : SystemEvent
     {
@@ -1587,14 +1587,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort Length { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "Length")]
         public string Headers { get; set; }
     }
 
     [Format("HTTP response entity body received: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 209, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_HTTP_RESPONSE_BODY_RECEIVED_Info_209 : SystemEvent
     {
@@ -1605,7 +1605,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Keep-alive connection is closed: ConnectionHandle=%1, SocketHandle=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 208, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_KEEP_ALIVE_CONNECTION_CLOSED_Info_208 : SystemEvent
     {
@@ -1619,7 +1619,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Connection is returned to keep-alive pool: RequestHandle=%1, SocketHandle=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 207, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_KEEP_ALIVE_CONNECTION_POOLED_Info_207 : SystemEvent
     {
@@ -1633,7 +1633,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Keep-alive connection is re-used: ConnectionHandle=%1, SocketHandle=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 206, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_KEEP_ALIVE_CONNECTION_REUSED_Info_206 : SystemEvent
     {
@@ -1647,7 +1647,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("HTTP connection (Handle=%1, SocketHandle=%2) closed due to the following reason: %4")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 205, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_HTTP_CONNECTION_CLOSED_Info_205 : SystemEvent
     {
@@ -1660,7 +1660,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ReasonLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ReasonLength")]
         public string Reason { get; set; }
     }
 
@@ -1681,7 +1681,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("HTTP response (%1) received: RequestHandle=%2, SocketHandle=%3, %5, ContentLength=%7")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 203, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_HTTP_RESPONSE_Stop_203 : SystemEvent
     {
@@ -1697,13 +1697,13 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _VerbLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_VerbLength")]
         public string Verb { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ContentLengthStrLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ContentLengthStrLength")]
         public string ContentLength { get; set; }
     }
 
@@ -1724,7 +1724,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("HTTP request was sent successfully: RequestHandle=%1, SocketHandle=%2, %4, CookieSent= %5")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 201, 0,
-    "win:Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Stop", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_HTTP_REQUEST_Stop_201 : SystemEvent
     {
@@ -1737,7 +1737,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _VerbLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_VerbLength")]
         public string Verb { get; set; }
 
         [EventField("win:Boolean")]
@@ -1747,7 +1747,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("HTTP request was received from API: RequestHandle=%1")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 200, 0,
-    "win:Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
+    "win_Start", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with processing of HTTP requests and responses")]
 
     public class WININET_HTTP_REQUEST_Start_200 : SystemEvent
     {
@@ -1758,7 +1758,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request handle %1 Server Details: Server=%3 Port=%4 Service=%6")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 108, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_HTTP_REQUEST_HANDLE_CREATED_Info_108 : SystemEvent
     {
@@ -1768,7 +1768,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ServerNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ServerNameLength")]
         public string ServerName { get; set; }
 
         [EventField("win:UInt32")]
@@ -1777,14 +1777,14 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ServiceLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ServiceLength")]
         public string Service { get; set; }
     }
 
     [Format("Handle %1 failed to close: Error=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 107, 0,
-    "win:Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_HANDLE_CLOSE_FAILED_Info_107 : SystemEvent
     {
@@ -1798,7 +1798,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Failed to create handle: ParentHandle=%1, Error=%2")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 106, 0,
-    "win:Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Error", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_HANDLE_CREATE_FAILED_Info_106 : SystemEvent
     {
@@ -1812,7 +1812,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Handle %1 closed successfully")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 105, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_HANDLE_CLOSED_Info_105 : SystemEvent
     {
@@ -1823,7 +1823,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Request handle %1 created by HttpOpenRequest: ConnectionHandle=%2, %4, Target=%6, Ver=%8, Referrer=%10, Media types=%12, Flags=%13")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 104, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_HTTP_REQUEST_HANDLE_CREATED_Info_104 : SystemEvent
     {
@@ -1836,31 +1836,31 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _VerbLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_VerbLength")]
         public string Verb { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ObjectNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ObjectNameLength")]
         public string ObjectName { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _VersionLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_VersionLength")]
         public string Version { get; set; }
 
         [EventField("win:UInt32")]
         public uint _ReferrerLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ReferrerLength")]
         public string Referrer { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _AcceptTypesLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_AcceptTypesLength")]
         public string AcceptTypes { get; set; }
 
         [EventField("win:UInt32")]
@@ -1870,7 +1870,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Handle %1 created by InternetConnect: SessionHandle=%2, Server=%4:%5, %7, Flags=%8")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 103, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_CONNECT_HANDLE_CREATED_Info_103 : SystemEvent
     {
@@ -1883,7 +1883,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ServerNameLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ServerNameLength")]
         public string ServerName { get; set; }
 
         [EventField("win:UInt32")]
@@ -1892,7 +1892,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _ServiceLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ServiceLength")]
         public string Service { get; set; }
 
         [EventField("win:UInt32")]
@@ -1902,7 +1902,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Handle %1 created by InternetOpenURL: SessionHandle=%2,URL=%4, Headers=%6, Flags=%7")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 102, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_OPEN_URL_HANDLE_CREATED_Info_102 : SystemEvent
     {
@@ -1915,13 +1915,13 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _URLLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_URLLength")]
         public string URL { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _HeadersLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_HeadersLength")]
         public string Headers { get; set; }
 
         [EventField("win:UInt32")]
@@ -1931,7 +1931,7 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
     [Format("Session handle %1 created: UserAgent=%3, AccessType=%5, ProxyList=%7, ProxyBypassList=%9, Flags=%10")]
 
     [ManifestEvent("{43d1a55c-76d6-4f7e-995c-64c711e5cafe}", 101, 0,
-    "win:Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
+    "win_Info", "win:Informational", "Microsoft-Windows-WinINet/Analytic", "Flagged on all WinINet events dealing with creation or destruction of INTERNET handles")]
 
     public class WININET_ROOT_HANDLE_CREATED_Info_101 : SystemEvent
     {
@@ -1941,25 +1941,25 @@ namespace Tx.Windows.Microsoft_Windows_WinINet
         [EventField("win:UInt16")]
         public ushort _UserAgentLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_UserAgentLength")]
         public string UserAgent { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _AccessTypeLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_AccessTypeLength")]
         public string AccessType { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ProxyListLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ProxyListLength")]
         public string ProxyList { get; set; }
 
         [EventField("win:UInt16")]
         public ushort _ProxyBypassListLength { get; set; }
 
-        [EventField("win:AnsiString")]
+        [EventField("win:AnsiString", "_ProxyBypassListLength")]
         public string ProxyBypassList { get; set; }
 
         [EventField("win:UInt32")]
