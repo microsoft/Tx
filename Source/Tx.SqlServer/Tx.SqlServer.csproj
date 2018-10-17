@@ -3,8 +3,21 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
     <PlatformTarget>x86</PlatformTarget>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.0.0</Version>
+    <Description>Tx SqlServer</Description>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
+    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <Authors>Microsoft</Authors>
+    <PackageTags>Tx Traces Logs Playback Replay SqlServer</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

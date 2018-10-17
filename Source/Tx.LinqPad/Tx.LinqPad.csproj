@@ -123,5 +123,6 @@
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>zip.exe Tx.LinqPad.lpx header.xml System.Reactive.dll System.Reactive.Linq.dll System.Reactive.Linq.dll System.Reactive.Windows.Forms.dll System.Security.Claims.dll System.Security.Principal.Windows.dll Tx.Core.dll Tx.Windows.dll Tx.Windows.TypeGeneration.dll Tx.SqlServer.dll msvcr100.dll xe.dll Microsoft.SqlServer.XE.Core.dll Microsoft.SqlServer.XEvent.Configuration.dll Microsoft.SqlServer.XEvent.dll Microsoft.SqlServer.XEvent.Linq.dll Microsoft.SqlServer.XEvent.Targets.dll Tx.LinqPad.dll HTTP_Server.man HTTP_Server.etl BasicPerfCounters.blg CrossMachineHTTP.etl CrossMachineIE.etl IE_Client.man sqltrace.xel Microsoft.Windows.ApplicationServer.Applications.man SampleWcfTrace.etl</PostBuildEvent>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 </Project>
