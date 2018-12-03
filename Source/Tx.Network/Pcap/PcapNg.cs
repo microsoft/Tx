@@ -104,7 +104,7 @@ namespace Tx.Network
 
         protected string ReadAsciiOption(BinaryReader reader, int len)
         {
-            int readLen = len + (4 - len % 4);
+            int readLen = len + (4 - len % 4) % 4;
             byte[] bytes = reader.ReadBytes(readLen);
             string s = Encoding.ASCII.GetString(bytes, 0, len);
             return s;
@@ -112,7 +112,7 @@ namespace Tx.Network
 
         protected byte[] ReadBytesOption(BinaryReader reader, int len)
         {
-            int readLen = len + (4 - len % 4);
+            int readLen = len + (4 - len % 4) % 4;
             byte[] bytes = reader.ReadBytes(readLen);
             return bytes;
         }
