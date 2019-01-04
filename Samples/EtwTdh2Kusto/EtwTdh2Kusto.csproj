@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.Kusto.Ingest.NETStandard" Version="4.0.3" />
+    <PackageReference Include="Microsoft.Azure.Kusto.Ingest.NETStandard" Version="5.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Tx.Windows\Tx.Windows.csproj" />
+    <ProjectReference Include="..\..\Source\Tx.Windows\Tx.Windows.csproj" />
   </ItemGroup>
 
 </Project>

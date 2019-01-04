@@ -6,9 +6,9 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>3.0.1.0</AssemblyVersion>
-    <FileVersion>3.0.1.0</FileVersion>
-    <Version>3.0.1</Version>
+    <AssemblyVersion>3.0.2.0</AssemblyVersion>
+    <FileVersion>3.0.2.0</FileVersion>
+    <Version>3.0.2</Version>
     <Description>Tx Network</Description>
     <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
     <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>

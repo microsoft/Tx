@@ -1,12 +1,13 @@
-﻿using Kusto.Data.Common;
-using Kusto.Data.Net.Client;
-using System;
-using System.IO;
-using System.Reactive.Linq;
-using Tx.Windows;
-
-namespace Etw2Kusto
+﻿namespace Etw2Kusto
 {
+    using Kusto.Data;
+    using Kusto.Data.Common;
+    using Kusto.Data.Net.Client;
+    using System;
+    using System.IO;
+    using System.Reactive.Linq;
+    using Tx.Windows;
+
     class Program
     {
         static string _cluster;
@@ -14,22 +15,32 @@ namespace Etw2Kusto
         static string _tableName;
         static string _filePattern;
         static string _sessionName;
-        static string _connectionString;
+        static string _userName;
+        static string _password;
+        static bool _demoMode;
+
+        static KustoConnectionStringBuilder kscbIngest;
+        static KustoConnectionStringBuilder kscbAdmin;
+
         static void Main(string[] args)
         {
             ParseArgs(args);
-
-            ResetTable(_connectionString, _tableName, typeof(EtwEvent));
+            ResetTable(kscbAdmin, _tableName, typeof(EtwEvent));
 
             try
             {
                 if (_filePattern != null)
+                {
                     UploadFiles();
-
+                }
                 else if (_sessionName != null)
+                {
                     UploadRealTime();
-
-                else ExitWithMissingArgument("file or session");
+                }
+                else
+                {
+                    ExitWithMissingArgument("file or session");
+                }
             }
             catch (Exception ex)
             {
@@ -37,7 +48,6 @@ namespace Etw2Kusto
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
             }
-
         }
 
         static void UploadFiles()
@@ -51,7 +61,7 @@ namespace Etw2Kusto
                 .Select(e => new EtwEvent(e));
 
             var ku = new BlockingKustoUploader<EtwEvent>(
-                _connectionString, _tableName, 10000, TimeSpan.MaxValue);
+                _demoMode ? kscbAdmin : kscbIngest, _tableName, 10000, TimeSpan.MaxValue);
 
             using (transformed.Subscribe(ku))
             {
@@ -66,10 +76,11 @@ namespace Etw2Kusto
                 .Select(e => new EtwEvent(e));
 
             var ku = new BlockingKustoUploader<EtwEvent>(
-                _connectionString, _tableName, 10000, TimeSpan.FromSeconds(10));
+                _demoMode ? kscbAdmin : kscbIngest, _tableName, 10000, TimeSpan.FromSeconds(10));
 
             using (transformed.Subscribe(ku))
             {
+                Console.WriteLine();
                 Console.WriteLine("Listening to real-time session '{0}'. Press Enter to termintate", _sessionName);
                 Console.ReadLine();
             }
@@ -108,6 +119,22 @@ namespace Etw2Kusto
                         _sessionName = value;
                         break;
 
+                    case "username":
+                        _userName = value;
+                        break;
+
+                    case "password":
+                        _password = value;
+                        break;
+
+                    case "demomode":
+                        bool val;
+                        if (bool.TryParse(value, out val))
+                        {
+                            _demoMode = val;
+                        }
+                        break;
+
                     default:
                         ExitWithInvalidArgument(a);
                         break;
@@ -123,16 +150,50 @@ namespace Etw2Kusto
             if (_tableName == null)
                 ExitWithMissingArgument("table");
 
-            if (_filePattern != null && _sessionName != null)
+            if (!string.IsNullOrEmpty(_userName))
             {
-                Console.WriteLine("Uploading from both file and session is not supprted. Only one of these is supprted");
+                Console.WriteLine($"Using user: {_userName}");
+            }
+            else
+            {
+                Console.Write("Enter UserName: ");
+                _userName = Console.ReadLine();
+            }
+
+            if (string.IsNullOrEmpty(_password))
+            {
+                _password = GetPasswordForUser();
+            }
+
+            if (string.IsNullOrEmpty(_password))
+            {
+                Console.WriteLine("Password is needed to connect to Kusto for uploading...");
                 Console.WriteLine();
                 PrintHelpAndExit();
             }
 
-            _connectionString = String.Format("Data Source=https://{0}.kusto.windows.net:443;Initial Catalog={1};AAD Federated Security=True;",
-                _cluster,
-                _database);
+            if (_filePattern != null && _sessionName != null)
+            {
+                Console.WriteLine("Uploading from both file and session together is not supported.");
+                Console.WriteLine();
+                PrintHelpAndExit();
+            }
+
+            kscbIngest = new KustoConnectionStringBuilder($"https://ingest-{_cluster}.kusto.windows.net")
+            {
+                FederatedSecurity = true,
+                UserID = _userName,
+                Password = _password,
+                InitialCatalog = _database
+            };
+
+            kscbAdmin = new KustoConnectionStringBuilder($"https://{_cluster}.kusto.windows.net")
+            {
+                FederatedSecurity = true,
+                UserID = _userName,
+                Password = _password,
+                InitialCatalog = _database
+            };
         }
 
         static void ExitWithMissingArgument(string argument)
@@ -156,15 +217,22 @@ namespace Etw2Kusto
 
 1) Real-time session
 
-    Etw2Kusto cluster:CDOC database:GeorgiTest table:EtwTcp session:tcp
+    Etw2Kusto cluster:CDOC database:GeorgiTest table:EtwTcp session:tcp username:<user email> password:<password> demomode:true
 
 To use real-time mode:
 - the tool must be run with administrative permissions 
 - the session has to be created ahead of time with system tools like logman.exe or Perfmon
+- password can be optionally pass as parameter or manually entered in the console
+- demomode uses Kusto direct ingest instead of queued ingest
 
 Example is: 
 
 logman.exe create trace tcp -rt -nb 2 2 -bs 1024 -p {7dd42a49-5329-4832-8dfd-43d979153a88} 0xffffffffffffffff -ets
+
+When done, stopping the trace session is using command,
+logman.exe stop tcp -ets
+
+tcp is the name of the session we created using create trace
 
 2) Previously recorded Event Trace Log (.etl files)
 
@@ -174,9 +242,9 @@ logman.exe create trace tcp -rt -nb 2 2 -bs 1024 -p {7dd42a49-5329-4832-8dfd-43d
             Environment.Exit(1);
         }
 
-        static void ResetTable(string connectionString, string tableName, Type type)
+        static void ResetTable(KustoConnectionStringBuilder kscb, string tableName, Type type)
         {
-            using (var admin = KustoClientFactory.CreateCslAdminProvider(connectionString.Replace("ingest-", "")))
+            using (var admin = KustoClientFactory.CreateCslAdminProvider(kscb))
             {
                 string dropTable = CslCommandGenerator.GenerateTableDropCommand(tableName, true);
                 admin.ExecuteControlCommand(dropTable);
@@ -187,6 +255,38 @@ logman.exe create trace tcp -rt -nb 2 2 -bs 1024 -p {7dd42a49-5329-4832-8dfd-43d
                 string enableIngestTime = CslCommandGenerator.GenerateIngestionTimePolicyAlterCommand(tableName, true);
                 admin.ExecuteControlCommand(enableIngestTime);
             }
+        }
+
+        static string GetPasswordForUser()
+        {
+            Console.Write("Enter password: ");
+            string password = "";
+
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    password += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                    {
+                        password = password.Substring(0, (password.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                    else if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
+
+            return password;
         }
     }
 }

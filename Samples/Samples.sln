@@ -118,7 +118,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XEventGenerator", "Introduc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XEvents", "Introduction\XEvents\XEvents.csproj", "{6C98B835-EA14-4940-9708-3F0431243568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtwTdh2Kusto", "Introduction\EtwTdh2Kusto\EtwTdh2Kusto.csproj", "{FAFAD0AB-85CC-458E-9C74-FF2E98D0AAC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtwTdh2Kusto", "EtwTdh2Kusto\EtwTdh2Kusto.csproj", "{FAFAD0AB-85CC-458E-9C74-FF2E98D0AAC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
