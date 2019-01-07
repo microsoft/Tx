@@ -85,7 +85,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort ThermalZoneDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "ThermalZoneDeviceInstanceLength")]
         public string ThermalZoneDeviceInstance { get; set; }
 
         [EventField("win:UInt32")]
@@ -141,7 +141,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort ThermalZoneDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "ThermalZoneDeviceInstanceLength")]
         public string ThermalZoneDeviceInstance { get; set; }
 
         [EventField("win:UInt32")]
@@ -197,7 +197,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort ThermalZoneDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "ThermalZoneDeviceInstanceLength")]
         public string ThermalZoneDeviceInstance { get; set; }
 
         [EventField("win:UInt32")]
@@ -209,13 +209,13 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort FanDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "FanDeviceInstanceLength")]
         public string FanDeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
         public ushort PowerStateLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "PowerStateLength")]
         public string PowerState { get; set; }
     }
 
@@ -229,7 +229,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort ThermalZoneDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "ThermalZoneDeviceInstanceLength")]
         public string ThermalZoneDeviceInstance { get; set; }
 
         [EventField("win:UInt32")]
@@ -241,7 +241,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort FanDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "FanDeviceInstanceLength")]
         public string FanDeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
@@ -258,7 +258,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort AmlMethodNameLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "AmlMethodNameLength")]
         public string AmlMethodName { get; set; }
 
         [EventField("win:UInt16")]
@@ -275,7 +275,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort DeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "DeviceInstanceLength")]
         public string DeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
@@ -292,7 +292,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort DeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "DeviceInstanceLength")]
         public string DeviceInstance { get; set; }
 
         [EventField("win:UInt8")]
@@ -309,7 +309,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort DeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "DeviceInstanceLength")]
         public string DeviceInstance { get; set; }
 
         [EventField("win:UInt16")]
@@ -329,7 +329,7 @@ namespace Tx.Windows.Microsoft_Windows_Kernel_Acpi
         [EventField("win:UInt16")]
         public ushort ThermalZoneDeviceInstanceLength { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "ThermalZoneDeviceInstanceLength")]
         public string ThermalZoneDeviceInstance { get; set; }
 
         [EventField("win:UInt32")]

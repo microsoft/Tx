@@ -4,6 +4,8 @@ using System;
 
 namespace Tx.Windows
 {
+    // We implemented this in Tx, because the default .Net implementation was too slow
+    // We should do experiment if we still need it
     public sealed class TimeUtil
     {
         private const Int64 TicksPerMillisecond = 10000;
@@ -37,4 +39,3 @@ namespace Tx.Windows
         }
     }
 }
-

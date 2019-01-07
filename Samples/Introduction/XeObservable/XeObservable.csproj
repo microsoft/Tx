@@ -11,27 +11,42 @@
     <RootNamespace>XeObservable</RootNamespace>
     <AssemblyName>XeObservable</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
   <Import Project="..\..\..\Common.targets" />
   <PropertyGroup>
     <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.SqlServer.XE.Core" />
-    <Reference Include="Microsoft.SqlServer.XEvent" />
-    <Reference Include="Microsoft.SqlServer.XEvent.Configuration" />
-    <Reference Include="Microsoft.SqlServer.XEvent.Linq" />
-    <Reference Include="Microsoft.SqlServer.XEvent.Targets" />
+    <Reference Include="Microsoft.SqlServer.XE.Core, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent">
+      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent.Configuration">
+      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent.Linq, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent.Targets">
+      <HintPath>..\..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>$(CPReferencePath)\System.Reactive.Core.dll</HintPath>
+    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>$(CPReferencePath)\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>$(CPReferencePath)\System.Reactive.Linq.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -51,6 +66,15 @@
     <None Include="..\..\..\Traces\gatewaysample.xel">
       <Link>gatewaysample.xel</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="..\..\..\References\XEvent\xe.dll">
+      <Link>xe.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\References\XEvent\msvcr100.dll">
+      <Link>msvcr100.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

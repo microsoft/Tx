@@ -1,30 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
-    <SignAssembly>True</SignAssembly>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <FileVersion>3.0.1.0</FileVersion>
+    <Version>3.0.1</Version>
+    <Description>Tx (LINQ to Logs and Traces) Windows TypeGeneration component</Description>
     <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
-    <Authors>Microsoft</Authors>
-    <Company>Microsoft</Company>
-    <Description>Tx (LINQ to Logs and Traces) components for generation of C# types representing Event Tracing for Windows (ETW) and Event Log events</Description>
-    <PackageTags>Tx Traces Logs Playback Replay ETW</PackageTags>
-    <RepositoryType>git</RepositoryType>
     <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <Authors>Microsoft</Authors>
+    <PackageTags>Tx Traces Logs Playback Replay</PackageTags>
+    <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
-    <Version>2.1.1</Version>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net45\Tx.Windows.TypeGeneration.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
     <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Tx.Windows.TypeGeneration.nuspec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.CodeDom">
+      <Version>4.5.0</Version>
+    </PackageReference>
   </ItemGroup>
+
 </Project>

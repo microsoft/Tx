@@ -7,7 +7,7 @@ using System.Security;
 namespace Tx.Windows
 {
     [SuppressUnmanagedCodeSecurity]
-    internal static class EtwNativeMethods
+    internal unsafe static class EtwNativeMethods
     {
         public const Int32 ErrorNotFound = 0x2; //0x000000a1 ?;
         public const Int32 ErrorUnreadable = 0x00000570;
@@ -42,6 +42,13 @@ namespace Tx.Windows
             IntPtr TdhContext,
             [Out] IntPtr eventInfoPtr,
             ref Int32 BufferSize);
+
+        [DllImport("tdh.dll", ExactSpelling = true, EntryPoint = "TdhGetEventMapInformation")]
+        public static extern Int32 TdhGetEventMapInformation(
+           ref EVENT_RECORD pEvent,
+           IntPtr pMapName,
+           [Out] IntPtr eventMapInfoPtr,
+           ref Int32 BufferSize);
     }
 
     [SuppressUnmanagedCodeSecurity]
@@ -188,7 +195,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Explicit)]
-    internal sealed class EVENT_PROPERTY_INFO
+    internal struct EVENT_PROPERTY_INFO
     {
         [FieldOffset(0)] public PROPERTY_FLAGS Flags;
         [FieldOffset(4)] public UInt32 NameOffset;
@@ -234,7 +241,7 @@ namespace Tx.Windows
 
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    internal sealed class TRACE_EVENT_INFO
+    internal struct TRACE_EVENT_INFO
     {
         public Guid ProviderGuid;
         public Guid EventGuid;
@@ -383,4 +390,36 @@ namespace Tx.Windows
             [FieldOffset(2)] public UInt16 LoggerId;
         }
     }
+
+    [Serializable]
+    internal enum MAP_FLAGS
+    {
+        EVENTMAP_INFO_FLAG_MANIFEST_VALUEMAP,
+        EVENTMAP_INFO_FLAG_MANIFEST_BITMAP,
+        EVENTMAP_INFO_FLAG_MANIFEST_PATTERNMAP,
+        EVENTMAP_INFO_FLAG_WBEM_VALUEMAP,
+        EVENTMAP_INFO_FLAG_WBEM_BITMAP,
+        EVENTMAP_INFO_FLAG_WBEM_FLAG,
+        EVENTMAP_INFO_FLAG_WBEM_NO_MAP
+    }
+
+    [Serializable]
+    [StructLayout(LayoutKind.Explicit)]
+
+    internal struct EVENT_MAP_ENTRY
+    {
+        [FieldOffset(0)] public uint OutputOffset;
+        [FieldOffset(4)] public uint Value;
+        [FieldOffset(4)] public uint InputOffset;
+    };
+
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct EVENT_MAP_INFO
+    {
+        public uint NameOffset;
+        public MAP_FLAGS Flag;
+        public uint EntryCount;
+        public uint FormatStringOffset; // This should be union
+    };
 }

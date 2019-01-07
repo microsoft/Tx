@@ -74,7 +74,7 @@
             if (this.stream != null)
             {
                 this.stream.Flush();
-                this.stream.Dispose();
+                this.stream.Close();
                 this.stream = null;
             }
         }

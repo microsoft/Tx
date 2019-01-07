@@ -369,17 +369,23 @@ namespace Tx.Windows
         public string ReadUnicodeString(int fixedLength)
         {
             char* end;
-            for (end = (char*) _data; end < (char*) _end; end ++)
+            int charsRead = 0;
+            for (end = (char*) _data; end < (char*) _end; end++)
             {
                 if (0 == *end)
                     break;
+
+                if (charsRead == fixedLength)
+                    break;
+
+                charsRead++;
             }
 
-            string str = Marshal.PtrToStringUni((IntPtr) _data, (int) (((byte*) end) - _data) >> 1);
-            int length = (str.Length + 1)*sizeof (char);
+            string str = Marshal.PtrToStringUni((IntPtr) _data, (int)(((byte*)end) - _data) >> 1);
+            int length = (str.Length + 1) * sizeof(char);
             if (fixedLength > 0)
             {
-                _data += fixedLength*sizeof (char);
+                _data += fixedLength * sizeof(char);
             }
             else
             {

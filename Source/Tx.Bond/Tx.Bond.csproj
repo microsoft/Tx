@@ -1,35 +1,41 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
-    <SignAssembly>True</SignAssembly>
+    <TargetFramework>net46</TargetFramework>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
-    <Description>Tx (LINQ to Logs and Traces) Binary-in-ETW transport components</Description>
-    <Company>Microsoft</Company>
-    <Authors>Microsoft</Authors>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageTags>Tx Traces Logs Playback Replay ETW Bond</PackageTags>
-    <RepositoryType>git</RepositoryType>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <FileVersion>3.0.1.0</FileVersion>
+    <Version>3.0.1</Version>
+    <Description>Tx Bond components, specific to the Bond event format</Description>
     <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
     <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
+    <Authors>Microsoft</Authors>
+    <PackageTags>Tx Traces Bond Logs Playback Replay</PackageTags>
+    <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
-    <Version>2.1.1</Version>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net45\Tx.Bond.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Bond.Core.CSharp" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Diagnostics.Tracing.EventSource.Redist" Version="1.0.26" />
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
   </ItemGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
     <ProjectReference Include="..\Tx.Windows\Tx.Windows.csproj" />
   </ItemGroup>
+
   <ItemGroup>
+    <Reference Include="Bond">
+      <HintPath>..\..\References\DESKTOPCLR45\Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Attributes">
+      <HintPath>..\..\References\DESKTOPCLR45\Bond.Attributes.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+
 </Project>

@@ -15,3 +15,9 @@ _UpgradeReport_Files
 /Source/*.nupkg
 /Source/*.zip
 /Source/Tx.LinqPad.lpx
+*.dtbcache
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
+Packages/

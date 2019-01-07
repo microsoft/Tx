@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EtwTdh2Kusto": {
+      "commandName": "Project",
+      "commandLineArgs": "cluster:CDOC database:GeorgiTest table:JomorriEtwTcp session:tcp"
+    }
+  }
+}

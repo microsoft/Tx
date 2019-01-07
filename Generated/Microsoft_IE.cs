@@ -1135,7 +1135,7 @@ namespace Tx.Windows.Microsoft_IE
         [EventField("win:UInt32")]
         public uint Length { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "Length")]
         public string Script { get; set; }
     }
 
@@ -1381,7 +1381,7 @@ namespace Tx.Windows.Microsoft_IE
         [EventField("win:UInt32")]
         public uint Length { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "Length")]
         public string Script { get; set; }
     }
 
@@ -1550,7 +1550,7 @@ namespace Tx.Windows.Microsoft_IE
         [EventField("win:UInt32")]
         public uint Length { get; set; }
 
-        [EventField("win:UnicodeString")]
+        [EventField("win:UnicodeString", "Length")]
         public string SRC { get; set; }
     }
 

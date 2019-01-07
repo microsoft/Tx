@@ -1,31 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
-    <SignAssembly>True</SignAssembly>
+    <TargetFramework>net46</TargetFramework>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Authors>Microsoft</Authors>
-    <Company>Microsoft</Company>
-    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <DelaySign>false</DelaySign>
+    <PlatformTarget>x86</PlatformTarget>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <FileVersion>3.0.1.0</FileVersion>
+    <Version>3.0.1</Version>
+    <Description>Tx SqlServer</Description>
+    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
     <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
-    <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
-    <Description>Tx (LINQ to Logs and Traces) components for SQL Server. So far, this incldes Extended Events (XEvent)</Description>
-    <PackageTags>Tx Traces Logs Playback Replay XEvent</PackageTags>
-    <Version>2.1.1</Version>
+    <Authors>Microsoft</Authors>
+    <PackageTags>Tx Traces Logs Playback Replay SqlServer</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Microsoft/Tx.git</RepositoryUrl>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
-    <DocumentationFile>bin\Release\net45\Tx.SqlServer.xml</DocumentationFile>
-  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Tx.Core\Tx.Core.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.XE.Core">
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XE.Core.dll</HintPath>
@@ -40,4 +42,5 @@
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 </Project>
