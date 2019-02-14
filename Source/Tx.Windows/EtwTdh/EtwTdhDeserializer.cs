@@ -9,6 +9,7 @@ namespace Tx.Windows
     {
         public ulong SequenceNumber { get; private set; } // For comparing the data with Message Analyzer
         Dictionary<Guid, Dictionary<uint, EtwTdhEventInfo>> _cache = new Dictionary<Guid, Dictionary<uint, EtwTdhEventInfo>>();
+
         public IDictionary<string, object> Deserialize(ref EtwNativeEvent e)
         {
             SequenceNumber++;
