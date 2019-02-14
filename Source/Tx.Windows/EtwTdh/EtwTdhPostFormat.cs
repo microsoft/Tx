@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using System;
 using System.Net;
-using System.Text;
 
 namespace Tx.Windows
 {
     /// <summary>
     /// This is a placeholder for all the cases in which the formatting is not enough
-    /// Example are IP addresses that are reprenseted as integers 
-    /// For now it is hard-coded until we understnad in what cases we need to post-process
+    /// Example are IP addresses that are represented as integers 
+    /// For now it is hard-coded until we understand in what cases we need to post-process
     /// values that were formatted accoring to TDH
     /// </summary>
     class EtwTdhPostFormat
@@ -30,6 +30,5 @@ namespace Tx.Windows
 
             return value;
         }
-
     }
 }

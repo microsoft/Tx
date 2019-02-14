@@ -22,7 +22,7 @@ namespace Tx.Windows
         {
             EtwTdhDeserializer d = new EtwTdhDeserializer();
             var file = EtwObservable.FromFiles(etlFiles);
-            return file.Select(e => d.Deserialize(ref e));
+            return file.Select(e => new EtwTdhEvent(d, e));
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Tx.Windows
         {
             EtwTdhDeserializer d = new EtwTdhDeserializer();
             var session = EtwObservable.FromSession(sessionName);
-            return session.Select(e => d.Deserialize(ref e));
+            return session.Select(e => new EtwTdhEvent(d, e));
         }
     }
 }

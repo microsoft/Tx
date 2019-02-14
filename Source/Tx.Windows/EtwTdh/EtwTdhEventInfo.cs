@@ -71,7 +71,7 @@ namespace Tx.Windows
             }
             else
             {
-                string message = String.Format(_formatString, values.ToArray());
+                string message = string.Format(_formatString, values.ToArray());
                 instance.Add("Message", message);
             }
 
