@@ -6,12 +6,12 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>3.0.2.0</AssemblyVersion>
-    <FileVersion>3.0.2.0</FileVersion>
-    <Version>3.0.2</Version>
+    <AssemblyVersion>3.0.3.0</AssemblyVersion>
+    <FileVersion>3.0.3.0</FileVersion>
+    <Version>3.0.3</Version>
     <Description>Tx Network</Description>
     <Copyright>Copyright © Microsoft. All Rights Reserved</Copyright>
-    <PackageLicenseUrl>https://github.com/Microsoft/Tx/blob/master/license.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Microsoft/Tx/</PackageProjectUrl>
     <Authors>Microsoft</Authors>
     <PackageTags>Tx Traces Logs Playback Replay Network</PackageTags>
