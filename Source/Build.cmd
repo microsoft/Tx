@@ -6,8 +6,10 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\Too
 
 REM Restore dependencies; there is some nuance here which we will get to later
 REM dotnet build /p:Configuration=Release /p:Platform=x64 "%~dp0TxKql.sln"
-cd %~dp0
-dotnet restore
+echo running msbuild restore
+msbuild -t:restore
+
+echo running msbuild Tx.sln
 msbuild Tx.sln
 
 if "%ERRORLEVEL%" neq "0" (
