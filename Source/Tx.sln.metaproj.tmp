@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions;ValidateProjects">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore\*" Condition="'$(ImportByWildcardBeforeSolution)' != 'false' and exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore')" />
+  <Import Project="C:\Users\jomorri\Documents\GitHub\Tx\Source\before.Tx.sln.targets" Condition="exists('C:\Users\jomorri\Documents\GitHub\Tx\Source\before.Tx.sln.targets')" />
+  <PropertyGroup Condition=" '$(Configuration)' == '' ">
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == '' ">
+    <Platform>Any CPU</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(AspNetConfiguration)' == '') ">
+    <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SolutionDir>C:\Users\jomorri\Documents\GitHub\Tx\Source\</SolutionDir>
+    <SolutionExt>.sln</SolutionExt>
+    <SolutionFileName>Tx.sln</SolutionFileName>
+    <SolutionName>Tx</SolutionName>
+    <SolutionPath>C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.sln</SolutionPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and ('$(MSBuildToolsVersion)' == '3.5' or '$(MSBuildToolsVersion)' == '3.0')">v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and !('$(MSBuildToolsVersion)' == '3.5' or '$(MSBuildToolsVersion)' == '3.0' or '$(MSBuildToolsVersion)' == '2.0')">v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{6A763F6E-53ED-4C63-BC6F-7735199429CF}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Core\Tx.Core.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{B92F992A-BC9E-497C-8C79-45462EEF7F05}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Network\Tx.Network.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{9E46E15B-2CC0-4A92-A82C-88190F5BE5AB}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows\Tx.Windows.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5AC73564-F877-443A-9900-B9ABDE657597}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{CD91748C-849A-464B-8AC4-04978A541188}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Bond\Tx.Bond.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5490603B-7723-4FA3-88E5-FE812687E386}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.SqlServer\Tx.SqlServer.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{A07B7C4C-E05B-4948-9EDB-1A3B759448B3}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\EtwEventTypeGen\EtwEventTypeGen.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{38FCBA13-67D0-47D7-A3B8-F7197A046CD5}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Linqpad\Tx.LinqPad.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{E881AB95-6779-420F-A90C-E6B3B1486B78}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.Logs\Tx.Windows.Logs.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <ItemGroup>
+    <SolutionConfiguration Include="Debug|Any CPU">
+      <Configuration>Debug</Configuration>
+      <Platform>Any CPU</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{6A763F6E-53ED-4C63-BC6F-7735199429CF}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Core\Tx.Core.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{B92F992A-BC9E-497C-8C79-45462EEF7F05}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Network\Tx.Network.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{9E46E15B-2CC0-4A92-A82C-88190F5BE5AB}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows\Tx.Windows.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5AC73564-F877-443A-9900-B9ABDE657597}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{CD91748C-849A-464B-8AC4-04978A541188}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Bond\Tx.Bond.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5490603B-7723-4FA3-88E5-FE812687E386}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.SqlServer\Tx.SqlServer.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{A07B7C4C-E05B-4948-9EDB-1A3B759448B3}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\EtwEventTypeGen\EtwEventTypeGen.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{38FCBA13-67D0-47D7-A3B8-F7197A046CD5}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Linqpad\Tx.LinqPad.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{E881AB95-6779-420F-A90C-E6B3B1486B78}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.Logs\Tx.Windows.Logs.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Release|Any CPU">
+      <Configuration>Release</Configuration>
+      <Platform>Any CPU</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{6A763F6E-53ED-4C63-BC6F-7735199429CF}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Core\Tx.Core.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{B92F992A-BC9E-497C-8C79-45462EEF7F05}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Network\Tx.Network.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{9E46E15B-2CC0-4A92-A82C-88190F5BE5AB}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows\Tx.Windows.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5AC73564-F877-443A-9900-B9ABDE657597}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{CD91748C-849A-464B-8AC4-04978A541188}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Bond\Tx.Bond.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5490603B-7723-4FA3-88E5-FE812687E386}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.SqlServer\Tx.SqlServer.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{A07B7C4C-E05B-4948-9EDB-1A3B759448B3}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\EtwEventTypeGen\EtwEventTypeGen.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{38FCBA13-67D0-47D7-A3B8-F7197A046CD5}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Linqpad\Tx.LinqPad.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{E881AB95-6779-420F-A90C-E6B3B1486B78}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.Logs\Tx.Windows.Logs.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+  </ItemGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{6A763F6E-53ED-4C63-BC6F-7735199429CF}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Core\Tx.Core.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{B92F992A-BC9E-497C-8C79-45462EEF7F05}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Network\Tx.Network.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{9E46E15B-2CC0-4A92-A82C-88190F5BE5AB}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows\Tx.Windows.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5AC73564-F877-443A-9900-B9ABDE657597}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.TypeGeneration\Tx.Windows.TypeGeneration.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{CD91748C-849A-464B-8AC4-04978A541188}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Bond\Tx.Bond.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{5490603B-7723-4FA3-88E5-FE812687E386}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.SqlServer\Tx.SqlServer.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{A07B7C4C-E05B-4948-9EDB-1A3B759448B3}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\EtwEventTypeGen\EtwEventTypeGen.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{38FCBA13-67D0-47D7-A3B8-F7197A046CD5}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Linqpad\Tx.LinqPad.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{E881AB95-6779-420F-A90C-E6B3B1486B78}" AbsolutePath="C:\Users\jomorri\Documents\GitHub\Tx\Source\Tx.Windows.Logs\Tx.Windows.Logs.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter\*" Condition="'$(ImportByWildcardBeforeSolution)' != 'false' and exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter')" />
+  <Import Project="C:\Users\jomorri\Documents\GitHub\Tx\Source\after.Tx.sln.targets" Condition="exists('C:\Users\jomorri\Documents\GitHub\Tx\Source\after.Tx.sln.targets')" />
+  <Target Name="Rebuild" />
+  <Target Name="Build" />
+  <Target Name="Clean" />
+  <Target Name="Publish" />
+</Project>
