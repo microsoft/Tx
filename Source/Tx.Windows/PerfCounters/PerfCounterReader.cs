@@ -76,6 +76,7 @@ namespace Tx.Windows
         {
             PdhCounterHandle counter;
             PdhStatus status = PdhNativeMethods.PdhAddCounter(_query, counterPath, IntPtr.Zero, out counter);
+
             if (status == PdhStatus.PDH_ENTRY_NOT_IN_LOG_FILE || status == PdhStatus.PDH_CSTATUS_NO_INSTANCE)
                 return;
 
