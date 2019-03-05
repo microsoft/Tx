@@ -44,9 +44,9 @@
     <Reference Include="Microsoft.SqlServer.XEvent.Targets">
       <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Targets.dll</HintPath>
     </Reference>
-	<Reference Include="Microsoft.SqlServer.XEvent.Configuration">
-	  <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Configuration.dll</HintPath>
-	</Reference>
+    <Reference Include="Microsoft.SqlServer.XEvent.Configuration">
+      <HintPath>..\..\References\XEvent\Microsoft.SqlServer.XEvent.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
