@@ -42,7 +42,7 @@ namespace Tx.Windows
             Dictionary<string, object> instance = new Dictionary<string, object>(_template);
             instance.Add("EventId", e.Id);
             instance.Add("Version", e.Version);
-            instance.Add("TimeCreated", e.TimeStamp.DateTime);
+            instance.Add("TimeCreated", e.TimeStamp.UtcDateTime);
 
             instance.Add("ProcessId", e.ProcessId);
             instance.Add("ThreadId", e.ThreadId);

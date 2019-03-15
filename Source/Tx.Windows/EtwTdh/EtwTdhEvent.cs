@@ -46,7 +46,7 @@ namespace Tx.Windows
             { "EventId", e=>e.Id },
             { "ProviderId", e=>e.ProviderId },
             { "Version", e=>e.Version },
-            { "TimeCreated", e=>e.TimeStamp.DateTime },
+            { "TimeCreated", e=>e.TimeStamp.UtcDateTime },
             { "ProcessId", e=>e.ProcessId },
             { "ThreadId", e=>e.ThreadId },
             { "ActivityId", e=>e.ActivityId }
