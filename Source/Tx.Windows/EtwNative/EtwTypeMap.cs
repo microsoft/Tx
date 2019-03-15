@@ -24,7 +24,7 @@ namespace Tx.Windows
                                                                          {
                                                                              Header = new SystemHeader
                                                                                  {
-                                                                                     Timestamp = e.TimeStamp.DateTime,
+                                                                                     Timestamp = e.TimeStamp.UtcDateTime,
                                                                                      ActivityId = e.ActivityId,
                                                                                      RelatedActivityId =
                                                                                          GetRelatedActivityId(
