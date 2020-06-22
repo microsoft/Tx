@@ -1,0 +1,6 @@
+{
+  "sdk": {
+    // Need to use a particular version to ensure consistency across machines no matter what SDK versions they have installed.
+    "version": "3.1.200"
+  }
+}

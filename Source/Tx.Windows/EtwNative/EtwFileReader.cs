@@ -61,7 +61,7 @@ namespace Tx.Windows
             {
                 _logFiles[i] = new EVENT_TRACE_LOGFILE
                 {
-                    ProcessTraceMode = EtwNativeMethods.TraceModeEventRecord,
+                    ProcessTraceMode = EtwNativeMethods.ProcessTraceModeEventRecord,
                     LogFileName = Path.GetFullPath(etlFiles[i]),
                     EventRecordCallback = EtwCallback
                 };

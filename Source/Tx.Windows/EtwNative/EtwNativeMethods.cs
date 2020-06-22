@@ -10,9 +10,30 @@ namespace Tx.Windows
     internal unsafe static class EtwNativeMethods
     {
         public const Int32 ErrorNotFound = 0x2; //0x000000a1 ?;
-        public const Int32 ErrorUnreadable = 0x00000570;
-        public const uint TraceModeRealTime = 0x00000100;
-        public const uint TraceModeEventRecord = 0x10000000;
+
+        /// <summary>
+        /// Managed version for EVENT_TRACE_REAL_TIME_MODE. Indicates to ETW to process the trace in real
+        /// time (live) mode.
+        /// </summary>
+        public const uint EventTraceRealTimeMode = 0x00000100;
+
+        /// <summary>
+        /// Managed version for EVENT_TRACE_FILE_MODE_SEQUENTIAL. Indicates to ETW that the ETW events
+        /// should be written sequentially to a file.
+        /// </summary>
+        public const uint EventTraceFileModeSequential = 0x00000001;
+
+        /// <summary>
+        /// Managed version for EVENT_TRACE_PRIVATE_LOGGER_MODE. Indicates to ETW that the session should
+        /// be in the private logger mode.
+        /// </summary>
+        public const uint EventTracePrivateLoggerMode = 0x00000800;
+
+        /// <summary>
+        /// Managed version for PROCESS_TRACE_MODE_EVENT_RECORD. Indicates to ETW to callback for each
+        /// event using the modern (Crimson) event format.
+        /// </summary>
+        public const uint ProcessTraceModeEventRecord = 0x10000000;
 
         public const UInt16 EVENT_HEADER_FLAG_32_BIT_HEADER = 0x20;
         public const UInt16 EVENT_HEADER_FLAG_64_BIT_HEADER = 0x40;
@@ -22,16 +43,77 @@ namespace Tx.Windows
                                                           ? 0x00000000FFFFFFFF
                                                           : 0xFFFFFFFFFFFFFFFF);
 
+        /// <summary>
+        /// P/Invoke declaration for the <see href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364089(v=vs.85).aspx">
+        /// OpenTrace</see> function.
+        /// </summary>
+        /// <param name="traceLog">
+        /// Type with the information about the trace to be opened.
+        /// </param>
+        /// <returns>
+        /// If successful it returns a handle to the trace, otherwise a INVALID_PROCESSTRACE_HANDLE (note that this handle is
+        /// different if the process is running as a Windows on Windows).
+        /// </returns>
         [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "OpenTraceW", SetLastError = true,
             CharSet = CharSet.Unicode)]
         public static extern UInt64 OpenTrace(ref EVENT_TRACE_LOGFILE logfile);
 
+        /// <summary>
+        /// P/Invoke declaration for <see href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364117(v=vs.85).aspx">
+        /// StartTrace</see>.
+        /// </summary>
+        /// <param name="sessionHandle">
+        /// Handle to the event tracing session.
+        /// </param>
+        /// <param name="sessionName">
+        /// Name of the session.
+        /// </param>
+        /// <param name="properties">
+        /// Properties of the session.
+        /// </param>
+        /// <returns>
+        /// The Win32 error code of the call (zero indicates success, i.e. ERROR_SUCCESS Win32 error code).
+        /// </returns>
+        [DllImport("advapi32.dll", CharSet = CharSet.Unicode)]
+        internal static extern int StartTrace(
+            [Out] out ulong sessionHandle,
+            [In] string sessionName,
+            [In][Out] IntPtr properties);
+
+        /// <summary>
+        /// P/Invoke declaration for the <see href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364093(v=vs.85).aspx">
+        /// ProcessTrace</see> function.
+        /// </summary>
+        /// <param name="handleArray">
+        /// Array to with the handles of all traces to be processed.
+        /// </param>
+        /// <param name="handleCount">
+        /// Counter of the handles in the array.
+        /// </param>
+        /// <param name="startTime">
+        /// The start time for which one wants to receive events from the traces.
+        /// </param>
+        /// <param name="endTime">
+        /// The end time for which one wants to stop receiving events from the traces.
+        /// </param>
+        /// <returns>
+        /// It returns 0 (ERROR_SUCCESS) in case of success and Win32 system error code in case of error.
+        /// </returns>
         [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "ProcessTrace")]
         public static extern Int32 ProcessTrace(UInt64[] HandleArray,
                                                 UInt32 HandleCount,
                                                 IntPtr StartTime,
                                                 IntPtr EndTime);
 
+        /// <summary>
+        /// P/Invoke declaration for<see href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa363686(v=vs.85).aspx">CloseTrace</see> function.
+        /// </summary>
+        /// <param name="traceHandle">
+        /// The trace handle to be closed.
+        /// </param>
+        /// <returns>
+        /// It returns 0 (ERROR_SUCCESS) in case of success and Win32 system error code in case of error.
+        /// </returns>
         [DllImport("advapi32.dll", ExactSpelling = true, EntryPoint = "CloseTrace")]
         public static extern Int32 CloseTrace(UInt64 traceHandle);
 
@@ -116,6 +198,34 @@ namespace Tx.Windows
         PropertyParamCount = 0x4,
         PropertyWBEMXmlFragment = 0x8,
         PropertyParamFixedLength = 0x10
+    }
+
+    [Flags]
+    internal enum WnodeFlags : uint
+    {
+        TracedGuid = 1 << 17
+    }
+
+    [Flags]
+    public enum LogFileMode : uint
+    {
+        RealTimeMode = 1 << 8,
+        EventRecord = 1 << 28
+    }
+
+    [Flags]
+    internal enum EtwProviderProperties : uint
+    {
+        Sid = 0x1,
+        TsId = 0x2,
+        StackTrace = 0x4,
+        PsmKey = 0x8,
+        IgnoreKeyword = 0x10,
+        ProviderGroup = 0x20,
+        EnableKeyword = 0x40,
+        ProcessStartKey = 0x80,
+        EventKey = 0x100,
+        ExcludeInprivate = 0x200
     }
 
     [Serializable]
