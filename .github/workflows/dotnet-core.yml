@@ -1,0 +1,31 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.200
+    - name: Install dependencies
+      run: |
+           cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+           .\MSBuild.exe /t:restore /p:Configuration=Release /p:Platform="Any CPU" $Env:GITHUB_WORKSPACE\source\Tx.sln
+    - name: Build
+      run: |
+           cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+           .\MSBuild.exe /t:build /p:Configuration=Release /p:Platform="Any CPU" $Env:GITHUB_WORKSPACE\source\Tx.sln
+    - name: Restore Test
+      run:  dotnet restore $Env:GITHUB_WORKSPACE\Test\Tx.Tests.sln
+    - name: Test
+      run:  dotnet test --no-restore --framework:"net46" -c Debug $Env:GITHUB_WORKSPACE\Test\Tx.Tests.sln
