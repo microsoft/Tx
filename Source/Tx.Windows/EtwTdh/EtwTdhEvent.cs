@@ -46,7 +46,7 @@ namespace Tx.Windows
             { "EventId", e=>e.Id },
             { "ProviderId", e=>e.ProviderId },
             { "Version", e=>e.Version },
-            { "TimeCreated", e=>e.TimeStamp.DateTime },
+            { "TimeCreated", e=>e.TimeStamp.UtcDateTime },
             { "ProcessId", e=>e.ProcessId },
             { "ThreadId", e=>e.ThreadId },
             { "ActivityId", e=>e.ActivityId }
@@ -74,12 +74,22 @@ namespace Tx.Windows
             get
             {
                 Materialize();
-
                 return _materializedEvent.Keys;
             }
         }
 
-        public ICollection<object> Values => throw new NotImplementedException();
+        public ICollection<object> Values
+        {
+            get
+            {
+                if (_materializedEvent == null)
+                {
+                    Materialize();
+                }
+
+                return _materializedEvent.Values;
+            }
+        }
 
         public int Count => throw new NotImplementedException();
 
@@ -122,7 +132,7 @@ namespace Tx.Windows
 
         public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _materializedEvent.GetEnumerator();
         }
 
         public bool Remove(string key)
@@ -137,7 +147,14 @@ namespace Tx.Windows
 
         public bool TryGetValue(string key, out object value)
         {
-            throw new NotImplementedException();
+            if (_systemFields.TryGetValue(key, out Func<EtwNativeEvent, object> accessor))
+            {
+                value = accessor(_nativeEvent);
+                return true;
+            }
+
+            Materialize();
+            return _materializedEvent.TryGetValue(key, out value);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

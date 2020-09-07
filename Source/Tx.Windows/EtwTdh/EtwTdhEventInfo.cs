@@ -28,7 +28,9 @@ namespace Tx.Windows
             finally
             {
                 if (buffer != IntPtr.Zero)
+                {
                     Marshal.FreeHGlobal(buffer);
+                }
             }
         }
 
@@ -39,14 +41,16 @@ namespace Tx.Windows
         /// <returns></returns>
         public IDictionary<string, object> Deserialize(ref EtwNativeEvent e)
         {
-            Dictionary<string, object> instance = new Dictionary<string, object>(_template);
-            instance.Add("EventId", e.Id);
-            instance.Add("Version", e.Version);
-            instance.Add("TimeCreated", e.TimeStamp.DateTime);
+            Dictionary<string, object> instance = new Dictionary<string, object>(_template)
+            {
+                { "EventId", e.Id },
+                { "Version", e.Version },
+                { "TimeCreated", e.TimeStamp.UtcDateTime },
 
-            instance.Add("ProcessId", e.ProcessId);
-            instance.Add("ThreadId", e.ThreadId);
-            instance.Add("ActivityId", e.ActivityId);
+                { "ProcessId", e.ProcessId },
+                { "ThreadId", e.ThreadId },
+                { "ActivityId", e.ActivityId }
+            };
 
             Dictionary<string, object> eventData = new Dictionary<string, object>();
             List<object> values = new List<object>();
@@ -54,13 +58,39 @@ namespace Tx.Windows
             {
                 uint len = p.Length;
                 if (p.LengthPropertyName != null)
-                    len = (uint)eventData[p.LengthPropertyName];
+                {
+                    try
+                    {
+                        string num = Convert.ToString(eventData[p.LengthPropertyName]);
+                        if (num.StartsWith("0x", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            num = num.Substring(2);
+                            len = uint.Parse(num, System.Globalization.NumberStyles.HexNumber);
+                        }
+                        else
+                        {
+                            len = Convert.ToUInt32(num);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Data["ProviderGuid"] = e.ProviderId;
+                        throw;
+                    }
+                }
 
-                object value = GetValue(p.Type, len, ref e);
-                value = FormatValue(p, value);
-                value = EtwTdhPostFormat.ApplyFormatting(e.ProviderId, e.Id, p.Name, value);
-                eventData.Add(p.Name, value);
-                values.Add(value);
+                try
+                {
+                    object value = GetValue(p.Type, len, ref e);
+                    value = FormatValue(p, value);
+                    value = EtwTdhPostFormat.ApplyFormatting(e.ProviderId, e.Id, p.Name, value);
+                    eventData.Add(p.Name, value);
+                    values.Add(value);
+                }
+                catch (Exception)
+                {
+                    eventData.Add(p.Name, "Exception on retrieving value");
+                }
             }
 
             instance.Add("EventData", eventData);
@@ -89,13 +119,19 @@ namespace Tx.Windows
             int bufferSize = 0;
             int status = EtwNativeMethods.TdhGetEventInformation(ref *e.record, 0, IntPtr.Zero, IntPtr.Zero, ref bufferSize);
             if (122 != status) // ERROR_INSUFFICIENT_BUFFER
-                throw new Exception("Unexpected TDH status " + status);
+            {
+                Exception ex = new Exception("Unexpected TDH status " + status);
+                ex.Data["ProviderGuid"] = e.ProviderId;
+                throw ex;
+            }
 
             var mybuffer = Marshal.AllocHGlobal(bufferSize);
             status = EtwNativeMethods.TdhGetEventInformation(ref *e.record, 0, IntPtr.Zero, mybuffer, ref bufferSize);
 
             if (status != 0)
+            {
                 throw new Exception("TDH status " + status);
+            }
 
             return mybuffer;
         }
@@ -165,7 +201,9 @@ namespace Tx.Windows
                 IntPtr.Zero, ref bufferSize);
 
             if (122 != status) // ERROR_INSUFFICIENT_BUFFER
+            {
                 throw new Exception("Unexpected TDH status " + status);
+            }
 
             var mybuffer = Marshal.AllocHGlobal(bufferSize);
             status = EtwNativeMethods.TdhGetEventMapInformation(
@@ -174,7 +212,9 @@ namespace Tx.Windows
                 mybuffer, ref bufferSize);
 
             if (status != 0)
+            {
                 throw new Exception("TDH status " + status);
+            }
 
             EVENT_MAP_INFO* mapInfo = (EVENT_MAP_INFO*)mybuffer;
             byte* startMap = (byte*)mapInfo;
@@ -265,17 +305,23 @@ namespace Tx.Windows
                     return evt.ReadBytes(len);
 
                 case TdhInType.UnicodeString:
+                case TdhInType.SID:
                     if (len > 0)
+                    {
                         return evt.ReadUnicodeString((int)len);
+                    }
                     else
+                    {
                         return evt.ReadUnicodeString();
+                    }
 
                 case TdhInType.AnsiString:
                     return evt.ReadAnsiString();
 
-
                 default:
-                    throw new Exception("Unknown type " + type.ToString());
+                    var ex = new Exception("Unknown type " + type.ToString());
+                    ex.Data ["ProviderGuid"] = evt.ProviderId;
+                    throw ex;
             }
         }
 
@@ -283,10 +329,11 @@ namespace Tx.Windows
         {
             if (propertyInfo.ValueMap != null)
             {
-                var key = (uint)value;
-                string name = null;
-                if (!propertyInfo.ValueMap.TryGetValue(key, out name))
+                uint key = Convert.ToUInt32(value);
+                if (!propertyInfo.ValueMap.TryGetValue(key, out string name))
+                {
                     name = value.ToString();
+                }
 
                 return name;
             }
@@ -318,7 +365,9 @@ namespace Tx.Windows
             byte[] buffer = (byte[])value;
 
             if (buffer.Length == 0)
+            {
                 return IPAddress.None.ToString();
+            }
 
             if (buffer.Length == 0x10)
             {
@@ -349,7 +398,9 @@ namespace Tx.Windows
         string TranslateFormatString(string messageFormat)
         {
             if (messageFormat == null)
+            {
                 return null;
+            }
 
             string format = messageFormat.Replace("%n", "\n");
             format = format.Replace("%t", "    ");
@@ -382,7 +433,9 @@ namespace Tx.Windows
                 while (endNumberIndex < format.Length)
                 {
                     if (format[endNumberIndex] < '0' || format[endNumberIndex] > '9')
+                    {
                         break;
+                    }
 
                     endNumberIndex++;
                 }
@@ -411,9 +464,13 @@ namespace Tx.Windows
             public override string ToString()
             {
                 if (Type == TdhInType.Binary)
+                {
                     return Type + "[" + Length + "] " + Name;
+                }
                 else
+                {
                     return Type + " " + Name;
+                }
             }
         }
     }

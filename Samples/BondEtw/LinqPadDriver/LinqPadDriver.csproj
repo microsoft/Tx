@@ -1,139 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C08B80DD-5E1B-4F9E-986D-F1668F5E8DF4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BondEtwDriver</RootNamespace>
-    <AssemblyName>BondEtwDriver</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\Source\key.snk</AssemblyOriginatorKeyFile>
+    <Version>2.1.2</Version>
   </PropertyGroup>
-  <Import Project="..\..\..\Common.targets" />
-  <PropertyGroup>
-    <CPReferencePath>..\..\..\References\$(BuildFlavor)</CPReferencePath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bond">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR45\Bond.dll</HintPath>
-    </Reference>
-    <Reference Include="Bond.Attributes">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References\DESKTOPCLR45\Bond.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="LINQPad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=21353812cd2a2db5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Packages\LINQPad.5.22.2\lib\net46\LINQPad.exe</HintPath>
-    </Reference>
-    <Reference Include="lprun, Version=1.0.0.0, Culture=neutral, PublicKeyToken=21353812cd2a2db5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Packages\LINQPad.5.22.2\lib\net46\lprun.exe</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BondDynamicDriver.cs" />
-    <Compile Include="BondInEtwProperties.cs" />
-    <Compile Include="ConnectionDialog.xaml.cs" />
-    <Compile Include="EventStatisticCache.cs" />
-    <Compile Include="EventStatistics.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
+    <Compile Remove="ConnectionDialog.xaml.cs"></Compile>
+    <Compile Include="ConnectionDialog.xaml.cs">
+      <DependentUpon>ConnectionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Stats.cs" />
-    <Compile Include="TypeCache.cs" />
-    <Compile Include="TypeCacheItem.cs" />
-    <Compile Include="TypeFinder.cs" />
-    <Compile Include="Utilities.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="..\..\..\Source\key.snk">
-      <Link>key.snk</Link>
-    </None>
-    <None Include="devsetup.cmd" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Tx.Bond\Tx.Bond.csproj">
-      <Project>{6dce4a40-4946-41b0-abe5-ce1700b598e9}</Project>
-      <Name>Tx.Bond</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Source\Tx.Core\Tx.Core.csproj">
-      <Project>{c5cc33b0-1684-4dd4-83a5-5da4a9a25a7f}</Project>
-      <Name>Tx.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="ConnectionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="LINQPad" Version="5.22.2" />
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
+    <PackageReference Include="System.Reactive.Windows.Forms" Version="4.0.0" />
+    <ProjectReference Include="..\..\..\Source\Tx.Core\Tx.Core.csproj" />
+    <ProjectReference Include="..\..\..\Source\Tx.Bond\Tx.Bond.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Bond">
+      <HintPath>..\..\..\References\DESKTOPCLR45\Bond.dll</HintPath>
+    </Reference>
+    <Reference Include="Bond.Attributes">
+      <HintPath>..\..\..\References\DESKTOPCLR45\Bond.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="devsetup.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="header.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="..\..\..\Tools\gbc.exe">
       <Link>gbc.exe</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\Tools\zip.exe">
       <Link>zip.exe</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="header.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)\devsetup.cmd</PostBuildEvent>
+    <PostBuildEvent>zip.exe Tx.LinqPad.lpx header.xml System.Reactive.dll System.Reactive.Linq.dll System.Reactive.Linq.dll System.Reactive.Windows.Forms.dll System.Security.Claims.dll System.Security.Principal.Windows.dll Tx.Core.dll Bond.dll Bond.Attributes.dll BondEtwDriver.dll</PostBuildEvent>
+    <DelaySign>false</DelaySign>
+    <AssemblyName>BondEtwDriver</AssemblyName>
+    <RootNamespace>BondEtwDriver</RootNamespace>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

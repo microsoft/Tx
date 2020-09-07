@@ -37,7 +37,7 @@ namespace Tx.Windows
             _observer = observer;
             _logFile = new EVENT_TRACE_LOGFILE
                 {
-                    ProcessTraceMode = EtwNativeMethods.TraceModeRealTime | EtwNativeMethods.TraceModeEventRecord,
+                    ProcessTraceMode = EtwNativeMethods.EventTraceRealTimeMode | EtwNativeMethods.ProcessTraceModeEventRecord,
                     LoggerName = sessionName,
                     EventRecordCallback = EtwCallback
                 };
