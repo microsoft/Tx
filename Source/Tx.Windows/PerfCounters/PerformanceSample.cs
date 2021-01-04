@@ -37,6 +37,11 @@ namespace Tx.Windows
             get { return _counterInfo.CounterName; }
         }
 
+        public string CounterPath
+        {
+            get { return _counterInfo.CounterPath; }
+        }
+
         public string Instance
         {
             get { return _instanceName; }

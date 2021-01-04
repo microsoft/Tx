@@ -67,7 +67,11 @@ namespace System.Reactive
                     else
                         _writer.Write(_separator);
 
-                    var propValue = p.GetValue(value, new object[] {});
+                    var propValue = p.GetValue(value, new object[] { });
+
+                    if (propValue == null)
+                        continue;
+
                     IDictionary dictionary = propValue as IDictionary;
 
                     if (dictionary == null)
@@ -119,8 +123,8 @@ namespace System.Reactive
                     if (isFirst)
                         isFirst = false;
                     else
-                        _writer.Write(_separator);    
-                
+                        _writer.Write(_separator);
+
                     _writer.Write(key);
                 }
             }
