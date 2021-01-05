@@ -126,7 +126,7 @@ namespace Tx.Windows
                 PdhDetailLevel.PERF_DETAIL_WIZARD,
                 0);
 
-            CheckStatus(pdhStatus, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
+            CheckStatus(pdhStatus, PdhStatus.PDH_CSTATUS_NO_OBJECT, PdhStatus.PDH_MORE_DATA, PdhStatus.PDH_CSTATUS_VALID_DATA);
             if (pdhStatus == PdhStatus.PDH_MORE_DATA)
             {
                 var counterListBuffer = new char[counterBufferLength];
