@@ -32,7 +32,7 @@ namespace Tx.Windows
             _counterHandle = handle;
             _counterName = counterInfo.Groups["counter"].Value;
             _counterSet = counterInfo.Groups["object"].Value;
-            _instance = counterInfo.Groups["instance"].Value;
+            _instance = Regex.Replace(counterInfo.Groups["instance"].Value, @"^\(|\)$", "");
         }
 
         public string CounterSet
