@@ -75,12 +75,42 @@ namespace Tx.Windows
                 }
             }
         }
-
+        
         private static IEnumerable<EventLogRecord> FromFile(string logFile)
+        {
+            IEnumerable<EventLogRecord> result = null;
+            try
+            {
+                result = ReadFile(logFile);
+            }
+            catch (EventLogException eventLogEx)
+            {
+                if (eventLogEx.Message.IndexOf(EventLogReaderExceptions.ArrayBoundsInvalid, StringComparison.OrdinalIgnoreCase) > 0)
+                {
+                    result = ReadFile(logFile, true);
+                }
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<EventLogRecord> ReadFile(string logFile, bool reduceReaderBatchSize = false)
         {
             long eventCount = 0; // for debugging
             using (var reader = new EventLogReader(logFile, PathType.FilePath))
             {
+                // There is an acceptable limit to the event size. 
+                // Per batch, by default, the reader reads 64 events.
+                // If event size > acceptable limit, 
+                // the reader throws "Array bounds are invalid".
+                // To fix this, the batch size needs to be reduced.
+                // This could have some performance impact, but the
+                // log is readable and not written off as corrupt.
+                if (reduceReaderBatchSize)
+                {
+                    reader.BatchSize = 1;
+                }
+
                 for (; ; )
                 {
                     if (!(reader.ReadEvent() is EventLogRecord record))
@@ -93,5 +123,6 @@ namespace Tx.Windows
                 }
             }
         }
+
     }
 }

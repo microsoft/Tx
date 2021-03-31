@@ -48,6 +48,7 @@ namespace Tx.Windows
                         out bufferCount,
                         (IntPtr) pb);
                     if (status == PdhStatus.PDH_INVALID_DATA
+                        || status == PdhStatus.PDH_NO_DATA
                         || status == PdhStatus.PDH_CALC_NEGATIVE_VALUE
                         || status == PdhStatus.PDH_CALC_NEGATIVE_DENOMINATOR
                         || status == PdhStatus.PDH_CALC_NEGATIVE_TIMEBASE)
