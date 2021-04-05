@@ -4,10 +4,11 @@ using System;
 
 namespace Tx.Windows
 {
-    // We implemented this in Tx, because the default .Net implementation was too slow
-    // We should do experiment if we still need it
     public sealed class TimeUtil
     {
+        // DateTimeKind option needed for overriding DateTimeKind if parsing 
+        // performance counter blg from different timezone than creation time zone
+        public static DateTimeKind DateTimeKind {get; set;} = DateTimeKind.Local;
         private const Int64 TicksPerMillisecond = 10000;
         private const Int64 TicksPerSecond = TicksPerMillisecond * 1000;
         private const Int64 TicksPerMinute = TicksPerSecond * 60;
@@ -35,7 +36,7 @@ namespace Tx.Windows
 
         public static DateTime FromFileTime(Int64 fileTime)
         {
-            return new DateTime(FileTimeOffset + fileTime, DateTimeKind.Local);
+            return new DateTime(FileTimeOffset + fileTime, DateTimeKind);
         }
     }
 }
