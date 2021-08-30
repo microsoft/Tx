@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>netcoreapp3.1;net45;net46</TargetFrameworks>
+	<TargetFrameworks>netcoreapp5.0;net45;net46</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -32,7 +32,7 @@
     <PackageReference Include="System.Reactive" Version="3.0.0" />
   </ItemGroup>
   
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp5.0'">
     <PackageReference Include="System.Diagnostics.EventLog" Version="4.7.0" />
   </ItemGroup>
 

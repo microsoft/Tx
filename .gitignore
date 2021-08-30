@@ -21,3 +21,5 @@ _UpgradeReport_Files
 *.ide-shm
 *.ide-wal
 Packages/
+Source/.vs/
+Test/.vs/
