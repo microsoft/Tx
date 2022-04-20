@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -66,7 +66,21 @@ namespace Tx.Windows
                 return _materializedEvent[key];
             }
 
-            set => throw new NotSupportedException();
+            set
+            {
+                // Following expected behavior of traditional dict here
+                // If key exists in systemFields, override value
+                Func<EtwNativeEvent, object> accessor = e => value;
+                if (_systemFields.ContainsKey(key))
+                {
+                    _systemFields[key] = accessor;
+                    return;
+                }
+
+                // Materialize event to add or reset value
+                Materialize();
+                _materializedEvent[key] = value;
+            }
         }
 
         public ICollection<string> Keys
@@ -97,12 +111,20 @@ namespace Tx.Windows
 
         public void Add(string key, object value)
         {
-            throw new NotImplementedException();
+            // Materialize event if needed
+            Materialize();
+
+            // Add new value to materialized event
+            _materializedEvent.Add(key, value);
         }
 
         public void Add(KeyValuePair<string, object> item)
         {
-            throw new NotImplementedException();
+            // Materialize event if needed
+            Materialize();
+
+            // Add new value to materialized event
+            _materializedEvent.Add(item);
         }
 
         public void Clear()
