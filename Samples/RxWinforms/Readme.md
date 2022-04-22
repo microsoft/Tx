@@ -1,4 +1,4 @@
-#Mouse move sample
+# Mouse move sample
 
 When people hear LINQ they often assume the events are stored (In-memory?, Database?, XML-s?, etc.) before they are queried.
 
@@ -16,7 +16,7 @@ In this sample the response time is limited by how often the mouse produces even
 
 To introduce extra delay of 100 milliseconds, you can comment out the  line
 
-	.Sample(**TimeSpan.FromMilliseconds(100))
+	.Sample(TimeSpan.FromMilliseconds(100))
 
 in [Form1.cs](Form1.cs). Now drawing becomes more raged if you move the mouse fast.
 
